@@ -1,0 +1,1817 @@
+
+=== BLOCK A - build check ===
+dist/cli.js exists; skip build
+
+=== BLOCK B - prepare inputs ===
+
+=== DATASET - phrases ===
+01. The river is calm at noon.
+02. The river is calm at noon!
+03. the river is calm at noon.
+04. The river is calm at noon today.
+05. The river is quiet at noon.
+06. Pack items: map, water, rope, torch.
+07. Pack items: rope, torch, map, water.
+08. Pack items: water, map, torch, rope.
+09. Pack items: torch, rope, water, map.
+10. Pack items: map, rope, water, torch.
+11. In reviews, keep the core steady and note the edges.
+12. For pilots, keep the core steady while the wings adjust.
+13. At noon, keep the core steady even if the crowd shifts.
+14. When coding, keep the core steady; refactor the shell.
+15. In a storm, keep the core steady and trim the sail.
+16. A brass key opened the old blue door.
+17. She counted seven steps then stopped.
+18. Winter light fell on a silent market.
+19. We met at the bridge and traded notes.
+20. The cat slept under the warm printer.
+
+=== DATASET - equations ===
+01. y = a + b
+02. y=a+b
+03. y = b + a
+04. y = a + b + 0
+05. y = a + b
+06. a(b + c) = ab + ac
+07. ab + ac = a(b+c)
+08. sin(x)^2 + cos(x)^2 = 1
+09. 1 = cos(x)^2 + sin(x)^2
+10. (x+1)^2 = x^2 + 2x + 1
+11. k*(m+n) + r = k*m + k*n + r
+12. k*(m+n) - r = k*m + k*n - r
+13. 2*k*(m+n) = 2*k*m + 2*k*n
+14. k*(m+n) = k*m + k*n
+15. q + k*(m+n) + s
+16. F = m*a
+17. E = m*c^2
+18. p = (v1 + v2)/2
+19. det(A) = a*d - b*c
+20. x^3 - 3x + 1 = 0
+
+=== BLOCK B2 - archive pool ===
+pool archived: C:\CT\github\strat-1\data\out\pools\residue_pool.1768446044750.json
+
+=== BLOCK C - ingest 40 items ===
+COMMAND: node dist/cli.js ingest --file C:\CT\github\strat-1\data\inbox\generated\results004\phrase_01.txt --uri local://results004/phrase/01 --cycle 0 --eps 0.5
+EXIT: 0
+ct-cvm-mini: converged=true i=0.995800 iters=168
+?? [CVM RAW] i_raw=0.99580000 phi_min=0.149808 phi_max=0.567112 eps_son=0.5
+
+?? [SPECTRE CT - SLOT T10]
+?? i=0.864649 | phase=stable | i_raw=0.995800 | dissonance=0.6667
+??? status=rejected | near_identity=false
+{
+  "kind": "ingest",
+  "packet_id": "945011c96901bc4c5c10cf551cfa08a1dbb49814429c990694971d848605d70e",
+  "status": "rejected",
+  "alignment_index": 0.8646491142555379,
+  "phase_gate": "stable",
+  "thresholds": {
+    "I_ENTRY": 0.66,
+    "I_STABLE": 0.787,
+    "I_ANCHOR": 0.87,
+    "I_CRITICAL": 0.946,
+    "I_HORIZON": 0.995204
+  },
+  "dissonance_score": 0.6666666666666666,
+  "penalty_gamma": 0.1967263286166932,
+  "cvm_alignment_raw": 0.9958,
+  "cvm_phi_min": 0.14980828621893041,
+  "cvm_phi_max": 0.567112,
+  "attractor_id": "T10",
+  "approach_velocity": 0,
+  "near_identity": false,
+  "residue_deposited": true
+}
+COMMAND: node dist/cli.js ingest --file C:\CT\github\strat-1\data\inbox\generated\results004\phrase_02.txt --uri local://results004/phrase/02 --cycle 0 --eps 0.5
+EXIT: 0
+ct-cvm-mini: converged=true i=0.995800 iters=168
+?? [CVM RAW] i_raw=0.99580000 phi_min=0.149808 phi_max=0.567112 eps_son=0.5
+
+?? [SPECTRE CT - SLOT T10]
+?? i=0.864649 | phase=stable | i_raw=0.995800 | dissonance=0.6667
+??? status=rejected | near_identity=false
+{
+  "kind": "ingest",
+  "packet_id": "11cf3dde3d1d18377fecc86865f7f350d2ec9670f2d9d80741bf242193e10bb9",
+  "status": "rejected",
+  "alignment_index": 0.8646491142555379,
+  "phase_gate": "stable",
+  "thresholds": {
+    "I_ENTRY": 0.66,
+    "I_STABLE": 0.787,
+    "I_ANCHOR": 0.87,
+    "I_CRITICAL": 0.946,
+    "I_HORIZON": 0.995204
+  },
+  "dissonance_score": 0.6666666666666666,
+  "penalty_gamma": 0.1967263286166932,
+  "cvm_alignment_raw": 0.9958,
+  "cvm_phi_min": 0.14980828621893041,
+  "cvm_phi_max": 0.567112,
+  "attractor_id": "T10",
+  "approach_velocity": 0,
+  "near_identity": false,
+  "residue_deposited": true
+}
+COMMAND: node dist/cli.js ingest --file C:\CT\github\strat-1\data\inbox\generated\results004\phrase_03.txt --uri local://results004/phrase/03 --cycle 0 --eps 0.5
+EXIT: 0
+ct-cvm-mini: converged=true i=0.995800 iters=168
+?? [CVM RAW] i_raw=0.99580000 phi_min=0.150463 phi_max=0.568507 eps_son=0.5
+
+?? [SPECTRE CT - SLOT T10]
+?? i=0.864649 | phase=stable | i_raw=0.995800 | dissonance=0.6667
+??? status=rejected | near_identity=false
+{
+  "kind": "ingest",
+  "packet_id": "11867473f642173bc731b631eb8417013596c8fd9432a86a0204d05ea3fb140d",
+  "status": "rejected",
+  "alignment_index": 0.8646491142555379,
+  "phase_gate": "stable",
+  "thresholds": {
+    "I_ENTRY": 0.66,
+    "I_STABLE": 0.787,
+    "I_ANCHOR": 0.87,
+    "I_CRITICAL": 0.946,
+    "I_HORIZON": 0.995204
+  },
+  "dissonance_score": 0.6666666666666666,
+  "penalty_gamma": 0.1967263286166932,
+  "cvm_alignment_raw": 0.9958,
+  "cvm_phi_min": 0.15046331686078845,
+  "cvm_phi_max": 0.568507,
+  "attractor_id": "T10",
+  "approach_velocity": 0,
+  "near_identity": false,
+  "residue_deposited": true
+}
+COMMAND: node dist/cli.js ingest --file C:\CT\github\strat-1\data\inbox\generated\results004\phrase_04.txt --uri local://results004/phrase/04 --cycle 0 --eps 0.5
+EXIT: 0
+ct-cvm-mini: converged=true i=0.995775 iters=169
+?? [CVM RAW] i_raw=0.99577500 phi_min=0.148853 phi_max=0.565070 eps_son=0.5
+
+?? [SPECTRE CT - SLOT T10]
+?? i=0.855256 | phase=stable | i_raw=0.995775 | dissonance=0.7143
+??? status=rejected | near_identity=false
+{
+  "kind": "ingest",
+  "packet_id": "31842bb33e056f859bfa2af040c4c96bb6af308c0d5a40293266e64d469e50d9",
+  "status": "rejected",
+  "alignment_index": 0.8552561938452191,
+  "phase_gate": "stable",
+  "thresholds": {
+    "I_ENTRY": 0.66,
+    "I_STABLE": 0.787,
+    "I_ANCHOR": 0.87,
+    "I_CRITICAL": 0.946,
+    "I_HORIZON": 0.995204
+  },
+  "dissonance_score": 0.7142857142857143,
+  "penalty_gamma": 0.1967263286166932,
+  "cvm_alignment_raw": 0.995775,
+  "cvm_phi_min": 0.14885298186635093,
+  "cvm_phi_max": 0.56507,
+  "attractor_id": "T10",
+  "approach_velocity": 0,
+  "near_identity": false,
+  "residue_deposited": true
+}
+COMMAND: node dist/cli.js ingest --file C:\CT\github\strat-1\data\inbox\generated\results004\phrase_05.txt --uri local://results004/phrase/05 --cycle 0 --eps 0.5
+EXIT: 0
+ct-cvm-mini: converged=true i=0.995800 iters=168
+?? [CVM RAW] i_raw=0.99580000 phi_min=0.150797 phi_max=0.569218 eps_son=0.5
+
+?? [SPECTRE CT - SLOT T10]
+?? i=0.831861 | phase=stable | i_raw=0.995800 | dissonance=0.8333
+??? status=rejected | near_identity=false
+{
+  "kind": "ingest",
+  "packet_id": "5ceafd8608bd55f204727213b002db75f480c0a64f83d49d73334731b2608a1b",
+  "status": "rejected",
+  "alignment_index": 0.8318613928194223,
+  "phase_gate": "stable",
+  "thresholds": {
+    "I_ENTRY": 0.66,
+    "I_STABLE": 0.787,
+    "I_ANCHOR": 0.87,
+    "I_CRITICAL": 0.946,
+    "I_HORIZON": 0.995204
+  },
+  "dissonance_score": 0.8333333333333334,
+  "penalty_gamma": 0.1967263286166932,
+  "cvm_alignment_raw": 0.9958,
+  "cvm_phi_min": 0.15079721272887828,
+  "cvm_phi_max": 0.569218,
+  "attractor_id": "T10",
+  "approach_velocity": 0,
+  "near_identity": false,
+  "residue_deposited": true
+}
+COMMAND: node dist/cli.js ingest --file C:\CT\github\strat-1\data\inbox\generated\results004\phrase_06.txt --uri local://results004/phrase/06 --cycle 0 --eps 0.5
+EXIT: 0
+ct-cvm-mini: converged=true i=0.996575 iters=137
+?? [CVM RAW] i_raw=0.99657500 phi_min=0.065538 phi_max=0.351401 eps_son=0.5
+
+?? [SPECTRE CT - SLOT T29]
+?? i=0.865424 | phase=stable | i_raw=0.996575 | dissonance=0.6667
+??? status=rejected | near_identity=false
+{
+  "kind": "ingest",
+  "packet_id": "32cf23dc00bcdfeefb07b77da3e72e8a7f316c380c15e86a6ea1334b4baeb6bb",
+  "status": "rejected",
+  "alignment_index": 0.8654241142555379,
+  "phase_gate": "stable",
+  "thresholds": {
+    "I_ENTRY": 0.66,
+    "I_STABLE": 0.787,
+    "I_ANCHOR": 0.87,
+    "I_CRITICAL": 0.946,
+    "I_HORIZON": 0.995204
+  },
+  "dissonance_score": 0.6666666666666666,
+  "penalty_gamma": 0.1967263286166932,
+  "cvm_alignment_raw": 0.996575,
+  "cvm_phi_min": 0.06553753171968571,
+  "cvm_phi_max": 0.351401,
+  "attractor_id": "T29",
+  "approach_velocity": 0,
+  "near_identity": false,
+  "residue_deposited": true
+}
+COMMAND: node dist/cli.js ingest --file C:\CT\github\strat-1\data\inbox\generated\results004\phrase_07.txt --uri local://results004/phrase/07 --cycle 0 --eps 0.5
+EXIT: 0
+ct-cvm-mini: converged=true i=0.996575 iters=137
+?? [CVM RAW] i_raw=0.99657500 phi_min=0.065538 phi_max=0.351401 eps_son=0.5
+
+?? [SPECTRE CT - SLOT T29]
+?? i=0.865424 | phase=stable | i_raw=0.996575 | dissonance=0.6667
+??? status=rejected | near_identity=false
+{
+  "kind": "ingest",
+  "packet_id": "64ef2bc49dfe1f79122e30505e31ca53a9053cb6bb9a312ff5366431903efead",
+  "status": "rejected",
+  "alignment_index": 0.8654241142555379,
+  "phase_gate": "stable",
+  "thresholds": {
+    "I_ENTRY": 0.66,
+    "I_STABLE": 0.787,
+    "I_ANCHOR": 0.87,
+    "I_CRITICAL": 0.946,
+    "I_HORIZON": 0.995204
+  },
+  "dissonance_score": 0.6666666666666666,
+  "penalty_gamma": 0.1967263286166932,
+  "cvm_alignment_raw": 0.996575,
+  "cvm_phi_min": 0.06553753171968571,
+  "cvm_phi_max": 0.351401,
+  "attractor_id": "T29",
+  "approach_velocity": 0,
+  "near_identity": false,
+  "residue_deposited": true
+}
+COMMAND: node dist/cli.js ingest --file C:\CT\github\strat-1\data\inbox\generated\results004\phrase_08.txt --uri local://results004/phrase/08 --cycle 0 --eps 0.5
+EXIT: 0
+ct-cvm-mini: converged=true i=0.996575 iters=137
+?? [CVM RAW] i_raw=0.99657500 phi_min=0.065538 phi_max=0.351401 eps_son=0.5
+
+?? [SPECTRE CT - SLOT T29]
+?? i=0.865424 | phase=stable | i_raw=0.996575 | dissonance=0.6667
+??? status=rejected | near_identity=false
+{
+  "kind": "ingest",
+  "packet_id": "9baa62696562efea59ed62557349242554541fd98ea3a7faff93e16ac2bd3ca3",
+  "status": "rejected",
+  "alignment_index": 0.8654241142555379,
+  "phase_gate": "stable",
+  "thresholds": {
+    "I_ENTRY": 0.66,
+    "I_STABLE": 0.787,
+    "I_ANCHOR": 0.87,
+    "I_CRITICAL": 0.946,
+    "I_HORIZON": 0.995204
+  },
+  "dissonance_score": 0.6666666666666666,
+  "penalty_gamma": 0.1967263286166932,
+  "cvm_alignment_raw": 0.996575,
+  "cvm_phi_min": 0.06553753171968571,
+  "cvm_phi_max": 0.351401,
+  "attractor_id": "T29",
+  "approach_velocity": 0,
+  "near_identity": false,
+  "residue_deposited": true
+}
+COMMAND: node dist/cli.js ingest --file C:\CT\github\strat-1\data\inbox\generated\results004\phrase_09.txt --uri local://results004/phrase/09 --cycle 0 --eps 0.5
+EXIT: 0
+ct-cvm-mini: converged=true i=0.996575 iters=137
+?? [CVM RAW] i_raw=0.99657500 phi_min=0.065538 phi_max=0.351401 eps_son=0.5
+
+?? [SPECTRE CT - SLOT T29]
+?? i=0.865424 | phase=stable | i_raw=0.996575 | dissonance=0.6667
+??? status=rejected | near_identity=false
+{
+  "kind": "ingest",
+  "packet_id": "79934a31ed01bd244093f4f998cfd1414b9def22ee92c5664798f59148bfa1ab",
+  "status": "rejected",
+  "alignment_index": 0.8654241142555379,
+  "phase_gate": "stable",
+  "thresholds": {
+    "I_ENTRY": 0.66,
+    "I_STABLE": 0.787,
+    "I_ANCHOR": 0.87,
+    "I_CRITICAL": 0.946,
+    "I_HORIZON": 0.995204
+  },
+  "dissonance_score": 0.6666666666666666,
+  "penalty_gamma": 0.1967263286166932,
+  "cvm_alignment_raw": 0.996575,
+  "cvm_phi_min": 0.06553753171968571,
+  "cvm_phi_max": 0.351401,
+  "attractor_id": "T29",
+  "approach_velocity": 0,
+  "near_identity": false,
+  "residue_deposited": true
+}
+COMMAND: node dist/cli.js ingest --file C:\CT\github\strat-1\data\inbox\generated\results004\phrase_10.txt --uri local://results004/phrase/10 --cycle 0 --eps 0.5
+EXIT: 0
+ct-cvm-mini: converged=true i=0.996575 iters=137
+?? [CVM RAW] i_raw=0.99657500 phi_min=0.065538 phi_max=0.351401 eps_son=0.5
+
+?? [SPECTRE CT - SLOT T29]
+?? i=0.865424 | phase=stable | i_raw=0.996575 | dissonance=0.6667
+??? status=rejected | near_identity=false
+{
+  "kind": "ingest",
+  "packet_id": "989d16858a155c5e3dbd34752a9b481ff2b1c2d6b253787157179d1e2f5ab027",
+  "status": "rejected",
+  "alignment_index": 0.8654241142555379,
+  "phase_gate": "stable",
+  "thresholds": {
+    "I_ENTRY": 0.66,
+    "I_STABLE": 0.787,
+    "I_ANCHOR": 0.87,
+    "I_CRITICAL": 0.946,
+    "I_HORIZON": 0.995204
+  },
+  "dissonance_score": 0.6666666666666666,
+  "penalty_gamma": 0.1967263286166932,
+  "cvm_alignment_raw": 0.996575,
+  "cvm_phi_min": 0.06553753171968571,
+  "cvm_phi_max": 0.351401,
+  "attractor_id": "T29",
+  "approach_velocity": 0,
+  "near_identity": false,
+  "residue_deposited": true
+}
+COMMAND: node dist/cli.js ingest --file C:\CT\github\strat-1\data\inbox\generated\results004\phrase_11.txt --uri local://results004/phrase/11 --cycle 0 --eps 0.5
+EXIT: 0
+ct-cvm-mini: converged=true i=0.996525 iters=139
+?? [CVM RAW] i_raw=0.99652500 phi_min=0.067379 phi_max=0.357242 eps_son=0.5
+
+?? [SPECTRE CT - SLOT T29]
+?? i=0.878489 | phase=anchored | i_raw=0.996525 | dissonance=0.6000
+??? status=rejected | near_identity=false
+{
+  "kind": "ingest",
+  "packet_id": "add8614aad56c043dcdda5160c1ac3d0cd065cbb349474bc934f00418828c3cb",
+  "status": "rejected",
+  "alignment_index": 0.8784892028299841,
+  "phase_gate": "anchored",
+  "thresholds": {
+    "I_ENTRY": 0.66,
+    "I_STABLE": 0.787,
+    "I_ANCHOR": 0.87,
+    "I_CRITICAL": 0.946,
+    "I_HORIZON": 0.995204
+  },
+  "dissonance_score": 0.6,
+  "penalty_gamma": 0.1967263286166932,
+  "cvm_alignment_raw": 0.996525,
+  "cvm_phi_min": 0.06737856259088913,
+  "cvm_phi_max": 0.357242,
+  "attractor_id": "T29",
+  "approach_velocity": 0,
+  "near_identity": false,
+  "residue_deposited": true
+}
+COMMAND: node dist/cli.js ingest --file C:\CT\github\strat-1\data\inbox\generated\results004\phrase_12.txt --uri local://results004/phrase/12 --cycle 0 --eps 0.5
+EXIT: 0
+ct-cvm-mini: converged=true i=0.996550 iters=138
+?? [CVM RAW] i_raw=0.99655000 phi_min=0.066724 phi_max=0.355174 eps_son=0.5
+
+?? [SPECTRE CT - SLOT T29]
+?? i=0.898187 | phase=anchored | i_raw=0.996550 | dissonance=0.5000
+??? status=rejected | near_identity=false
+{
+  "kind": "ingest",
+  "packet_id": "48ba2e7aa58f55a1dc508acdaac833e0828bd97e65f89a5518a831fc3973ba53",
+  "status": "rejected",
+  "alignment_index": 0.8981868356916534,
+  "phase_gate": "anchored",
+  "thresholds": {
+    "I_ENTRY": 0.66,
+    "I_STABLE": 0.787,
+    "I_ANCHOR": 0.87,
+    "I_CRITICAL": 0.946,
+    "I_HORIZON": 0.995204
+  },
+  "dissonance_score": 0.5,
+  "penalty_gamma": 0.1967263286166932,
+  "cvm_alignment_raw": 0.9965499999999999,
+  "cvm_phi_min": 0.06672425974350614,
+  "cvm_phi_max": 0.355174,
+  "attractor_id": "T29",
+  "approach_velocity": 0,
+  "near_identity": false,
+  "residue_deposited": true
+}
+COMMAND: node dist/cli.js ingest --file C:\CT\github\strat-1\data\inbox\generated\results004\phrase_13.txt --uri local://results004/phrase/13 --cycle 0 --eps 0.5
+EXIT: 0
+ct-cvm-mini: converged=true i=0.996525 iters=139
+?? [CVM RAW] i_raw=0.99652500 phi_min=0.067242 phi_max=0.356814 eps_son=0.5
+
+?? [SPECTRE CT - SLOT T29]
+?? i=0.907104 | phase=anchored | i_raw=0.996525 | dissonance=0.4545
+??? status=rejected | near_identity=false
+{
+  "kind": "ingest",
+  "packet_id": "b480338b49f286c110583e0802e4410e994729ce97459a2d35d8556921c84e88",
+  "status": "rejected",
+  "alignment_index": 0.9071039415378668,
+  "phase_gate": "anchored",
+  "thresholds": {
+    "I_ENTRY": 0.66,
+    "I_STABLE": 0.787,
+    "I_ANCHOR": 0.87,
+    "I_CRITICAL": 0.946,
+    "I_HORIZON": 0.995204
+  },
+  "dissonance_score": 0.45454545454545453,
+  "penalty_gamma": 0.1967263286166932,
+  "cvm_alignment_raw": 0.996525,
+  "cvm_phi_min": 0.06724217565928219,
+  "cvm_phi_max": 0.356814,
+  "attractor_id": "T29",
+  "approach_velocity": 0,
+  "near_identity": false,
+  "residue_deposited": true
+}
+COMMAND: node dist/cli.js ingest --file C:\CT\github\strat-1\data\inbox\generated\results004\phrase_14.txt --uri local://results004/phrase/14 --cycle 0 --eps 0.5
+EXIT: 0
+ct-cvm-mini: converged=true i=0.996525 iters=139
+?? [CVM RAW] i_raw=0.99652500 phi_min=0.066929 phi_max=0.355823 eps_son=0.5
+
+?? [SPECTRE CT - SLOT T29]
+?? i=0.930950 | phase=anchored | i_raw=0.996525 | dissonance=0.3333
+??? status=rejected | near_identity=false
+{
+  "kind": "ingest",
+  "packet_id": "af6e093099b359a6e3d4b843ea8e2d5cf53b337007e3471ea9d0e90785d80f9b",
+  "status": "rejected",
+  "alignment_index": 0.930949557127769,
+  "phase_gate": "anchored",
+  "thresholds": {
+    "I_ENTRY": 0.66,
+    "I_STABLE": 0.787,
+    "I_ANCHOR": 0.87,
+    "I_CRITICAL": 0.946,
+    "I_HORIZON": 0.995204
+  },
+  "dissonance_score": 0.3333333333333333,
+  "penalty_gamma": 0.1967263286166932,
+  "cvm_alignment_raw": 0.996525,
+  "cvm_phi_min": 0.066928747374456,
+  "cvm_phi_max": 0.355823,
+  "attractor_id": "T29",
+  "approach_velocity": 0,
+  "near_identity": false,
+  "residue_deposited": true
+}
+COMMAND: node dist/cli.js ingest --file C:\CT\github\strat-1\data\inbox\generated\results004\phrase_15.txt --uri local://results004/phrase/15 --cycle 0 --eps 0.5
+EXIT: 0
+ct-cvm-mini: converged=true i=0.996525 iters=139
+?? [CVM RAW] i_raw=0.99652500 phi_min=0.067316 phi_max=0.357048 eps_son=0.5
+
+?? [SPECTRE CT - SLOT T29]
+?? i=0.907104 | phase=anchored | i_raw=0.996525 | dissonance=0.4545
+??? status=rejected | near_identity=false
+{
+  "kind": "ingest",
+  "packet_id": "d2d8430bd32b2fb3860407aca51cc4aca0f3c3b7a68303be5fb15b1fbdfcce8c",
+  "status": "rejected",
+  "alignment_index": 0.9071039415378668,
+  "phase_gate": "anchored",
+  "thresholds": {
+    "I_ENTRY": 0.66,
+    "I_STABLE": 0.787,
+    "I_ANCHOR": 0.87,
+    "I_CRITICAL": 0.946,
+    "I_HORIZON": 0.995204
+  },
+  "dissonance_score": 0.45454545454545453,
+  "penalty_gamma": 0.1967263286166932,
+  "cvm_alignment_raw": 0.996525,
+  "cvm_phi_min": 0.06731626530913679,
+  "cvm_phi_max": 0.357048,
+  "attractor_id": "T29",
+  "approach_velocity": 0,
+  "near_identity": false,
+  "residue_deposited": true
+}
+COMMAND: node dist/cli.js ingest --file C:\CT\github\strat-1\data\inbox\generated\results004\phrase_16.txt --uri local://results004/phrase/16 --cycle 0 --eps 0.5
+EXIT: 0
+ct-cvm-mini: converged=true i=0.995800 iters=168
+?? [CVM RAW] i_raw=0.99580000 phi_min=0.149714 phi_max=0.566908 eps_son=0.5
+
+?? [SPECTRE CT - SLOT T10]
+?? i=0.897437 | phase=anchored | i_raw=0.995800 | dissonance=0.5000
+??? status=rejected | near_identity=false
+{
+  "kind": "ingest",
+  "packet_id": "8035369ebbb4e8ed75c9e5a824e1238cc47011b4938793e8d472bf0e73b04ba8",
+  "status": "rejected",
+  "alignment_index": 0.8974368356916534,
+  "phase_gate": "anchored",
+  "thresholds": {
+    "I_ENTRY": 0.66,
+    "I_STABLE": 0.787,
+    "I_ANCHOR": 0.87,
+    "I_CRITICAL": 0.946,
+    "I_HORIZON": 0.995204
+  },
+  "dissonance_score": 0.5,
+  "penalty_gamma": 0.1967263286166932,
+  "cvm_alignment_raw": 0.9958,
+  "cvm_phi_min": 0.14971358021538522,
+  "cvm_phi_max": 0.566908,
+  "attractor_id": "T10",
+  "approach_velocity": 0,
+  "near_identity": false,
+  "residue_deposited": true
+}
+COMMAND: node dist/cli.js ingest --file C:\CT\github\strat-1\data\inbox\generated\results004\phrase_17.txt --uri local://results004/phrase/17 --cycle 0 --eps 0.5
+EXIT: 0
+ct-cvm-mini: converged=true i=0.995825 iters=167
+?? [CVM RAW] i_raw=0.99582500 phi_min=0.152206 phi_max=0.572212 eps_son=0.5
+
+?? [SPECTRE CT - SLOT T10]
+?? i=0.831886 | phase=stable | i_raw=0.995825 | dissonance=0.8333
+??? status=rejected | near_identity=false
+{
+  "kind": "ingest",
+  "packet_id": "df3d060a98832b6a429cc90bd494bc011da831fc984860408a07aa9aababf7d0",
+  "status": "rejected",
+  "alignment_index": 0.8318863928194222,
+  "phase_gate": "stable",
+  "thresholds": {
+    "I_ENTRY": 0.66,
+    "I_STABLE": 0.787,
+    "I_ANCHOR": 0.87,
+    "I_CRITICAL": 0.946,
+    "I_HORIZON": 0.995204
+  },
+  "dissonance_score": 0.8333333333333334,
+  "penalty_gamma": 0.1967263286166932,
+  "cvm_alignment_raw": 0.995825,
+  "cvm_phi_min": 0.15220608115595582,
+  "cvm_phi_max": 0.572212,
+  "attractor_id": "T10",
+  "approach_velocity": 0,
+  "near_identity": false,
+  "residue_deposited": true
+}
+COMMAND: node dist/cli.js ingest --file C:\CT\github\strat-1\data\inbox\generated\results004\phrase_18.txt --uri local://results004/phrase/18 --cycle 0 --eps 0.5
+EXIT: 0
+ct-cvm-mini: converged=true i=0.995800 iters=168
+?? [CVM RAW] i_raw=0.99580000 phi_min=0.149943 phi_max=0.567399 eps_son=0.5
+
+?? [SPECTRE CT - SLOT T10]
+?? i=0.939592 | phase=anchored | i_raw=0.995800 | dissonance=0.2857
+??? status=rejected | near_identity=false
+{
+  "kind": "ingest",
+  "packet_id": "5a8522676e1beb29bedb38170a3c01a991ac8122295277ea572984b4056e3f80",
+  "status": "rejected",
+  "alignment_index": 0.9395924775380877,
+  "phase_gate": "anchored",
+  "thresholds": {
+    "I_ENTRY": 0.66,
+    "I_STABLE": 0.787,
+    "I_ANCHOR": 0.87,
+    "I_CRITICAL": 0.946,
+    "I_HORIZON": 0.995204
+  },
+  "dissonance_score": 0.2857142857142857,
+  "penalty_gamma": 0.1967263286166932,
+  "cvm_alignment_raw": 0.9958,
+  "cvm_phi_min": 0.1499431096172001,
+  "cvm_phi_max": 0.567399,
+  "attractor_id": "T10",
+  "approach_velocity": 0,
+  "near_identity": false,
+  "residue_deposited": true
+}
+COMMAND: node dist/cli.js ingest --file C:\CT\github\strat-1\data\inbox\generated\results004\phrase_19.txt --uri local://results004/phrase/19 --cycle 0 --eps 0.5
+EXIT: 0
+ct-cvm-mini: converged=true i=0.995800 iters=168
+?? [CVM RAW] i_raw=0.99580000 phi_min=0.151657 phi_max=0.571050 eps_son=0.5
+
+?? [SPECTRE CT - SLOT T10]
+?? i=0.848255 | phase=stable | i_raw=0.995800 | dissonance=0.7500
+??? status=rejected | near_identity=false
+{
+  "kind": "ingest",
+  "packet_id": "31198745c0acb55f02d05697a283ab40a6edcbabe760710d3273c2565b6ae6f1",
+  "status": "rejected",
+  "alignment_index": 0.8482552535374801,
+  "phase_gate": "stable",
+  "thresholds": {
+    "I_ENTRY": 0.66,
+    "I_STABLE": 0.787,
+    "I_ANCHOR": 0.87,
+    "I_CRITICAL": 0.946,
+    "I_HORIZON": 0.995204
+  },
+  "dissonance_score": 0.75,
+  "penalty_gamma": 0.1967263286166932,
+  "cvm_alignment_raw": 0.9958,
+  "cvm_phi_min": 0.15165715485578843,
+  "cvm_phi_max": 0.57105,
+  "attractor_id": "T10",
+  "approach_velocity": 0,
+  "near_identity": false,
+  "residue_deposited": true
+}
+COMMAND: node dist/cli.js ingest --file C:\CT\github\strat-1\data\inbox\generated\results004\phrase_20.txt --uri local://results004/phrase/20 --cycle 0 --eps 0.5
+EXIT: 0
+ct-cvm-mini: converged=true i=0.995775 iters=169
+?? [CVM RAW] i_raw=0.99577500 phi_min=0.149508 phi_max=0.566471 eps_son=0.5
+
+?? [SPECTRE CT - SLOT T10]
+?? i=0.827152 | phase=stable | i_raw=0.995775 | dissonance=0.8571
+??? status=rejected | near_identity=false
+{
+  "kind": "ingest",
+  "packet_id": "85a47ae764066297d0b0697225b60811e6929629e6a3fc09f1d536f1d93b3e1a",
+  "status": "rejected",
+  "alignment_index": 0.827152432614263,
+  "phase_gate": "stable",
+  "thresholds": {
+    "I_ENTRY": 0.66,
+    "I_STABLE": 0.787,
+    "I_ANCHOR": 0.87,
+    "I_CRITICAL": 0.946,
+    "I_HORIZON": 0.995204
+  },
+  "dissonance_score": 0.8571428571428571,
+  "penalty_gamma": 0.1967263286166932,
+  "cvm_alignment_raw": 0.995775,
+  "cvm_phi_min": 0.14950754019601803,
+  "cvm_phi_max": 0.566471,
+  "attractor_id": "T10",
+  "approach_velocity": 0,
+  "near_identity": false,
+  "residue_deposited": true
+}
+COMMAND: node dist/cli.js ingest --file C:\CT\github\strat-1\data\inbox\generated\results004\equation_01.txt --uri local://results004/equation/01 --cycle 0 --eps 0.5
+EXIT: 0
+ct-cvm-mini: converged=true i=0.996425 iters=143
+?? [CVM RAW] i_raw=0.99642500 phi_min=0.072588 phi_max=0.373370 eps_son=0.5
+
+?? [SPECTRE CT - SLOT T29]
+?? i=0.995204 | phase=near_identity | i_raw=0.996425 | dissonance=0.0000
+??? status=sutured | near_identity=true
+{
+  "kind": "ingest",
+  "packet_id": "8b74fd5a298ca64762b7c75fc142b4b199bb48e992df4fca75c231641f1a982a",
+  "status": "sutured",
+  "alignment_index": 0.995204,
+  "phase_gate": "near_identity",
+  "thresholds": {
+    "I_ENTRY": 0.66,
+    "I_STABLE": 0.787,
+    "I_ANCHOR": 0.87,
+    "I_CRITICAL": 0.946,
+    "I_HORIZON": 0.995204
+  },
+  "dissonance_score": 0,
+  "penalty_gamma": 0.1967263286166932,
+  "cvm_alignment_raw": 0.996425,
+  "cvm_phi_min": 0.07258750756545478,
+  "cvm_phi_max": 0.37337,
+  "attractor_id": "T29",
+  "approach_velocity": 0,
+  "near_identity": true,
+  "residue_deposited": true
+}
+COMMAND: node dist/cli.js ingest --file C:\CT\github\strat-1\data\inbox\generated\results004\equation_02.txt --uri local://results004/equation/02 --cycle 0 --eps 0.5
+EXIT: 0
+ct-cvm-mini: converged=true i=0.996425 iters=143
+?? [CVM RAW] i_raw=0.99642500 phi_min=0.072482 phi_max=0.373050 eps_son=0.5
+
+?? [SPECTRE CT - SLOT T29]
+?? i=0.995204 | phase=near_identity | i_raw=0.996425 | dissonance=0.0000
+??? status=sutured | near_identity=true
+{
+  "kind": "ingest",
+  "packet_id": "c114c7a4c5ec333d57b40eb8d5cb024bcd745506f8987fa5658f6d834d687f64",
+  "status": "sutured",
+  "alignment_index": 0.995204,
+  "phase_gate": "near_identity",
+  "thresholds": {
+    "I_ENTRY": 0.66,
+    "I_STABLE": 0.787,
+    "I_ANCHOR": 0.87,
+    "I_CRITICAL": 0.946,
+    "I_HORIZON": 0.995204
+  },
+  "dissonance_score": 0,
+  "penalty_gamma": 0.1967263286166932,
+  "cvm_alignment_raw": 0.996425,
+  "cvm_phi_min": 0.07248202207204761,
+  "cvm_phi_max": 0.37305,
+  "attractor_id": "T29",
+  "approach_velocity": 0,
+  "near_identity": true,
+  "residue_deposited": true
+}
+COMMAND: node dist/cli.js ingest --file C:\CT\github\strat-1\data\inbox\generated\results004\equation_03.txt --uri local://results004/equation/03 --cycle 0 --eps 0.5
+EXIT: 0
+ct-cvm-mini: converged=true i=0.996425 iters=143
+?? [CVM RAW] i_raw=0.99642500 phi_min=0.072588 phi_max=0.373370 eps_son=0.5
+
+?? [SPECTRE CT - SLOT T29]
+?? i=0.995204 | phase=near_identity | i_raw=0.996425 | dissonance=0.0000
+??? status=sutured | near_identity=true
+{
+  "kind": "ingest",
+  "packet_id": "1a695288490565287c61f1af1765e4e40373106cbe13378a11106dc868a76b16",
+  "status": "sutured",
+  "alignment_index": 0.995204,
+  "phase_gate": "near_identity",
+  "thresholds": {
+    "I_ENTRY": 0.66,
+    "I_STABLE": 0.787,
+    "I_ANCHOR": 0.87,
+    "I_CRITICAL": 0.946,
+    "I_HORIZON": 0.995204
+  },
+  "dissonance_score": 0,
+  "penalty_gamma": 0.1967263286166932,
+  "cvm_alignment_raw": 0.996425,
+  "cvm_phi_min": 0.07258750756545478,
+  "cvm_phi_max": 0.37337,
+  "attractor_id": "T29",
+  "approach_velocity": 0,
+  "near_identity": true,
+  "residue_deposited": true
+}
+COMMAND: node dist/cli.js ingest --file C:\CT\github\strat-1\data\inbox\generated\results004\equation_04.txt --uri local://results004/equation/04 --cycle 0 --eps 0.5
+EXIT: 0
+ct-cvm-mini: converged=true i=0.996475 iters=141
+?? [CVM RAW] i_raw=0.99647500 phi_min=0.069869 phi_max=0.365026 eps_son=0.5
+
+?? [SPECTRE CT - SLOT T29]
+?? i=0.995204 | phase=near_identity | i_raw=0.996475 | dissonance=0.0000
+??? status=sutured | near_identity=true
+{
+  "kind": "ingest",
+  "packet_id": "84b8f3c7c57b456ded3e92544f0117413106fee12ecdc2a78e6205d391a8c991",
+  "status": "sutured",
+  "alignment_index": 0.995204,
+  "phase_gate": "near_identity",
+  "thresholds": {
+    "I_ENTRY": 0.66,
+    "I_STABLE": 0.787,
+    "I_ANCHOR": 0.87,
+    "I_CRITICAL": 0.946,
+    "I_HORIZON": 0.995204
+  },
+  "dissonance_score": 0,
+  "penalty_gamma": 0.1967263286166932,
+  "cvm_alignment_raw": 0.996475,
+  "cvm_phi_min": 0.06986877935601546,
+  "cvm_phi_max": 0.365026,
+  "attractor_id": "T29",
+  "approach_velocity": 0,
+  "near_identity": true,
+  "residue_deposited": true
+}
+COMMAND: node dist/cli.js ingest --file C:\CT\github\strat-1\data\inbox\generated\results004\equation_05.txt --uri local://results004/equation/01 --cycle 0 --eps 0.5
+EXIT: 0
+ct-cvm-mini: converged=true i=0.996425 iters=143
+?? [CVM RAW] i_raw=0.99642500 phi_min=0.072588 phi_max=0.373370 eps_son=0.5
+
+?? [SPECTRE CT - SLOT T29]
+?? i=0.995204 | phase=near_identity | i_raw=0.996425 | dissonance=0.0000
+??? status=sutured | near_identity=true
+{
+  "kind": "ingest",
+  "packet_id": "8b74fd5a298ca64762b7c75fc142b4b199bb48e992df4fca75c231641f1a982a",
+  "status": "sutured",
+  "alignment_index": 0.995204,
+  "phase_gate": "near_identity",
+  "thresholds": {
+    "I_ENTRY": 0.66,
+    "I_STABLE": 0.787,
+    "I_ANCHOR": 0.87,
+    "I_CRITICAL": 0.946,
+    "I_HORIZON": 0.995204
+  },
+  "dissonance_score": 0,
+  "penalty_gamma": 0.1967263286166932,
+  "cvm_alignment_raw": 0.996425,
+  "cvm_phi_min": 0.07258750756545478,
+  "cvm_phi_max": 0.37337,
+  "attractor_id": "T29",
+  "approach_velocity": 0,
+  "near_identity": true,
+  "residue_deposited": true
+}
+COMMAND: node dist/cli.js ingest --file C:\CT\github\strat-1\data\inbox\generated\results004\equation_06.txt --uri local://results004/equation/06 --cycle 0 --eps 0.5
+EXIT: 0
+ct-cvm-mini: converged=true i=0.997075 iters=117
+?? [CVM RAW] i_raw=0.99707500 phi_min=0.042134 phi_max=0.267202 eps_son=0.5
+
+?? [SPECTRE CT - SLOT T29]
+?? i=0.918384 | phase=anchored | i_raw=0.997075 | dissonance=0.4000
+??? status=rejected | near_identity=false
+{
+  "kind": "ingest",
+  "packet_id": "e8bf685f5c46e7e39235db43b745823cc3f0c545acca7563e5a84c04605462f5",
+  "status": "rejected",
+  "alignment_index": 0.9183844685533227,
+  "phase_gate": "anchored",
+  "thresholds": {
+    "I_ENTRY": 0.66,
+    "I_STABLE": 0.787,
+    "I_ANCHOR": 0.87,
+    "I_CRITICAL": 0.946,
+    "I_HORIZON": 0.995204
+  },
+  "dissonance_score": 0.4,
+  "penalty_gamma": 0.1967263286166932,
+  "cvm_alignment_raw": 0.9970749999999999,
+  "cvm_phi_min": 0.042134339279810425,
+  "cvm_phi_max": 0.267202,
+  "attractor_id": "T29",
+  "approach_velocity": 0,
+  "near_identity": false,
+  "residue_deposited": true
+}
+COMMAND: node dist/cli.js ingest --file C:\CT\github\strat-1\data\inbox\generated\results004\equation_07.txt --uri local://results004/equation/07 --cycle 0 --eps 0.5
+EXIT: 0
+ct-cvm-mini: converged=true i=0.997075 iters=117
+?? [CVM RAW] i_raw=0.99707500 phi_min=0.042015 phi_max=0.266733 eps_son=0.5
+
+?? [SPECTRE CT - SLOT T29]
+?? i=0.918384 | phase=anchored | i_raw=0.997075 | dissonance=0.4000
+??? status=rejected | near_identity=false
+{
+  "kind": "ingest",
+  "packet_id": "ffa51348a4fb6cefd75e9fbd64c04f1c0b487d59c7483abb00bc59028e455606",
+  "status": "rejected",
+  "alignment_index": 0.9183844685533227,
+  "phase_gate": "anchored",
+  "thresholds": {
+    "I_ENTRY": 0.66,
+    "I_STABLE": 0.787,
+    "I_ANCHOR": 0.87,
+    "I_CRITICAL": 0.946,
+    "I_HORIZON": 0.995204
+  },
+  "dissonance_score": 0.4,
+  "penalty_gamma": 0.1967263286166932,
+  "cvm_alignment_raw": 0.9970749999999999,
+  "cvm_phi_min": 0.04201467264798253,
+  "cvm_phi_max": 0.266733,
+  "attractor_id": "T29",
+  "approach_velocity": 0,
+  "near_identity": false,
+  "residue_deposited": true
+}
+COMMAND: node dist/cli.js ingest --file C:\CT\github\strat-1\data\inbox\generated\results004\equation_08.txt --uri local://results004/equation/08 --cycle 0 --eps 0.5
+EXIT: 0
+ct-cvm-mini: converged=true i=0.997125 iters=115
+?? [CVM RAW] i_raw=0.99712500 phi_min=0.040465 phi_max=0.257144 eps_son=0.5
+
+?? [SPECTRE CT - SLOT T29]
+?? i=0.940917 | phase=anchored | i_raw=0.997125 | dissonance=0.2857
+??? status=rejected | near_identity=false
+{
+  "kind": "ingest",
+  "packet_id": "1896f30e95d0f9f3dbf8ae5a0c417f636fe66070542e280ce84df2615732b494",
+  "status": "rejected",
+  "alignment_index": 0.9409174775380876,
+  "phase_gate": "anchored",
+  "thresholds": {
+    "I_ENTRY": 0.66,
+    "I_STABLE": 0.787,
+    "I_ANCHOR": 0.87,
+    "I_CRITICAL": 0.946,
+    "I_HORIZON": 0.995204
+  },
+  "dissonance_score": 0.2857142857142857,
+  "penalty_gamma": 0.1967263286166932,
+  "cvm_alignment_raw": 0.9971249999999999,
+  "cvm_phi_min": 0.0404651824444608,
+  "cvm_phi_max": 0.257144,
+  "attractor_id": "T29",
+  "approach_velocity": 0,
+  "near_identity": false,
+  "residue_deposited": true
+}
+COMMAND: node dist/cli.js ingest --file C:\CT\github\strat-1\data\inbox\generated\results004\equation_09.txt --uri local://results004/equation/09 --cycle 0 --eps 0.5
+EXIT: 0
+ct-cvm-mini: converged=true i=0.997125 iters=115
+?? [CVM RAW] i_raw=0.99712500 phi_min=0.040465 phi_max=0.257144 eps_son=0.5
+
+?? [SPECTRE CT - SLOT T29]
+?? i=0.940917 | phase=anchored | i_raw=0.997125 | dissonance=0.2857
+??? status=rejected | near_identity=false
+{
+  "kind": "ingest",
+  "packet_id": "afe52b9c0c2735396b4345d11adc26e945d7b4e3d00b28c3cd7bcf124a98c1aa",
+  "status": "rejected",
+  "alignment_index": 0.9409174775380876,
+  "phase_gate": "anchored",
+  "thresholds": {
+    "I_ENTRY": 0.66,
+    "I_STABLE": 0.787,
+    "I_ANCHOR": 0.87,
+    "I_CRITICAL": 0.946,
+    "I_HORIZON": 0.995204
+  },
+  "dissonance_score": 0.2857142857142857,
+  "penalty_gamma": 0.1967263286166932,
+  "cvm_alignment_raw": 0.9971249999999999,
+  "cvm_phi_min": 0.0404651824444608,
+  "cvm_phi_max": 0.257144,
+  "attractor_id": "T29",
+  "approach_velocity": 0,
+  "near_identity": false,
+  "residue_deposited": true
+}
+COMMAND: node dist/cli.js ingest --file C:\CT\github\strat-1\data\inbox\generated\results004\equation_10.txt --uri local://results004/equation/10 --cycle 0 --eps 0.5
+EXIT: 0
+ct-cvm-mini: converged=true i=0.997125 iters=115
+?? [CVM RAW] i_raw=0.99712500 phi_min=0.040667 phi_max=0.255461 eps_son=0.5
+
+?? [SPECTRE CT - SLOT T29]
+?? i=0.969021 | phase=sutured | i_raw=0.997125 | dissonance=0.1429
+??? status=sutured | near_identity=false
+{
+  "kind": "ingest",
+  "packet_id": "dd0606769ffc3bd9227d69fd10b9bfa2133082627f1077d37b02573ce01ee54d",
+  "status": "sutured",
+  "alignment_index": 0.9690212387690438,
+  "phase_gate": "sutured",
+  "thresholds": {
+    "I_ENTRY": 0.66,
+    "I_STABLE": 0.787,
+    "I_ANCHOR": 0.87,
+    "I_CRITICAL": 0.946,
+    "I_HORIZON": 0.995204
+  },
+  "dissonance_score": 0.14285714285714285,
+  "penalty_gamma": 0.1967263286166932,
+  "cvm_alignment_raw": 0.9971249999999999,
+  "cvm_phi_min": 0.04066684641344691,
+  "cvm_phi_max": 0.255461,
+  "attractor_id": "T29",
+  "approach_velocity": 0,
+  "near_identity": false,
+  "residue_deposited": true
+}
+COMMAND: node dist/cli.js ingest --file C:\CT\github\strat-1\data\inbox\generated\results004\equation_11.txt --uri local://results004/equation/11 --cycle 0 --eps 0.5
+EXIT: 0
+ct-cvm-mini: converged=true i=0.997150 iters=114
+?? [CVM RAW] i_raw=0.99715000 phi_min=0.040520 phi_max=0.254517 eps_son=0.5
+
+?? [SPECTRE CT - SLOT T29]
+?? i=0.995204 | phase=near_identity | i_raw=0.997150 | dissonance=0.0000
+??? status=sutured | near_identity=true
+{
+  "kind": "ingest",
+  "packet_id": "5a62db869b512bb205d972d7c0edb7fa32fb41eb83093e33eca146ee955081af",
+  "status": "sutured",
+  "alignment_index": 0.995204,
+  "phase_gate": "near_identity",
+  "thresholds": {
+    "I_ENTRY": 0.66,
+    "I_STABLE": 0.787,
+    "I_ANCHOR": 0.87,
+    "I_CRITICAL": 0.946,
+    "I_HORIZON": 0.995204
+  },
+  "dissonance_score": 0,
+  "penalty_gamma": 0.1967263286166932,
+  "cvm_alignment_raw": 0.99715,
+  "cvm_phi_min": 0.0405200893505475,
+  "cvm_phi_max": 0.254517,
+  "attractor_id": "T29",
+  "approach_velocity": 0,
+  "near_identity": true,
+  "residue_deposited": true
+}
+COMMAND: node dist/cli.js ingest --file C:\CT\github\strat-1\data\inbox\generated\results004\equation_12.txt --uri local://results004/equation/12 --cycle 0 --eps 0.5
+EXIT: 0
+ct-cvm-mini: converged=true i=0.997125 iters=115
+?? [CVM RAW] i_raw=0.99712500 phi_min=0.040535 phi_max=0.255344 eps_son=0.5
+
+?? [SPECTRE CT - SLOT T29]
+?? i=0.995204 | phase=near_identity | i_raw=0.997125 | dissonance=0.0000
+??? status=sutured | near_identity=true
+{
+  "kind": "ingest",
+  "packet_id": "22e35b9940fe6e53ff9050cb162908b33e99c83e461be7890c70d77c6fcf1a8c",
+  "status": "sutured",
+  "alignment_index": 0.995204,
+  "phase_gate": "near_identity",
+  "thresholds": {
+    "I_ENTRY": 0.66,
+    "I_STABLE": 0.787,
+    "I_ANCHOR": 0.87,
+    "I_CRITICAL": 0.946,
+    "I_HORIZON": 0.995204
+  },
+  "dissonance_score": 0,
+  "penalty_gamma": 0.1967263286166932,
+  "cvm_alignment_raw": 0.9971249999999999,
+  "cvm_phi_min": 0.040534639793332064,
+  "cvm_phi_max": 0.255344,
+  "attractor_id": "T29",
+  "approach_velocity": 0,
+  "near_identity": true,
+  "residue_deposited": true
+}
+COMMAND: node dist/cli.js ingest --file C:\CT\github\strat-1\data\inbox\generated\results004\equation_13.txt --uri local://results004/equation/13 --cycle 0 --eps 0.5
+EXIT: 0
+ct-cvm-mini: converged=true i=0.997150 iters=114
+?? [CVM RAW] i_raw=0.99715000 phi_min=0.040303 phi_max=0.253037 eps_son=0.5
+
+?? [SPECTRE CT - SLOT T29]
+?? i=0.995204 | phase=near_identity | i_raw=0.997150 | dissonance=0.0000
+??? status=sutured | near_identity=true
+{
+  "kind": "ingest",
+  "packet_id": "235b215e8f22ee821c7a9125fb892886e8b2259d8f504f0617392db63304abfc",
+  "status": "sutured",
+  "alignment_index": 0.995204,
+  "phase_gate": "near_identity",
+  "thresholds": {
+    "I_ENTRY": 0.66,
+    "I_STABLE": 0.787,
+    "I_ANCHOR": 0.87,
+    "I_CRITICAL": 0.946,
+    "I_HORIZON": 0.995204
+  },
+  "dissonance_score": 0,
+  "penalty_gamma": 0.1967263286166932,
+  "cvm_alignment_raw": 0.99715,
+  "cvm_phi_min": 0.040302931305658374,
+  "cvm_phi_max": 0.253037,
+  "attractor_id": "T29",
+  "approach_velocity": 0,
+  "near_identity": true,
+  "residue_deposited": true
+}
+COMMAND: node dist/cli.js ingest --file C:\CT\github\strat-1\data\inbox\generated\results004\equation_14.txt --uri local://results004/equation/14 --cycle 0 --eps 0.5
+EXIT: 0
+ct-cvm-mini: converged=true i=0.997125 iters=115
+?? [CVM RAW] i_raw=0.99712500 phi_min=0.040683 phi_max=0.256016 eps_son=0.5
+
+?? [SPECTRE CT - SLOT T29]
+?? i=0.995204 | phase=near_identity | i_raw=0.997125 | dissonance=0.0000
+??? status=sutured | near_identity=true
+{
+  "kind": "ingest",
+  "packet_id": "f4b70457e3d8eeeed1aabba3a234606ba037e5ebcb50f31b64cb74fbaabd0dcf",
+  "status": "sutured",
+  "alignment_index": 0.995204,
+  "phase_gate": "near_identity",
+  "thresholds": {
+    "I_ENTRY": 0.66,
+    "I_STABLE": 0.787,
+    "I_ANCHOR": 0.87,
+    "I_CRITICAL": 0.946,
+    "I_HORIZON": 0.995204
+  },
+  "dissonance_score": 0,
+  "penalty_gamma": 0.1967263286166932,
+  "cvm_alignment_raw": 0.9971249999999999,
+  "cvm_phi_min": 0.040683326451971535,
+  "cvm_phi_max": 0.256016,
+  "attractor_id": "T29",
+  "approach_velocity": 0,
+  "near_identity": true,
+  "residue_deposited": true
+}
+COMMAND: node dist/cli.js ingest --file C:\CT\github\strat-1\data\inbox\generated\results004\equation_15.txt --uri local://results004/equation/15 --cycle 0 --eps 0.5
+EXIT: 0
+ct-cvm-mini: converged=true i=0.996525 iters=139
+?? [CVM RAW] i_raw=0.99652500 phi_min=0.067563 phi_max=0.357825 eps_son=0.5
+
+?? [SPECTRE CT - SLOT T10]
+?? i=0.995204 | phase=near_identity | i_raw=0.996525 | dissonance=0.0000
+??? status=sutured | near_identity=true
+{
+  "kind": "ingest",
+  "packet_id": "81bae4e28ef649a52555efc0b0704fec2d2ad2428712bd0338686bd79f7b86ec",
+  "status": "sutured",
+  "alignment_index": 0.995204,
+  "phase_gate": "near_identity",
+  "thresholds": {
+    "I_ENTRY": 0.66,
+    "I_STABLE": 0.787,
+    "I_ANCHOR": 0.87,
+    "I_CRITICAL": 0.946,
+    "I_HORIZON": 0.995204
+  },
+  "dissonance_score": 0,
+  "penalty_gamma": 0.1967263286166932,
+  "cvm_alignment_raw": 0.996525,
+  "cvm_phi_min": 0.06756294828122479,
+  "cvm_phi_max": 0.357825,
+  "attractor_id": "T10",
+  "approach_velocity": 0,
+  "near_identity": true,
+  "residue_deposited": true
+}
+COMMAND: node dist/cli.js ingest --file C:\CT\github\strat-1\data\inbox\generated\results004\equation_16.txt --uri local://results004/equation/16 --cycle 0 --eps 0.5
+EXIT: 0
+ct-cvm-mini: converged=true i=0.996425 iters=143
+?? [CVM RAW] i_raw=0.99642500 phi_min=0.071971 phi_max=0.371493 eps_son=0.5
+
+?? [SPECTRE CT - SLOT T29]
+?? i=0.995204 | phase=near_identity | i_raw=0.996425 | dissonance=0.0000
+??? status=sutured | near_identity=true
+{
+  "kind": "ingest",
+  "packet_id": "e02b9cde155e772b52082eeef8821a6915792bde16a50a0d4e0a6e42d1ce38a2",
+  "status": "sutured",
+  "alignment_index": 0.995204,
+  "phase_gate": "near_identity",
+  "thresholds": {
+    "I_ENTRY": 0.66,
+    "I_STABLE": 0.787,
+    "I_ANCHOR": 0.87,
+    "I_CRITICAL": 0.946,
+    "I_HORIZON": 0.995204
+  },
+  "dissonance_score": 0,
+  "penalty_gamma": 0.1967263286166932,
+  "cvm_alignment_raw": 0.996425,
+  "cvm_phi_min": 0.0719714678295625,
+  "cvm_phi_max": 0.371493,
+  "attractor_id": "T29",
+  "approach_velocity": 0,
+  "near_identity": true,
+  "residue_deposited": true
+}
+COMMAND: node dist/cli.js ingest --file C:\CT\github\strat-1\data\inbox\generated\results004\equation_17.txt --uri local://results004/equation/17 --cycle 0 --eps 0.5
+EXIT: 0
+ct-cvm-mini: converged=true i=0.996450 iters=142
+?? [CVM RAW] i_raw=0.99645000 phi_min=0.070902 phi_max=0.368215 eps_son=0.5
+
+?? [SPECTRE CT - SLOT T29]
+?? i=0.995204 | phase=near_identity | i_raw=0.996450 | dissonance=0.0000
+??? status=sutured | near_identity=true
+{
+  "kind": "ingest",
+  "packet_id": "41a474f26ade36414dc2cdea634baacb4bb29579454dc3837b601c91e6fb006d",
+  "status": "sutured",
+  "alignment_index": 0.995204,
+  "phase_gate": "near_identity",
+  "thresholds": {
+    "I_ENTRY": 0.66,
+    "I_STABLE": 0.787,
+    "I_ANCHOR": 0.87,
+    "I_CRITICAL": 0.946,
+    "I_HORIZON": 0.995204
+  },
+  "dissonance_score": 0,
+  "penalty_gamma": 0.1967263286166932,
+  "cvm_alignment_raw": 0.99645,
+  "cvm_phi_min": 0.07090189926299317,
+  "cvm_phi_max": 0.368215,
+  "attractor_id": "T29",
+  "approach_velocity": 0,
+  "near_identity": true,
+  "residue_deposited": true
+}
+COMMAND: node dist/cli.js ingest --file C:\CT\github\strat-1\data\inbox\generated\results004\equation_18.txt --uri local://results004/equation/18 --cycle 0 --eps 0.5
+EXIT: 0
+ct-cvm-mini: converged=true i=0.997100 iters=116
+?? [CVM RAW] i_raw=0.99710000 phi_min=0.041468 phi_max=0.263332 eps_son=0.5
+
+?? [SPECTRE CT - SLOT T29]
+?? i=0.898737 | phase=anchored | i_raw=0.997100 | dissonance=0.5000
+??? status=rejected | near_identity=false
+{
+  "kind": "ingest",
+  "packet_id": "0f42cedbde920134c739c94a213a29ebfd455040d841502db914ca0fc889f758",
+  "status": "rejected",
+  "alignment_index": 0.8987368356916534,
+  "phase_gate": "anchored",
+  "thresholds": {
+    "I_ENTRY": 0.66,
+    "I_STABLE": 0.787,
+    "I_ANCHOR": 0.87,
+    "I_CRITICAL": 0.946,
+    "I_HORIZON": 0.995204
+  },
+  "dissonance_score": 0.5,
+  "penalty_gamma": 0.1967263286166932,
+  "cvm_alignment_raw": 0.9971,
+  "cvm_phi_min": 0.041468270408707514,
+  "cvm_phi_max": 0.263332,
+  "attractor_id": "T29",
+  "approach_velocity": 0,
+  "near_identity": false,
+  "residue_deposited": true
+}
+COMMAND: node dist/cli.js ingest --file C:\CT\github\strat-1\data\inbox\generated\results004\equation_19.txt --uri local://results004/equation/19 --cycle 0 --eps 0.5
+EXIT: 0
+ct-cvm-mini: converged=true i=0.997075 iters=117
+?? [CVM RAW] i_raw=0.99707500 phi_min=0.041385 phi_max=0.264523 eps_son=0.5
+
+?? [SPECTRE CT - SLOT T29]
+?? i=0.964287 | phase=sutured | i_raw=0.997075 | dissonance=0.1667
+??? status=sutured | near_identity=false
+{
+  "kind": "ingest",
+  "packet_id": "1c1a9c14840f843bd6cb1d12be06e1264640128165e2c799135708e3beb65900",
+  "status": "sutured",
+  "alignment_index": 0.9642872785638844,
+  "phase_gate": "sutured",
+  "thresholds": {
+    "I_ENTRY": 0.66,
+    "I_STABLE": 0.787,
+    "I_ANCHOR": 0.87,
+    "I_CRITICAL": 0.946,
+    "I_HORIZON": 0.995204
+  },
+  "dissonance_score": 0.16666666666666666,
+  "penalty_gamma": 0.1967263286166932,
+  "cvm_alignment_raw": 0.9970749999999999,
+  "cvm_phi_min": 0.041384831945214806,
+  "cvm_phi_max": 0.264523,
+  "attractor_id": "T29",
+  "approach_velocity": 0,
+  "near_identity": false,
+  "residue_deposited": true
+}
+COMMAND: node dist/cli.js ingest --file C:\CT\github\strat-1\data\inbox\generated\results004\equation_20.txt --uri local://results004/equation/20 --cycle 0 --eps 0.5
+EXIT: 0
+ct-cvm-mini: converged=true i=0.996525 iters=139
+?? [CVM RAW] i_raw=0.99652500 phi_min=0.067901 phi_max=0.358885 eps_son=0.5
+
+?? [SPECTRE CT - SLOT T29]
+?? i=0.957180 | phase=sutured | i_raw=0.996525 | dissonance=0.2000
+??? status=sutured | near_identity=false
+{
+  "kind": "ingest",
+  "packet_id": "8ae376300466cdd67455950dd31fa26ab3dc6ee077fab02d157dfcf8864a5c68",
+  "status": "sutured",
+  "alignment_index": 0.9571797342766614,
+  "phase_gate": "sutured",
+  "thresholds": {
+    "I_ENTRY": 0.66,
+    "I_STABLE": 0.787,
+    "I_ANCHOR": 0.87,
+    "I_CRITICAL": 0.946,
+    "I_HORIZON": 0.995204
+  },
+  "dissonance_score": 0.2,
+  "penalty_gamma": 0.1967263286166932,
+  "cvm_alignment_raw": 0.996525,
+  "cvm_phi_min": 0.06790090439634437,
+  "cvm_phi_max": 0.358885,
+  "attractor_id": "T29",
+  "approach_velocity": 0,
+  "near_identity": false,
+  "residue_deposited": true
+}
+file	status	outcome
+phrase_01.txt	rejected	RESIDUE
+phrase_02.txt	rejected	RESIDUE
+phrase_03.txt	rejected	RESIDUE
+phrase_04.txt	rejected	RESIDUE
+phrase_05.txt	rejected	RESIDUE
+phrase_06.txt	rejected	RESIDUE
+phrase_07.txt	rejected	RESIDUE
+phrase_08.txt	rejected	RESIDUE
+phrase_09.txt	rejected	RESIDUE
+phrase_10.txt	rejected	RESIDUE
+phrase_11.txt	rejected	RESIDUE
+phrase_12.txt	rejected	RESIDUE
+phrase_13.txt	rejected	RESIDUE
+phrase_14.txt	rejected	RESIDUE
+phrase_15.txt	rejected	RESIDUE
+phrase_16.txt	rejected	RESIDUE
+phrase_17.txt	rejected	RESIDUE
+phrase_18.txt	rejected	RESIDUE
+phrase_19.txt	rejected	RESIDUE
+phrase_20.txt	rejected	RESIDUE
+equation_01.txt	sutured	SUTURED
+equation_02.txt	sutured	SUTURED
+equation_03.txt	sutured	SUTURED
+equation_04.txt	sutured	SUTURED
+equation_05.txt	sutured	DUPLICATE
+equation_06.txt	rejected	RESIDUE
+equation_07.txt	rejected	RESIDUE
+equation_08.txt	rejected	RESIDUE
+equation_09.txt	rejected	RESIDUE
+equation_10.txt	sutured	SUTURED
+equation_11.txt	sutured	SUTURED
+equation_12.txt	sutured	SUTURED
+equation_13.txt	sutured	SUTURED
+equation_14.txt	sutured	SUTURED
+equation_15.txt	sutured	SUTURED
+equation_16.txt	sutured	SUTURED
+equation_17.txt	sutured	SUTURED
+equation_18.txt	rejected	RESIDUE
+equation_19.txt	sutured	SUTURED
+equation_20.txt	sutured	SUTURED
+count_DUPLICATE=1
+count_SUTURED=14
+count_RESIDUE=25
+pool deduped: 32 clusters
+clusters_before=32
+
+=== BLOCK D - round 1 ===
+COMMAND: node dist/cli.js round --cycle 1 --eps 0.5 --scope event
+EXIT: 0
+{
+  "kind": "round",
+  "utc": "2026-01-15T03:01:01.046Z",
+  "scope": "event",
+  "cycle_depth": 1,
+  "eps_son": 0.5,
+  "merges": 28,
+  "clusters_after": 4,
+  "trace_sample": [
+    {
+      "step": "merge",
+      "pass": 0,
+      "a": "503a0713bfa16ecb",
+      "b": "c8a71d3e38a3e672",
+      "d_son": 9.983007227315924e-7,
+      "phase": "cycle",
+      "sim": 0.9999992940947893,
+      "w": 0,
+      "r_before_a": 4.925272044581247,
+      "r_before_b": 4.925304620590289,
+      "r_after": 4.925272044581247,
+      "eps_son": 0.5,
+      "merged_id": "307abff7655588c8"
+    },
+    {
+      "step": "merge",
+      "pass": 1,
+      "a": "219e5577d5d8e571",
+      "b": "307abff7655588c8",
+      "d_son": 0.0000013927853946515678,
+      "phase": "cycle",
+      "sim": 0.9999990151520027,
+      "w": 0,
+      "r_before_a": 4.925225913110951,
+      "r_before_b": 4.925272044581247,
+      "r_after": 4.925225913110951,
+      "eps_son": 0.5,
+      "merged_id": "60ad805248459948"
+    },
+    {
+      "step": "merge",
+      "pass": 2,
+      "a": "beb65a98b1243dd5",
+      "b": "4a1ac882190be365",
+      "d_son": 0.0000016694077546527285,
+      "phase": "cycle",
+      "sim": 0.9999988195504561,
+      "w": 0,
+      "r_before_a": 4.958923895776179,
+      "r_before_b": 4.958890188279594,
+      "r_after": 4.958890188279594,
+      "eps_son": 0.5,
+      "merged_id": "fe1d23dce7d24428"
+    },
+    {
+      "step": "merge",
+      "pass": 3,
+      "a": "2a2073055690cff7",
+      "b": "fe1d23dce7d24428",
+      "d_son": 0.000002171272878974167,
+      "phase": "cycle",
+      "sim": 0.9999984646782235,
+      "w": 0,
+      "r_before_a": 4.958864664441379,
+      "r_before_b": 4.958890188279594,
+      "r_after": 4.9588612852071545,
+      "eps_son": 0.5,
+      "merged_id": "2986557be06fc543"
+    },
+    {
+      "step": "merge",
+      "pass": 4,
+      "a": "747d7ffaa41bdc22",
+      "b": "61e8ea98bab162eb",
+      "d_son": 0.0000022866889382937806,
+      "phase": "cycle",
+      "sim": 0.9999983830667453,
+      "w": 0,
+      "r_before_a": 4.956485465457002,
+      "r_before_b": 4.956532724464561,
+      "r_after": 4.956485465457002,
+      "eps_son": 0.5,
+      "merged_id": "3ef81e1e67af8600"
+    },
+    {
+      "step": "merge",
+      "pass": 5,
+      "a": "0fb63e27785c6c44",
+      "b": "aa899ee3c13a0dad",
+      "d_son": 0.0000024193443258335287,
+      "phase": "cycle",
+      "sim": 0.9999982892652212,
+      "w": 0,
+      "r_before_a": 4.972983482201528,
+      "r_before_b": 4.972996645453656,
+      "r_after": 4.972976279554982,
+      "eps_son": 0.5,
+      "merged_id": "b8e49b8f783f3fbc"
+    },
+    {
+      "step": "merge",
+      "pass": 6,
+      "a": "fe8ea6b8e10c3423",
+      "b": "6963d51f35b0ecb6",
+      "d_son": 0.0000034380144677648843,
+      "phase": "cycle",
+      "sim": 0.999997568956656,
+      "w": 0,
+      "r_before_a": 4.925048133697834,
+      "r_before_b": 4.9249337433312395,
+      "r_after": 4.9249337433312395,
+      "eps_son": 0.5,
+      "merged_id": "ca3f282925827ba4"
+    },
+    {
+      "step": "merge",
+      "pass": 7,
+      "a": "3f29c859f1e5fbf4",
+      "b": "1d008100861224cd",
+      "d_son": 0.0000035680981949128065,
+      "phase": "cycle",
+      "sim": 0.9999974769735704,
+      "w": 0,
+      "r_before_a": 4.971428771208478,
+      "r_before_b": 4.9714899326958895,
+      "r_after": 4.971428771208478,
+      "eps_son": 0.5,
+      "merged_id": "4c04481a1200fa09"
+    },
+    {
+      "step": "merge",
+      "pass": 8,
+      "a": "e89924f602ce8dcc",
+      "b": "60ad805248459948",
+      "d_son": 0.000004512177804799938,
+      "phase": "cycle",
+      "sim": 0.9999968094084764,
+      "w": 0,
+      "r_before_a": 4.925374936244564,
+      "r_before_b": 4.925225913110951,
+      "r_after": 4.925225913110951,
+      "eps_son": 0.5,
+      "merged_id": "2e2285a0367b3eda"
+    },
+    {
+      "step": "merge",
+      "pass": 9,
+      "a": "6d5f1e1f4ffe66bb",
+      "b": "04d271521032ffbb",
+      "d_son": 0.000004636007933378432,
+      "phase": "cycle",
+      "sim": 0.9999967218473527,
+      "w": 0,
+      "r_before_a": 4.959161809138876,
+      "r_before_b": 4.959068597843298,
+      "r_after": 4.959068597843298,
+      "eps_son": 0.5,
+      "merged_id": "1eddbe327eb2ca1b"
+    },
+    {
+      "step": "merge",
+      "pass": 10,
+      "a": "ef1a4fcd0980459e",
+      "b": "b8e49b8f783f3fbc",
+      "d_son": 0.000004677619778970648,
+      "phase": "cycle",
+      "sim": 0.9999966924233344,
+      "w": 0,
+      "r_before_a": 4.972909888632204,
+      "r_before_b": 4.972976279554982,
+      "r_after": 4.972909888632204,
+      "eps_son": 0.5,
+      "merged_id": "39d34b481b31a34d"
+    },
+    {
+      "step": "merge",
+      "pass": 11,
+      "a": "28d3b10d0eaa1a1f",
+      "b": "7c03d3c388cb44df",
+      "d_son": 0.0000056245011427403926,
+      "phase": "cycle",
+      "sim": 0.9999960228771012,
+      "w": 0,
+      "r_before_a": 4.924452835520675,
+      "r_before_b": 4.924639812170579,
+      "r_after": 4.924452835520675,
+      "eps_son": 0.5,
+      "merged_id": "4d875fe03f137a8d"
+    },
+    {
+      "step": "merge",
+      "pass": 12,
+      "a": "ca3f282925827ba4",
+      "b": "2e2285a0367b3eda",
+      "d_son": 0.000008832234717436731,
+      "phase": "cycle",
+      "sim": 0.9999937546669383,
+      "w": 0,
+      "r_before_a": 4.9249337433312395,
+      "r_before_b": 4.925225913110951,
+      "r_after": 4.9249337433312395,
+      "eps_son": 0.5,
+      "merged_id": "54305203d639a84f"
+    },
+    {
+      "step": "merge",
+      "pass": 13,
+      "a": "2986557be06fc543",
+      "b": "1eddbe327eb2ca1b",
+      "d_son": 0.000009830469109429695,
+      "phase": "cycle",
+      "sim": 0.9999930488086305,
+      "w": 0,
+      "r_before_a": 4.9588612852071545,
+      "r_before_b": 4.959068597843298,
+      "r_after": 4.9588612852071545,
+      "eps_son": 0.5,
+      "merged_id": "4106cf40b7c296cb"
+    },
+    {
+      "step": "merge",
+      "pass": 14,
+      "a": "fe82bdd87cc949e2",
+      "b": "4928b492d8e033e9",
+      "d_son": 0.000010883250187751383,
+      "phase": "cycle",
+      "sim": 0.9999923043799909,
+      "w": 0,
+      "r_before_a": 4.9719409661688,
+      "r_before_b": 4.971776116236374,
+      "r_after": 4.971770960239028,
+      "eps_son": 0.5,
+      "merged_id": "30689daa5632ca76"
+    },
+    {
+      "step": "merge",
+      "pass": 15,
+      "a": "de604beb0090055d",
+      "b": "b1c59f2b0ab85615",
+      "d_son": 0.000011188917012139356,
+      "phase": "cycle",
+      "sim": 0.9999920882409066,
+      "w": 0,
+      "r_before_a": 4.973106518578827,
+      "r_before_b": 4.9732989219140045,
+      "r_after": 4.973106518578827,
+      "eps_son": 0.5,
+      "merged_id": "6857f53a485a22a5"
+    },
+    {
+      "step": "merge",
+      "pass": 16,
+      "a": "39d34b481b31a34d",
+      "b": "6857f53a485a22a5",
+      "d_son": 0.000011481585348834364,
+      "phase": "cycle",
+      "sim": 0.9999918812931411,
+      "w": 0,
+      "r_before_a": 4.972909888632204,
+      "r_before_b": 4.973106518578827,
+      "r_after": 4.972909888632204,
+      "eps_son": 0.5,
+      "merged_id": "8163db41ef33418a"
+    },
+    {
+      "step": "merge",
+      "pass": 17,
+      "a": "c66c76ca3384c717",
+      "b": "8163db41ef33418a",
+      "d_son": 0.000012157837581566063,
+      "phase": "cycle",
+      "sim": 0.9999914031106015,
+      "w": 0,
+      "r_before_a": 4.972754184338108,
+      "r_before_b": 4.972909888632204,
+      "r_after": 4.97274070067855,
+      "eps_son": 0.5,
+      "merged_id": "0407faeb82f88d69"
+    },
+    {
+      "step": "merge",
+      "pass": 18,
+      "a": "6902a421c621f9ba",
+      "b": "3ef81e1e67af8600",
+      "d_son": 0.000013423395356998848,
+      "phase": "cycle",
+      "sim": 0.9999905082261166,
+      "w": 0,
+      "r_before_a": 4.956761627786524,
+      "r_before_b": 4.956485465457002,
+      "r_after": 4.956485465457002,
+      "eps_son": 0.5,
+      "merged_id": "7955468af5438000"
+    },
+    {
+      "step": "merge",
+      "pass": 19,
+      "a": "4d875fe03f137a8d",
+      "b": "54305203d639a84f",
+      "d_son": 0.000014528030707490343,
+      "phase": "cycle",
+      "sim": 0.9999897271309695,
+      "w": 0,
+      "r_before_a": 4.924452835520675,
+      "r_before_b": 4.9249337433312395,
+      "r_after": 4.924452835520675,
+      "eps_son": 0.5,
+      "merged_id": "93549df1c65b3171"
+    },
+    {
+      "step": "merge",
+      "pass": 20,
+      "a": "4c04481a1200fa09",
+      "b": "30689daa5632ca76",
+      "d_son": 0.0000210142536371288,
+      "phase": "cycle",
+      "sim": 0.9999851406787517,
+      "w": 0,
+      "r_before_a": 4.971428771208478,
+      "r_before_b": 4.971770960239028,
+      "r_after": 4.971428771208478,
+      "eps_son": 0.5,
+      "merged_id": "9b52bfaf19387d80"
+    },
+    {
+      "step": "merge",
+      "pass": 21,
+      "a": "b45ceb8763f76d74",
+      "b": "93549df1c65b3171",
+      "d_son": 0.00003470643831196704,
+      "phase": "cycle",
+      "sim": 0.9999754588421188,
+      "w": 0,
+      "r_before_a": 4.925599423394426,
+      "r_before_b": 4.924452835520675,
+      "r_after": 4.924452835520675,
+      "eps_son": 0.5,
+      "merged_id": "44c7ecbc2c6ef955"
+    },
+    {
+      "step": "merge",
+      "pass": 22,
+      "a": "f30f464d607fd7ec",
+      "b": "7955468af5438000",
+      "d_son": 0.00003685381261333825,
+      "phase": "cycle",
+      "sim": 0.9999739404191885,
+      "w": 0,
+      "r_before_a": 4.957241771764045,
+      "r_before_b": 4.956485465457002,
+      "r_after": 4.956485465457002,
+      "eps_son": 0.5,
+      "merged_id": "9a3958dd892d76d7"
+    },
+    {
+      "step": "merge",
+      "pass": 23,
+      "a": "2f8541b72e5ddbad",
+      "b": "4106cf40b7c296cb",
+      "d_son": 0.00004118643143056242,
+      "phase": "cycle",
+      "sim": 0.9999708767950426,
+      "w": 0,
+      "r_before_a": 4.959736989169377,
+      "r_before_b": 4.9588612852071545,
+      "r_after": 4.9588612852071545,
+      "eps_son": 0.5,
+      "merged_id": "2d8bad90e009cb88"
+    },
+    {
+      "step": "merge",
+      "pass": 24,
+      "a": "ff7be4fcc259f1b3",
+      "b": "217acedf1e350993",
+      "d_son": 0.00004226900288829314,
+      "phase": "cycle",
+      "sim": 0.9999701113014237,
+      "w": 0,
+      "r_before_a": 4.957759000412455,
+      "r_before_b": 4.958668285193575,
+      "r_after": 4.957759000412455,
+      "eps_son": 0.5,
+      "merged_id": "4aa8b268c9438b15"
+    },
+    {
+      "step": "merge",
+      "pass": 25,
+      "a": "0407faeb82f88d69",
+      "b": "9b52bfaf19387d80",
+      "d_son": 0.0000762405328687163,
+      "phase": "cycle",
+      "sim": 0.9999460898022072,
+      "w": 0,
+      "r_before_a": 4.97274070067855,
+      "r_before_b": 4.971428771208478,
+      "r_after": 4.971428771208478,
+      "eps_son": 0.5,
+      "merged_id": "7afaa9a9f12c526a"
+    },
+    {
+      "step": "merge",
+      "pass": 26,
+      "a": "9a3958dd892d76d7",
+      "b": "7afaa9a9f12c526a",
+      "d_son": 0.0007665822323655433,
+      "phase": "cycle",
+      "sim": 0.9994579445051572,
+      "w": 0,
+      "r_before_a": 4.956485465457002,
+      "r_before_b": 4.971428771208478,
+      "r_after": 4.956485465457002,
+      "eps_son": 0.5,
+      "merged_id": "4d7dd588ece31e7b"
+    },
+    {
+      "step": "merge",
+      "pass": 27,
+      "a": "44c7ecbc2c6ef955",
+      "b": "4d7dd588ece31e7b",
+      "d_son": 0.005982867503203907,
+      "phase": "cycle",
+      "sim": 0.9957694738175439,
+      "w": 0,
+      "r_before_a": 4.924452835520675,
+      "r_before_b": 4.956485465457002,
+      "r_after": 4.911692882697907,
+      "eps_son": 0.5,
+      "merged_id": "84b12d76227f30f4"
+    }
+  ]
+}
+merges_round1=28
+clusters_after=4
+merge_sample (up to 10):
+d_son=9.983007227315924e-7 sim=0.9999992940947893 phase=cycle w=0 r_before_a=4.925272044581247 r_before_b=4.925304620590289 r_after=4.925272044581247
+d_son=0.0000013927853946515678 sim=0.9999990151520027 phase=cycle w=0 r_before_a=4.925225913110951 r_before_b=4.925272044581247 r_after=4.925225913110951
+d_son=0.0000016694077546527285 sim=0.9999988195504561 phase=cycle w=0 r_before_a=4.958923895776179 r_before_b=4.958890188279594 r_after=4.958890188279594
+d_son=0.000002171272878974167 sim=0.9999984646782235 phase=cycle w=0 r_before_a=4.958864664441379 r_before_b=4.958890188279594 r_after=4.9588612852071545
+d_son=0.0000022866889382937806 sim=0.9999983830667453 phase=cycle w=0 r_before_a=4.956485465457002 r_before_b=4.956532724464561 r_after=4.956485465457002
+d_son=0.0000024193443258335287 sim=0.9999982892652212 phase=cycle w=0 r_before_a=4.972983482201528 r_before_b=4.972996645453656 r_after=4.972976279554982
+d_son=0.0000034380144677648843 sim=0.999997568956656 phase=cycle w=0 r_before_a=4.925048133697834 r_before_b=4.9249337433312395 r_after=4.9249337433312395
+d_son=0.0000035680981949128065 sim=0.9999974769735704 phase=cycle w=0 r_before_a=4.971428771208478 r_before_b=4.9714899326958895 r_after=4.971428771208478
+d_son=0.000004512177804799938 sim=0.9999968094084764 phase=cycle w=0 r_before_a=4.925374936244564 r_before_b=4.925225913110951 r_after=4.925225913110951
+d_son=0.000004636007933378432 sim=0.9999967218473527 phase=cycle w=0 r_before_a=4.959161809138876 r_before_b=4.959068597843298 r_after=4.959068597843298
+
+=== BLOCK E - round 2 idempotence ===
+COMMAND: node dist/cli.js round --cycle 1 --eps 0.5 --scope event
+EXIT: 0
+{
+  "kind": "round",
+  "utc": "2026-01-15T03:01:01.321Z",
+  "scope": "event",
+  "cycle_depth": 1,
+  "eps_son": 0.5,
+  "merges": 0,
+  "clusters_after": 4,
+  "trace_sample": [
+    {
+      "step": "noop",
+      "scope": "event",
+      "cycle_depth": 1,
+      "eps_son": 0.5,
+      "clusters": 4
+    }
+  ]
+}
+merges_round2=0
+
+=== BLOCK F - recap ===
+counts: DUPLICATE=1 SUTURED=14 RESIDUE=25
+merges_round1=28 merges_round2=0
+clusters_before=32 clusters_after=4
+RESULT004: PASS

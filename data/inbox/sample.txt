@@ -1,0 +1,2 @@
+﻿Identity holds when A equals A. This is a stable invariant definition.
+This second sentence introduces noise and contradiction not no not.

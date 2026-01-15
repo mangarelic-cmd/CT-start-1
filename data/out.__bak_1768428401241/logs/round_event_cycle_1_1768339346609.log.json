@@ -1,0 +1,18 @@
+{
+  "clusters_after": 14,
+  "cycle_depth": 1,
+  "eps_son": 1,
+  "kind": "round",
+  "merges": 0,
+  "scope": "event",
+  "trace_sample": [
+    {
+      "clusters": 14,
+      "cycle_depth": 1,
+      "eps_son": 1,
+      "scope": "event",
+      "step": "noop"
+    }
+  ],
+  "utc": "2026-01-13T21:22:26.609Z"
+}

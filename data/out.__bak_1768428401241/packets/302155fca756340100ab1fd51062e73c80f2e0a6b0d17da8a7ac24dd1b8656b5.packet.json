@@ -1,0 +1,200 @@
+{
+  "packet_id": "302155fca756340100ab1fd51062e73c80f2e0a6b0d17da8a7ac24dd1b8656b5",
+  "source": {
+    "uri": "codex://merge/1",
+    "fetched_utc": "2026-01-14T07:04:00.576Z"
+  },
+  "raw": "alpha beta gamma\ndelta epsilon zeta\nshared motif line\nlambda mu nu\nomega line\n",
+  "claims": [
+    {
+      "id": "dc1fce7a738f9e299b3be13b1f8fb4b3420e7f25d2ed64224d77caad60fcc7a2",
+      "text": "alpha beta gamma\ndelta epsilon zeta\nshared motif line\nlambda mu nu\nomega line",
+      "utc": "2026-01-14T07:04:00.578Z"
+    }
+  ],
+  "status": "rejected",
+  "trace": [
+    {
+      "step": "ingest",
+      "utc": "2026-01-14T07:04:00.578Z",
+      "info": {
+        "file": "C:\\CT\\github\\strat-1\\data\\inbox\\merge_smoke_a.txt",
+        "uri": "codex://merge/1"
+      }
+    },
+    {
+      "step": "atomize",
+      "utc": "2026-01-14T07:04:00.578Z",
+      "info": {
+        "claim_id": "dc1fce7a738f9e299b3be13b1f8fb4b3420e7f25d2ed64224d77caad60fcc7a2",
+        "claim_len": 77
+      }
+    },
+    {
+      "step": "transpose",
+      "utc": "2026-01-14T07:04:00.586Z",
+      "info": {
+        "dominance": "SQRT3",
+        "vector": {
+          "PI": 0.015845241334086997,
+          "SQRT2": 0,
+          "SQRT3": 0.554583446693045,
+          "PHI": 0,
+          "LN5": 0.42957131197286796
+        }
+      }
+    },
+    {
+      "step": "csl",
+      "utc": "2026-01-14T07:04:00.587Z",
+      "info": {
+        "csl_bytes": 387
+      }
+    },
+    {
+      "step": "cvm",
+      "utc": "2026-01-14T07:04:00.752Z",
+      "info": {
+        "converged": true,
+        "iters": 167,
+        "i": 0.995825
+      }
+    },
+    {
+      "step": "gate",
+      "utc": "2026-01-14T07:04:00.755Z",
+      "info": {
+        "ok": false,
+        "reasons": [
+          "alignment_index < 0.946",
+          "below_suture(0.946)"
+        ]
+      }
+    },
+    {
+      "step": "status",
+      "utc": "2026-01-14T07:04:00.755Z",
+      "info": {
+        "status": "rejected"
+      }
+    }
+  ],
+  "skin": {
+    "skin_id": "518b56dc013588c64b68374962680bb7123f038cab7dd2f3087ba53044b7644d",
+    "vector": {
+      "PI": 0.015845241334086997,
+      "SQRT2": 0,
+      "SQRT3": 0.554583446693045,
+      "PHI": 0,
+      "LN5": 0.42957131197286796
+    },
+    "dominance": "SQRT3",
+    "alignment_index": 0.995825,
+    "converged": true,
+    "iters": 167,
+    "cvm_trace_sample": [
+      {
+        "iter": 1,
+        "max_delta": 0.012959872660440002,
+        "energy": 0
+      },
+      {
+        "iter": 2,
+        "max_delta": 0.012238768833569794,
+        "energy": 0
+      },
+      {
+        "iter": 3,
+        "max_delta": 0.011557877168282975,
+        "energy": 0
+      },
+      {
+        "iter": 4,
+        "max_delta": 0.010914866229902717,
+        "energy": 0
+      },
+      {
+        "iter": 5,
+        "max_delta": 0.010307628562068308,
+        "energy": 0
+      },
+      {
+        "iter": 6,
+        "max_delta": 0.009734173954646208,
+        "energy": 0
+      },
+      {
+        "iter": 7,
+        "max_delta": 0.009192622920853419,
+        "energy": 0
+      },
+      {
+        "iter": 8,
+        "max_delta": 0.008681200537274655,
+        "energy": 0
+      },
+      {
+        "iter": 9,
+        "max_delta": 0.00819823062658391,
+        "energy": 0
+      },
+      {
+        "iter": 10,
+        "max_delta": 0.007742130263904551,
+        "energy": 0
+      },
+      {
+        "iter": 11,
+        "max_delta": 0.0073114045888024864,
+        "energy": 0
+      },
+      {
+        "iter": 12,
+        "max_delta": 0.006904641905909045,
+        "energy": 0
+      },
+      {
+        "iter": 13,
+        "max_delta": 0.0065205090581157005,
+        "energy": 0
+      },
+      {
+        "iter": 14,
+        "max_delta": 0.006157747057176491,
+        "energy": 0
+      },
+      {
+        "iter": 15,
+        "max_delta": 0.005815166957397533,
+        "energy": 0
+      },
+      {
+        "iter": 16,
+        "max_delta": 0.005491645958889707,
+        "energy": 0
+      }
+    ]
+  },
+  "residue": {
+    "residue_id": "1a133041ff867b0787fe56383f89aaeae8f825fa381f08cb636b92b748879705",
+    "parent_skin_id": "518b56dc013588c64b68374962680bb7123f038cab7dd2f3087ba53044b7644d",
+    "residue_vector": {
+      "PI": 0.9910635440653319,
+      "SQRT2": 0.9911865456700035,
+      "SQRT3": 0.9680908166232571,
+      "PHI": 0.9911865456700035,
+      "LN5": 0.9859387644279929
+    },
+    "dominance": "SQRT2",
+    "cycle_depth": 0,
+    "age_band": "fresh",
+    "absorption_proxy": {
+      "PI": 0.008936455934668106,
+      "SQRT2": 0.008813454329996456,
+      "SQRT3": 0.03190918337674292,
+      "PHI": 0.008813454329996456,
+      "LN5": 0.01406123557200709
+    },
+    "raw_excerpt": "alpha beta gamma\ndelta epsilon zeta\nshared motif line\nlambda mu nu\nomega line"
+  }
+}

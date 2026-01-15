@@ -1,0 +1,37 @@
+# Contributing to Start-1
+
+Start-1 is a deterministic causal system.
+Contributions are accepted only if they preserve the contract.
+
+## Non-negotiable rules
+
+1. Determinism
+   - Same input + same code = same output
+   - No randomness, no clocks, no external state
+
+2. Vector5 contract
+   - Residue vectors must always contain:
+     { PI, SQRT2, SQRT3, PHI, LN5 }
+   - Missing keys are a hard failure
+
+3. No semantic interpretation
+   - Start-1 does not evaluate truth, meaning, or value
+   - Only geometric deduplication is allowed
+
+4. Compression gate
+   - Any merge MUST satisfy:
+     R_after < max(R_before_A, R_before_B)
+
+5. Tests
+   - All tests must pass:
+     npm run build:all
+     npm run test:all
+     npm run test:outcomes20
+     npm run test:phrases-equations40
+
+## Setup
+
+```bash
+npm ci
+npm run build:all
+npm run test:all

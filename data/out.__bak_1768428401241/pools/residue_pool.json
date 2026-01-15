@@ -1,0 +1,35 @@
+{
+  "schema_version": "ct.start1.residue_pool.v5",
+  "updated_utc": "2026-01-14T21:36:39.568Z",
+  "clusters": [
+    {
+      "cluster_id": "1b2df7c776d06956",
+      "mode": "SQRT2",
+      "age_band": "fresh",
+      "representative": {
+        "PI": 0.9910635440653319,
+        "SQRT2": 0.9911865456700035,
+        "SQRT3": 0.9680908166232571,
+        "PHI": 0.9911865456700035,
+        "LN5": 0.9859237664497407
+      },
+      "representative_hash": "cd99fac3e91a58737970030ca0140e99bd7ca4ecd860f4c4f139395fc5081c70",
+      "count": 3,
+      "member_residue_ids": [
+        "c4e4e3b702c97612763d39b347e4ca613285108c36a0aec8975951a1031bcb1c",
+        "6784fa447be1148446882e31688af578f14099db83dd6435559cab21ac308292",
+        "1a133041ff867b0787fe56383f89aaeae8f825fa381f08cb636b92b748879705"
+      ],
+      "attractor_id": "T10",
+      "d_son_current": 0.00342459415114801,
+      "d_son_min": 0.00342459415114801,
+      "approach_velocity": 0,
+      "last_cycle_depth": 1,
+      "stable_streak": 1,
+      "law_candidate": false,
+      "last_dup_phase": "cycle",
+      "last_merge_sim": 0.9999519632600148,
+      "last_merge_weight": 0
+    }
+  ]
+}

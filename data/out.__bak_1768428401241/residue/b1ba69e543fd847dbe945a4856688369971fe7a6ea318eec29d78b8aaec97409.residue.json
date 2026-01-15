@@ -1,0 +1,22 @@
+{
+  "residue_id": "b1ba69e543fd847dbe945a4856688369971fe7a6ea318eec29d78b8aaec97409",
+  "parent_skin_id": "baea98f8432fcae1643374f92d6c15aa54ae6afd5e94081dfd35d77328914eb6",
+  "residue_vector": {
+    "PI": 0.9959801023172017,
+    "SQRT2": 0.9802470302586869,
+    "SQRT3": 0.9947705342870408,
+    "PHI": 0.9962995436525419,
+    "LN5": 0.995280178762238
+  },
+  "dominance": "PHI",
+  "cycle_depth": -1,
+  "age_band": "fresh",
+  "absorption_proxy": {
+    "PI": 0.004019897682798314,
+    "SQRT2": 0.01975296974131308,
+    "SQRT3": 0.005229465712959197,
+    "PHI": 0.0037004563474580384,
+    "LN5": 0.004719821237762071
+  },
+  "raw_excerpt": "\"Line 1: alpha\"\n\"Line 2: beta\"\n\"Line 3: gamma\"\n\"Line 4: delta\"\n\"Line 5: epsilon\""
+}

@@ -1,0 +1,5 @@
+alpha beta gamma
+delta epsilon zeta
+shared motif line
+extra variant line
+omega line

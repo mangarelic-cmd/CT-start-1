@@ -1,0 +1,19 @@
+node PI
+node SQRT2
+node SQRT3
+node PHI
+node LN5
+decay PI 0.087504
+decay SQRT2 0.090000
+decay SQRT3 0.046314
+decay PHI 0.090000
+decay LN5 0.056182
+pin SQRT3 0.546069
+edge SQRT3 PI w=0.071955
+flow SQRT3 -> PI k=0.056338
+edge SQRT3 SQRT2 w=0.069146
+flow SQRT3 -> SQRT2 k=0.059146
+edge SQRT3 PHI w=0.069146
+flow SQRT3 -> PHI k=0.059146
+edge SQRT3 LN5 w=0.107192
+flow SQRT3 -> LN5 k=0.021101

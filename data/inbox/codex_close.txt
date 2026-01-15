@@ -1,0 +1,5 @@
+"A line one"
+"A line two"
+"Nearly same line"
+"Nearly same line!"
+"Another line"

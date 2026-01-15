@@ -1,0 +1,22 @@
+﻿{
+  "name": "start-1",
+  "version": "0.5.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "build:all": "npm --prefix ct-cvm-mini run build && npm run build",
+    "test:smoke": "npm run build && node scripts/smoke_test.mjs",
+    "test:cvm-contract": "npm --prefix ct-cvm-mini run test:contract && node scripts/cvm_contract_smoke.mjs",
+    "test:exhaustive": "node scripts/exhaustive_test.mjs",
+    "test:all": "npm run build:all && npm run test:cvm-contract && npm run test:exhaustive",
+    "test:outcomes20": "node scripts/outcomes20_test.mjs",
+    "test:phrases-equations40": "node phrases_equations40_test.mjs",
+    "ingest": "npm run build && node dist/cli.js ingest",
+    "round": "npm run build && node dist/cli.js round"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "typescript": "5.9.3"
+  }
+}

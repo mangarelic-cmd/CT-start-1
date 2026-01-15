@@ -1,0 +1,200 @@
+{
+  "packet_id": "392956f5ecbb3c937db3c7dcce8a193778758be2a334f5408698dea2dcd5907b",
+  "source": {
+    "uri": "codex://edge/big",
+    "fetched_utc": "2026-01-13T21:22:08.316Z"
+  },
+  "raw": "Line 1\r\nLine 2\r\nLine 3\r\nLine 4\r\nLine 5\r\nLine 6\r\nLine 7\r\nLine 8\r\nLine 9\r\nLine 10\r\nLine 11\r\nLine 12\r\nLine 13\r\nLine 14\r\nLine 15\r\nLine 16\r\nLine 17\r\nLine 18\r\nLine 19\r\nLine 20\r\nLine 21\r\nLine 22\r\nLine 23\r\nLine 24\r\nLine 25\r\nLine 26\r\nLine 27\r\nLine 28\r\nLine 29\r\nLine 30\r\nLine 31\r\nLine 32\r\nLine 33\r\nLine 34\r\nLine 35\r\nLine 36\r\nLine 37\r\nLine 38\r\nLine 39\r\nLine 40\r\nLine 41\r\nLine 42\r\nLine 43\r\nLine 44\r\nLine 45\r\nLine 46\r\nLine 47\r\nLine 48\r\nLine 49\r\nLine 50\r\nLine 51\r\nLine 52\r\nLine 53\r\nLine 54\r\nLine 55\r\nLine 56\r\nLine 57\r\nLine 58\r\nLine 59\r\nLine 60\r\nLine 61\r\nLine 62\r\nLine 63\r\nLine 64\r\nLine 65\r\nLine 66\r\nLine 67\r\nLine 68\r\nLine 69\r\nLine 70\r\nLine 71\r\nLine 72\r\nLine 73\r\nLine 74\r\nLine 75\r\nLine 76\r\nLine 77\r\nLine 78\r\nLine 79\r\nLine 80\r\nLine 81\r\nLine 82\r\nLine 83\r\nLine 84\r\nLine 85\r\nLine 86\r\nLine 87\r\nLine 88\r\nLine 89\r\nLine 90\r\nLine 91\r\nLine 92\r\nLine 93\r\nLine 94\r\nLine 95\r\nLine 96\r\nLine 97\r\nLine 98\r\nLine 99\r\nLine 100\r\nLine 101\r\nLine 102\r\nLine 103\r\nLine 104\r\nLine 105\r\nLine 106\r\nLine 107\r\nLine 108\r\nLine 109\r\nLine 110\r\nLine 111\r\nLine 112\r\nLine 113\r\nLine 114\r\nLine 115\r\nLine 116\r\nLine 117\r\nLine 118\r\nLine 119\r\nLine 120\r\nLine 121\r\nLine 122\r\nLine 123\r\nLine 124\r\nLine 125\r\nLine 126\r\nLine 127\r\nLine 128\r\nLine 129\r\nLine 130\r\nLine 131\r\nLine 132\r\nLine 133\r\nLine 134\r\nLine 135\r\nLine 136\r\nLine 137\r\nLine 138\r\nLine 139\r\nLine 140\r\nLine 141\r\nLine 142\r\nLine 143\r\nLine 144\r\nLine 145\r\nLine 146\r\nLine 147\r\nLine 148\r\nLine 149\r\nLine 150\r\nLine 151\r\nLine 152\r\nLine 153\r\nLine 154\r\nLine 155\r\nLine 156\r\nLine 157\r\nLine 158\r\nLine 159\r\nLine 160\r\nLine 161\r\nLine 162\r\nLine 163\r\nLine 164\r\nLine 165\r\nLine 166\r\nLine 167\r\nLine 168\r\nLine 169\r\nLine 170\r\nLine 171\r\nLine 172\r\nLine 173\r\nLine 174\r\nLine 175\r\nLine 176\r\nLine 177\r\nLine 178\r\nLine 179\r\nLine 180\r\nLine 181\r\nLine 182\r\nLine 183\r\nLine 184\r\nLine 185\r\nLine 186\r\nLine 187\r\nLine 188\r\nLine 189\r\nLine 190\r\nLine 191\r\nLine 192\r\nLine 193\r\nLine 194\r\nLine 195\r\nLine 196\r\nLine 197\r\nLine 198\r\nLine 199\r\nLine 200\r\nLine 201\r\nLine 202\r\nLine 203\r\nLine 204\r\nLine 205\r\nLine 206\r\nLine 207\r\nLine 208\r\nLine 209\r\nLine 210\r\nLine 211\r\nLine 212\r\nLine 213\r\nLine 214\r\nLine 215\r\nLine 216\r\nLine 217\r\nLine 218\r\nLine 219\r\nLine 220\r\nLine 221\r\nLine 222\r\nLine 223\r\nLine 224\r\nLine 225\r\nLine 226\r\nLine 227\r\nLine 228\r\nLine 229\r\nLine 230\r\nLine 231\r\nLine 232\r\nLine 233\r\nLine 234\r\nLine 235\r\nLine 236\r\nLine 237\r\nLine 238\r\nLine 239\r\nLine 240\r\nLine 241\r\nLine 242\r\nLine 243\r\nLine 244\r\nLine 245\r\nLine 246\r\nLine 247\r\nLine 248\r\nLine 249\r\nLine 250\r\nLine 251\r\nLine 252\r\nLine 253\r\nLine 254\r\nLine 255\r\nLine 256\r\nLine 257\r\nLine 258\r\nLine 259\r\nLine 260\r\nLine 261\r\nLine 262\r\nLine 263\r\nLine 264\r\nLine 265\r\nLine 266\r\nLine 267\r\nLine 268\r\nLine 269\r\nLine 270\r\nLine 271\r\nLine 272\r\nLine 273\r\nLine 274\r\nLine 275\r\nLine 276\r\nLine 277\r\nLine 278\r\nLine 279\r\nLine 280\r\nLine 281\r\nLine 282\r\nLine 283\r\nLine 284\r\nLine 285\r\nLine 286\r\nLine 287\r\nLine 288\r\nLine 289\r\nLine 290\r\nLine 291\r\nLine 292\r\nLine 293\r\nLine 294\r\nLine 295\r\nLine 296\r\nLine 297\r\nLine 298\r\nLine 299\r\nLine 300\r\nLine 301\r\nLine 302\r\nLine 303\r\nLine 304\r\nLine 305\r\nLine 306\r\nLine 307\r\nLine 308\r\nLine 309\r\nLine 310\r\nLine 311\r\nLine 312\r\nLine 313\r\nLine 314\r\nLine 315\r\nLine 316\r\nLine 317\r\nLine 318\r\nLine 319\r\nLine 320\r\nLine 321\r\nLine 322\r\nLine 323\r\nLine 324\r\nLine 325\r\nLine 326\r\nLine 327\r\nLine 328\r\nLine 329\r\nLine 330\r\nLine 331\r\nLine 332\r\nLine 333\r\nLine 334\r\nLine 335\r\nLine 336\r\nLine 337\r\nLine 338\r\nLine 339\r\nLine 340\r\nLine 341\r\nLine 342\r\nLine 343\r\nLine 344\r\nLine 345\r\nLine 346\r\nLine 347\r\nLine 348\r\nLine 349\r\nLine 350\r\nLine 351\r\nLine 352\r\nLine 353\r\nLine 354\r\nLine 355\r\nLine 356\r\nLine 357\r\nLine 358\r\nLine 359\r\nLine 360\r\nLine 361\r\nLine 362\r\nLine 363\r\nLine 364\r\nLine 365\r\nLine 366\r\nLine 367\r\nLine 368\r\nLine 369\r\nLine 370\r\nLine 371\r\nLine 372\r\nLine 373\r\nLine 374\r\nLine 375\r\nLine 376\r\nLine 377\r\nLine 378\r\nLine 379\r\nLine 380\r\nLine 381\r\nLine 382\r\nLine 383\r\nLine 384\r\nLine 385\r\nLine 386\r\nLine 387\r\nLine 388\r\nLine 389\r\nLine 390\r\nLine 391\r\nLine 392\r\nLine 393\r\nLine 394\r\nLine 395\r\nLine 396\r\nLine 397\r\nLine 398\r\nLine 399\r\nLine 400\r\nLine 401\r\nLine 402\r\nLine 403\r\nLine 404\r\nLine 405\r\nLine 406\r\nLine 407\r\nLine 408\r\nLine 409\r\nLine 410\r\nLine 411\r\nLine 412\r\nLine 413\r\nLine 414\r\nLine 415\r\nLine 416\r\nLine 417\r\nLine 418\r\nLine 419\r\nLine 420\r\nLine 421\r\nLine 422\r\nLine 423\r\nLine 424\r\nLine 425\r\nLine 426\r\nLine 427\r\nLine 428\r\nLine 429\r\nLine 430\r\nLine 431\r\nLine 432\r\nLine 433\r\nLine 434\r\nLine 435\r\nLine 436\r\nLine 437\r\nLine 438\r\nLine 439\r\nLine 440\r\nLine 441\r\nLine 442\r\nLine 443\r\nLine 444\r\nLine 445\r\nLine 446\r\nLine 447\r\nLine 448\r\nLine 449\r\nLine 450\r\nLine 451\r\nLine 452\r\nLine 453\r\nLine 454\r\nLine 455\r\nLine 456\r\nLine 457\r\nLine 458\r\nLine 459\r\nLine 460\r\nLine 461\r\nLine 462\r\nLine 463\r\nLine 464\r\nLine 465\r\nLine 466\r\nLine 467\r\nLine 468\r\nLine 469\r\nLine 470\r\nLine 471\r\nLine 472\r\nLine 473\r\nLine 474\r\nLine 475\r\nLine 476\r\nLine 477\r\nLine 478\r\nLine 479\r\nLine 480\r\nLine 481\r\nLine 482\r\nLine 483\r\nLine 484\r\nLine 485\r\nLine 486\r\nLine 487\r\nLine 488\r\nLine 489\r\nLine 490\r\nLine 491\r\nLine 492\r\nLine 493\r\nLine 494\r\nLine 495\r\nLine 496\r\nLine 497\r\nLine 498\r\nLine 499\r\nLine 500\r\n",
+  "claims": [
+    {
+      "id": "82bc8425912e5332e4069ce2ac8f8b750ad63506e3f6d7260e9a60a53e52e1da",
+      "text": "Line 1\nLine 2\nLine 3\nLine 4\nLine 5\nLine 6\nLine 7\nLine 8\nLine 9\nLine 10\nLine 11\nLine 12\nLine 13\nLine 14\nLine 15\nLine 16\nLine 17\nLine 18\nLine 19\nLine 20\nLine 21\nLine 22\nLine 23\nLine 24\nLine 25\nLine 26\nLine 27\nLine 28\nLine 29\nLine 30\nLine 31\nLine 32",
+      "utc": "2026-01-13T21:22:08.323Z"
+    }
+  ],
+  "status": "rejected",
+  "trace": [
+    {
+      "step": "ingest",
+      "utc": "2026-01-13T21:22:08.323Z",
+      "info": {
+        "file": "C:\\CT\\github\\strat-1\\data\\inbox\\codex_big.txt",
+        "uri": "codex://edge/big"
+      }
+    },
+    {
+      "step": "atomize",
+      "utc": "2026-01-13T21:22:08.323Z",
+      "info": {
+        "claim_id": "82bc8425912e5332e4069ce2ac8f8b750ad63506e3f6d7260e9a60a53e52e1da",
+        "claim_len": 246
+      }
+    },
+    {
+      "step": "transpose",
+      "utc": "2026-01-13T21:22:08.329Z",
+      "info": {
+        "dominance": "SQRT3",
+        "vector": {
+          "PI": 0.28201320325827645,
+          "SQRT2": 0,
+          "SQRT3": 0.5083832408283302,
+          "PHI": 0,
+          "LN5": 0.20960355591339325
+        }
+      }
+    },
+    {
+      "step": "csl",
+      "utc": "2026-01-13T21:22:08.329Z",
+      "info": {
+        "csl_bytes": 387
+      }
+    },
+    {
+      "step": "cvm",
+      "utc": "2026-01-13T21:22:08.526Z",
+      "info": {
+        "converged": true,
+        "iters": 135,
+        "i": 0.996625
+      }
+    },
+    {
+      "step": "gate",
+      "utc": "2026-01-13T21:22:08.529Z",
+      "info": {
+        "ok": false,
+        "reasons": [
+          "alignment_index < 0.946",
+          "below_suture(0.946)"
+        ]
+      }
+    },
+    {
+      "step": "status",
+      "utc": "2026-01-13T21:22:08.529Z",
+      "info": {
+        "status": "rejected"
+      }
+    }
+  ],
+  "skin": {
+    "skin_id": "22d64a57d8062f7b012bd0f994a5477713a097884a52ce6bad11c51f2c1f6acb",
+    "vector": {
+      "PI": 0.28201320325827645,
+      "SQRT2": 0,
+      "SQRT3": 0.5083832408283302,
+      "PHI": 0,
+      "LN5": 0.20960355591339325
+    },
+    "dominance": "SQRT3",
+    "alignment_index": 0.996625,
+    "converged": true,
+    "iters": 135,
+    "cvm_trace_sample": [
+      {
+        "iter": 1,
+        "max_delta": 0.01111915979046,
+        "energy": 0
+      },
+      {
+        "iter": 2,
+        "max_delta": 0.010369294773351169,
+        "energy": 0
+      },
+      {
+        "iter": 3,
+        "max_delta": 0.009669999903131138,
+        "energy": 0
+      },
+      {
+        "iter": 4,
+        "max_delta": 0.009017864779663876,
+        "energy": 0
+      },
+      {
+        "iter": 5,
+        "max_delta": 0.008409708996788126,
+        "energy": 0
+      },
+      {
+        "iter": 6,
+        "max_delta": 0.007842566631753728,
+        "energy": 0
+      },
+      {
+        "iter": 7,
+        "max_delta": 0.00731367178067488,
+        "energy": 0
+      },
+      {
+        "iter": 8,
+        "max_delta": 0.006820445069457948,
+        "energy": 0
+      },
+      {
+        "iter": 9,
+        "max_delta": 0.006360481074418778,
+        "energy": 0
+      },
+      {
+        "iter": 10,
+        "max_delta": 0.005931536591241043,
+        "energy": 0
+      },
+      {
+        "iter": 11,
+        "max_delta": 0.005531519695064352,
+        "energy": 0
+      },
+      {
+        "iter": 12,
+        "max_delta": 0.005158479538348915,
+        "energy": 0
+      },
+      {
+        "iter": 13,
+        "max_delta": 0.004810596836762188,
+        "energy": 0
+      },
+      {
+        "iter": 14,
+        "max_delta": 0.004486174996687797,
+        "energy": 0
+      },
+      {
+        "iter": 15,
+        "max_delta": 0.004183631841086166,
+        "energy": 0
+      },
+      {
+        "iter": 16,
+        "max_delta": 0.003901491893355147,
+        "energy": 0
+      }
+    ]
+  },
+  "residue": {
+    "residue_id": "54de499721305b80bff09f81c3a24269455156911cc377b940f6c7b9caaa94be",
+    "parent_skin_id": "22d64a57d8062f7b012bd0f994a5477713a097884a52ce6bad11c51f2c1f6acb",
+    "residue_vector": {
+      "PI": 0.9899422939810243,
+      "SQRT2": 0.992414133782193,
+      "SQRT3": 0.9705517725372846,
+      "PHI": 0.992414133782193,
+      "LN5": 0.9907186257121741
+    },
+    "dominance": "SQRT2",
+    "cycle_depth": 1,
+    "age_band": "fresh",
+    "absorption_proxy": {
+      "PI": 0.010057706018975661,
+      "SQRT2": 0.00758586621780694,
+      "SQRT3": 0.0294482274627154,
+      "PHI": 0.00758586621780694,
+      "LN5": 0.00928137428782596
+    },
+    "raw_excerpt": "Line 1\nLine 2\nLine 3\nLine 4\nLine 5\nLine 6\nLine 7\nLine 8\nLine 9\nLine 10\nLine 11\nLine 12\nLine 13\nLine 14\nLine 15\nLine 16\nLine 17\nLine 18\nLine 19\nLine 20\nLine 21\nLine 22\nLine 23\nLine 24\nLine 25\nLine 26\nLine 27\nLine 28\nLine 29\nLine 30\nLine 31\nL"
+  }
+}

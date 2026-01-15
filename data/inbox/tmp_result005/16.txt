@@ -1,0 +1,1 @@
+FORME: pyramide | DECOMP: 4 triangles | NOTE: faces

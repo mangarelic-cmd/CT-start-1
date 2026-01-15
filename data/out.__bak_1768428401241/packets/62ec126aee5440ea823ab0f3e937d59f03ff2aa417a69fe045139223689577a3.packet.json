@@ -1,0 +1,200 @@
+{
+  "packet_id": "62ec126aee5440ea823ab0f3e937d59f03ff2aa417a69fe045139223689577a3",
+  "source": {
+    "uri": "local://sample",
+    "fetched_utc": "2026-01-13T12:53:09.353Z"
+  },
+  "raw": "﻿Identity holds when A equals A. This is a stable invariant definition.\nThis second sentence introduces noise and contradiction not no not.\r\n",
+  "claims": [
+    {
+      "id": "4cf3d09235e5bad5d8ce4b3677d4f7d9b04f69fdfd321a445da957e69c025c5a",
+      "text": "Identity holds when A equals A. This is a stable invariant definition.\nThis second sentence introduces noise and contradiction not no not.",
+      "utc": "2026-01-13T12:53:09.355Z"
+    }
+  ],
+  "status": "rejected",
+  "trace": [
+    {
+      "step": "ingest",
+      "utc": "2026-01-13T12:53:09.355Z",
+      "info": {
+        "file": "C:\\CT\\github\\strat-1\\data\\inbox\\sample.txt",
+        "uri": "local://sample"
+      }
+    },
+    {
+      "step": "atomize",
+      "utc": "2026-01-13T12:53:09.355Z",
+      "info": {
+        "claim_id": "4cf3d09235e5bad5d8ce4b3677d4f7d9b04f69fdfd321a445da957e69c025c5a",
+        "claim_len": 138
+      }
+    },
+    {
+      "step": "transpose",
+      "utc": "2026-01-13T12:53:09.370Z",
+      "info": {
+        "dominance": "SQRT3",
+        "vector": {
+          "PI": 0.08263908724279757,
+          "SQRT2": 0,
+          "SQRT3": 0.5369206233289109,
+          "PHI": 0,
+          "LN5": 0.3804402894282916
+        }
+      }
+    },
+    {
+      "step": "csl",
+      "utc": "2026-01-13T12:53:09.371Z",
+      "info": {
+        "csl_bytes": 387
+      }
+    },
+    {
+      "step": "cvm",
+      "utc": "2026-01-13T12:53:09.531Z",
+      "info": {
+        "converged": true,
+        "iters": 155,
+        "i": 0.9961249999999999
+      }
+    },
+    {
+      "step": "gate",
+      "utc": "2026-01-13T12:53:09.534Z",
+      "info": {
+        "ok": false,
+        "reasons": [
+          "alignment_index < 0.946",
+          "below_suture(0.946)"
+        ]
+      }
+    },
+    {
+      "step": "status",
+      "utc": "2026-01-13T12:53:09.534Z",
+      "info": {
+        "status": "rejected"
+      }
+    }
+  ],
+  "skin": {
+    "skin_id": "aa8035479c1460cb8fb17c6b83b88721994652cef9a3a9721d05acb1355bfe99",
+    "vector": {
+      "PI": 0.08263908724279757,
+      "SQRT2": 0,
+      "SQRT3": 0.5369206233289109,
+      "PHI": 0,
+      "LN5": 0.3804402894282916
+    },
+    "dominance": "SQRT3",
+    "alignment_index": 0.9961249999999999,
+    "converged": true,
+    "iters": 155,
+    "cvm_trace_sample": [
+      {
+        "iter": 1,
+        "max_delta": 0.012239801453879998,
+        "energy": 0
+      },
+      {
+        "iter": 2,
+        "max_delta": 0.011510646791205522,
+        "energy": 0
+      },
+      {
+        "iter": 3,
+        "max_delta": 0.010825015115087367,
+        "energy": 0
+      },
+      {
+        "iter": 4,
+        "max_delta": 0.01018022308975719,
+        "energy": 0
+      },
+      {
+        "iter": 5,
+        "max_delta": 0.0095738381014158,
+        "energy": 0
+      },
+      {
+        "iter": 6,
+        "max_delta": 0.009003572434904968,
+        "energy": 0
+      },
+      {
+        "iter": 7,
+        "max_delta": 0.00846727464281985,
+        "energy": 0
+      },
+      {
+        "iter": 8,
+        "max_delta": 0.00796292142872028,
+        "energy": 0
+      },
+      {
+        "iter": 9,
+        "max_delta": 0.007488610013818564,
+        "energy": 0
+      },
+      {
+        "iter": 10,
+        "max_delta": 0.007042550958345453,
+        "energy": 0
+      },
+      {
+        "iter": 11,
+        "max_delta": 0.00662306141051161,
+        "energy": 0
+      },
+      {
+        "iter": 12,
+        "max_delta": 0.006228558757594482,
+        "energy": 0
+      },
+      {
+        "iter": 13,
+        "max_delta": 0.005857554655198369,
+        "energy": 0
+      },
+      {
+        "iter": 14,
+        "max_delta": 0.005508649412161476,
+        "energy": 0
+      },
+      {
+        "iter": 15,
+        "max_delta": 0.005180526709926081,
+        "energy": 0
+      },
+      {
+        "iter": 16,
+        "max_delta": 0.004871948636449339,
+        "energy": 0
+      }
+    ]
+  },
+  "residue": {
+    "residue_id": "c4f9509d5dd7cccfd02aedca0917134fbcc9da31b834c6596db579efccb7dbad",
+    "parent_skin_id": "aa8035479c1460cb8fb17c6b83b88721994652cef9a3a9721d05acb1355bfe99",
+    "residue_vector": {
+      "PI": 0.9910203221702442,
+      "SQRT2": 0.9916658035403753,
+      "SQRT3": 0.9690277632550517,
+      "PHI": 0.9916658035403753,
+      "LN5": 0.9875438488490234
+    },
+    "dominance": "SQRT2",
+    "cycle_depth": 1,
+    "age_band": "fresh",
+    "absorption_proxy": {
+      "PI": 0.008979677829755891,
+      "SQRT2": 0.008334196459624786,
+      "SQRT3": 0.030972236744948367,
+      "PHI": 0.008334196459624786,
+      "LN5": 0.012456151150976669
+    },
+    "raw_excerpt": "Identity holds when A equals A. This is a stable invariant definition.\nThis second sentence introduces noise and contradiction not no not."
+  }
+}

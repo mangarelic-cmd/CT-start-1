@@ -1,0 +1,197 @@
+{
+  "packet_id": "729303742f13bb6e0526bdfaeaefc033e055614ab2c34e58de0bdb00a2e063b5",
+  "source": {
+    "uri": "codex://close/1",
+    "fetched_utc": "2026-01-13T22:57:52.126Z"
+  },
+  "raw": "\"A line one\"\n\"A line two\"\n\"Nearly same line\"\n\"Nearly same line!\"\n\"Another line\"\r\n",
+  "claims": [
+    {
+      "id": "49c0a934cad49add9213b32a961b5ed4080c0da8dc5baf69109f5ea6e67a3351",
+      "text": "\"A line one\"\n\"A line two\"\n\"Nearly same line\"\n\"Nearly same line!\"\n\"Another line\"",
+      "utc": "2026-01-13T22:57:52.128Z"
+    }
+  ],
+  "status": "sutured",
+  "trace": [
+    {
+      "step": "ingest",
+      "utc": "2026-01-13T22:57:52.128Z",
+      "info": {
+        "file": "C:\\CT\\github\\strat-1\\data\\inbox\\codex_close.txt",
+        "uri": "codex://close/1"
+      }
+    },
+    {
+      "step": "atomize",
+      "utc": "2026-01-13T22:57:52.128Z",
+      "info": {
+        "claim_id": "49c0a934cad49add9213b32a961b5ed4080c0da8dc5baf69109f5ea6e67a3351",
+        "claim_len": 79
+      }
+    },
+    {
+      "step": "transpose",
+      "utc": "2026-01-13T22:57:52.138Z",
+      "info": {
+        "dominance": "SQRT3",
+        "vector": {
+          "PI": 0.17081940432182866,
+          "SQRT2": 0,
+          "SQRT3": 0.4920774847368896,
+          "PHI": 0,
+          "LN5": 0.3371031109412818
+        }
+      }
+    },
+    {
+      "step": "csl",
+      "utc": "2026-01-13T22:57:52.138Z",
+      "info": {
+        "csl_bytes": 387
+      }
+    },
+    {
+      "step": "cvm",
+      "utc": "2026-01-13T22:57:52.328Z",
+      "info": {
+        "converged": true,
+        "iters": 144,
+        "i": 0.9964
+      }
+    },
+    {
+      "step": "gate",
+      "utc": "2026-01-13T22:57:52.333Z",
+      "info": {
+        "ok": true,
+        "reasons": []
+      }
+    },
+    {
+      "step": "status",
+      "utc": "2026-01-13T22:57:52.333Z",
+      "info": {
+        "status": "sutured"
+      }
+    }
+  ],
+  "skin": {
+    "skin_id": "5da52ab0076eabd3453ada63fecb83d7fd9d938b04f58e03077193b7b5d9bdda",
+    "vector": {
+      "PI": 0.17081940432182866,
+      "SQRT2": 0,
+      "SQRT3": 0.4920774847368896,
+      "PHI": 0,
+      "LN5": 0.3371031109412818
+    },
+    "dominance": "SQRT3",
+    "alignment_index": 0.9964,
+    "converged": true,
+    "iters": 144,
+    "cvm_trace_sample": [
+      {
+        "iter": 1,
+        "max_delta": 0.01050255687564,
+        "energy": 0
+      },
+      {
+        "iter": 2,
+        "max_delta": 0.00984055971065466,
+        "energy": 0
+      },
+      {
+        "iter": 3,
+        "max_delta": 0.009220289550972677,
+        "energy": 0
+      },
+      {
+        "iter": 4,
+        "max_delta": 0.008639116259995763,
+        "energy": 0
+      },
+      {
+        "iter": 5,
+        "max_delta": 0.008094575483895715,
+        "energy": 0
+      },
+      {
+        "iter": 6,
+        "max_delta": 0.007584358201994802,
+        "energy": 0
+      },
+      {
+        "iter": 7,
+        "max_delta": 0.007106300935806664,
+        "energy": 0
+      },
+      {
+        "iter": 8,
+        "max_delta": 0.006658376575220892,
+        "energy": 0
+      },
+      {
+        "iter": 9,
+        "max_delta": 0.0062386857829315745,
+        "energy": 0
+      },
+      {
+        "iter": 10,
+        "max_delta": 0.005845448940661829,
+        "energy": 0
+      },
+      {
+        "iter": 11,
+        "max_delta": 0.005476998603034036,
+        "energy": 0
+      },
+      {
+        "iter": 12,
+        "max_delta": 0.005131772427087594,
+        "energy": 0
+      },
+      {
+        "iter": 13,
+        "max_delta": 0.004808306547463406,
+        "energy": 0
+      },
+      {
+        "iter": 14,
+        "max_delta": 0.004505229369163699,
+        "energy": 0
+      },
+      {
+        "iter": 15,
+        "max_delta": 0.004221255751566566,
+        "energy": 0
+      },
+      {
+        "iter": 16,
+        "max_delta": 0.003955181559033821,
+        "energy": 0
+      }
+    ]
+  },
+  "residue": {
+    "residue_id": "56c75f5417a0d24df5f5fe1d93800afad9063a86f6d35cf9bb7ddeace07171de",
+    "parent_skin_id": "5da52ab0076eabd3453ada63fecb83d7fd9d938b04f58e03077193b7b5d9bdda",
+    "residue_vector": {
+      "PI": 0.9915706059320466,
+      "SQRT2": 0.9928270107874119,
+      "SQRT3": 0.971428220092145,
+      "PHI": 0.9928270107874119,
+      "LN5": 0.9898386316779316
+    },
+    "dominance": "SQRT2",
+    "cycle_depth": 0,
+    "age_band": "fresh",
+    "absorption_proxy": {
+      "PI": 0.008429394067953414,
+      "SQRT2": 0.007172989212588133,
+      "SQRT3": 0.02857177990785503,
+      "PHI": 0.007172989212588133,
+      "LN5": 0.010161368322068383
+    },
+    "raw_excerpt": "\"A line one\"\n\"A line two\"\n\"Nearly same line\"\n\"Nearly same line!\"\n\"Another line\""
+  }
+}

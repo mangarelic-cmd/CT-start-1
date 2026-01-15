@@ -1,0 +1,22 @@
+{
+  "residue_id": "881d2d5e05685c1ad10308ffd8bb675b6eb00cac723c504b0ea6f008eaaa8396",
+  "parent_skin_id": "ac9573408c3d48d5b36c65324be12704431b711f46528e59c841035cc941eea6",
+  "residue_vector": {
+    "PI": 1,
+    "SQRT2": 1,
+    "SQRT3": 1,
+    "PHI": 1,
+    "LN5": 1
+  },
+  "dominance": "PI",
+  "cycle_depth": 0,
+  "age_band": "fresh",
+  "absorption_proxy": {
+    "PI": 0,
+    "SQRT2": 0,
+    "SQRT3": 0,
+    "PHI": 0,
+    "LN5": 0
+  },
+  "raw_excerpt": "Identity holds when A equals A. This is a stable invariant definition.\nThis second sentence introduces noise and contradiction not no not."
+}

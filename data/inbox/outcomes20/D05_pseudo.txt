@@ -1,0 +1,5 @@
+BEGIN
+section: schema
+fields: [id, name, value]
+FLOW: a->b->c
+END

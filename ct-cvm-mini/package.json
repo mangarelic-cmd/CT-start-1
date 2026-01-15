@@ -1,0 +1,21 @@
+﻿{
+  "name": "@ct-lab/ct-cvm-mini",
+  "version": "0.1.0",
+  "description": "Causal Virtual Machine Mini-Engine",
+  "license": "MIT",
+  "type": "module",
+  "main": "dist/cli.js",
+  "bin": {
+    "ct-cvm-mini": "dist/cli.js"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json && npm run guard:dist",
+    "guard:dist": "node -e \"import('node:fs').then(fs=>{const bad=[];const walk=p=>{for(const e of fs.readdirSync(p,{withFileTypes:true})){const f=p+'/'+e.name;if(e.isDirectory()) walk(f); else if(f.endsWith('.ts') && !f.endsWith('.d.ts')) bad.push(f);} }; walk('dist'); if(bad.length){console.error('dist contains .ts files:', bad.join(',')); process.exit(1);} })\"",
+    "clean": "node -e \"import('node:fs').then(fs=>fs.rmSync('dist',{recursive:true,force:true}))\"",
+    "test:contract": "npm run build && node dist/cli.js run examples/demo.csl out/test_contract.json && node -e \"const j=require('fs').readFileSync('out/test_contract.json','utf8'); const o=JSON.parse(j); const p=o.final?.phi||{}; const k=['PI','SQRT2','SQRT3','PHI','LN5']; for(const kk of k){ if(!(kk in p)) throw new Error('missing '+kk); const v=Number(p[kk]); if(!Number.isFinite(v)) throw new Error('non-finite '+kk); } console.log('OK contract');\""
+  },
+  "devDependencies": {
+    "@types/node": "^25.0.3",
+    "typescript": "^5.6.3"
+  }
+}

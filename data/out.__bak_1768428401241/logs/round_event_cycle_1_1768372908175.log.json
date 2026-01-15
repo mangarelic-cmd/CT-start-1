@@ -1,0 +1,41 @@
+{
+  "clusters_after": 1,
+  "cycle_depth": 1,
+  "eps_son": 0.5,
+  "kind": "round",
+  "merges": 2,
+  "scope": "event",
+  "trace_sample": [
+    {
+      "a": "90899e0b36cc0e88",
+      "b": "d45ec3ade61e600b",
+      "d_son": 0.000004832014992386416,
+      "eps_son": 0.5,
+      "merged_id": "bde090193067edb7",
+      "pass": 0,
+      "phase": "cycle",
+      "r_after": 4.927451218478336,
+      "r_before_a": 4.9274662164565886,
+      "r_before_b": 4.927492300232143,
+      "sim": 0.9999965832494321,
+      "step": "merge",
+      "w": 0
+    },
+    {
+      "a": "f44e974a63a652c1",
+      "b": "bde090193067edb7",
+      "d_son": 0.00006793420917931741,
+      "eps_son": 0.5,
+      "merged_id": "5213d5d3cf1f3b8c",
+      "pass": 1,
+      "phase": "cycle",
+      "r_after": 4.927451218478336,
+      "r_before_a": 4.928993852659847,
+      "r_before_b": 4.927451218478336,
+      "sim": 0.9999519632600148,
+      "step": "merge",
+      "w": 0
+    }
+  ],
+  "utc": "2026-01-14T06:41:48.175Z"
+}

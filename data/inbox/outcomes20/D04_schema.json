@@ -1,0 +1,5 @@
+{
+  "schema": "v2",
+  "fields": ["id","name","value"],
+  "links": ["a->b","b->d"]
+}

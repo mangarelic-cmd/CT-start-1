@@ -1,0 +1,12 @@
+cff-version: 1.2.0
+title: "Start-1: Deterministic Causal Deduplication Engine"
+authors:
+  - family-names: Causality Thoery
+    given-names: Son
+version: 0.5.0
+date-released: 2026-01-01
+url: https://github.com/your-org/start-1
+repository-code: https://github.com/your-org/start-1
+abstract: >
+  Start-1 is a deterministic causal system for geometric deduplication,
+  residue extraction, and structural compression within the CT framework.

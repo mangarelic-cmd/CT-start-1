@@ -1,0 +1,1772 @@
+# DIST FULL CONTENT
+# Root: C:\CT\github\strat-1\dist
+# Generated: 2026-01-14T14:41:26.6008110-08:00
+
+===== FILE: dist\atomize.js =====
+// File: src/atomize.ts
+import { sha256, utcNow } from "./crypto.js";
+export function atomizeClaims(raw, uri, maxClaims) {
+    const lines = (raw || "")
+        .split(/\r?\n/)
+        .map((s) => s.trim())
+        .filter(Boolean);
+    const k = Math.max(1, Math.floor(maxClaims || 1));
+    const text = lines.slice(0, k).join("\n").trim();
+    const id = sha256(`${uri}::::${text}`);
+    return [
+        {
+            id,
+            text,
+            utc: utcNow()
+        }
+    ];
+}
+
+
+===== FILE: dist\attractor.js =====
+import { SLOTS_118 } from "./slots_118.js";
+/**
+ * CT-1030 Attractor Mapping (addresses, not meanings)
+ *
+ * IMPORTANT:
+ * - slots_118.ts defines pattern order as: (PHI, SQRT2, SQRT3, LN5, PI)
+ * - This file MUST use the same order for projection math.
+ */
+const KEYS = ["PHI", "SQRT2", "SQRT3", "LN5", "PI"];
+const EPS_TIE = 1e-12;
+function R_total(r) {
+    return r.PI + r.SQRT2 + r.SQRT3 + r.PHI + r.LN5;
+}
+function sonCoord(r) {
+    const R = R_total(r);
+    if (!(R > 0) || !Number.isFinite(R)) {
+        return { PI: 0.2, SQRT2: 0.2, SQRT3: 0.2, PHI: 0.2, LN5: 0.2 };
+    }
+    return {
+        PI: r.PI / R,
+        SQRT2: r.SQRT2 / R,
+        SQRT3: r.SQRT3 / R,
+        PHI: r.PHI / R,
+        LN5: r.LN5 / R
+    };
+}
+function dist2(a, b) {
+    return ((a.PI - b.PI) ** 2 +
+        (a.SQRT2 - b.SQRT2) ** 2 +
+        (a.SQRT3 - b.SQRT3) ** 2 +
+        (a.PHI - b.PHI) ** 2 +
+        (a.LN5 - b.LN5) ** 2);
+}
+function d(a, b) {
+    return Math.sqrt(dist2(a, b));
+}
+function buildIdxs(pattern) {
+    const idxs = { h: [], m: [], l: [], z: [] };
+    for (let i = 0; i < 5; i++)
+        idxs[pattern[i]].push(i);
+    return idxs;
+}
+function solveQuantizedProjection(s, pattern) {
+    const idxs = buildIdxs(pattern);
+    const sArr = KEYS.map((k) => s[k]);
+    const ch = idxs.h.length;
+    const cm = idxs.m.length;
+    const cl = idxs.l.length;
+    if (ch + cm + cl <= 0)
+        return { proj: s, dist: Number.POSITIVE_INFINITY };
+    const Sh = idxs.h.reduce((acc, i) => acc + sArr[i], 0);
+    const Sm = idxs.m.reduce((acc, i) => acc + sArr[i], 0);
+    const Sl = idxs.l.reduce((acc, i) => acc + sArr[i], 0);
+    const parts = [
+        { groups: [["h"], ["m"], ["l"]], lFixedZero: false },
+        { groups: [["h", "m"], ["l"]], lFixedZero: false },
+        { groups: [["h"], ["m", "l"]], lFixedZero: false },
+        { groups: [["h", "m", "l"]], lFixedZero: false },
+        { groups: [["h"], ["m"]], lFixedZero: true },
+        { groups: [["h", "m"]], lFixedZero: true }
+    ];
+    const countOf = (lv) => (lv === "h" ? ch : lv === "m" ? cm : cl);
+    const sumOf = (lv) => (lv === "h" ? Sh : lv === "m" ? Sm : Sl);
+    let best = null;
+    for (const part of parts) {
+        // groups must have positive count
+        let ok = true;
+        for (const g of part.groups) {
+            const c = g.reduce((acc, lv) => acc + countOf(lv), 0);
+            if (c <= 0) {
+                ok = false;
+                break;
+            }
+        }
+        if (!ok)
+            continue;
+        const Ctot = part.groups.reduce((acc, g) => acc + g.reduce((x, lv) => x + countOf(lv), 0), 0);
+        const Stot = part.groups.reduce((acc, g) => acc + g.reduce((x, lv) => x + sumOf(lv), 0), 0);
+        if (!(Ctot > 0) || !Number.isFinite(Stot))
+            continue;
+        const t = (Stot - 1.0) / Ctot;
+        const vg = part.groups.map((g) => {
+            const c = g.reduce((x, lv) => x + countOf(lv), 0);
+            const S = g.reduce((x, lv) => x + sumOf(lv), 0);
+            return S / c - t;
+        });
+        // feasibility: nonneg + monotone group order
+        let feasible = true;
+        for (let i = 0; i < vg.length; i++) {
+            if (!Number.isFinite(vg[i]) || vg[i] < -1e-12) {
+                feasible = false;
+                break;
+            }
+            if (i > 0 && vg[i - 1] + 1e-12 < vg[i]) {
+                feasible = false;
+                break;
+            }
+        }
+        if (!feasible)
+            continue;
+        let vh = 0, vm = 0, vl = 0;
+        const setLevels = (levels, value) => {
+            for (const lv of levels) {
+                if (lv === "h")
+                    vh = value;
+                if (lv === "m")
+                    vm = value;
+                if (lv === "l")
+                    vl = value;
+            }
+        };
+        for (let gi = 0; gi < part.groups.length; gi++)
+            setLevels(part.groups[gi], vg[gi]);
+        if (part.lFixedZero)
+            vl = 0;
+        if (vh + 1e-12 < vm || vm + 1e-12 < vl || vl < -1e-12)
+            continue;
+        vh = Math.max(0, vh);
+        vm = Math.max(0, vm);
+        vl = Math.max(0, vl);
+        const projArr = [0, 0, 0, 0, 0];
+        for (const i of idxs.h)
+            projArr[i] = vh;
+        for (const i of idxs.m)
+            projArr[i] = vm;
+        for (const i of idxs.l)
+            projArr[i] = vl;
+        for (const i of idxs.z)
+            projArr[i] = 0;
+        const sum = projArr.reduce((acc, v) => acc + v, 0);
+        if (!Number.isFinite(sum) || Math.abs(sum - 1.0) > 1e-7)
+            continue;
+        // Map projArr back to Vector5 using KEYS order (PHI,SQRT2,SQRT3,LN5,PI)
+        const proj = { PI: 0, SQRT2: 0, SQRT3: 0, PHI: 0, LN5: 0 };
+        for (let i = 0; i < 5; i++) {
+            const k = KEYS[i];
+            proj[k] = projArr[i];
+        }
+        const dist = d(s, proj);
+        if (!Number.isFinite(dist))
+            continue;
+        const cand = { proj, dist };
+        if (!best || cand.dist < best.dist)
+            best = cand;
+    }
+    if (!best)
+        return { proj: s, dist: Number.POSITIVE_INFINITY };
+    return best;
+}
+function betterHit(a, b) {
+    if (!a)
+        return true;
+    if (b.d_son + EPS_TIE < a.d_son)
+        return true;
+    if (a.d_son + EPS_TIE < b.d_son)
+        return false;
+    return b.slot.idx < a.slot.idx;
+}
+export function nearestAttractorFromResidue(residue) {
+    const s = sonCoord(residue);
+    let best = null;
+    for (const slot of SLOTS_118) {
+        const sol = solveQuantizedProjection(s, slot.pattern);
+        const hit = {
+            slot_id: slot.id,
+            d_son: sol.dist,
+            projected: sol.proj,
+            slot
+        };
+        if (betterHit(best, hit))
+            best = hit;
+    }
+    if (!best)
+        throw new Error("No slots loaded.");
+    return best;
+}
+
+
+===== FILE: dist\cli.js =====
+// File: src/cli.ts
+// Purpose: Start-1 CLI (ingest + round). Dependency-safe with pipeline.ts and round.ts.
+import path from "node:path";
+import fs from "node:fs";
+import { ingestFile } from "./pipeline.js";
+import { runRound } from "./round.js";
+const SCOPES = ["event", "daily", "weekly", "monthly", "yearly"];
+function arg(name) {
+    const i = process.argv.indexOf(name);
+    return i >= 0 ? process.argv[i + 1] : undefined;
+}
+function requireNumber(name) {
+    const v = arg(name);
+    if (v === undefined)
+        throw new Error(`Missing required ${name}`);
+    const n = Number(v);
+    if (!Number.isFinite(n))
+        throw new Error(`Invalid number for ${name}: ${v}`);
+    return n;
+}
+/**
+ * Start-1 rule: rounds are event-driven.
+ * Scope is allowed only as operational batching label (not causal law).
+ */
+function getScope() {
+    const v = arg("--scope");
+    if (!v)
+        return "event";
+    if (SCOPES.includes(v))
+        return v;
+    throw new Error("Invalid --scope: " + v);
+}
+async function main() {
+    const cmd = process.argv[2];
+    if (!cmd) {
+        console.log("Usage:");
+        console.log("  node dist/cli.js ingest --file <path> --uri <uri> --cycle <n> --eps <eps_son>");
+        console.log("  node dist/cli.js round  --cycle <n> --eps <eps_son> [--scope event|daily|weekly|monthly|yearly]");
+        process.exit(1);
+    }
+    if (cmd === "help" || cmd === "--help" || cmd === "-h") {
+        console.log("Usage:");
+        console.log("  node dist/cli.js ingest --file <path> --uri <uri> --cycle <n> --eps <eps_son>");
+        console.log("  node dist/cli.js round  --cycle <n> --eps <eps_son> [--scope event|daily|weekly|monthly|yearly]");
+        process.exit(0);
+    }
+    if (cmd === "ingest") {
+        const file = arg("--file");
+        const uri = arg("--uri") ?? "local://unknown";
+        if (!file)
+            throw new Error("Missing --file");
+        const cycle_depth = requireNumber("--cycle");
+        const eps_son = requireNumber("--eps");
+        const abs = path.resolve(file);
+        if (!fs.existsSync(abs))
+            throw new Error("File not found: " + abs);
+        const root = path.resolve(".");
+        const out = await ingestFile({ file: abs, uri, root, cycle_depth, eps_son });
+        console.log(JSON.stringify(out, null, 2));
+        return;
+    }
+    if (cmd === "round") {
+        const cycle_depth = requireNumber("--cycle");
+        const eps_son = requireNumber("--eps");
+        const scope = getScope();
+        const root = path.resolve(".");
+        const out = await runRound({ root, cycle_depth, eps_son, scope });
+        console.log(JSON.stringify(out, null, 2));
+        return;
+    }
+    console.log("Unknown command:", cmd);
+    console.log("Usage:");
+    console.log("  node dist/cli.js ingest --file <path> --uri <uri> --cycle <n> --eps <eps_son>");
+    console.log("  node dist/cli.js round  --cycle <n> --eps <eps_son> [--scope event|daily|weekly|monthly|yearly]");
+    process.exit(1);
+}
+main().catch((e) => {
+    console.error(e);
+    process.exit(1);
+});
+
+
+===== FILE: dist\crypto.js =====
+// File: src/crypto.ts
+// Purpose: Canonicalization + hashing utilities (Start-1). Deterministic across runs.
+import * as crypto from "node:crypto";
+function isPlainObject(x) {
+    return !!x && typeof x === "object" && !Array.isArray(x);
+}
+function sortJson(value) {
+    if (value === null)
+        return null;
+    if (typeof value === "boolean")
+        return value;
+    if (typeof value === "number")
+        return Number.isFinite(value) ? value : null;
+    if (typeof value === "string")
+        return value;
+    if (Array.isArray(value))
+        return value.map(sortJson);
+    if (isPlainObject(value)) {
+        const out = {};
+        for (const k of Object.keys(value).sort()) {
+            out[k] = sortJson(value[k]);
+        }
+        return out;
+    }
+    // functions, symbols, undefined, bigint, etc => stringify as string tag
+    return String(value);
+}
+export function canonicalize(value) {
+    return JSON.stringify(sortJson(value), null, 2) + "\n";
+}
+export function sha256(text) {
+    return crypto.createHash("sha256").update(text).digest("hex");
+}
+export function utcNow() {
+    return new Date().toISOString();
+}
+export function normText(s) {
+    return s.replace(/\s+/g, " ").trim().toLowerCase();
+}
+
+
+===== FILE: dist\csl.js =====
+// File: src/csl.ts
+// Purpose: Convert Vector5 to CSL text for ct-cvm-mini.
+// Rule: strict, deterministic formatting (UTF-8 without BOM when written by fsutil).
+function finite01(x) {
+    const n = typeof x === "number" ? x : Number(x);
+    if (!Number.isFinite(n))
+        return 0;
+    if (n < 0)
+        return 0;
+    if (n > 1)
+        return 1;
+    return n;
+}
+/**
+ * CSL format expected by ct-cvm-mini parser:
+ * node <ID>
+ * edge <A> <B> w=<float>
+ * flow <A> -> <B> k=<float>
+ * pin <ID> <float> (used only for dominant injection)
+ */
+export function vectorToCSLText(v) {
+    const keys = ["PI", "SQRT2", "SQRT3", "PHI", "LN5"];
+    const vals = {
+        PI: finite01(v.PI),
+        SQRT2: finite01(v.SQRT2),
+        SQRT3: finite01(v.SQRT3),
+        PHI: finite01(v.PHI),
+        LN5: finite01(v.LN5),
+    };
+    let dominant = "PI";
+    let maxV = -1;
+    for (const k of keys) {
+        const val = vals[k];
+        if (val > maxV) {
+            maxV = val;
+            dominant = k;
+        }
+    }
+    // Fixed decimal width => stable diffs + stable downstream parsing.
+    const f = (x) => x.toFixed(6);
+    const clamp01 = (x) => Math.max(0, Math.min(1, x));
+    const wFor = (a, b) => clamp01(0.02 + 0.18 * ((a + b) / 2));
+    const kFor = (a, b) => clamp01(0.01 + 0.09 * Math.abs(a - b));
+    const dFor = (x) => clamp01(0.01 + 0.08 * (1 - x));
+    const lines = [];
+    for (const k of keys)
+        lines.push(`node ${k}`);
+    for (const k of keys)
+        lines.push(`decay ${k} ${f(dFor(vals[k]))}`);
+    // Inject only the dominant component to avoid trivial all-pins.
+    if (maxV > 0) {
+        lines.push(`pin ${dominant} ${f(maxV)}`);
+    }
+    for (const k of keys) {
+        if (k === dominant)
+            continue;
+        const w = wFor(vals[dominant], vals[k]);
+        lines.push(`edge ${dominant} ${k} w=${f(w)}`);
+        const kVal = kFor(vals[dominant], vals[k]);
+        if (vals[dominant] >= vals[k]) {
+            lines.push(`flow ${dominant} -> ${k} k=${f(kVal)}`);
+        }
+        else {
+            lines.push(`flow ${k} -> ${dominant} k=${f(kVal)}`);
+        }
+    }
+    return lines.join("\n") + "\n";
+}
+export function parseCSLText(txt) {
+    const out = { PI: 0, SQRT2: 0, SQRT3: 0, PHI: 0, LN5: 0 };
+    const lines = (txt || "").split(/\r?\n/);
+    for (const line of lines) {
+        const m = line.match(/^\s*pin\s+(PI|SQRT2|SQRT3|PHI|LN5)\s+([+-]?\d+(\.\d+)?)\s*$/);
+        if (!m)
+            continue;
+        const k = m[1];
+        const v = Number(m[2]);
+        out[k] = Number.isFinite(v) ? v : 0;
+    }
+    return out;
+}
+
+
+===== FILE: dist\cto_v0.js =====
+// File: src/cto_v0.ts
+// Purpose: CTO-UCT proxy ??? structural 5D address vector (NOT semantics).
+import zlib from "node:zlib";
+const MODES = ["PI", "SQRT2", "SQRT3", "PHI", "LN5"];
+function clamp01(x) {
+    return Math.max(0, Math.min(1, x));
+}
+function safeDiv(a, b) {
+    return b === 0 ? 0 : a / b;
+}
+function normalizeTextForStructure(s) {
+    return s.replace(/\r\n/g, "\n").replace(/[ \t]+/g, " ").trim();
+}
+function gzipRatioUtf8(s) {
+    const buf = Buffer.from(s, "utf8");
+    if (buf.length === 0)
+        return 1.0;
+    const gz = zlib.gzipSync(buf, { level: 9 });
+    return gz.length / buf.length;
+}
+function tokenizeUnicode(s) {
+    const re = /(\p{L}+|\p{N}+|[^\p{L}\p{N}\s])/gu;
+    const out = [];
+    let m;
+    while ((m = re.exec(s)) !== null)
+        out.push(m[0]);
+    return out;
+}
+function countRegex(s, re) {
+    const m = s.match(re);
+    return m ? m.length : 0;
+}
+function shannonEntropyBytesUtf8(s) {
+    const buf = Buffer.from(s, "utf8");
+    if (buf.length === 0)
+        return 0;
+    const freq = new Array(256).fill(0);
+    for (const b of buf)
+        freq[b]++;
+    const n = buf.length;
+    let H = 0;
+    for (let i = 0; i < 256; i++) {
+        if (freq[i] === 0)
+            continue;
+        const p = freq[i] / n;
+        H -= p * Math.log2(p);
+    }
+    return H / 8;
+}
+function argmaxVector(v) {
+    let best = "PI";
+    let bestVal = -Infinity;
+    for (const m of MODES) {
+        if (v[m] > bestVal) {
+            bestVal = v[m];
+            best = m;
+        }
+    }
+    return best;
+}
+export function transposeToVector(text) {
+    const s0 = normalizeTextForStructure(text);
+    const bytes = Buffer.byteLength(s0, "utf8");
+    const gr = gzipRatioUtf8(s0);
+    const H = shannonEntropyBytesUtf8(s0);
+    const tokens = tokenizeUnicode(s0);
+    const token_count = tokens.length;
+    const uniq = new Set(tokens);
+    const unique_ratio = token_count > 0 ? uniq.size / token_count : 1;
+    const punct = countRegex(s0, /[.,;:!?]/g);
+    const brackets = countRegex(s0, /[\(\)\[\]\{\}<>]/g);
+    const quotes = countRegex(s0, /["'????????????????]/g);
+    const connectors = countRegex(s0, /(::|->|=>|==|!=|<=|>=|=|:|\/|\\|\||&|@|#)/g);
+    const flowOps = countRegex(s0, /(->|=>|~>|<-|\+\+|--|\+|-|\*|\/|%|\^)/g);
+    const newlines = countRegex(s0, /\n/g);
+    const compressibility = clamp01(1.0 - clamp01(gr));
+    const repetition = clamp01(1.0 - clamp01(unique_ratio));
+    const stability = clamp01(0.60 * compressibility + 0.40 * repetition);
+    const noise = clamp01(0.55 * clamp01(gr) + 0.45 * clamp01(H));
+    const denom = Math.max(1, bytes);
+    const sqrt2_raw = safeDiv(connectors, denom) * 6000 +
+        safeDiv(countRegex(s0, /[,]/g), denom) * 4000;
+    const sqrt3_raw = safeDiv(punct + brackets + quotes, denom) * 7000 +
+        safeDiv(newlines, denom) * 3000;
+    const phi_raw = safeDiv(flowOps, denom) * 8000 +
+        safeDiv(countRegex(s0, /\d{1,4}[-/:]\d{1,2}[-/:]\d{1,4}/g), denom) * 4000;
+    const raw = {
+        PI: stability,
+        SQRT2: clamp01(sqrt2_raw),
+        SQRT3: clamp01(sqrt3_raw),
+        PHI: clamp01(phi_raw),
+        LN5: noise
+    };
+    const sum = MODES.reduce((a, m) => a + raw[m], 0);
+    const denom2 = sum > 0 ? sum : 1;
+    const vector = {
+        PI: raw.PI / denom2,
+        SQRT2: raw.SQRT2 / denom2,
+        SQRT3: raw.SQRT3 / denom2,
+        PHI: raw.PHI / denom2,
+        LN5: raw.LN5 / denom2
+    };
+    return {
+        vector,
+        dominance: argmaxVector(vector),
+        diagnostics: {
+            bytes,
+            gzip_ratio: gr,
+            pi_stability: stability,
+            ln5_noise: noise,
+            token_count,
+            unique_ratio
+        }
+    };
+}
+
+
+===== FILE: dist\cvm_bridge.js =====
+// File: src/cvm_bridge.ts
+// Purpose: Execute embedded ct-cvm-mini without breaking dependencies.
+// Notes:
+// - Keeps the same exported function name/signature: runCvmMiniFromSiblingRepo(cslText, workDir, r_input?)
+// - Keeps the same CVMOut type shape (adds no required fields).
+// - Adds hardening: path checks, atomic temp filenames, strict JSON validation, safe phi-shape normalization.
+import path from "node:path";
+import fs from "node:fs";
+import process from "node:process";
+import { execFileSync } from "node:child_process";
+import { readJson, writeJson, writeText, ensureDir } from "./fsutil.js";
+function isFiniteNumber(x) {
+    return typeof x === "number" && Number.isFinite(x);
+}
+function coerceMode(r_input) {
+    if (!isFiniteNumber(r_input))
+        return "0.1";
+    const s = r_input.toFixed(12).replace(/0+$/, "").replace(/\.$/, "");
+    return s.length ? s : "0.1";
+}
+// Accepts 3 possible shapes for final.phi and normalizes to canonical:
+// (A) {PI,SQRT2,SQRT3,PHI,LN5}
+// (B) {pi,sqrt2,sqrt3,phi,ln5}
+// (C) [PI,SQRT2,SQRT3,PHI,LN5]
+function normalizePhi(phiRaw) {
+    const keys = ["PI", "SQRT2", "SQRT3", "PHI", "LN5"];
+    if (Array.isArray(phiRaw)) {
+        if (phiRaw.length !== 5) {
+            throw new Error(`Residual critical: final.phi array invalid (len=${phiRaw.length}).`);
+        }
+        const a = phiRaw;
+        const mapped = {
+            PI: a[0],
+            SQRT2: a[1],
+            SQRT3: a[2],
+            PHI: a[3],
+            LN5: a[4],
+        };
+        for (const k of keys) {
+            if (!isFiniteNumber(mapped[k])) {
+                throw new Error(`Residual critical: final.phi[${k}] missing or invalid.`);
+            }
+        }
+        return {
+            PI: mapped.PI,
+            SQRT2: mapped.SQRT2,
+            SQRT3: mapped.SQRT3,
+            PHI: mapped.PHI,
+            LN5: mapped.LN5,
+        };
+    }
+    if (phiRaw && typeof phiRaw === "object") {
+        const p = phiRaw;
+        const get = (U, L) => (p[U] ?? p[L]);
+        const mapped = {
+            PI: get("PI", "pi"),
+            SQRT2: get("SQRT2", "sqrt2"),
+            SQRT3: get("SQRT3", "sqrt3"),
+            PHI: get("PHI", "phi"),
+            LN5: get("LN5", "ln5"),
+        };
+        for (const k of keys) {
+            if (!isFiniteNumber(mapped[k])) {
+                const present = Object.keys(p).slice(0, 60).join(",");
+                throw new Error(`Residual critical: final.phi.${k} missing or invalid. Keys present: ${present}`);
+            }
+        }
+        return {
+            PI: mapped.PI,
+            SQRT2: mapped.SQRT2,
+            SQRT3: mapped.SQRT3,
+            PHI: mapped.PHI,
+            LN5: mapped.LN5,
+        };
+    }
+    throw new Error("Residual critical: final.phi invalid (not object or array).");
+}
+function extractPhiCandidate(out) {
+    if (!out || typeof out !== "object")
+        return undefined;
+    const o = out;
+    const final = o["final"];
+    if (final && typeof final === "object") {
+        const f = final;
+        if (f["phi"] !== undefined)
+            return f["phi"];
+        if (f["PHI"] !== undefined)
+            return f["PHI"];
+        if (f["Phi"] !== undefined)
+            return f["Phi"];
+    }
+    if (o["phi"] !== undefined)
+        return o["phi"];
+    if (o["PHI"] !== undefined)
+        return o["PHI"];
+    return undefined;
+}
+function canonicalizeCvmOut(out) {
+    if (!out || typeof out !== "object")
+        throw new Error("Residual critical: CVM output is not an object.");
+    const o = out;
+    const phiRaw = extractPhiCandidate(out);
+    if (phiRaw === undefined)
+        throw new Error("Residual critical: final.phi missing.");
+    return {
+        converged: o["converged"],
+        iters: o["iters"],
+        alignment_index: o["alignment_index"],
+        final: { phi: normalizePhi(phiRaw) },
+        graph: o["graph"] ?? null,
+        trace: o["trace"] ?? [],
+    };
+}
+function assertCvmOut(out) {
+    if (!out || typeof out !== "object")
+        throw new Error("Residual critical: CVM output is not an object.");
+    const o = out;
+    if (!isFiniteNumber(o["alignment_index"]))
+        throw new Error("Residual critical: alignment_index missing or invalid.");
+    if (typeof o["converged"] !== "boolean")
+        throw new Error("Residual critical: converged missing or invalid.");
+    if (!Number.isInteger(o["iters"]) || o["iters"] < 0)
+        throw new Error("Residual critical: iters missing or invalid.");
+    const final = o["final"];
+    if (!final || typeof final !== "object")
+        throw new Error("Residual critical: final missing.");
+    const finalObj = final;
+    const phiRaw = finalObj["phi"];
+    if (phiRaw === undefined)
+        throw new Error("Residual critical: final.phi missing.");
+    // Normalize and re-inject canonical phi so downstream code always sees uppercase object.
+    const phiNorm = normalizePhi(phiRaw);
+    finalObj["phi"] = phiNorm;
+    if (!Array.isArray(o["trace"]))
+        throw new Error("Residual critical: trace missing or invalid.");
+}
+function safeUnlink(p) {
+    try {
+        if (fs.existsSync(p))
+            fs.unlinkSync(p);
+    }
+    catch {
+        // ignore
+    }
+}
+function resolveStart1Root(workDir) {
+    const candidate = path.resolve(workDir);
+    const cliPath = path.join(candidate, "ct-cvm-mini", "dist", "cli.js");
+    if (fs.existsSync(cliPath))
+        return candidate;
+    const cwd = process.cwd();
+    const cliFromCwd = path.join(cwd, "ct-cvm-mini", "dist", "cli.js");
+    if (fs.existsSync(cliFromCwd))
+        return cwd;
+    throw new Error("ct-cvm-mini introuvable au chemin canonique.");
+}
+export function runCvmMiniFromSiblingRepo(cslText, workDir, r_input) {
+    const start1Root = resolveStart1Root(workDir);
+    const cvmCli = path.join(start1Root, "ct-cvm-mini", "dist", "cli.js");
+    const tmpDir = path.resolve(start1Root, "data", "out", "logs");
+    ensureDir(tmpDir);
+    const stamp = `${Date.now()}_${process.pid}_${Math.random().toString(16).slice(2)}`;
+    const inCsl = path.join(tmpDir, `tmp_input_${stamp}.csl`);
+    const outJson = path.join(tmpDir, `tmp_cvm_out_${stamp}.json`);
+    const stableIn = path.join(tmpDir, "tmp_cvm_in.csl");
+    const stableOut = path.join(tmpDir, "tmp_cvm_out.json");
+    writeText(inCsl, cslText);
+    writeText(stableIn, cslText);
+    try {
+        execFileSync("node", [cvmCli, "run", inCsl, outJson], { stdio: "inherit" });
+    }
+    catch (e) {
+        const msg = e instanceof Error ? e.message : String(e);
+        safeUnlink(inCsl);
+        safeUnlink(outJson);
+        throw new Error(`CVM execution failed: ${msg}`);
+    }
+    const out = readJson(outJson, null);
+    let canon;
+    try {
+        canon = canonicalizeCvmOut(out);
+        assertCvmOut(canon);
+    }
+    catch (e) {
+        const rawPath = path.join(tmpDir, "cvm_out.raw.json");
+        writeJson(rawPath, out);
+        throw e;
+    }
+    writeJson(stableOut, canon);
+    safeUnlink(inCsl);
+    safeUnlink(outJson);
+    void r_input;
+    void coerceMode;
+    return canon;
+}
+
+
+===== FILE: dist\dedup.js =====
+// File: src/dedup.ts
+// Purpose: Deterministic IDs based on canonicalized payloads.
+import { sha256, canonicalize } from "./crypto.js";
+export function packetId(uri, raw) {
+    // Stable ID across runs
+    return sha256(canonicalize({ kind: "packet", uri, raw }));
+}
+export function skinId(v) {
+    return sha256(canonicalize({ kind: "skin", v }));
+}
+export function residueId(x) {
+    return sha256(canonicalize({ kind: "residue", ...x }));
+}
+
+
+===== FILE: dist\fsutil.js =====
+// File: src/fsutil.ts
+// Purpose: Minimal FS helpers (Start-1). Robust on Windows + strict JSON.
+import fs from "node:fs";
+import path from "node:path";
+export function ensureDir(p) {
+    if (!fs.existsSync(p))
+        fs.mkdirSync(p, { recursive: true });
+}
+export function readText(p) {
+    return fs.readFileSync(p, "utf8");
+}
+// UTF-8 sans BOM (robuste sur Windows)
+export function writeText(p, t) {
+    ensureDir(path.dirname(p));
+    fs.writeFileSync(p, t, { encoding: "utf8" });
+}
+// JSON read avec fallback + erreur claire
+export function readJson(p, fallback) {
+    if (!fs.existsSync(p))
+        return fallback;
+    const raw = fs.readFileSync(p, "utf8").trim();
+    if (!raw)
+        return fallback;
+    try {
+        return JSON.parse(raw);
+    }
+    catch (e) {
+        const msg = e instanceof Error ? e.message : String(e);
+        throw new Error(`Invalid JSON at ${p}: ${msg}`);
+    }
+}
+export function writeJson(p, obj) {
+    const txt = JSON.stringify(obj, null, 2) + "\n";
+    writeText(p, txt);
+}
+
+
+===== FILE: dist\pipeline.js =====
+// File: src/pipeline.ts
+// Purpose: Start-1 ingestion pipeline (CT) ? threshold-gated calibration (0.66/0.787/0.87/0.946/0.995204) without breaking dependencies.
+import path from "node:path";
+import fs from "node:fs";
+import { canonicalize, utcNow } from "./crypto.js";
+import { atomizeClaims } from "./atomize.js";
+import { transposeToVector } from "./cto_v0.js";
+import { vectorToCSLText } from "./csl.js";
+import { packetId, skinId, residueId } from "./dedup.js";
+import { runCvmMiniFromSiblingRepo } from "./cvm_bridge.js";
+import { readJson, writeJson, ensureDir, writeText } from "./fsutil.js";
+import { newPool, depositResidue } from "./residue_pool.js";
+// --------------------
+// CT Threshold Gates (Start-1 locked)
+// --------------------
+const I_ENTRY = 0.66; // minimal chemical form (entry into consideration)
+const I_STABLE = 0.787; // stable projection (merge-eligible, but not "physical")
+const I_ANCHOR = 0.87; // physical anchor / energy barrier (core-merge allowed later)
+const I_CRITICAL = 0.946; // SUTURE / SKIN admission
+const I_HORIZON = 0.995204; // CT near-identity horizon (replace old 0.99975)
+// CT constants (fixed)
+const PI = Math.PI;
+const PHI = (1 + Math.sqrt(5)) / 2;
+function safeNum(x, fallback = 0) {
+    return typeof x === "number" && Number.isFinite(x) ? x : fallback;
+}
+function clamp01(x) {
+    return Math.max(0, Math.min(1, x));
+}
+function clampHorizon(x) {
+    if (!Number.isFinite(x))
+        return 0;
+    const y = Math.max(0, x);
+    return Math.min(I_HORIZON, y);
+}
+function isFiniteNumber(x) {
+    return typeof x === "number" && Number.isFinite(x);
+}
+function assertInvariants(input) {
+    const fail = (field, filePath, details) => {
+        const extra = details ? ` (${details})` : "";
+        throw new Error(`Invariant failed: ${field} @ ${filePath}${extra}`);
+    };
+    const { cvm, tmpCvmOutPath, packet, skin, residue, absorption } = input;
+    if (!isFiniteNumber(cvm.alignment_index)) {
+        fail("cvm.alignment_index", tmpCvmOutPath);
+    }
+    const phiRaw = cvm.final?.phi;
+    if (!phiRaw || typeof phiRaw !== "object") {
+        fail("cvm.final.phi", tmpCvmOutPath);
+    }
+    const phi = phiRaw;
+    const required = ["PI", "SQRT2", "SQRT3", "PHI", "LN5"];
+    const keys = Object.keys(phi);
+    const missing = required.filter((k) => !(k in phi));
+    const extras = keys.filter((k) => !required.includes(k));
+    if (missing.length > 0 || extras.length > 0) {
+        fail("cvm.final.phi.keys", tmpCvmOutPath, `missing=${missing.join(",")} extras=${extras.join(",")}`);
+    }
+    for (const k of required) {
+        if (!isFiniteNumber(phi[k])) {
+            fail(`cvm.final.phi.${k}`, tmpCvmOutPath);
+        }
+    }
+    const tmpOut = readJson(tmpCvmOutPath, null);
+    if (!isFiniteNumber(tmpOut.iters)) {
+        fail("tmp_cvm_out.iters", tmpCvmOutPath);
+    }
+    if (!isFiniteNumber(tmpOut.alignment_index)) {
+        fail("tmp_cvm_out.alignment_index", tmpCvmOutPath);
+    }
+    const cvmTrace = packet.trace.find((t) => t.step === "cvm");
+    const packetIters = cvmTrace?.info?.iters;
+    if (!isFiniteNumber(packetIters)) {
+        fail("packet.trace.cvm.iters", input.packetPath);
+    }
+    if (tmpOut.iters !== packetIters || tmpOut.iters !== skin.iters) {
+        fail("iters propagation", input.packetPath, `tmp=${tmpOut.iters} packet=${packetIters} skin=${skin.iters}`);
+    }
+    if (Math.abs(tmpOut.alignment_index - skin.alignment_index) > 1e-6) {
+        fail("alignment_index propagation", input.skinPath, `tmp=${tmpOut.alignment_index} skin=${skin.alignment_index}`);
+    }
+    for (const k of required) {
+        const a = absorption[k];
+        const r = residue.residue_vector[k];
+        if (!isFiniteNumber(a) || a < 0 || a > 1) {
+            fail(`absorption_proxy.${k}`, input.residuePath);
+        }
+        if (!isFiniteNumber(r) || r < 0 || r > 1) {
+            fail(`residue_vector.${k}`, input.residuePath);
+        }
+        const diff = Math.abs(r - (1 - a));
+        if (diff > 1e-9) {
+            fail(`residue_vector.${k}`, input.residuePath, `diff=${diff}`);
+        }
+    }
+}
+function phaseFromScore(i) {
+    if (i >= I_HORIZON)
+        return "near_identity";
+    if (i >= I_CRITICAL)
+        return "sutured";
+    if (i >= I_ANCHOR)
+        return "anchored";
+    if (i >= I_STABLE)
+        return "stable";
+    if (i >= I_ENTRY)
+        return "entry";
+    return "thermal";
+}
+/**
+ * Filtre de Primalit? (Anti-R?sonance CT).
+ * 0 = harmonique, 1 = forte densit? de longueurs premi?res
+ */
+function calculatePrimalDissonance(text) {
+    const segments = text
+        .toLowerCase()
+        .replace(/[^\w\s]/g, " ")
+        .split(/\s+/)
+        .map((s) => s.length)
+        .filter((l) => l > 0);
+    if (segments.length === 0)
+        return 1.0;
+    const isPrime = (n) => {
+        if (n < 2)
+            return false;
+        for (let i = 2, s = Math.sqrt(n); i <= s; i++) {
+            if (n % i === 0)
+                return false;
+        }
+        return true;
+    };
+    const primeCount = segments.filter(isPrime).length;
+    const ratio = primeCount / segments.length;
+    if (!Number.isFinite(ratio))
+        return 1.0;
+    return clamp01(ratio);
+}
+/**
+ * Dedup decision gate:
+ * - ok only if >= I_CRITICAL (skin / suture)
+ * - all other phases remain residue-side (but still logged + slot-addressed)
+ */
+function gateByScore(i) {
+    const phase = phaseFromScore(i);
+    if (i >= I_CRITICAL) {
+        return {
+            ok: true,
+            reasons: [],
+            details: {
+                i,
+                phase,
+                thresholds: {
+                    I_ENTRY,
+                    I_STABLE,
+                    I_ANCHOR,
+                    I_CRITICAL,
+                    I_HORIZON
+                }
+            }
+        };
+    }
+    const reasons = [];
+    reasons.push(`alignment_index < ${I_CRITICAL}`);
+    // Give explicit phase reason
+    if (phase === "thermal")
+        reasons.push(`below_entry(${I_ENTRY})`);
+    else if (phase === "entry")
+        reasons.push(`below_stable(${I_STABLE})`);
+    else if (phase === "stable")
+        reasons.push(`below_anchor(${I_ANCHOR})`);
+    else if (phase === "anchored")
+        reasons.push(`below_suture(${I_CRITICAL})`);
+    return {
+        ok: false,
+        reasons,
+        details: {
+            i,
+            phase,
+            thresholds: {
+                I_ENTRY,
+                I_STABLE,
+                I_ANCHOR,
+                I_CRITICAL,
+                I_HORIZON
+            }
+        }
+    };
+}
+/**
+ * CT projection: (0,+inf) -> (0,1) smooth (no hard clip-to-1).
+ * log1p compression + ?-horizon (internal, then clamp to [0,1]).
+ */
+function project01_ct(x) {
+    if (!Number.isFinite(x))
+        return 0;
+    const u = Math.max(0, x);
+    const kappa = PI * PHI; // CT scale
+    const z = Math.log1p(u / kappa); // ln-like compression
+    const y = z / (z + PI); // ?-horizon
+    if (!Number.isFinite(y))
+        return 0;
+    return clamp01(y);
+}
+function phiToAbsorption(phi) {
+    const get = (k) => (typeof phi?.[k] === "number" ? phi[k] : 0);
+    return {
+        PI: project01_ct(get("PI")),
+        SQRT2: project01_ct(get("SQRT2")),
+        SQRT3: project01_ct(get("SQRT3")),
+        PHI: project01_ct(get("PHI")),
+        LN5: project01_ct(get("LN5"))
+    };
+}
+function absorptionToResidue(A) {
+    return {
+        PI: clamp01(1 - A.PI),
+        SQRT2: clamp01(1 - A.SQRT2),
+        SQRT3: clamp01(1 - A.SQRT3),
+        PHI: clamp01(1 - A.PHI),
+        LN5: clamp01(1 - A.LN5)
+    };
+}
+function dominanceOf(v) {
+    let best = "PI";
+    let b = -1;
+    const modes = ["PI", "SQRT2", "SQRT3", "PHI", "LN5"];
+    for (const k of modes) {
+        if (v[k] > b) {
+            b = v[k];
+            best = k;
+        }
+    }
+    return best;
+}
+function ageBand(cycle_depth) {
+    if (cycle_depth < 2)
+        return "fresh";
+    if (cycle_depth < 5)
+        return "mid";
+    return "deep";
+}
+/**
+ * Normalise un pool quelconque vers le contrat v5, sans casser les anciens JSON.
+ */
+function normalizePool(p) {
+    const out = p && typeof p === "object" ? p : {};
+    if (out.schema_version !== "ct.start1.residue_pool.v5")
+        out.schema_version = "ct.start1.residue_pool.v5";
+    if (typeof out.updated_utc !== "string")
+        out.updated_utc = utcNow();
+    if (!Array.isArray(out.clusters))
+        out.clusters = [];
+    return out;
+}
+export async function ingestFile(opts) {
+    if (!(opts.eps_son > 0))
+        throw new Error("eps_son doit ?tre > 0.");
+    const raw = fs.readFileSync(opts.file, "utf8");
+    const pid = packetId(opts.uri, raw);
+    const packet = {
+        packet_id: pid,
+        source: { uri: opts.uri, fetched_utc: utcNow() },
+        raw,
+        claims: atomizeClaims(raw, opts.uri, 32),
+        status: "dirty",
+        trace: [{ step: "ingest", utc: utcNow(), info: { file: opts.file, uri: opts.uri } }]
+    };
+    const claim = packet.claims[0];
+    if (!claim)
+        throw new Error("Aucun claim atomis?.");
+    packet.trace.push({
+        step: "atomize",
+        utc: utcNow(),
+        info: { claim_id: claim.id, claim_len: claim.text.length }
+    });
+    // 1) Anti-r?sonance (soft)
+    const dissonance = calculatePrimalDissonance(claim.text);
+    // 2) CTO -> vecteur
+    const { vector, dominance } = transposeToVector(claim.text);
+    packet.trace.push({
+        step: "transpose",
+        utc: utcNow(),
+        info: { dominance, vector }
+    });
+    const csl = vectorToCSLText(vector);
+    packet.trace.push({
+        step: "csl",
+        utc: utcNow(),
+        info: { csl_bytes: Buffer.byteLength(csl, "utf8") }
+    });
+    // 3) CVM
+    const cvm = runCvmMiniFromSiblingRepo(csl, opts.root, opts.eps_son);
+    packet.trace.push({
+        step: "cvm",
+        utc: utcNow(),
+        info: { converged: cvm.converged, iters: cvm.iters, i: cvm.alignment_index }
+    });
+    // --- CVM raw instrumentation (logs only) ---
+    const phi_raw = (cvm.final?.phi || {});
+    const phi_keys = ["PI", "SQRT2", "SQRT3", "PHI", "LN5"];
+    const phi_vals = phi_keys.map((k) => safeNum(phi_raw[k], NaN));
+    const finite = phi_vals.filter((v) => Number.isFinite(v));
+    const phi_min = finite.length ? Math.min(...finite) : NaN;
+    const phi_max = finite.length ? Math.max(...finite) : NaN;
+    const i_raw = safeNum(cvm.alignment_index, 0);
+    console.log(`?? [CVM RAW] i_raw=${i_raw.toFixed(8)} phi_min=${Number.isFinite(phi_min) ? phi_min.toFixed(6) : "NaN"} phi_max=${Number.isFinite(phi_max) ? phi_max.toFixed(6) : "NaN"} eps_son=${String(opts.eps_son)}`);
+    // 4) Score calibration (soft penalty, non-multiplicatif) + horizon clamp
+    const gamma = 1 / (PI * PHI); // fixed CT penalty scale (stable)
+    const i_penalized = Math.max(0, i_raw - gamma * dissonance);
+    const final_i = clampHorizon(i_penalized);
+    const phase = phaseFromScore(final_i);
+    // 5) Build Skin object (always produced for audit, even if not sutured)
+    const sid = skinId(vector);
+    const skin = {
+        skin_id: sid,
+        vector,
+        dominance,
+        alignment_index: i_raw,
+        converged: cvm.converged,
+        iters: cvm.iters,
+        cvm_trace_sample: (cvm.trace || []).slice(0, 16)
+    };
+    // 6) Residue (always produced for audit; pool persistence is gated)
+    const A = phiToAbsorption(cvm.final?.phi || {});
+    const R = absorptionToResidue(A);
+    const rMode = dominanceOf(R);
+    // Age-band: force "fresh" when below entry threshold (thermal / proto)
+    const band = final_i < I_ENTRY ? "fresh" : ageBand(opts.cycle_depth);
+    const rid = residueId({
+        parent_skin_id: sid,
+        residue_vector: R,
+        cycle_depth: opts.cycle_depth,
+        age_band: band,
+        dominance: rMode
+    });
+    const residue = {
+        residue_id: rid,
+        parent_skin_id: sid,
+        residue_vector: R,
+        dominance: rMode,
+        cycle_depth: opts.cycle_depth,
+        age_band: band,
+        absorption_proxy: A,
+        raw_excerpt: claim.text.slice(0, 240)
+    };
+    packet.skin = skin;
+    packet.residue = residue;
+    const verdict = gateByScore(final_i);
+    packet.status = verdict.ok ? "sutured" : "rejected";
+    packet.trace.push({ step: "gate", utc: utcNow(), info: { ok: verdict.ok, reasons: verdict.reasons } });
+    packet.trace.push({ step: "status", utc: utcNow(), info: { status: packet.status } });
+    // 7) Pool persistence (always deposit residue per README contract)
+    const outRoot = path.resolve(opts.root, "data", "out");
+    ensureDir(path.join(outRoot, "packets"));
+    ensureDir(path.join(outRoot, "skins"));
+    ensureDir(path.join(outRoot, "residue"));
+    const packetPath = path.join(outRoot, "packets", `${packet.packet_id}.packet.json`);
+    const skinPath = path.join(outRoot, "skins", `${skin.skin_id}.skin.json`);
+    const residuePath = path.join(outRoot, "residue", `${residue.residue_id}.residue.json`);
+    const tmpCvmOutPath = path.join(outRoot, "logs", "tmp_cvm_out.json");
+    assertInvariants({
+        cvm,
+        tmpCvmOutPath,
+        packet,
+        skin,
+        residue,
+        absorption: A,
+        packetPath,
+        skinPath,
+        residuePath
+    });
+    writeJson(packetPath, packet);
+    writeJson(skinPath, skin);
+    writeJson(residuePath, residue);
+    ensureDir(path.join(outRoot, "pools"));
+    const poolPath = path.join(outRoot, "pools", "residue_pool.json");
+    const loaded = readJson(poolPath, newPool());
+    const pool = normalizePool(loaded);
+    const dep = depositResidue(pool, residue.residue_id, residue.dominance, residue.age_band, residue.residue_vector);
+    dep.pool.schema_version = "ct.start1.residue_pool.v5";
+    dep.pool.updated_utc = utcNow();
+    writeJson(poolPath, dep.pool);
+    const attractor_id = dep.cluster?.attractor_id ?? null;
+    const approach_velocity = dep.cluster?.approach_velocity ?? null;
+    const logLine = {
+        kind: "ingest",
+        packet_id: packet.packet_id,
+        status: packet.status,
+        // Core score outputs
+        alignment_index: final_i,
+        phase_gate: phase,
+        // Thresholds (explicit + auditable)
+        thresholds: {
+            I_ENTRY,
+            I_STABLE,
+            I_ANCHOR,
+            I_CRITICAL,
+            I_HORIZON
+        },
+        // Anti-resonance / penalties
+        dissonance_score: dissonance,
+        penalty_gamma: gamma,
+        // CVM raw instrumentation
+        cvm_alignment_raw: i_raw,
+        cvm_phi_min: Number.isFinite(phi_min) ? phi_min : null,
+        cvm_phi_max: Number.isFinite(phi_max) ? phi_max : null,
+        // Slot addressing
+        attractor_id,
+        approach_velocity,
+        // Near-identity flag (replaces old 0.99975 logic)
+        near_identity: final_i >= I_HORIZON,
+        residue_deposited: true
+    };
+    console.log(`\n?? [SPECTRE CT - SLOT ${String(logLine.attractor_id)}]`);
+    console.log(`?? i=${logLine.alignment_index.toFixed(6)} | phase=${logLine.phase_gate} | i_raw=${logLine.cvm_alignment_raw.toFixed(6)} | dissonance=${logLine.dissonance_score.toFixed(4)}`);
+    console.log(`??? status=${logLine.status} | near_identity=${String(logLine.near_identity)}`);
+    ensureDir(path.join(outRoot, "logs"));
+    writeText(path.join(outRoot, "logs", `${packet.packet_id}.log.json`), canonicalize(logLine));
+    return logLine;
+}
+
+
+===== FILE: dist\residue_pool.js =====
+// File: src/residue_pool.ts
+import { sha256, canonicalize, utcNow } from "./crypto.js";
+import { nearestAttractorFromResidue } from "./attractor.js";
+function clamp01(x) {
+    return Math.max(0, Math.min(1, x));
+}
+function lerp(a, b, t) {
+    return a + (b - a) * t;
+}
+function similarityFromDSon(d) {
+    const dMax = Math.SQRT2;
+    const ratio = dMax > 0 ? d / dMax : 1;
+    return clamp01(1 - ratio);
+}
+function dupPhaseFromSim(sim) {
+    if (sim < 0.61)
+        return "none";
+    if (sim < 0.66)
+        return "symmetry";
+    if (sim < 0.78)
+        return "correction";
+    if (sim < 0.87)
+        return "expansion";
+    if (sim < 0.946)
+        return "dissipation";
+    return "cycle";
+}
+function residueWeightFromSim(sim) {
+    if (sim < 0.61)
+        return null;
+    if (sim >= 0.946)
+        return 0;
+    if (sim >= 0.87) {
+        return lerp(0.25, 0, (sim - 0.87) / (0.946 - 0.87));
+    }
+    if (sim >= 0.78) {
+        return lerp(0.5, 0.25, (sim - 0.78) / (0.87 - 0.78));
+    }
+    if (sim >= 0.66) {
+        return lerp(0.75, 0.5, (sim - 0.66) / (0.78 - 0.66));
+    }
+    return lerp(1.0, 0.75, (sim - 0.61) / (0.66 - 0.61));
+}
+function cleanVector(v) {
+    return {
+        PI: clamp01(v.PI),
+        SQRT2: clamp01(v.SQRT2),
+        SQRT3: clamp01(v.SQRT3),
+        PHI: clamp01(v.PHI),
+        LN5: clamp01(v.LN5)
+    };
+}
+function repHash(v) {
+    return sha256(canonicalize(cleanVector(v)));
+}
+function sumR(v) {
+    return v.PI + v.SQRT2 + v.SQRT3 + v.PHI + v.LN5;
+}
+function sonCoord(v) {
+    const r = sumR(v);
+    if (r > 0) {
+        return {
+            PI: v.PI / r,
+            SQRT2: v.SQRT2 / r,
+            SQRT3: v.SQRT3 / r,
+            PHI: v.PHI / r,
+            LN5: v.LN5 / r
+        };
+    }
+    return { PI: 0.2, SQRT2: 0.2, SQRT3: 0.2, PHI: 0.2, LN5: 0.2 };
+}
+function sonDist(a, b) {
+    const sa = sonCoord(a);
+    const sb = sonCoord(b);
+    const d1 = sa.PI - sb.PI;
+    const d2 = sa.SQRT2 - sb.SQRT2;
+    const d3 = sa.SQRT3 - sb.SQRT3;
+    const d4 = sa.PHI - sb.PHI;
+    const d5 = sa.LN5 - sb.LN5;
+    return Math.sqrt(d1 * d1 + d2 * d2 + d3 * d3 + d4 * d4 + d5 * d5);
+}
+function mergeMin(a, b) {
+    return {
+        PI: Math.min(a.PI, b.PI),
+        SQRT2: Math.min(a.SQRT2, b.SQRT2),
+        SQRT3: Math.min(a.SQRT3, b.SQRT3),
+        PHI: Math.min(a.PHI, b.PHI),
+        LN5: Math.min(a.LN5, b.LN5)
+    };
+}
+function mergeWeighted(a, b, w) {
+    const rMin = mergeMin(a, b);
+    const rMax = {
+        PI: Math.max(a.PI, b.PI),
+        SQRT2: Math.max(a.SQRT2, b.SQRT2),
+        SQRT3: Math.max(a.SQRT3, b.SQRT3),
+        PHI: Math.max(a.PHI, b.PHI),
+        LN5: Math.max(a.LN5, b.LN5)
+    };
+    return {
+        PI: rMin.PI + w * Math.abs(rMax.PI - rMin.PI),
+        SQRT2: rMin.SQRT2 + w * Math.abs(rMax.SQRT2 - rMin.SQRT2),
+        SQRT3: rMin.SQRT3 + w * Math.abs(rMax.SQRT3 - rMin.SQRT3),
+        PHI: rMin.PHI + w * Math.abs(rMax.PHI - rMin.PHI),
+        LN5: rMin.LN5 + w * Math.abs(rMax.LN5 - rMin.LN5)
+    };
+}
+export function newPool() {
+    return {
+        schema_version: "ct.start1.residue_pool.v5",
+        updated_utc: utcNow(),
+        clusters: []
+    };
+}
+export function depositResidue(pool, residue_id, dominance, age_band, residue_vector) {
+    if (!pool || typeof pool !== "object")
+        pool = newPool();
+    if (pool.schema_version !== "ct.start1.residue_pool.v5")
+        pool.schema_version = "ct.start1.residue_pool.v5";
+    if (!Array.isArray(pool.clusters))
+        pool.clusters = [];
+    pool.updated_utc = utcNow();
+    const v = cleanVector(residue_vector);
+    const rh = repHash(v);
+    const hit = nearestAttractorFromResidue(v);
+    const attractor_id = hit.slot_id;
+    const d_son_current = hit.d_son;
+    const approach_velocity = 0;
+    const created_utc = utcNow();
+    const cluster_id = sha256(canonicalize({
+        kind: "cluster",
+        residue_id,
+        representative_hash: rh,
+        created_utc
+    })).slice(0, 16);
+    const cluster = {
+        cluster_id,
+        mode: dominance,
+        age_band,
+        representative: v,
+        representative_hash: rh,
+        count: 1,
+        member_residue_ids: [residue_id],
+        attractor_id,
+        d_son_current,
+        d_son_min: d_son_current,
+        approach_velocity,
+        last_cycle_depth: null,
+        stable_streak: 0,
+        law_candidate: false,
+        last_dup_phase: "none",
+        last_merge_sim: undefined,
+        last_merge_weight: undefined
+    };
+    pool.clusters.push(cluster);
+    return { pool, cluster, note: "monad_deposited_ct1030_mapped" };
+}
+export function reduceToFixpoint(pool, cycle_depth, eps_son, scope) {
+    if (cycle_depth < 0) {
+        throw new Error("cycle_depth doit ?tre >= 0.");
+    }
+    if (!pool || typeof pool !== "object")
+        pool = newPool();
+    if (pool.schema_version !== "ct.start1.residue_pool.v5")
+        pool.schema_version = "ct.start1.residue_pool.v5";
+    if (!Array.isArray(pool.clusters))
+        pool.clusters = [];
+    pool.updated_utc = utcNow();
+    for (const c of pool.clusters) {
+        const last = c.last_cycle_depth;
+        if (typeof last === "number" && cycle_depth > last) {
+            c.stable_streak = (c.stable_streak ?? 0) + 1;
+        }
+        c.last_cycle_depth = cycle_depth;
+        c.law_candidate = c.age_band === "deep" && c.stable_streak >= 3;
+    }
+    const trace = [];
+    let merges = 0;
+    const max_passes = 34;
+    for (let pass = 0; pass < max_passes; pass++) {
+        let best = null;
+        for (let i = 0; i < pool.clusters.length; i++) {
+            for (let j = i + 1; j < pool.clusters.length; j++) {
+                const a = pool.clusters[i];
+                const b = pool.clusters[j];
+                if (a.mode !== b.mode || a.age_band !== b.age_band)
+                    continue;
+                const d = sonDist(a.representative, b.representative);
+                const key = [a.cluster_id, b.cluster_id].sort().join("|");
+                if (!best ||
+                    d < best.d ||
+                    (d === best.d && key < best.key)) {
+                    best = { i, j, d, key };
+                }
+            }
+        }
+        if (!best)
+            break;
+        const a = pool.clusters[best.i];
+        const b = pool.clusters[best.j];
+        const sim = similarityFromDSon(best.d);
+        const w = residueWeightFromSim(sim);
+        if (w === null) {
+            trace.push({
+                step: "blocked",
+                pass,
+                blocked_reason: "w_null",
+                d_son: best.d,
+                sim,
+                eps_son
+            });
+            break;
+        }
+        const phase = dupPhaseFromSim(sim);
+        const r_after = cleanVector(mergeWeighted(a.representative, b.representative, w));
+        const r_before_a = sumR(a.representative);
+        const r_before_b = sumR(b.representative);
+        const r_after_sum = sumR(r_after);
+        const max_before = Math.max(r_before_a, r_before_b);
+        if (best.d <= eps_son && r_after_sum < max_before) {
+            const merged_hash = repHash(r_after);
+            const merged_id = sha256(canonicalize({
+                kind: "cluster-merge",
+                a: a.cluster_id,
+                b: b.cluster_id,
+                representative_hash: merged_hash
+            })).slice(0, 16);
+            const hit = nearestAttractorFromResidue(r_after);
+            const ordered = [a, b].sort((x, y) => (x.cluster_id < y.cluster_id ? -1 : x.cluster_id > y.cluster_id ? 1 : 0));
+            const merged_members = [...ordered[0].member_residue_ids, ...ordered[1].member_residue_ids];
+            const merged = {
+                cluster_id: merged_id,
+                mode: a.mode,
+                age_band: a.age_band,
+                representative: r_after,
+                representative_hash: merged_hash,
+                count: a.count + b.count,
+                member_residue_ids: merged_members,
+                attractor_id: hit.slot_id,
+                d_son_current: hit.d_son,
+                d_son_min: hit.d_son,
+                approach_velocity: 0,
+                last_cycle_depth: cycle_depth,
+                stable_streak: 0,
+                law_candidate: false,
+                last_dup_phase: phase,
+                last_merge_sim: sim,
+                last_merge_weight: w
+            };
+            const idxA = Math.max(best.i, best.j);
+            const idxB = Math.min(best.i, best.j);
+            pool.clusters.splice(idxA, 1);
+            pool.clusters.splice(idxB, 1);
+            pool.clusters.push(merged);
+            merges++;
+            trace.push({
+                step: "merge",
+                pass,
+                a: a.cluster_id,
+                b: b.cluster_id,
+                d_son: best.d,
+                phase,
+                sim,
+                w,
+                r_before_a,
+                r_before_b,
+                r_after: r_after_sum,
+                eps_son,
+                merged_id
+            });
+        }
+        else {
+            trace.push({
+                step: "blocked",
+                pass,
+                blocked_reason: best.d > eps_son ? "d_gt_eps" : "dissipation_not_decreasing",
+                d_son: best.d,
+                sim,
+                w,
+                r_before_a,
+                r_before_b,
+                r_after: r_after_sum,
+                eps_son
+            });
+            break;
+        }
+    }
+    if (merges === 0) {
+        trace.push({
+            step: "noop",
+            scope,
+            cycle_depth,
+            eps_son,
+            clusters: pool.clusters.length
+        });
+    }
+    return { pool, note: { merges, trace } };
+}
+
+
+===== FILE: dist\round.js =====
+// File: src/round.ts
+// Purpose: Start-1 round runner (event-driven).
+// Dependency-safe with residue_pool.ts v5 + fsutil.ts + crypto.ts.
+import path from "node:path";
+import { canonicalize, utcNow } from "./crypto.js";
+import { readJson, writeJson, writeText, ensureDir } from "./fsutil.js";
+import { newPool, reduceToFixpoint } from "./residue_pool.js";
+/**
+ * Start-1 rule: rounds are event-driven.
+ * "scope" is allowed only as operational batching label, not causal law.
+ */
+export function runRound(opts) {
+    if (!(opts.eps_son > 0)) {
+        throw new Error("eps_son doit ??tre > 0 (CT: pas de valeur par d??faut).");
+    }
+    const outRoot = path.resolve(opts.root, "data", "out");
+    const poolsDir = path.join(outRoot, "pools");
+    const logsDir = path.join(outRoot, "logs");
+    ensureDir(poolsDir);
+    ensureDir(logsDir);
+    const poolPath = path.join(poolsDir, "residue_pool.json");
+    const pool = readJson(poolPath, newPool());
+    const res = reduceToFixpoint(pool, opts.cycle_depth, opts.eps_son, opts.scope);
+    writeJson(poolPath, res.pool);
+    const logLine = {
+        kind: "round",
+        utc: utcNow(),
+        scope: opts.scope,
+        cycle_depth: opts.cycle_depth,
+        eps_son: opts.eps_son,
+        merges: res.note.merges,
+        clusters_after: res.pool.clusters.length,
+        trace_sample: (res.note.trace || []).slice(0, 50)
+    };
+    const logName = `round_${opts.scope}_cycle_${opts.cycle_depth}_${Date.now()}.log.json`;
+    writeText(path.join(logsDir, logName), canonicalize(logLine));
+    return logLine;
+}
+
+
+===== FILE: dist\slots_118.js =====
+// File: src/slots_118.ts
+// Purpose: CT-1030 Slot table (T1..T118) with canonical shell indexing + canonical pattern order.
+// Contract:
+// - Slot IDs are exactly "T1".."T118" and match idx
+// - shell is computed ONLY from idx using CT-1030 mapping
+// - pattern order is CANONICAL: (PHI, SQRT2, SQRT3, LN5, PI)
+// - T4 / T5 are forced to CT-1030 exact definitions (mode+pattern+label)
+// - deterministic, dependency-safe (pure data + validation)
+// Helper: convert old pattern order (PI,SQRT2,SQRT3,PHI,LN5) -> new (PHI,SQRT2,SQRT3,LN5,PI)
+function P(old) {
+    return [old[3], old[1], old[2], old[4], old[0]];
+}
+// CT-1030 canonical shell indexing:
+// n=1 ??? T1???T5; n=2 ??? T6???T25; n=3 ??? T26???T50; n=4 ??? T51???T81; n=5 ??? T82???T118
+function shellFromIdx(idx) {
+    if (idx >= 1 && idx <= 5)
+        return 1;
+    if (idx >= 6 && idx <= 25)
+        return 2;
+    if (idx >= 26 && idx <= 50)
+        return 3;
+    if (idx >= 51 && idx <= 81)
+        return 4;
+    if (idx >= 82 && idx <= 118)
+        return 5;
+    throw new Error(`slots_118: invalid slot idx: ${idx}`);
+}
+function enforceIdIdx(slot) {
+    const expected = `T${slot.idx}`;
+    if (slot.id !== expected) {
+        throw new Error(`slots_118: id/idx mismatch: got id=${slot.id} idx=${slot.idx} expected id=${expected}`);
+    }
+}
+function fixSlot(raw) {
+    enforceIdIdx(raw);
+    // Force canonical shell from idx (plan CT-1030)
+    const shell = shellFromIdx(raw.idx);
+    // Force CT-1030 T4/T5 exactly (mode + pattern + label) in order (PHI,SQRT2,SQRT3,LN5,PI)
+    // Plan: T4=(ln5,1) pattern (l,l,m,h,l) ; T5=(pi,1) pattern (l,l,l,m,h)
+    if (raw.idx === 4) {
+        return {
+            ...raw,
+            shell,
+            mode: "LN5",
+            pattern: ["l", "l", "m", "h", "l"],
+            label: "G5 Causal  dissipation; negation "
+        };
+    }
+    if (raw.idx === 5) {
+        return {
+            ...raw,
+            shell,
+            mode: "PI",
+            pattern: ["l", "l", "l", "m", "h"],
+            label: "G4 Causal  closure; identity "
+        };
+    }
+    return { ...raw, shell };
+}
+// RAW: shell=0 everywhere; ONLY fixSlot decides shells.
+const RAW_SLOTS_118 = [
+    { id: "T1", idx: 1, mode: "PHI", shell: 0, pattern: P(["h", "l", "l", "l", "l"]), label: "G1 Causal  CT core; equality " },
+    { id: "T2", idx: 2, mode: "SQRT2", shell: 0, pattern: P(["l", "h", "m", "m", "l"]), label: "G2 Causal  coupling; dyad invariance " },
+    { id: "T3", idx: 3, mode: "SQRT3", shell: 0, pattern: P(["l", "m", "h", "m", "l"]), label: "G3 Causal  triad frame; boundary " },
+    { id: "T4", idx: 4, mode: "PI", shell: 0, pattern: P(["h", "l", "m", "l", "l"]), label: "G4 Causal  closure; identity " },
+    { id: "T5", idx: 5, mode: "LN5", shell: 0, pattern: P(["l", "m", "l", "l", "h"]), label: "G5 Causal  dissipation; negation " },
+    { id: "T6", idx: 6, mode: "PHI", shell: 0, pattern: P(["h", "m", "l", "l", "l"]), label: "G1 Causal  shell growth; recursion " },
+    { id: "T7", idx: 7, mode: "SQRT2", shell: 0, pattern: P(["m", "h", "m", "l", "l"]), label: "G2 Causal  shell coupling; dyad " },
+    { id: "T8", idx: 8, mode: "SQRT3", shell: 0, pattern: P(["m", "m", "h", "l", "l"]), label: "G3 Causal  shell boundary; triad " },
+    { id: "T9", idx: 9, mode: "PI", shell: 0, pattern: P(["h", "m", "m", "l", "l"]), label: "G4 Causal  shell closure; rotation " },
+    { id: "T10", idx: 10, mode: "LN5", shell: 0, pattern: P(["m", "m", "l", "l", "h"]), label: "G5 Causal  shell dissipation; entropy " },
+    { id: "T11", idx: 11, mode: "PHI", shell: 0, pattern: P(["h", "m", "m", "l", "l"]), label: "Causal  growth; higher shell " },
+    { id: "T12", idx: 12, mode: "SQRT2", shell: 0, pattern: P(["m", "h", "m", "m", "l"]), label: "Causal  dyad; higher shell " },
+    { id: "T13", idx: 13, mode: "SQRT3", shell: 0, pattern: P(["m", "m", "h", "m", "l"]), label: "Causal  boundary; higher shell " },
+    { id: "T14", idx: 14, mode: "PI", shell: 0, pattern: P(["h", "m", "m", "m", "l"]), label: "Causal  closure; higher shell " },
+    { id: "T15", idx: 15, mode: "LN5", shell: 0, pattern: P(["m", "m", "m", "l", "h"]), label: "Causal  dissipation; higher shell " },
+    { id: "T16", idx: 16, mode: "PHI", shell: 0, pattern: P(["h", "m", "m", "m", "l"]), label: "Causal  growth; shell 4 " },
+    { id: "T17", idx: 17, mode: "SQRT2", shell: 0, pattern: P(["m", "h", "m", "m", "m"]), label: "Causal  dyad; shell 4 " },
+    { id: "T18", idx: 18, mode: "SQRT3", shell: 0, pattern: P(["m", "m", "h", "m", "m"]), label: "Causal  triad; shell 4 " },
+    { id: "T19", idx: 19, mode: "PI", shell: 0, pattern: P(["h", "m", "m", "m", "m"]), label: "Causal  closure; shell 4 " },
+    { id: "T20", idx: 20, mode: "LN5", shell: 0, pattern: P(["m", "m", "m", "m", "h"]), label: "Causal  dissipation; shell 4 " },
+    { id: "T21", idx: 21, mode: "PHI", shell: 0, pattern: P(["h", "m", "m", "m", "m"]), label: "Causal  growth; shell 5 " },
+    { id: "T22", idx: 22, mode: "SQRT2", shell: 0, pattern: P(["m", "h", "m", "m", "m"]), label: "Causal  dyad; shell 5 " },
+    { id: "T23", idx: 23, mode: "SQRT3", shell: 0, pattern: P(["m", "m", "h", "m", "m"]), label: "Causal  triad; shell 5 " },
+    { id: "T24", idx: 24, mode: "PI", shell: 0, pattern: P(["h", "m", "m", "m", "m"]), label: "Causal  closure; shell 5 " },
+    { id: "T25", idx: 25, mode: "LN5", shell: 0, pattern: P(["m", "m", "m", "m", "h"]), label: "Causal  dissipation; shell 5 " },
+    { id: "T26", idx: 26, mode: "PHI", shell: 0, pattern: P(["h", "l", "m", "m", "l"]), label: "Mixed  growth + dyad " },
+    { id: "T27", idx: 27, mode: "SQRT2", shell: 0, pattern: P(["l", "h", "m", "m", "m"]), label: "Mixed  dyad + triad " },
+    { id: "T28", idx: 28, mode: "SQRT3", shell: 0, pattern: P(["l", "m", "h", "m", "m"]), label: "Mixed  triad + closure " },
+    { id: "T29", idx: 29, mode: "PI", shell: 0, pattern: P(["h", "l", "m", "m", "m"]), label: "Mixed  closure + dyad " },
+    { id: "T30", idx: 30, mode: "LN5", shell: 0, pattern: P(["l", "m", "m", "m", "h"]), label: "Mixed  dissipation + structure " },
+    { id: "T31", idx: 31, mode: "PHI", shell: 0, pattern: P(["h", "m", "m", "m", "l"]), label: "Mixed  growth; shell 2 " },
+    { id: "T32", idx: 32, mode: "SQRT2", shell: 0, pattern: P(["m", "h", "m", "m", "l"]), label: "Mixed  dyad; shell 2 " },
+    { id: "T33", idx: 33, mode: "SQRT3", shell: 0, pattern: P(["m", "m", "h", "m", "l"]), label: "Mixed  triad; shell 2 " },
+    { id: "T34", idx: 34, mode: "PI", shell: 0, pattern: P(["h", "m", "m", "m", "l"]), label: "Mixed  closure; shell 2 " },
+    { id: "T35", idx: 35, mode: "LN5", shell: 0, pattern: P(["m", "m", "m", "l", "h"]), label: "Mixed  dissipation; shell 2 " },
+    { id: "T36", idx: 36, mode: "PHI", shell: 0, pattern: P(["h", "m", "m", "m", "l"]), label: "Mixed  growth; shell 3 " },
+    { id: "T37", idx: 37, mode: "SQRT2", shell: 0, pattern: P(["m", "h", "m", "m", "m"]), label: "Mixed  dyad; shell 3 " },
+    { id: "T38", idx: 38, mode: "SQRT3", shell: 0, pattern: P(["m", "m", "h", "m", "m"]), label: "Mixed  triad; shell 3 " },
+    { id: "T39", idx: 39, mode: "PI", shell: 0, pattern: P(["h", "m", "m", "m", "m"]), label: "Mixed  closure; shell 3 " },
+    { id: "T40", idx: 40, mode: "LN5", shell: 0, pattern: P(["m", "m", "m", "m", "h"]), label: "Mixed  dissipation; shell 3 " },
+    { id: "T41", idx: 41, mode: "PHI", shell: 0, pattern: P(["h", "m", "m", "m", "m"]), label: "Mixed  growth; shell 4 " },
+    { id: "T42", idx: 42, mode: "SQRT2", shell: 0, pattern: P(["m", "h", "m", "m", "m"]), label: "Mixed  dyad; shell 4 " },
+    { id: "T43", idx: 43, mode: "SQRT3", shell: 0, pattern: P(["m", "m", "h", "m", "m"]), label: "Mixed  triad; shell 4 " },
+    { id: "T44", idx: 44, mode: "PI", shell: 0, pattern: P(["h", "m", "m", "m", "m"]), label: "Mixed  closure; shell 4 " },
+    { id: "T45", idx: 45, mode: "LN5", shell: 0, pattern: P(["m", "m", "m", "m", "h"]), label: "Mixed  dissipation; shell 4 " },
+    { id: "T46", idx: 46, mode: "PHI", shell: 0, pattern: P(["h", "m", "m", "m", "m"]), label: "Mixed  growth; shell 5 " },
+    { id: "T47", idx: 47, mode: "SQRT2", shell: 0, pattern: P(["m", "h", "m", "m", "m"]), label: "Mixed  dyad; shell 5 " },
+    { id: "T48", idx: 48, mode: "SQRT3", shell: 0, pattern: P(["m", "m", "h", "m", "m"]), label: "Mixed  triad; shell 5 " },
+    { id: "T49", idx: 49, mode: "PI", shell: 0, pattern: P(["h", "m", "m", "m", "m"]), label: "Mixed  closure; shell 5 " },
+    { id: "T50", idx: 50, mode: "LN5", shell: 0, pattern: P(["m", "m", "m", "m", "h"]), label: "Mixed  dissipation; shell 5 " },
+    { id: "T51", idx: 51, mode: "PHI", shell: 0, pattern: P(["h", "m", "h", "l", "l"]), label: "Structured  growth + closure " },
+    { id: "T52", idx: 52, mode: "SQRT2", shell: 0, pattern: P(["m", "h", "h", "l", "l"]), label: "Structured  dyad + triad " },
+    { id: "T53", idx: 53, mode: "SQRT3", shell: 0, pattern: P(["m", "h", "h", "l", "l"]), label: "Structured  triad + dyad " },
+    { id: "T54", idx: 54, mode: "PI", shell: 0, pattern: P(["h", "m", "h", "l", "l"]), label: "Structured  closure + growth " },
+    { id: "T55", idx: 55, mode: "LN5", shell: 0, pattern: P(["m", "m", "m", "l", "h"]), label: "Structured  dissipation " },
+    { id: "T56", idx: 56, mode: "PHI", shell: 0, pattern: P(["h", "m", "h", "m", "l"]), label: "Structured  growth; shell 2 " },
+    { id: "T57", idx: 57, mode: "SQRT2", shell: 0, pattern: P(["m", "h", "h", "m", "l"]), label: "Structured  dyad; shell 2 " },
+    { id: "T58", idx: 58, mode: "SQRT3", shell: 0, pattern: P(["m", "h", "h", "m", "l"]), label: "Structured  triad; shell 2 " },
+    { id: "T59", idx: 59, mode: "PI", shell: 0, pattern: P(["h", "m", "h", "m", "l"]), label: "Structured  closure; shell 2 " },
+    { id: "T60", idx: 60, mode: "LN5", shell: 0, pattern: P(["m", "m", "m", "m", "h"]), label: "Structured  dissipation; shell 2 " },
+    { id: "T61", idx: 61, mode: "PHI", shell: 0, pattern: P(["h", "m", "h", "m", "m"]), label: "Structured  growth; shell 3 " },
+    { id: "T62", idx: 62, mode: "SQRT2", shell: 0, pattern: P(["m", "h", "h", "m", "m"]), label: "Structured  dyad; shell 3 " },
+    { id: "T63", idx: 63, mode: "SQRT3", shell: 0, pattern: P(["m", "h", "h", "m", "m"]), label: "Structured  triad; shell 3 " },
+    { id: "T64", idx: 64, mode: "PI", shell: 0, pattern: P(["h", "m", "h", "m", "m"]), label: "Structured  closure; shell 3 " },
+    { id: "T65", idx: 65, mode: "LN5", shell: 0, pattern: P(["m", "m", "m", "m", "h"]), label: "Structured  dissipation; shell 3 " },
+    { id: "T66", idx: 66, mode: "PHI", shell: 0, pattern: P(["h", "m", "h", "m", "m"]), label: "Structured  growth; shell 4 " },
+    { id: "T67", idx: 67, mode: "SQRT2", shell: 0, pattern: P(["m", "h", "h", "m", "m"]), label: "Structured  dyad; shell 4 " },
+    { id: "T68", idx: 68, mode: "SQRT3", shell: 0, pattern: P(["m", "h", "h", "m", "m"]), label: "Structured  triad; shell 4 " },
+    { id: "T69", idx: 69, mode: "PI", shell: 0, pattern: P(["h", "m", "h", "m", "m"]), label: "Structured  closure; shell 4 " },
+    { id: "T70", idx: 70, mode: "LN5", shell: 0, pattern: P(["m", "m", "m", "m", "h"]), label: "Structured  dissipation; shell 4 " },
+    { id: "T71", idx: 71, mode: "PHI", shell: 0, pattern: P(["h", "m", "h", "m", "m"]), label: "Structured  growth; shell 5 " },
+    { id: "T72", idx: 72, mode: "SQRT2", shell: 0, pattern: P(["m", "h", "h", "m", "m"]), label: "Structured  dyad; shell 5 " },
+    { id: "T73", idx: 73, mode: "SQRT3", shell: 0, pattern: P(["m", "h", "h", "m", "m"]), label: "Structured  triad; shell 5 " },
+    { id: "T74", idx: 74, mode: "PI", shell: 0, pattern: P(["h", "m", "h", "m", "m"]), label: "Structured  closure; shell 5 " },
+    { id: "T75", idx: 75, mode: "LN5", shell: 0, pattern: P(["m", "m", "m", "m", "h"]), label: "Structured  dissipation; shell 5 " },
+    { id: "T76", idx: 76, mode: "PHI", shell: 0, pattern: P(["h", "h", "h", "l", "l"]), label: "Triple  growth (3 highs) " },
+    { id: "T77", idx: 77, mode: "SQRT2", shell: 0, pattern: P(["h", "h", "h", "l", "l"]), label: "Triple  dyad (3 highs) " },
+    { id: "T78", idx: 78, mode: "SQRT3", shell: 0, pattern: P(["h", "h", "h", "l", "l"]), label: "Triple  triad (3 highs) " },
+    { id: "T79", idx: 79, mode: "PI", shell: 0, pattern: P(["h", "h", "h", "l", "l"]), label: "Triple  closure (3 highs) " },
+    { id: "T80", idx: 80, mode: "LN5", shell: 0, pattern: P(["m", "m", "m", "l", "h"]), label: "Triple  dissipation " },
+    { id: "T81", idx: 81, mode: "PHI", shell: 0, pattern: P(["h", "h", "h", "m", "l"]), label: "Triple  shell 2 " },
+    { id: "T82", idx: 82, mode: "SQRT2", shell: 0, pattern: P(["h", "h", "h", "m", "l"]), label: "Triple  dyad shell 2 " },
+    { id: "T83", idx: 83, mode: "SQRT3", shell: 0, pattern: P(["h", "h", "h", "m", "l"]), label: "Triple  triad shell 2 " },
+    { id: "T84", idx: 84, mode: "PI", shell: 0, pattern: P(["h", "h", "h", "m", "l"]), label: "Triple  closure shell 2 " },
+    { id: "T85", idx: 85, mode: "LN5", shell: 0, pattern: P(["m", "m", "m", "m", "h"]), label: "Triple  dissipation shell 2 " },
+    { id: "T86", idx: 86, mode: "PHI", shell: 0, pattern: P(["h", "h", "h", "m", "m"]), label: "Triple  shell 3 " },
+    { id: "T87", idx: 87, mode: "SQRT2", shell: 0, pattern: P(["h", "h", "h", "m", "m"]), label: "Triple  dyad shell 3 " },
+    { id: "T88", idx: 88, mode: "SQRT3", shell: 0, pattern: P(["h", "h", "h", "m", "m"]), label: "Triple  triad shell 3 " },
+    { id: "T89", idx: 89, mode: "PI", shell: 0, pattern: P(["h", "h", "h", "m", "m"]), label: "Triple  closure shell 3 " },
+    { id: "T90", idx: 90, mode: "LN5", shell: 0, pattern: P(["m", "m", "m", "m", "h"]), label: "Triple  dissipation shell 3 " },
+    { id: "T91", idx: 91, mode: "PHI", shell: 0, pattern: P(["h", "h", "h", "m", "m"]), label: "Triple  shell 4 " },
+    { id: "T92", idx: 92, mode: "SQRT2", shell: 0, pattern: P(["h", "h", "h", "m", "m"]), label: "Triple  dyad shell 4 " },
+    { id: "T93", idx: 93, mode: "SQRT3", shell: 0, pattern: P(["h", "h", "h", "m", "m"]), label: "Triple  triad shell 4 " },
+    { id: "T94", idx: 94, mode: "PI", shell: 0, pattern: P(["h", "h", "h", "m", "m"]), label: "Triple  closure shell 4 " },
+    { id: "T95", idx: 95, mode: "LN5", shell: 0, pattern: P(["m", "m", "m", "m", "h"]), label: "Triple  dissipation shell 4 " },
+    { id: "T96", idx: 96, mode: "PHI", shell: 0, pattern: P(["h", "h", "h", "m", "m"]), label: "Triple  shell 5 " },
+    { id: "T97", idx: 97, mode: "SQRT2", shell: 0, pattern: P(["h", "h", "h", "m", "m"]), label: "Triple  dyad shell 5 " },
+    { id: "T98", idx: 98, mode: "SQRT3", shell: 0, pattern: P(["h", "h", "h", "m", "m"]), label: "Triple  triad shell 5 " },
+    { id: "T99", idx: 99, mode: "PI", shell: 0, pattern: P(["h", "h", "h", "m", "m"]), label: "Triple  closure shell 5 " },
+    { id: "T100", idx: 100, mode: "LN5", shell: 0, pattern: P(["m", "m", "m", "m", "h"]), label: "Triple  dissipation shell 5 " },
+    { id: "T101", idx: 101, mode: "PHI", shell: 0, pattern: P(["h", "h", "h", "h", "l"]), label: "Dense  4 highs " },
+    { id: "T102", idx: 102, mode: "SQRT2", shell: 0, pattern: P(["h", "h", "h", "h", "l"]), label: "Dense  dyad 4 highs " },
+    { id: "T103", idx: 103, mode: "SQRT3", shell: 0, pattern: P(["h", "h", "h", "h", "l"]), label: "Dense  triad 4 highs " },
+    { id: "T104", idx: 104, mode: "PI", shell: 0, pattern: P(["h", "h", "h", "h", "l"]), label: "Dense  closure 4 highs " },
+    { id: "T105", idx: 105, mode: "LN5", shell: 0, pattern: P(["m", "m", "m", "m", "h"]), label: "Dense  dissipation " },
+    { id: "T106", idx: 106, mode: "PHI", shell: 0, pattern: P(["h", "h", "h", "h", "m"]), label: "Dense  shell 2 " },
+    { id: "T107", idx: 107, mode: "SQRT2", shell: 0, pattern: P(["h", "h", "h", "h", "m"]), label: "Dense  dyad shell 2 " },
+    { id: "T108", idx: 108, mode: "SQRT3", shell: 0, pattern: P(["h", "h", "h", "h", "m"]), label: "Dense  triad shell 2 " },
+    { id: "T109", idx: 109, mode: "PI", shell: 0, pattern: P(["h", "h", "h", "h", "m"]), label: "Dense  closure shell 2 " },
+    { id: "T110", idx: 110, mode: "LN5", shell: 0, pattern: P(["m", "m", "m", "m", "h"]), label: "Dense  dissipation shell 2 " },
+    { id: "T111", idx: 111, mode: "PHI", shell: 0, pattern: P(["h", "h", "h", "h", "m"]), label: "Dense  shell 3 " },
+    { id: "T112", idx: 112, mode: "SQRT2", shell: 0, pattern: P(["h", "h", "h", "h", "m"]), label: "Dense  dyad shell 3 " },
+    { id: "T113", idx: 113, mode: "SQRT3", shell: 0, pattern: P(["h", "h", "h", "h", "m"]), label: "Dense  triad shell 3 " },
+    { id: "T114", idx: 114, mode: "PI", shell: 0, pattern: P(["h", "h", "h", "h", "m"]), label: "Dense  closure shell 3 " },
+    { id: "T115", idx: 115, mode: "LN5", shell: 0, pattern: P(["m", "m", "m", "m", "h"]), label: "Dense  dissipation shell 3 " },
+    { id: "T116", idx: 116, mode: "PHI", shell: 0, pattern: P(["h", "h", "h", "h", "m"]), label: "Dense  shell 4 " },
+    { id: "T117", idx: 117, mode: "SQRT2", shell: 0, pattern: P(["h", "h", "h", "h", "m"]), label: "Dense  dyad shell 4 " },
+    { id: "T118", idx: 118, mode: "SQRT3", shell: 0, pattern: P(["h", "h", "h", "h", "m"]), label: "Dense  triad shell 4 " }
+];
+// Export final, plan-locked
+export const SLOTS_118 = RAW_SLOTS_118.map(fixSlot);
+// ---------- module-level validation (fail fast, no silent drift) ----------
+(function validateSlots(slots) {
+    if (slots.length !== 118) {
+        throw new Error(`slots_118: expected 118 slots, got ${slots.length}`);
+    }
+    const seen = new Set();
+    for (const s of slots) {
+        enforceIdIdx(s);
+        if (seen.has(s.id))
+            throw new Error(`slots_118: duplicate id ${s.id}`);
+        seen.add(s.id);
+        const expectedShell = shellFromIdx(s.idx);
+        if (s.shell !== expectedShell) {
+            throw new Error(`slots_118: shell mismatch for ${s.id}: got ${s.shell} expected ${expectedShell}`);
+        }
+        if (!Array.isArray(s.pattern) || s.pattern.length !== 5) {
+            throw new Error(`slots_118: pattern length invalid for ${s.id}`);
+        }
+    }
+    // Explicit check: CT-1030 forced anchors
+    const t4 = slots[3]; // idx=4
+    const t5 = slots[4]; // idx=5
+    if (t4.id !== "T4" || t4.mode !== "LN5" || t4.pattern.join(",") !== ["l", "l", "m", "h", "l"].join(",")) {
+        throw new Error(`slots_118: T4 anchor not locked correctly`);
+    }
+    if (t5.id !== "T5" || t5.mode !== "PI" || t5.pattern.join(",") !== ["l", "l", "l", "m", "h"].join(",")) {
+        throw new Error(`slots_118: T5 anchor not locked correctly`);
+    }
+})(SLOTS_118);
+
+
+===== FILE: dist\types.js =====
+// File: src/types.ts
+// Start-1 core types ??? compatible with CURRENT modules + tolerant to legacy residue_pool.json
+// Rules:
+// - Compile with residue_pool.ts / round.ts / pipeline.ts
+// - Avoid "any": use unknown
+// - Keep legacy aliases OPTIONAL so old JSON can be read + normalized
+export {};
+

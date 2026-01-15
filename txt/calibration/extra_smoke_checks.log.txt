@@ -1,0 +1,38 @@
+COMMANDS: (inline in this log)
+CWD: C:\CT\github\strat-1
+---
+
+=== TEST: windows_write_read ===
+ok
+
+
+=== TEST: cli_help ===
+Usage:
+  node dist/cli.js ingest --file <path> --uri <uri> --cycle <n> --eps <eps_son>
+  node dist/cli.js round  --cycle <n> --eps <eps_son> [--scope event|daily|weekly|monthly|yearly]
+
+=== TEST: round_minimal ===
+{
+  "kind": "round",
+  "utc": "2026-01-14T21:19:24.502Z",
+  "scope": "event",
+  "cycle_depth": 1,
+  "eps_son": 0.01,
+  "merges": 0,
+  "clusters_after": 1,
+  "trace_sample": [
+    {
+      "step": "noop",
+      "scope": "event",
+      "cycle_depth": 1,
+      "eps_son": 0.01,
+      "clusters": 1
+    }
+  ]
+}
+
+=== TEST: dist_src_freshness ===
+dist exists: True
+dist cli mtime: 2026-01-14T13:19:12.0409188-08:00
+src cli mtime: 2026-01-13T12:40:33.0872468-08:00
+dist cli newer than src cli: True

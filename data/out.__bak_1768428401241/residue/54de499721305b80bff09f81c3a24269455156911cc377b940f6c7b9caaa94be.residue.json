@@ -1,0 +1,22 @@
+{
+  "residue_id": "54de499721305b80bff09f81c3a24269455156911cc377b940f6c7b9caaa94be",
+  "parent_skin_id": "22d64a57d8062f7b012bd0f994a5477713a097884a52ce6bad11c51f2c1f6acb",
+  "residue_vector": {
+    "PI": 0.9899422939810243,
+    "SQRT2": 0.992414133782193,
+    "SQRT3": 0.9705517725372846,
+    "PHI": 0.992414133782193,
+    "LN5": 0.9907186257121741
+  },
+  "dominance": "SQRT2",
+  "cycle_depth": 1,
+  "age_band": "fresh",
+  "absorption_proxy": {
+    "PI": 0.010057706018975661,
+    "SQRT2": 0.00758586621780694,
+    "SQRT3": 0.0294482274627154,
+    "PHI": 0.00758586621780694,
+    "LN5": 0.00928137428782596
+  },
+  "raw_excerpt": "Line 1\nLine 2\nLine 3\nLine 4\nLine 5\nLine 6\nLine 7\nLine 8\nLine 9\nLine 10\nLine 11\nLine 12\nLine 13\nLine 14\nLine 15\nLine 16\nLine 17\nLine 18\nLine 19\nLine 20\nLine 21\nLine 22\nLine 23\nLine 24\nLine 25\nLine 26\nLine 27\nLine 28\nLine 29\nLine 30\nLine 31\nL"
+}

@@ -1,0 +1,17 @@
+param alpha 0.18
+param steps 2000
+param tol 1e-6
+
+node A
+node B
+node PI
+
+edge A B w=1.0
+edge PI A w=0.6
+
+flow A -> B k=0.35
+
+decay A 0.02
+decay B 0.02
+
+pin PI 1.0

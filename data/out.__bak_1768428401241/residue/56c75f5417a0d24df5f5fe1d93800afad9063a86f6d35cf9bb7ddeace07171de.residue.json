@@ -1,0 +1,22 @@
+{
+  "residue_id": "56c75f5417a0d24df5f5fe1d93800afad9063a86f6d35cf9bb7ddeace07171de",
+  "parent_skin_id": "5da52ab0076eabd3453ada63fecb83d7fd9d938b04f58e03077193b7b5d9bdda",
+  "residue_vector": {
+    "PI": 0.9915706059320466,
+    "SQRT2": 0.9928270107874119,
+    "SQRT3": 0.971428220092145,
+    "PHI": 0.9928270107874119,
+    "LN5": 0.9898386316779316
+  },
+  "dominance": "SQRT2",
+  "cycle_depth": 0,
+  "age_band": "fresh",
+  "absorption_proxy": {
+    "PI": 0.008429394067953414,
+    "SQRT2": 0.007172989212588133,
+    "SQRT3": 0.02857177990785503,
+    "PHI": 0.007172989212588133,
+    "LN5": 0.010161368322068383
+  },
+  "raw_excerpt": "\"A line one\"\n\"A line two\"\n\"Nearly same line\"\n\"Nearly same line!\"\n\"Another line\""
+}

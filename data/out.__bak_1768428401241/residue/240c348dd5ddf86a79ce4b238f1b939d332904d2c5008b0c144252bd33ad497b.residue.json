@@ -1,0 +1,22 @@
+{
+  "residue_id": "240c348dd5ddf86a79ce4b238f1b939d332904d2c5008b0c144252bd33ad497b",
+  "parent_skin_id": "831f2ab85d611d44c7c74e49bbcc88ac0883470fc72dadf36133845f5b97cfc0",
+  "residue_vector": {
+    "PI": 0.9908773511302894,
+    "SQRT2": 0.9928567827866419,
+    "SQRT3": 0.9714925066945996,
+    "PHI": 0.9928567827866419,
+    "LN5": 0.9907570389785539
+  },
+  "dominance": "SQRT2",
+  "cycle_depth": 1,
+  "age_band": "fresh",
+  "absorption_proxy": {
+    "PI": 0.009122648869710561,
+    "SQRT2": 0.007143217213358134,
+    "SQRT3": 0.028507493305400405,
+    "PHI": 0.007143217213358134,
+    "LN5": 0.00924296102144611
+  },
+  "raw_excerpt": "\"Line 1\"\n\"Line 2\"\n\"Line 3\"\n\"Line 4\"\n\"Line 5\"\n\"Line 6\"\n\"Line 7\"\n\"Line 8\"\n\"Line 9\"\n\"Line 10\""
+}

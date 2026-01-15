@@ -1,0 +1,33 @@
+A) Dataset
+nb_inputs = 20
+groups_expected = 4
+
+B) Outcomes
+DUPLICATE = 0
+SUTURED = 14
+RESIDUE = 6
+
+C) Round stats
+merges_round1 = 18
+merges_round2 = 0
+
+D) Compression
+phase=cycle sim=0.9999998612681823 w=0 R_before_a=4.960493104817033 R_before_b=4.96049708742647 R_after=4.960493104817033 compress=OK
+phase=cycle sim=0.9999998442432898 w=0 R_before_a=4.960544184382866 R_before_b=4.960539970315165 R_after=4.960539970315165 compress=OK
+phase=cycle sim=0.9999998337016829 w=0 R_before_a=4.960578699694611 R_before_b=4.9605743155523285 R_after=4.9605743155523285 compress=OK
+phase=cycle sim=0.999999658887688 w=0 R_before_a=4.960530302571764 R_before_b=4.960539970315165 R_after=4.960530302571764 compress=OK
+phase=cycle sim=0.9999995383246882 w=0 R_before_a=4.960625632439011 R_before_b=4.960638604552552 R_after=4.960625632439011 compress=OK
+phase=cycle sim=0.9999992146172024 w=0 R_before_a=4.960603634993304 R_before_b=4.960625632439011 R_after=4.960603634993304 compress=OK
+phase=cycle sim=0.9999989435961909 w=0 R_before_a=4.9605743155523285 R_before_b=4.960603634993304 R_after=4.9605743155523285 compress=OK
+phase=cycle sim=0.9999988155205812 w=0 R_before_a=4.960783458381099 R_before_b=4.96081668396691 R_after=4.960783458381099 compress=OK
+phase=cycle sim=0.9999987625020205 w=0 R_before_a=4.972766183458005 R_before_b=4.972795476034455 R_after=4.972766183458005 compress=OK
+phase=cycle sim=0.9999984365395049 w=0 R_before_a=4.960530302571764 R_before_b=4.9605743155523285 R_after=4.960530302571764 compress=OK
+
+E) Phases rencontrées
+cycle
+
+F) Idempotence
+PASS
+
+G) Verdict final
+RESULT005: PASS

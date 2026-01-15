@@ -1,0 +1,19 @@
+{
+  "alignment_index": 0.999975,
+  "approach_velocity": 0,
+  "attractor_id": "slot:UNKNOWN",
+  "cycle_depth": 0,
+  "d_son_current": 0,
+  "d_son_min": 0,
+  "deposited_cluster_id": "d35663e326f4c037",
+  "deposited_note": "new_cluster",
+  "deposited_rep_hash": "a62d43caf90ae5486eedd2d5c7c5bf65bab5ac5c26cdc181cc6cf5bec2cf1121",
+  "eps_son": 0.0001,
+  "kind": "ingest",
+  "packet_id": "bea67abbb049bac8b1fdb7af0fa1db7e03b46b0eeb392cf192fcc926164e5281",
+  "residue_age_band": "fresh",
+  "residue_id": "881d2d5e05685c1ad10308ffd8bb675b6eb00cac723c504b0ea6f008eaaa8396",
+  "residue_mode": "PI",
+  "skin_id": "ac9573408c3d48d5b36c65324be12704431b711f46528e59c841035cc941eea6",
+  "status": "sutured"
+}

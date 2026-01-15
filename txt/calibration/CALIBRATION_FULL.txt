@@ -1,0 +1,134 @@
+
+=== Contexte & invariants ===
+Start-1 est un deduplicateur de forme uniquement (pas de verite, pas de sens).
+alignment_index = convergence/qualite, pas verite.
+ct-cvm-mini est embarque, jamais externe.
+Contrat Phi5 verrouille: {PI,SQRT2,SQRT3,PHI,LN5}.
+Start-1 reste une station d'epuration causale (dedup/peau/residu).
+
+=== Versioning & chemins ===
+process.cwd(): C:\CT\github\strat-1
+Racine attendue: C:\CT\github\strat-1
+CVM CLI: C:\CT\github\strat-1\ct-cvm-mini\dist\cli.js
+
+=== package.json Start-1 ===
+{
+  "name": "start-1",
+  "version": "0.5.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "build:all": "npm --prefix ct-cvm-mini run build && npm run build",
+    "test:smoke": "npm run build && node scripts/smoke_test.mjs",
+    "test:cvm-contract": "npm --prefix ct-cvm-mini run test:contract && node scripts/cvm_contract_smoke.mjs",
+    "ingest": "npm run build && node dist/cli.js ingest",
+    "round": "npm run build && node dist/cli.js round"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "typescript": "5.9.3"
+  }
+}
+
+
+Check scripts: build:all + test:cvm-contract presentes.
+
+=== Logs bruts ? npm run build:all ===
+COMMAND: npm run build:all
+CWD: C:\CT\github\strat-1
+---
+
+> start-1@0.5.0 build:all
+> npm --prefix ct-cvm-mini run build && npm run build
+
+
+> @ct-lab/ct-cvm-mini@0.1.0 build
+> tsc -p tsconfig.json && npm run guard:dist
+
+
+> @ct-lab/ct-cvm-mini@0.1.0 guard:dist
+> node -e "import('node:fs').then(fs=>{const bad=[];const walk=p=>{for(const e of fs.readdirSync(p,{withFileTypes:true})){const f=p+'/'+e.name;if(e.isDirectory()) walk(f); else if(f.endsWith('.ts') && !f.endsWith('.d.ts')) bad.push(f);} }; walk('dist'); if(bad.length){console.error('dist contains .ts files:', bad.join(',')); process.exit(1);} })"
+
+
+> start-1@0.5.0 build
+> tsc -p tsconfig.json
+
+
+=== Logs bruts ? npm run test:cvm-contract ===
+COMMAND: npm run test:cvm-contract
+CWD: C:\CT\github\strat-1
+---
+
+> start-1@0.5.0 test:cvm-contract
+> npm --prefix ct-cvm-mini run test:contract && node scripts/cvm_contract_smoke.mjs
+
+
+> @ct-lab/ct-cvm-mini@0.1.0 test:contract
+> npm run build && node dist/cli.js run examples/demo.csl out/test_contract.json && node -e "const j=require('fs').readFileSync('out/test_contract.json','utf8'); const o=JSON.parse(j); const p=o.final?.phi||{}; const k=['PI','SQRT2','SQRT3','PHI','LN5']; for(const kk of k){ if(!(kk in p)) throw new Error('missing '+kk); const v=Number(p[kk]); if(!Number.isFinite(v)) throw new Error('non-finite '+kk); } console.log('OK contract');"
+
+
+> @ct-lab/ct-cvm-mini@0.1.0 build
+> tsc -p tsconfig.json && npm run guard:dist
+
+
+> @ct-lab/ct-cvm-mini@0.1.0 guard:dist
+> node -e "import('node:fs').then(fs=>{const bad=[];const walk=p=>{for(const e of fs.readdirSync(p,{withFileTypes:true})){const f=p+'/'+e.name;if(e.isDirectory()) walk(f); else if(f.endsWith('.ts') && !f.endsWith('.d.ts')) bad.push(f);} }; walk('dist'); if(bad.length){console.error('dist contains .ts files:', bad.join(',')); process.exit(1);} })"
+
+ct-cvm-mini: converged=true i=0.999050 iters=38
+OK contract
+ct-cvm-mini: converged=true i=0.999050 iters=38
+OK cvm_contract_smoke
+
+=== Tests complementaires executes ===
+=== TEST: dist_freshness ===
+dist exists: True
+dist cli mtime: 2026-01-14T13:36:28.9480576-08:00
+src cli mtime: 2026-01-13T12:40:33.0872468-08:00
+dist cli newer than src cli: True
+=== TEST: windows_write ===
+write_test.tmp exists: True
+write_test.tmp read: ok
+
+=== TEST: cli_help ===
+Usage:
+  node dist/cli.js ingest --file <path> --uri <uri> --cycle <n> --eps <eps_son>
+  node dist/cli.js round  --cycle <n> --eps <eps_son> [--scope event|daily|weekly|monthly|yearly]
+=== TEST: round_minimal ===
+{
+  "kind": "round",
+  "utc": "2026-01-14T21:36:39.570Z",
+  "scope": "event",
+  "cycle_depth": 1,
+  "eps_son": 0.01,
+  "merges": 0,
+  "clusters_after": 1,
+  "trace_sample": [
+    {
+      "step": "noop",
+      "scope": "event",
+      "cycle_depth": 1,
+      "eps_son": 0.01,
+      "clusters": 1
+    }
+  ]
+}
+=== TEST: cvm_direct ===
+ct-cvm-mini: converged=true i=0.999050 iters=38
+=== TEST: phi5_check ===
+PI = 1 (finite=True)
+SQRT2 = 0 (finite=True)
+SQRT3 = 0 (finite=True)
+PHI = 0 (finite=True)
+LN5 = 0 (finite=True)
+
+=== Etat final ct-cvm-mini/out ===
+ct_graph_final.json
+test.json
+test_contract.json
+test_contract.json = fichier de reference
+
+=== Verdict operationnel ===
+STATUS: GREEN
+AMBER: none
+RED: none

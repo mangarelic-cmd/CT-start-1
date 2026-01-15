@@ -1,0 +1,200 @@
+{
+  "packet_id": "5bfee5397937ea3bd9c68b8f31e54b9de89308d19103e31ebdac45756db60885",
+  "source": {
+    "uri": "codex://edge/empty",
+    "fetched_utc": "2026-01-13T21:21:36.036Z"
+  },
+  "raw": "",
+  "claims": [
+    {
+      "id": "32e46aaa57d4d2621d248c3d2941df902aaf5986f6ae6973cc2a18f63e857b3a",
+      "text": "",
+      "utc": "2026-01-13T21:21:36.038Z"
+    }
+  ],
+  "status": "rejected",
+  "trace": [
+    {
+      "step": "ingest",
+      "utc": "2026-01-13T21:21:36.038Z",
+      "info": {
+        "file": "C:\\CT\\github\\strat-1\\data\\inbox\\codex_empty.txt",
+        "uri": "codex://edge/empty"
+      }
+    },
+    {
+      "step": "atomize",
+      "utc": "2026-01-13T21:21:36.038Z",
+      "info": {
+        "claim_id": "32e46aaa57d4d2621d248c3d2941df902aaf5986f6ae6973cc2a18f63e857b3a",
+        "claim_len": 0
+      }
+    },
+    {
+      "step": "transpose",
+      "utc": "2026-01-13T21:21:36.051Z",
+      "info": {
+        "dominance": "LN5",
+        "vector": {
+          "PI": 0,
+          "SQRT2": 0,
+          "SQRT3": 0,
+          "PHI": 0,
+          "LN5": 1
+        }
+      }
+    },
+    {
+      "step": "csl",
+      "utc": "2026-01-13T21:21:36.051Z",
+      "info": {
+        "csl_bytes": 373
+      }
+    },
+    {
+      "step": "cvm",
+      "utc": "2026-01-13T21:21:36.256Z",
+      "info": {
+        "converged": true,
+        "iters": 113,
+        "i": 0.9971749999999999
+      }
+    },
+    {
+      "step": "gate",
+      "utc": "2026-01-13T21:21:36.262Z",
+      "info": {
+        "ok": false,
+        "reasons": [
+          "alignment_index < 0.946",
+          "below_anchor(0.87)"
+        ]
+      }
+    },
+    {
+      "step": "status",
+      "utc": "2026-01-13T21:21:36.262Z",
+      "info": {
+        "status": "rejected"
+      }
+    }
+  ],
+  "skin": {
+    "skin_id": "c2711dab66e38fb3e2175d6451af68130cc939078dc9e448ed4f09911089ee75",
+    "vector": {
+      "PI": 0,
+      "SQRT2": 0,
+      "SQRT3": 0,
+      "PHI": 0,
+      "LN5": 1
+    },
+    "dominance": "LN5",
+    "alignment_index": 0.9971749999999999,
+    "converged": true,
+    "iters": 113,
+    "cvm_trace_sample": [
+      {
+        "iter": 1,
+        "max_delta": 0.0378,
+        "energy": 0
+      },
+      {
+        "iter": 2,
+        "max_delta": 0.034398,
+        "energy": 0
+      },
+      {
+        "iter": 3,
+        "max_delta": 0.03130218,
+        "energy": 0
+      },
+      {
+        "iter": 4,
+        "max_delta": 0.028484983800000002,
+        "energy": 0
+      },
+      {
+        "iter": 5,
+        "max_delta": 0.025921335258,
+        "energy": 0
+      },
+      {
+        "iter": 6,
+        "max_delta": 0.023588415084780018,
+        "energy": 0
+      },
+      {
+        "iter": 7,
+        "max_delta": 0.021465457727149806,
+        "energy": 0
+      },
+      {
+        "iter": 8,
+        "max_delta": 0.01953356653170632,
+        "energy": 0
+      },
+      {
+        "iter": 9,
+        "max_delta": 0.017775545543852744,
+        "energy": 0
+      },
+      {
+        "iter": 10,
+        "max_delta": 0.01617574644490602,
+        "energy": 0
+      },
+      {
+        "iter": 11,
+        "max_delta": 0.014719929264864429,
+        "energy": 0
+      },
+      {
+        "iter": 12,
+        "max_delta": 0.013395135631026678,
+        "energy": 0
+      },
+      {
+        "iter": 13,
+        "max_delta": 0.012189573424234268,
+        "energy": 0
+      },
+      {
+        "iter": 14,
+        "max_delta": 0.011092511816053197,
+        "energy": 0
+      },
+      {
+        "iter": 15,
+        "max_delta": 0.010094185752608398,
+        "energy": 0
+      },
+      {
+        "iter": 16,
+        "max_delta": 0.009185709034873646,
+        "energy": 0
+      }
+    ]
+  },
+  "residue": {
+    "residue_id": "7b750e0f1f5e277084697cd3389a717ba16afdb3dc9be7bb99d5e555aff592aa",
+    "parent_skin_id": "c2711dab66e38fb3e2175d6451af68130cc939078dc9e448ed4f09911089ee75",
+    "residue_vector": {
+      "PI": 0.975353179432183,
+      "SQRT2": 0.975353179432183,
+      "SQRT3": 0.975353179432183,
+      "PHI": 0.975353179432183,
+      "LN5": 0.9459259545243937
+    },
+    "dominance": "PI",
+    "cycle_depth": 1,
+    "age_band": "fresh",
+    "absorption_proxy": {
+      "PI": 0.02464682056781697,
+      "SQRT2": 0.02464682056781697,
+      "SQRT3": 0.02464682056781697,
+      "PHI": 0.02464682056781697,
+      "LN5": 0.05407404547560636
+    },
+    "raw_excerpt": ""
+  }
+}

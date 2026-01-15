@@ -1,0 +1,67 @@
+
+COMMAND: npm run build:all
+EXIT: 0
+
+> start-1@0.5.0 build:all
+> npm --prefix ct-cvm-mini run build && npm run build
+
+
+> @ct-lab/ct-cvm-mini@0.1.0 build
+> tsc -p tsconfig.json && npm run guard:dist
+
+
+> @ct-lab/ct-cvm-mini@0.1.0 guard:dist
+> node -e "import('node:fs').then(fs=>{const bad=[];const walk=p=>{for(const e of fs.readdirSync(p,{withFileTypes:true})){const f=p+'/'+e.name;if(e.isDirectory()) walk(f); else if(f.endsWith('.ts') && !f.endsWith('.d.ts')) bad.push(f);} }; walk('dist'); if(bad.length){console.error('dist contains .ts files:', bad.join(',')); process.exit(1);} })"
+
+
+> start-1@0.5.0 build
+> tsc -p tsconfig.json
+
+---
+COMMAND: npm run test:all
+EXIT: 0
+
+> start-1@0.5.0 test:all
+> npm run build:all && npm run test:cvm-contract && npm run test:exhaustive
+
+
+> start-1@0.5.0 build:all
+> npm --prefix ct-cvm-mini run build && npm run build
+
+
+> @ct-lab/ct-cvm-mini@0.1.0 build
+> tsc -p tsconfig.json && npm run guard:dist
+
+
+> @ct-lab/ct-cvm-mini@0.1.0 guard:dist
+> node -e "import('node:fs').then(fs=>{const bad=[];const walk=p=>{for(const e of fs.readdirSync(p,{withFileTypes:true})){const f=p+'/'+e.name;if(e.isDirectory()) walk(f); else if(f.endsWith('.ts') && !f.endsWith('.d.ts')) bad.push(f);} }; walk('dist'); if(bad.length){console.error('dist contains .ts files:', bad.join(',')); process.exit(1);} })"
+
+
+> start-1@0.5.0 build
+> tsc -p tsconfig.json
+
+
+> start-1@0.5.0 test:cvm-contract
+> npm --prefix ct-cvm-mini run test:contract && node scripts/cvm_contract_smoke.mjs
+
+
+> @ct-lab/ct-cvm-mini@0.1.0 test:contract
+> npm run build && node dist/cli.js run examples/demo.csl out/test_contract.json && node -e "const j=require('fs').readFileSync('out/test_contract.json','utf8'); const o=JSON.parse(j); const p=o.final?.phi||{}; const k=['PI','SQRT2','SQRT3','PHI','LN5']; for(const kk of k){ if(!(kk in p)) throw new Error('missing '+kk); const v=Number(p[kk]); if(!Number.isFinite(v)) throw new Error('non-finite '+kk); } console.log('OK contract');"
+
+
+> @ct-lab/ct-cvm-mini@0.1.0 build
+> tsc -p tsconfig.json && npm run guard:dist
+
+
+> @ct-lab/ct-cvm-mini@0.1.0 guard:dist
+> node -e "import('node:fs').then(fs=>{const bad=[];const walk=p=>{for(const e of fs.readdirSync(p,{withFileTypes:true})){const f=p+'/'+e.name;if(e.isDirectory()) walk(f); else if(f.endsWith('.ts') && !f.endsWith('.d.ts')) bad.push(f);} }; walk('dist'); if(bad.length){console.error('dist contains .ts files:', bad.join(',')); process.exit(1);} })"
+
+ct-cvm-mini: converged=true i=0.999050 iters=38
+OK contract
+ct-cvm-mini: converged=true i=0.999050 iters=38
+OK cvm_contract_smoke
+
+> start-1@0.5.0 test:exhaustive
+> node scripts/exhaustive_test.mjs
+
+---

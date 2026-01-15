@@ -1,0 +1,5 @@
+alpha beta gamma
+delta epsilon zeta
+shared motif line
+lambda mu nu
+omega line!

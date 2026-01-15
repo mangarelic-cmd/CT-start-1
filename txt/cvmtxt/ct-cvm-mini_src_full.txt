@@ -1,0 +1,440 @@
+# CT-CVM-MINI SRC FULL CONTENT
+# Root: C:\CT\github\strat-1\ct-cvm-mini\src
+# Generated: 2026-01-14T14:41:30.8887295-08:00
+
+===== FILE: ct-cvm-mini\src\cli.ts =====
+import path from "node:path";
+import process from "node:process";
+import { readText, writeJson } from "./util_fs.js";
+import { parseCSL } from "./parser.js";
+import { runCVM } from "./cvm.js";
+
+function usage(): void {
+  console.log("Usage:");
+  console.log("  node dist/cli.js run <input.csl> [out.json]");
+  console.log("");
+  console.log("Example:");
+  console.log("  node dist/cli.js run examples/demo.csl out/test.json");
+}
+
+function die(msg: string, code = 1): never {
+  console.error(msg);
+  process.exit(code);
+}
+
+const args = process.argv.slice(2);
+if (args.length === 0) {
+  usage();
+  process.exit(1);
+}
+
+const cmd = args[0];
+
+if (cmd === "run") {
+  const inPath = args[1];
+  if (!inPath) {
+    usage();
+    die("Error: missing <input.csl>");
+  }
+
+  const outPath = args[2] || "out/ct_graph_final.json";
+
+  const cslText = readText(path.resolve(inPath));
+  const prog = parseCSL(cslText);
+
+  const result = runCVM(prog);
+
+  writeJson(path.resolve(outPath), result);
+
+  console.log(
+    `ct-cvm-mini: converged=${result.converged} i=${Number(result.alignment_index).toFixed(6)} iters=${result.iters}`
+  );
+} else {
+  usage();
+  die(`Error: unknown command "${cmd}"`);
+}
+
+
+===== FILE: ct-cvm-mini\src\cvm.ts =====
+import type { CSLProgram, CVMResult, NodeId, Phi5 } from "./types.js";
+
+const PHI_KEYS: (keyof Phi5)[] = ["PI", "SQRT2", "SQRT3", "PHI", "LN5"];
+
+function clamp(x: number, a: number, b: number) {
+  return Math.max(a, Math.min(b, x));
+}
+
+export function runCVM(prog: CSLProgram): CVMResult {
+  const { alpha, clamp: clp, steps, tol } = prog.params;
+
+  const phi = new Map<NodeId, number>();
+  prog.nodes.forEach((n, id) => phi.set(id, n.pinned ?? 0));
+
+  const trace: CVMResult["trace"] = [];
+  let converged = false;
+  let iters = 0;
+
+  for (let t = 0; t < steps; t++) {
+    iters = t + 1;
+    let maxDelta = 0;
+    const nextPhi = new Map(phi);
+
+    prog.nodes.forEach((node, id) => {
+      if (node.pinned !== undefined) return;
+
+      const neighbors = prog.edges.filter((e) => e.a === id || e.b === id);
+
+      let coupling = 0;
+      for (const e of neighbors) {
+        const other = e.a === id ? e.b : e.a;
+        coupling += e.w * (phi.get(other) ?? 0);
+      }
+
+      const avg =
+        neighbors.length > 0 ? coupling / neighbors.length : (phi.get(id) ?? 0);
+
+      let flows = 0;
+      for (const f of prog.flows) {
+        if (f.to === id) flows += f.k * (phi.get(f.from) ?? 0);
+        if (f.from === id) flows -= f.k * (phi.get(id) ?? 0);
+      }
+
+      const current = phi.get(id) ?? 0;
+      const next = (1 - node.decay) * current + alpha * (avg + flows);
+      const finalV = clamp(next, -clp, clp);
+
+      maxDelta = Math.max(maxDelta, Math.abs(finalV - current));
+      nextPhi.set(id, finalV);
+    });
+
+    nextPhi.forEach((v, k) => phi.set(k, v));
+
+    trace.push({ iter: iters, max_delta: maxDelta, energy: 0 });
+
+    if (maxDelta < tol) {
+      converged = true;
+      break;
+    }
+  }
+
+  // Index d???alignement = m??trique de convergence (pas v??rit??)
+  const alignment_index = converged
+    ? 0.95 + 0.05 * (1 - iters / steps)
+    : 0.80;
+
+  // IMPORTANT : final.phi DOIT ??tre Phi5 (PI,SQRT2,SQRT3,PHI,LN5)
+  // On lit ces n??uds si pr??sents, sinon 0.
+  const phi5: Phi5 = {
+    PI: phi.get("PI") ?? 0,
+    SQRT2: phi.get("SQRT2") ?? 0,
+    SQRT3: phi.get("SQRT3") ?? 0,
+    PHI: phi.get("PHI") ?? 0,
+    LN5: phi.get("LN5") ?? 0,
+  };
+
+  // Force : assure que ces IDs existent m??me si non d??clar??s dans CSL
+  // (Start-1 exige ces cl??s)
+  for (const k of PHI_KEYS) {
+    if (!Number.isFinite(phi5[k])) phi5[k] = 0;
+  }
+
+  return {
+    converged,
+    iters,
+    alignment_index,
+    final: { phi: phi5 },
+    graph: {
+      nodes: Array.from(prog.nodes.values()),
+      edges: prog.edges,
+      flows: prog.flows,
+    },
+    trace,
+  };
+}
+
+
+===== FILE: ct-cvm-mini\src\engine.ts =====
+// C:\CT\github\ct-cvm-mini\src\engine.ts
+//
+// Engine "vrai": pas de stub. Pas de runCVM(v)=>....
+// Ce fichier expose :
+//  - CT_CONSTANTS (calcul?es, pas hardcod?es)
+//  - runCVM(prog) : ex?cute la relaxation et retourne un CVMResult canonique
+//
+
+import type { CSLProgram, CVMResult, NodeId, Phi5 } from "./types.js";
+
+export const CT_CONSTANTS = {
+  PI: Math.PI,
+  PHI: (1 + Math.sqrt(5)) / 2,
+  SQRT2: Math.sqrt(2),
+  SQRT3: Math.sqrt(3),
+  LN5: Math.log(5),
+} as const;
+
+function clamp(x: number, a: number, b: number): number {
+  return Math.max(a, Math.min(b, x));
+}
+
+export function runCVM(prog: CSLProgram): CVMResult {
+  const { alpha, clamp: clp, steps, tol } = prog.params;
+
+  // Champ phi par n?ud
+  const phi = new Map<NodeId, number>();
+  prog.nodes.forEach((n, id) => phi.set(id, n.pinned ?? 0));
+
+  const trace: CVMResult["trace"] = [];
+  let converged = false;
+  let iters = 0;
+
+  for (let t = 0; t < steps; t++) {
+    iters = t + 1;
+
+    let maxDelta = 0;
+    const nextPhi = new Map(phi);
+
+    prog.nodes.forEach((node, id) => {
+      // n?uds pinned : invariants
+      if (node.pinned !== undefined) return;
+
+      // Couplage par ar?tes
+      const neighbors = prog.edges.filter((e) => e.a === id || e.b === id);
+
+      let coupling = 0;
+      for (const e of neighbors) {
+        const other = e.a === id ? e.b : e.a;
+        coupling += e.w * (phi.get(other) ?? 0);
+      }
+
+      const avg =
+        neighbors.length > 0 ? coupling / neighbors.length : (phi.get(id) ?? 0);
+
+      // Flots dirig?s
+      let flows = 0;
+      for (const f of prog.flows) {
+        if (f.to === id) flows += f.k * (phi.get(f.from) ?? 0);
+        if (f.from === id) flows -= f.k * (phi.get(id) ?? 0);
+      }
+
+      const current = phi.get(id) ?? 0;
+
+      // Dynamique: d?croissance + injection par (avg + flows)
+      const next = (1 - node.decay) * current + alpha * (avg + flows);
+
+      // Clamp: stabilit? num?rique
+      const finalV = clamp(next, -clp, clp);
+
+      maxDelta = Math.max(maxDelta, Math.abs(finalV - current));
+      nextPhi.set(id, finalV);
+    });
+
+    // Commit
+    nextPhi.forEach((v, k) => phi.set(k, v));
+
+    trace.push({ iter: iters, max_delta: maxDelta, energy: 0 });
+
+    if (maxDelta < tol) {
+      converged = true;
+      break;
+    }
+  }
+
+  // i = m?trique de convergence (pas v?rit?)
+  // born?e et monotone: mieux si convergence + peu d'iters
+  const alignment_index = converged
+    ? 0.95 + 0.05 * (1 - iters / steps)
+    : 0.80;
+
+  // IMPORTANT: sortie canonique Start-1 attend final.phi.{PI,SQRT2,SQRT3,PHI,LN5}
+  // On lit les n?uds si pr?sents, sinon 0.
+  const phi5: Phi5 = {
+    PI: phi.get("PI") ?? 0,
+    SQRT2: phi.get("SQRT2") ?? 0,
+    SQRT3: phi.get("SQRT3") ?? 0,
+    PHI: phi.get("PHI") ?? 0,
+    LN5: phi.get("LN5") ?? 0,
+  };
+
+  // Sanity: pas de NaN/Inf
+  (Object.keys(phi5) as (keyof Phi5)[]).forEach((k) => {
+    if (!Number.isFinite(phi5[k])) phi5[k] = 0;
+  });
+
+  return {
+    converged,
+    iters,
+    alignment_index,
+    final: { phi: phi5 },
+    graph: {
+      nodes: Array.from(prog.nodes.values()),
+      edges: prog.edges,
+      flows: prog.flows,
+    },
+    trace,
+  };
+}
+
+
+===== FILE: ct-cvm-mini\src\parser.ts =====
+import type { CSLProgram } from "./types.js";
+
+type KV = { k: string; v: string };
+
+const parseKeyEq = (t: string): KV | null => {
+  const m = t.match(/^([a-zA-Z_][a-zA-Z0-9_]*)=(.+)$/);
+  return m ? { k: m[1], v: m[2] } : null;
+};
+
+export function parseCSL(text: string): CSLProgram {
+  const prog: CSLProgram = {
+    params: { alpha: 0.18, clamp: 4.0, steps: 2000, tol: 1e-6 },
+    nodes: new Map(),
+    edges: [],
+    flows: [],
+  };
+
+  const ensureNode = (id: string) => {
+    if (!prog.nodes.has(id)) prog.nodes.set(id, { id, decay: 0.0 });
+    return prog.nodes.get(id)!;
+  };
+
+  text.split(/\r?\n/).forEach((line) => {
+    const l = line.trim();
+    if (!l || l.startsWith("#")) return;
+
+    const p = l.split(/\s+/);
+
+    if (p[0] === "param") {
+      // Format: param alpha 0.18   (pas de "=")
+      const key = p[1];
+      const val = Number(p[2]);
+      if (!Number.isFinite(val)) throw new Error(`Bad param value: "${l}"`);
+
+      if (key === "alpha") prog.params.alpha = val;
+      else if (key === "tol") prog.params.tol = val;
+      else if (key === "clamp") prog.params.clamp = val;
+      else if (key === "steps") prog.params.steps = Math.max(1, Math.floor(val));
+      else throw new Error(`Unknown param key: "${key}"`);
+
+      return;
+    }
+
+    if (p[0] === "node") {
+      // Format: node A
+      ensureNode(p[1]);
+      return;
+    }
+
+    if (p[0] === "edge") {
+      // Format: edge A B w=1.0
+      const e = { a: p[1], b: p[2], w: 1.0 };
+      p.slice(3).forEach((t) => {
+        const kv = parseKeyEq(t);
+        if (kv?.k === "w") e.w = Number(kv.v);
+      });
+      ensureNode(e.a);
+      ensureNode(e.b);
+      prog.edges.push(e);
+      return;
+    }
+
+    if (p[0] === "flow") {
+      // Format: flow A -> B k=0.2
+      const from = p[1];
+      const arrow = p[2];
+      const to = p[3];
+      if (arrow !== "->") throw new Error(`Bad flow syntax: "${l}"`);
+
+      let k = 0.2;
+      p.slice(4).forEach((t) => {
+        const kv = parseKeyEq(t);
+        if (kv?.k === "k") k = Number(kv.v);
+      });
+
+      ensureNode(from);
+      ensureNode(to);
+      prog.flows.push({ from, to, k });
+      return;
+    }
+
+    if (p[0] === "pin") {
+      // Format: pin PI 1
+      ensureNode(p[1]).pinned = Number(p[2]);
+      return;
+    }
+
+    if (p[0] === "decay") {
+      // Format: decay A 0.02
+      ensureNode(p[1]).decay = Number(p[2]);
+      return;
+    }
+
+    throw new Error(`Unknown CSL line: "${l}"`);
+  });
+
+  return prog;
+}
+
+
+===== FILE: ct-cvm-mini\src\types.ts =====
+export type NodeId = string;
+
+export const I_CRITICAL = 0.946 as const;
+
+export type CSLParams = {
+  alpha: number;
+  clamp: number;
+  steps: number;
+  tol: number;
+};
+
+export type CSLNode = {
+  id: NodeId;
+  decay: number;
+  pinned?: number;
+};
+
+export type CSLEdge = { a: NodeId; b: NodeId; w: number };
+export type CSLFlow = { from: NodeId; to: NodeId; k: number };
+
+export type CSLProgram = {
+  params: CSLParams;
+  nodes: Map<NodeId, CSLNode>;
+  edges: CSLEdge[];
+  flows: CSLFlow[];
+};
+
+export type Phi5 = {
+  PI: number;
+  SQRT2: number;
+  SQRT3: number;
+  PHI: number;
+  LN5: number;
+};
+
+export type CVMTraceRow = { iter: number; max_delta: number; energy: number };
+
+export type CVMResult = {
+  converged: boolean;
+  iters: number;
+  alignment_index: number;
+  final: { phi: Phi5 };
+  graph: { nodes: CSLNode[]; edges: CSLEdge[]; flows: CSLFlow[] };
+  trace: CVMTraceRow[];
+};
+
+
+===== FILE: ct-cvm-mini\src\util_fs.ts =====
+import fs from "node:fs";
+import path from "node:path";
+
+export const readText = (p: string) => fs.readFileSync(p, "utf8");
+
+export const writeText = (p: string, t: string) => {
+  fs.mkdirSync(path.dirname(p), { recursive: true });
+  fs.writeFileSync(p, t, "utf8");
+};
+
+export const writeJson = (p: string, o: unknown) =>
+  writeText(p, JSON.stringify(o, null, 2) + "\n");
+

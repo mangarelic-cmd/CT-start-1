@@ -1,0 +1,274 @@
+UTC: 2026-01-14T23:00:04.708Z
+cwd: C:\CT\github\strat-1
+
+=== HEADER ===
+node: v24.12.0
+COMMAND: npm -v
+EXIT: 0
+11.6.2
+git sha: unavailable
+git status --porcelain: unavailable
+
+=== TEST A ===
+COMMAND: npm run build:all
+EXIT: 0
+
+> start-1@0.5.0 build:all
+> npm --prefix ct-cvm-mini run build && npm run build
+
+
+> @ct-lab/ct-cvm-mini@0.1.0 build
+> tsc -p tsconfig.json && npm run guard:dist
+
+
+> @ct-lab/ct-cvm-mini@0.1.0 guard:dist
+> node -e "import('node:fs').then(fs=>{const bad=[];const walk=p=>{for(const e of fs.readdirSync(p,{withFileTypes:true})){const f=p+'/'+e.name;if(e.isDirectory()) walk(f); else if(f.endsWith('.ts') && !f.endsWith('.d.ts')) bad.push(f);} }; walk('dist'); if(bad.length){console.error('dist contains .ts files:', bad.join(',')); process.exit(1);} })"
+
+
+> start-1@0.5.0 build
+> tsc -p tsconfig.json
+COMMAND: npm run test:cvm-contract
+EXIT: 0
+
+> start-1@0.5.0 test:cvm-contract
+> npm --prefix ct-cvm-mini run test:contract && node scripts/cvm_contract_smoke.mjs
+
+
+> @ct-lab/ct-cvm-mini@0.1.0 test:contract
+> npm run build && node dist/cli.js run examples/demo.csl out/test_contract.json && node -e "const j=require('fs').readFileSync('out/test_contract.json','utf8'); const o=JSON.parse(j); const p=o.final?.phi||{}; const k=['PI','SQRT2','SQRT3','PHI','LN5']; for(const kk of k){ if(!(kk in p)) throw new Error('missing '+kk); const v=Number(p[kk]); if(!Number.isFinite(v)) throw new Error('non-finite '+kk); } console.log('OK contract');"
+
+
+> @ct-lab/ct-cvm-mini@0.1.0 build
+> tsc -p tsconfig.json && npm run guard:dist
+
+
+> @ct-lab/ct-cvm-mini@0.1.0 guard:dist
+> node -e "import('node:fs').then(fs=>{const bad=[];const walk=p=>{for(const e of fs.readdirSync(p,{withFileTypes:true})){const f=p+'/'+e.name;if(e.isDirectory()) walk(f); else if(f.endsWith('.ts') && !f.endsWith('.d.ts')) bad.push(f);} }; walk('dist'); if(bad.length){console.error('dist contains .ts files:', bad.join(',')); process.exit(1);} })"
+
+ct-cvm-mini: converged=true i=0.999050 iters=38
+OK contract
+ct-cvm-mini: converged=true i=0.999050 iters=38
+OK cvm_contract_smoke
+PASS TEST A
+
+=== TEST B ===
+backup: C:\CT\github\strat-1\data\out.__bak_1768431621517
+created data/out structure
+
+=== TEST C ===
+COMMAND: node dist/cli.js ingest --file C:\CT\github\strat-1\data\inbox\__e2e_exhaustive__\a.txt --uri codex://exhaustive/a --cycle 0 --eps 0.5
+EXIT: 0
+ct-cvm-mini: converged=true i=0.996350 iters=146
+?? [CVM RAW] i_raw=0.99635000 phi_min=0.131725 phi_max=0.527282 eps_son=0.5
+
+?? [SPECTRE CT - SLOT T10]
+?? i=0.897987 | phase=anchored | i_raw=0.996350 | dissonance=0.5000
+??? status=rejected | near_identity=false
+{
+  "kind": "ingest",
+  "packet_id": "4dee80b5a1ce6e7ebcc3972136f37b208759c3e94da0554b904ff9b2e2c47f64",
+  "status": "rejected",
+  "alignment_index": 0.8979868356916534,
+  "phase_gate": "anchored",
+  "thresholds": {
+    "I_ENTRY": 0.66,
+    "I_STABLE": 0.787,
+    "I_ANCHOR": 0.87,
+    "I_CRITICAL": 0.946,
+    "I_HORIZON": 0.995204
+  },
+  "dissonance_score": 0.5,
+  "penalty_gamma": 0.1967263286166932,
+  "cvm_alignment_raw": 0.99635,
+  "cvm_phi_min": 0.1317254512926289,
+  "cvm_phi_max": 0.527282,
+  "attractor_id": "T10",
+  "approach_velocity": 0,
+  "near_identity": false,
+  "residue_deposited": true
+}
+COMMAND: node dist/cli.js ingest --file C:\CT\github\strat-1\data\inbox\__e2e_exhaustive__\b.txt --uri codex://exhaustive/b --cycle 0 --eps 0.5
+EXIT: 0
+ct-cvm-mini: converged=true i=0.996325 iters=147
+?? [CVM RAW] i_raw=0.99632500 phi_min=0.132061 phi_max=0.528043 eps_son=0.5
+
+?? [SPECTRE CT - SLOT T10]
+?? i=0.897962 | phase=anchored | i_raw=0.996325 | dissonance=0.5000
+??? status=rejected | near_identity=false
+{
+  "kind": "ingest",
+  "packet_id": "ec67b0ec94448bf072ef2643a4ba32e41abc0f3460b69777220834a935a5c6ca",
+  "status": "rejected",
+  "alignment_index": 0.8979618356916533,
+  "phase_gate": "anchored",
+  "thresholds": {
+    "I_ENTRY": 0.66,
+    "I_STABLE": 0.787,
+    "I_ANCHOR": 0.87,
+    "I_CRITICAL": 0.946,
+    "I_HORIZON": 0.995204
+  },
+  "dissonance_score": 0.5,
+  "penalty_gamma": 0.1967263286166932,
+  "cvm_alignment_raw": 0.9963249999999999,
+  "cvm_phi_min": 0.13206131627583048,
+  "cvm_phi_max": 0.528043,
+  "attractor_id": "T10",
+  "approach_velocity": 0,
+  "near_identity": false,
+  "residue_deposited": true
+}
+COMMAND: node dist/cli.js ingest --file C:\CT\github\strat-1\data\inbox\__e2e_exhaustive__\c.txt --uri codex://exhaustive/c --cycle 0 --eps 0.5
+EXIT: 0
+ct-cvm-mini: converged=true i=0.996400 iters=144
+?? [CVM RAW] i_raw=0.99640000 phi_min=0.131924 phi_max=0.527732 eps_son=0.5
+
+?? [SPECTRE CT - SLOT T10]
+?? i=0.922628 | phase=anchored | i_raw=0.996400 | dissonance=0.3750
+??? status=rejected | near_identity=false
+{
+  "kind": "ingest",
+  "packet_id": "6c8460635507f676ffb10b6a8c4ac3422b70a07b52dd75e86055419485c0d3fa",
+  "status": "rejected",
+  "alignment_index": 0.92262762676874,
+  "phase_gate": "anchored",
+  "thresholds": {
+    "I_ENTRY": 0.66,
+    "I_STABLE": 0.787,
+    "I_ANCHOR": 0.87,
+    "I_CRITICAL": 0.946,
+    "I_HORIZON": 0.995204
+  },
+  "dissonance_score": 0.375,
+  "penalty_gamma": 0.1967263286166932,
+  "cvm_alignment_raw": 0.9964,
+  "cvm_phi_min": 0.13192438945339535,
+  "cvm_phi_max": 0.527732,
+  "attractor_id": "T10",
+  "approach_velocity": 0,
+  "near_identity": false,
+  "residue_deposited": true
+}
+COMMAND: node dist/cli.js round --cycle 1 --eps 0.5 --scope event
+EXIT: 0
+{
+  "kind": "round",
+  "utc": "2026-01-14T23:00:22.969Z",
+  "scope": "event",
+  "cycle_depth": 1,
+  "eps_son": 0.5,
+  "merges": 2,
+  "clusters_after": 1,
+  "trace_sample": [
+    {
+      "step": "merge",
+      "pass": 0,
+      "a": "feb3dd41ee271c25",
+      "b": "6bd560ff0c16a2a7",
+      "d_son": 0.000009390657718490407,
+      "phase": "cycle",
+      "sim": 0.9999933598022475,
+      "w": 0,
+      "r_before_a": 4.932777569044704,
+      "r_before_b": 4.9326415028501795,
+      "r_after": 4.932638689840046,
+      "eps_son": 0.5,
+      "merged_id": "abe8d4578ea21cc9"
+    },
+    {
+      "step": "merge",
+      "pass": 1,
+      "a": "0695dde11ec988ab",
+      "b": "abe8d4578ea21cc9",
+      "d_son": 0.00004329083874888882,
+      "phase": "cycle",
+      "sim": 0.9999693887543574,
+      "w": 0,
+      "r_before_a": 4.932756842143955,
+      "r_before_b": 4.932638689840046,
+      "r_after": 4.9325323465676805,
+      "eps_son": 0.5,
+      "merged_id": "372c57886ca8eb36"
+    }
+  ]
+}
+round.merges: 2
+round.clusters_after: 1
+trace_sample (first 2):
+[
+  {
+    "step": "merge",
+    "pass": 0,
+    "a": "feb3dd41ee271c25",
+    "b": "6bd560ff0c16a2a7",
+    "d_son": 0.000009390657718490407,
+    "phase": "cycle",
+    "sim": 0.9999933598022475,
+    "w": 0,
+    "r_before_a": 4.932777569044704,
+    "r_before_b": 4.9326415028501795,
+    "r_after": 4.932638689840046,
+    "eps_son": 0.5,
+    "merged_id": "abe8d4578ea21cc9"
+  },
+  {
+    "step": "merge",
+    "pass": 1,
+    "a": "0695dde11ec988ab",
+    "b": "abe8d4578ea21cc9",
+    "d_son": 0.00004329083874888882,
+    "phase": "cycle",
+    "sim": 0.9999693887543574,
+    "w": 0,
+    "r_before_a": 4.932756842143955,
+    "r_before_b": 4.932638689840046,
+    "r_after": 4.9325323465676805,
+    "eps_son": 0.5,
+    "merged_id": "372c57886ca8eb36"
+  }
+]
+
+=== TEST D ===
+COMMAND: node dist/cli.js round --cycle 1 --eps 0.5 --scope event
+EXIT: 0
+{
+  "kind": "round",
+  "utc": "2026-01-14T23:00:23.182Z",
+  "scope": "event",
+  "cycle_depth": 1,
+  "eps_son": 0.5,
+  "merges": 0,
+  "clusters_after": 1,
+  "trace_sample": [
+    {
+      "step": "noop",
+      "scope": "event",
+      "cycle_depth": 1,
+      "eps_son": 0.5,
+      "clusters": 1
+    }
+  ]
+}
+round-1 merges: 2
+round-2 merges: 0
+round-1 clusters_after: 1
+round-2 clusters_after: 1
+PASS TEST D
+
+=== TEST E ===
+PASS TEST E
+
+=== TEST F ===
+cli.js mtime=1768431615067.8943 src=1768336833087.2468 newer=true
+cvm_bridge.js mtime=1768431614999.331 src=1768422635472.4148 newer=true
+residue_pool.js mtime=1768431615022.0134 src=1768422661894.7012 newer=true
+PASS TEST F
+restored: C:\CT\github\strat-1\data\out
+
+=== FINAL SUMMARY ===
+TEST A: PASS
+TEST B: PASS
+TEST C: PASS
+TEST D: PASS
+TEST E: PASS
+TEST F: PASS

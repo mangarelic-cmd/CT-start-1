@@ -1,0 +1,736 @@
+# CT-CVM-MINI OUT FULL CONTENT
+# Root: C:\CT\github\strat-1\ct-cvm-mini\out
+# Generated: 2026-01-14T14:41:31.0927707-08:00
+
+===== FILE: ct-cvm-mini\out\ct_graph_final.json =====
+{
+  "converged": true,
+  "iters": 38,
+  "alignment_index": 0.99905,
+  "final": {
+    "phi": {
+      "A": 4,
+      "B": 4,
+      "PI": 1
+    }
+  },
+  "graph": {
+    "nodes": [
+      {
+        "id": "A",
+        "decay": 0.02
+      },
+      {
+        "id": "B",
+        "decay": 0.02
+      },
+      {
+        "id": "PI",
+        "decay": 0,
+        "pinned": 1
+      }
+    ],
+    "edges": [
+      {
+        "a": "A",
+        "b": "B",
+        "w": 1
+      },
+      {
+        "a": "PI",
+        "b": "A",
+        "w": 0.6
+      }
+    ],
+    "flows": [
+      {
+        "from": "A",
+        "to": "B",
+        "k": 0.35
+      }
+    ]
+  },
+  "trace": [
+    {
+      "iter": 1,
+      "max_delta": 0.054,
+      "energy": 0
+    },
+    {
+      "iter": 2,
+      "max_delta": 0.049518,
+      "energy": 0
+    },
+    {
+      "iter": 3,
+      "max_delta": 0.046588986,
+      "energy": 0
+    },
+    {
+      "iter": 4,
+      "max_delta": 0.044962419222000005,
+      "energy": 0
+    },
+    {
+      "iter": 5,
+      "max_delta": 0.04592726261058601,
+      "energy": 0
+    },
+    {
+      "iter": 6,
+      "max_delta": 0.05580884075006842,
+      "energy": 0
+    },
+    {
+      "iter": 7,
+      "max_delta": 0.06560080631854409,
+      "energy": 0
+    },
+    {
+      "iter": 8,
+      "max_delta": 0.07551209610502563,
+      "energy": 0
+    },
+    {
+      "iter": 9,
+      "max_delta": 0.08572831533919739,
+      "energy": 0
+    },
+    {
+      "iter": 10,
+      "max_delta": 0.09641836345453203,
+      "energy": 0
+    },
+    {
+      "iter": 11,
+      "max_delta": 0.10773990586699239,
+      "energy": 0
+    },
+    {
+      "iter": 12,
+      "max_delta": 0.11984394453638525,
+      "energy": 0
+    },
+    {
+      "iter": 13,
+      "max_delta": 0.1328786907204027,
+      "energy": 0
+    },
+    {
+      "iter": 14,
+      "max_delta": 0.14699290416654676,
+      "energy": 0
+    },
+    {
+      "iter": 15,
+      "max_delta": 0.16233883196719723,
+      "energy": 0
+    },
+    {
+      "iter": 16,
+      "max_delta": 0.17907485579758653,
+      "energy": 0
+    },
+    {
+      "iter": 17,
+      "max_delta": 0.197367936967503,
+      "energy": 0
+    },
+    {
+      "iter": 18,
+      "max_delta": 0.21739593361258724,
+      "energy": 0
+    },
+    {
+      "iter": 19,
+      "max_delta": 0.23934985260934094,
+      "energy": 0
+    },
+    {
+      "iter": 20,
+      "max_delta": 0.26343608976773947,
+      "energy": 0
+    },
+    {
+      "iter": 21,
+      "max_delta": 0.28987870502005775,
+      "energy": 0
+    },
+    {
+      "iter": 22,
+      "max_delta": 0.318921774275593,
+      "energy": 0
+    },
+    {
+      "iter": 23,
+      "max_delta": 0.350831856026264,
+      "energy": 0
+    },
+    {
+      "iter": 24,
+      "max_delta": 0.3859006084147252,
+      "energy": 0
+    },
+    {
+      "iter": 25,
+      "max_delta": 0.38932228275512504,
+      "energy": 0
+    },
+    {
+      "iter": 26,
+      "max_delta": 0.22698501752507827,
+      "energy": 0
+    },
+    {
+      "iter": 27,
+      "max_delta": 0.20814526107049636,
+      "energy": 0
+    },
+    {
+      "iter": 28,
+      "max_delta": 0.19086920440164556,
+      "energy": 0
+    },
+    {
+      "iter": 29,
+      "max_delta": 0.1750270604363089,
+      "energy": 0
+    },
+    {
+      "iter": 30,
+      "max_delta": 0.1604998144200951,
+      "energy": 0
+    },
+    {
+      "iter": 31,
+      "max_delta": 0.14717832982322765,
+      "energy": 0
+    },
+    {
+      "iter": 32,
+      "max_delta": 0.13496252844789947,
+      "energy": 0
+    },
+    {
+      "iter": 33,
+      "max_delta": 0.12376063858672381,
+      "energy": 0
+    },
+    {
+      "iter": 34,
+      "max_delta": 0.11348850558402557,
+      "energy": 0
+    },
+    {
+      "iter": 35,
+      "max_delta": 0.10406895962055174,
+      "energy": 0
+    },
+    {
+      "iter": 36,
+      "max_delta": 0.0954312359720455,
+      "energy": 0
+    },
+    {
+      "iter": 37,
+      "max_delta": 0.06639088417308514,
+      "energy": 0
+    },
+    {
+      "iter": 38,
+      "max_delta": 0,
+      "energy": 0
+    }
+  ]
+}
+
+
+===== FILE: ct-cvm-mini\out\test.json =====
+{
+  "converged": true,
+  "iters": 38,
+  "alignment_index": 0.99905,
+  "final": {
+    "phi": {
+      "PI": 1,
+      "SQRT2": 0,
+      "SQRT3": 0,
+      "PHI": 0,
+      "LN5": 0
+    }
+  },
+  "graph": {
+    "nodes": [
+      {
+        "id": "A",
+        "decay": 0.02
+      },
+      {
+        "id": "B",
+        "decay": 0.02
+      },
+      {
+        "id": "PI",
+        "decay": 0,
+        "pinned": 1
+      }
+    ],
+    "edges": [
+      {
+        "a": "A",
+        "b": "B",
+        "w": 1
+      },
+      {
+        "a": "PI",
+        "b": "A",
+        "w": 0.6
+      }
+    ],
+    "flows": [
+      {
+        "from": "A",
+        "to": "B",
+        "k": 0.35
+      }
+    ]
+  },
+  "trace": [
+    {
+      "iter": 1,
+      "max_delta": 0.054,
+      "energy": 0
+    },
+    {
+      "iter": 2,
+      "max_delta": 0.049518,
+      "energy": 0
+    },
+    {
+      "iter": 3,
+      "max_delta": 0.046588986,
+      "energy": 0
+    },
+    {
+      "iter": 4,
+      "max_delta": 0.044962419222000005,
+      "energy": 0
+    },
+    {
+      "iter": 5,
+      "max_delta": 0.04592726261058601,
+      "energy": 0
+    },
+    {
+      "iter": 6,
+      "max_delta": 0.05580884075006842,
+      "energy": 0
+    },
+    {
+      "iter": 7,
+      "max_delta": 0.06560080631854409,
+      "energy": 0
+    },
+    {
+      "iter": 8,
+      "max_delta": 0.07551209610502563,
+      "energy": 0
+    },
+    {
+      "iter": 9,
+      "max_delta": 0.08572831533919739,
+      "energy": 0
+    },
+    {
+      "iter": 10,
+      "max_delta": 0.09641836345453203,
+      "energy": 0
+    },
+    {
+      "iter": 11,
+      "max_delta": 0.10773990586699239,
+      "energy": 0
+    },
+    {
+      "iter": 12,
+      "max_delta": 0.11984394453638525,
+      "energy": 0
+    },
+    {
+      "iter": 13,
+      "max_delta": 0.1328786907204027,
+      "energy": 0
+    },
+    {
+      "iter": 14,
+      "max_delta": 0.14699290416654676,
+      "energy": 0
+    },
+    {
+      "iter": 15,
+      "max_delta": 0.16233883196719723,
+      "energy": 0
+    },
+    {
+      "iter": 16,
+      "max_delta": 0.17907485579758653,
+      "energy": 0
+    },
+    {
+      "iter": 17,
+      "max_delta": 0.197367936967503,
+      "energy": 0
+    },
+    {
+      "iter": 18,
+      "max_delta": 0.21739593361258724,
+      "energy": 0
+    },
+    {
+      "iter": 19,
+      "max_delta": 0.23934985260934094,
+      "energy": 0
+    },
+    {
+      "iter": 20,
+      "max_delta": 0.26343608976773947,
+      "energy": 0
+    },
+    {
+      "iter": 21,
+      "max_delta": 0.28987870502005775,
+      "energy": 0
+    },
+    {
+      "iter": 22,
+      "max_delta": 0.318921774275593,
+      "energy": 0
+    },
+    {
+      "iter": 23,
+      "max_delta": 0.350831856026264,
+      "energy": 0
+    },
+    {
+      "iter": 24,
+      "max_delta": 0.3859006084147252,
+      "energy": 0
+    },
+    {
+      "iter": 25,
+      "max_delta": 0.38932228275512504,
+      "energy": 0
+    },
+    {
+      "iter": 26,
+      "max_delta": 0.22698501752507827,
+      "energy": 0
+    },
+    {
+      "iter": 27,
+      "max_delta": 0.20814526107049636,
+      "energy": 0
+    },
+    {
+      "iter": 28,
+      "max_delta": 0.19086920440164556,
+      "energy": 0
+    },
+    {
+      "iter": 29,
+      "max_delta": 0.1750270604363089,
+      "energy": 0
+    },
+    {
+      "iter": 30,
+      "max_delta": 0.1604998144200951,
+      "energy": 0
+    },
+    {
+      "iter": 31,
+      "max_delta": 0.14717832982322765,
+      "energy": 0
+    },
+    {
+      "iter": 32,
+      "max_delta": 0.13496252844789947,
+      "energy": 0
+    },
+    {
+      "iter": 33,
+      "max_delta": 0.12376063858672381,
+      "energy": 0
+    },
+    {
+      "iter": 34,
+      "max_delta": 0.11348850558402557,
+      "energy": 0
+    },
+    {
+      "iter": 35,
+      "max_delta": 0.10406895962055174,
+      "energy": 0
+    },
+    {
+      "iter": 36,
+      "max_delta": 0.0954312359720455,
+      "energy": 0
+    },
+    {
+      "iter": 37,
+      "max_delta": 0.06639088417308514,
+      "energy": 0
+    },
+    {
+      "iter": 38,
+      "max_delta": 0,
+      "energy": 0
+    }
+  ]
+}
+
+
+===== FILE: ct-cvm-mini\out\test_contract.json =====
+{
+  "converged": true,
+  "iters": 38,
+  "alignment_index": 0.99905,
+  "final": {
+    "phi": {
+      "PI": 1,
+      "SQRT2": 0,
+      "SQRT3": 0,
+      "PHI": 0,
+      "LN5": 0
+    }
+  },
+  "graph": {
+    "nodes": [
+      {
+        "id": "A",
+        "decay": 0.02
+      },
+      {
+        "id": "B",
+        "decay": 0.02
+      },
+      {
+        "id": "PI",
+        "decay": 0,
+        "pinned": 1
+      }
+    ],
+    "edges": [
+      {
+        "a": "A",
+        "b": "B",
+        "w": 1
+      },
+      {
+        "a": "PI",
+        "b": "A",
+        "w": 0.6
+      }
+    ],
+    "flows": [
+      {
+        "from": "A",
+        "to": "B",
+        "k": 0.35
+      }
+    ]
+  },
+  "trace": [
+    {
+      "iter": 1,
+      "max_delta": 0.054,
+      "energy": 0
+    },
+    {
+      "iter": 2,
+      "max_delta": 0.049518,
+      "energy": 0
+    },
+    {
+      "iter": 3,
+      "max_delta": 0.046588986,
+      "energy": 0
+    },
+    {
+      "iter": 4,
+      "max_delta": 0.044962419222000005,
+      "energy": 0
+    },
+    {
+      "iter": 5,
+      "max_delta": 0.04592726261058601,
+      "energy": 0
+    },
+    {
+      "iter": 6,
+      "max_delta": 0.05580884075006842,
+      "energy": 0
+    },
+    {
+      "iter": 7,
+      "max_delta": 0.06560080631854409,
+      "energy": 0
+    },
+    {
+      "iter": 8,
+      "max_delta": 0.07551209610502563,
+      "energy": 0
+    },
+    {
+      "iter": 9,
+      "max_delta": 0.08572831533919739,
+      "energy": 0
+    },
+    {
+      "iter": 10,
+      "max_delta": 0.09641836345453203,
+      "energy": 0
+    },
+    {
+      "iter": 11,
+      "max_delta": 0.10773990586699239,
+      "energy": 0
+    },
+    {
+      "iter": 12,
+      "max_delta": 0.11984394453638525,
+      "energy": 0
+    },
+    {
+      "iter": 13,
+      "max_delta": 0.1328786907204027,
+      "energy": 0
+    },
+    {
+      "iter": 14,
+      "max_delta": 0.14699290416654676,
+      "energy": 0
+    },
+    {
+      "iter": 15,
+      "max_delta": 0.16233883196719723,
+      "energy": 0
+    },
+    {
+      "iter": 16,
+      "max_delta": 0.17907485579758653,
+      "energy": 0
+    },
+    {
+      "iter": 17,
+      "max_delta": 0.197367936967503,
+      "energy": 0
+    },
+    {
+      "iter": 18,
+      "max_delta": 0.21739593361258724,
+      "energy": 0
+    },
+    {
+      "iter": 19,
+      "max_delta": 0.23934985260934094,
+      "energy": 0
+    },
+    {
+      "iter": 20,
+      "max_delta": 0.26343608976773947,
+      "energy": 0
+    },
+    {
+      "iter": 21,
+      "max_delta": 0.28987870502005775,
+      "energy": 0
+    },
+    {
+      "iter": 22,
+      "max_delta": 0.318921774275593,
+      "energy": 0
+    },
+    {
+      "iter": 23,
+      "max_delta": 0.350831856026264,
+      "energy": 0
+    },
+    {
+      "iter": 24,
+      "max_delta": 0.3859006084147252,
+      "energy": 0
+    },
+    {
+      "iter": 25,
+      "max_delta": 0.38932228275512504,
+      "energy": 0
+    },
+    {
+      "iter": 26,
+      "max_delta": 0.22698501752507827,
+      "energy": 0
+    },
+    {
+      "iter": 27,
+      "max_delta": 0.20814526107049636,
+      "energy": 0
+    },
+    {
+      "iter": 28,
+      "max_delta": 0.19086920440164556,
+      "energy": 0
+    },
+    {
+      "iter": 29,
+      "max_delta": 0.1750270604363089,
+      "energy": 0
+    },
+    {
+      "iter": 30,
+      "max_delta": 0.1604998144200951,
+      "energy": 0
+    },
+    {
+      "iter": 31,
+      "max_delta": 0.14717832982322765,
+      "energy": 0
+    },
+    {
+      "iter": 32,
+      "max_delta": 0.13496252844789947,
+      "energy": 0
+    },
+    {
+      "iter": 33,
+      "max_delta": 0.12376063858672381,
+      "energy": 0
+    },
+    {
+      "iter": 34,
+      "max_delta": 0.11348850558402557,
+      "energy": 0
+    },
+    {
+      "iter": 35,
+      "max_delta": 0.10406895962055174,
+      "energy": 0
+    },
+    {
+      "iter": 36,
+      "max_delta": 0.0954312359720455,
+      "energy": 0
+    },
+    {
+      "iter": 37,
+      "max_delta": 0.06639088417308514,
+      "energy": 0
+    },
+    {
+      "iter": 38,
+      "max_delta": 0,
+      "energy": 0
+    }
+  ]
+}
+

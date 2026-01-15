@@ -1,0 +1,200 @@
+{
+  "packet_id": "f281f58aaed1803f1ab05c02b6f47df61caf1385f9455ea92b1313be01425686",
+  "source": {
+    "uri": "codex://smoke/1",
+    "fetched_utc": "2026-01-13T21:29:46.642Z"
+  },
+  "raw": "Line 1: alpha\nLine 2: beta\nLine 3: gamma\nLine 4: delta\nLine 5: epsilon\n",
+  "claims": [
+    {
+      "id": "13e3404b4fb5a46271f0e76e8d7280743caaa94da552d28e003b97fe2d1233a5",
+      "text": "Line 1: alpha\nLine 2: beta\nLine 3: gamma\nLine 4: delta\nLine 5: epsilon",
+      "utc": "2026-01-13T21:29:46.644Z"
+    }
+  ],
+  "status": "rejected",
+  "trace": [
+    {
+      "step": "ingest",
+      "utc": "2026-01-13T21:29:46.644Z",
+      "info": {
+        "file": "C:\\CT\\github\\strat-1\\data\\inbox\\codex_smoke_1.txt",
+        "uri": "codex://smoke/1"
+      }
+    },
+    {
+      "step": "atomize",
+      "utc": "2026-01-13T21:29:46.644Z",
+      "info": {
+        "claim_id": "13e3404b4fb5a46271f0e76e8d7280743caaa94da552d28e003b97fe2d1233a5",
+        "claim_len": 70
+      }
+    },
+    {
+      "step": "transpose",
+      "utc": "2026-01-13T21:29:46.651Z",
+      "info": {
+        "dominance": "SQRT2",
+        "vector": {
+          "PI": 0.05446486798589206,
+          "SQRT2": 0.34040542491182535,
+          "SQRT3": 0.34040542491182535,
+          "PHI": 0,
+          "LN5": 0.2647242821904573
+        }
+      }
+    },
+    {
+      "step": "csl",
+      "utc": "2026-01-13T21:29:46.653Z",
+      "info": {
+        "csl_bytes": 387
+      }
+    },
+    {
+      "step": "cvm",
+      "utc": "2026-01-13T21:29:46.893Z",
+      "info": {
+        "converged": true,
+        "iters": 135,
+        "i": 0.996625
+      }
+    },
+    {
+      "step": "gate",
+      "utc": "2026-01-13T21:29:46.897Z",
+      "info": {
+        "ok": false,
+        "reasons": [
+          "alignment_index < 0.946",
+          "below_suture(0.946)"
+        ]
+      }
+    },
+    {
+      "step": "status",
+      "utc": "2026-01-13T21:29:46.897Z",
+      "info": {
+        "status": "rejected"
+      }
+    }
+  ],
+  "skin": {
+    "skin_id": "d5d139a636fc5845662412201bd326f7d1c3e0540644d41c3ca34588b3d43c13",
+    "vector": {
+      "PI": 0.05446486798589206,
+      "SQRT2": 0.34040542491182535,
+      "SQRT3": 0.34040542491182535,
+      "PHI": 0,
+      "LN5": 0.2647242821904573
+    },
+    "dominance": "SQRT2",
+    "alignment_index": 0.996625,
+    "converged": true,
+    "iters": 135,
+    "cvm_trace_sample": [
+      {
+        "iter": 1,
+        "max_delta": 0.0055925614017,
+        "energy": 0
+      },
+      {
+        "iter": 2,
+        "max_delta": 0.005241527507638093,
+        "energy": 0
+      },
+      {
+        "iter": 3,
+        "max_delta": 0.004912527309038666,
+        "energy": 0
+      },
+      {
+        "iter": 4,
+        "max_delta": 0.004604177794904928,
+        "energy": 0
+      },
+      {
+        "iter": 5,
+        "max_delta": 0.004315182763074334,
+        "energy": 0
+      },
+      {
+        "iter": 6,
+        "max_delta": 0.004044327371401684,
+        "energy": 0
+      },
+      {
+        "iter": 7,
+        "max_delta": 0.0037904730309535443,
+        "energy": 0
+      },
+      {
+        "iter": 8,
+        "max_delta": 0.0035525526197466503,
+        "energy": 0
+      },
+      {
+        "iter": 9,
+        "max_delta": 0.003329565996910394,
+        "energy": 0
+      },
+      {
+        "iter": 10,
+        "max_delta": 0.0031205757984163265,
+        "energy": 0
+      },
+      {
+        "iter": 11,
+        "max_delta": 0.0029247034967013266,
+        "energy": 0
+      },
+      {
+        "iter": 12,
+        "max_delta": 0.002741125707620376,
+        "energy": 0
+      },
+      {
+        "iter": 13,
+        "max_delta": 0.0025690707292044604,
+        "energy": 0
+      },
+      {
+        "iter": 14,
+        "max_delta": 0.0024078152976737544,
+        "energy": 0
+      },
+      {
+        "iter": 15,
+        "max_delta": 0.0022566815470693724,
+        "energy": 0
+      },
+      {
+        "iter": 16,
+        "max_delta": 0.002115034159722917,
+        "energy": 0
+      }
+    ]
+  },
+  "residue": {
+    "residue_id": "8b2651713b9fa525dfc0f92d360eff1a062e0cdd019f87da7130cecdeb81d6f3",
+    "parent_skin_id": "d5d139a636fc5845662412201bd326f7d1c3e0540644d41c3ca34588b3d43c13",
+    "residue_vector": {
+      "PI": 0.9959533714897926,
+      "SQRT2": 0.9797843551093208,
+      "SQRT3": 0.9945002472164216,
+      "PHI": 0.9961473694723524,
+      "LN5": 0.9949773560622573
+    },
+    "dominance": "PHI",
+    "cycle_depth": 1,
+    "age_band": "fresh",
+    "absorption_proxy": {
+      "PI": 0.004046628510207409,
+      "SQRT2": 0.02021564489067922,
+      "SQRT3": 0.0054997527835784175,
+      "PHI": 0.0038526305276476037,
+      "LN5": 0.0050226439377426746
+    },
+    "raw_excerpt": "Line 1: alpha\nLine 2: beta\nLine 3: gamma\nLine 4: delta\nLine 5: epsilon"
+  }
+}

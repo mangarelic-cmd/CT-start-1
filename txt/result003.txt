@@ -1,0 +1,1096 @@
+
+=== BLOCK A - build/test outputs ===
+COMMAND: npm run build:all
+EXIT: 0
+
+> start-1@0.5.0 build:all
+> npm --prefix ct-cvm-mini run build && npm run build
+
+
+> @ct-lab/ct-cvm-mini@0.1.0 build
+> tsc -p tsconfig.json && npm run guard:dist
+
+
+> @ct-lab/ct-cvm-mini@0.1.0 guard:dist
+> node -e "import('node:fs').then(fs=>{const bad=[];const walk=p=>{for(const e of fs.readdirSync(p,{withFileTypes:true})){const f=p+'/'+e.name;if(e.isDirectory()) walk(f); else if(f.endsWith('.ts') && !f.endsWith('.d.ts')) bad.push(f);} }; walk('dist'); if(bad.length){console.error('dist contains .ts files:', bad.join(',')); process.exit(1);} })"
+
+
+> start-1@0.5.0 build
+> tsc -p tsconfig.json
+COMMAND: npm run test:all
+EXIT: 0
+
+> start-1@0.5.0 test:all
+> npm run build:all && npm run test:cvm-contract && npm run test:exhaustive
+
+
+> start-1@0.5.0 build:all
+> npm --prefix ct-cvm-mini run build && npm run build
+
+
+> @ct-lab/ct-cvm-mini@0.1.0 build
+> tsc -p tsconfig.json && npm run guard:dist
+
+
+> @ct-lab/ct-cvm-mini@0.1.0 guard:dist
+> node -e "import('node:fs').then(fs=>{const bad=[];const walk=p=>{for(const e of fs.readdirSync(p,{withFileTypes:true})){const f=p+'/'+e.name;if(e.isDirectory()) walk(f); else if(f.endsWith('.ts') && !f.endsWith('.d.ts')) bad.push(f);} }; walk('dist'); if(bad.length){console.error('dist contains .ts files:', bad.join(',')); process.exit(1);} })"
+
+
+> start-1@0.5.0 build
+> tsc -p tsconfig.json
+
+
+> start-1@0.5.0 test:cvm-contract
+> npm --prefix ct-cvm-mini run test:contract && node scripts/cvm_contract_smoke.mjs
+
+
+> @ct-lab/ct-cvm-mini@0.1.0 test:contract
+> npm run build && node dist/cli.js run examples/demo.csl out/test_contract.json && node -e "const j=require('fs').readFileSync('out/test_contract.json','utf8'); const o=JSON.parse(j); const p=o.final?.phi||{}; const k=['PI','SQRT2','SQRT3','PHI','LN5']; for(const kk of k){ if(!(kk in p)) throw new Error('missing '+kk); const v=Number(p[kk]); if(!Number.isFinite(v)) throw new Error('non-finite '+kk); } console.log('OK contract');"
+
+
+> @ct-lab/ct-cvm-mini@0.1.0 build
+> tsc -p tsconfig.json && npm run guard:dist
+
+
+> @ct-lab/ct-cvm-mini@0.1.0 guard:dist
+> node -e "import('node:fs').then(fs=>{const bad=[];const walk=p=>{for(const e of fs.readdirSync(p,{withFileTypes:true})){const f=p+'/'+e.name;if(e.isDirectory()) walk(f); else if(f.endsWith('.ts') && !f.endsWith('.d.ts')) bad.push(f);} }; walk('dist'); if(bad.length){console.error('dist contains .ts files:', bad.join(',')); process.exit(1);} })"
+
+ct-cvm-mini: converged=true i=0.999050 iters=38
+OK contract
+ct-cvm-mini: converged=true i=0.999050 iters=38
+OK cvm_contract_smoke
+
+> start-1@0.5.0 test:exhaustive
+> node scripts/exhaustive_test.mjs
+
+=== BLOCK B - prepare inputs ===
+
+=== BLOCK B2 - archive pool ===
+pool archived: C:\CT\github\strat-1\data\out\pools\residue_pool.1768431623323.json
+
+=== BLOCK B3 - ingest 20 items ===
+COMMAND: node dist/cli.js ingest --file C:\CT\github\strat-1\data\inbox\outcomes20\A01_ts_sort.ts --uri local://outcomes20/A01_ts_sort.ts --cycle 0 --eps 0.5
+EXIT: 0
+ct-cvm-mini: converged=true i=0.997175 iters=113
+?? [CVM RAW] i_raw=0.99717500 phi_min=0.039069 phi_max=0.250173 eps_son=0.5
+
+?? [SPECTRE CT - SLOT T29]
+?? i=0.937302 | phase=anchored | i_raw=0.997175 | dissonance=0.3043
+??? status=rejected | near_identity=false
+{
+  "kind": "ingest",
+  "packet_id": "efca41440595aaccfb3d09f113b2562d9c2dcb323a9d7d0ca8ffdc740d94000a",
+  "status": "rejected",
+  "alignment_index": 0.9373017695514411,
+  "phase_gate": "anchored",
+  "thresholds": {
+    "I_ENTRY": 0.66,
+    "I_STABLE": 0.787,
+    "I_ANCHOR": 0.87,
+    "I_CRITICAL": 0.946,
+    "I_HORIZON": 0.995204
+  },
+  "dissonance_score": 0.30434782608695654,
+  "penalty_gamma": 0.1967263286166932,
+  "cvm_alignment_raw": 0.9971749999999999,
+  "cvm_phi_min": 0.03906899370853664,
+  "cvm_phi_max": 0.250173,
+  "attractor_id": "T29",
+  "approach_velocity": 0,
+  "near_identity": false,
+  "residue_deposited": true
+}
+COMMAND: node dist/cli.js ingest --file C:\CT\github\strat-1\data\inbox\outcomes20\A02_ts_sort.ts --uri local://outcomes20/A02_ts_sort.ts --cycle 0 --eps 0.5
+EXIT: 0
+ct-cvm-mini: converged=true i=0.997150 iters=114
+?? [CVM RAW] i_raw=0.99715000 phi_min=0.039065 phi_max=0.250241 eps_son=0.5
+
+?? [SPECTRE CT - SLOT T29]
+?? i=0.939771 | phase=anchored | i_raw=0.997150 | dissonance=0.2917
+??? status=rejected | near_identity=false
+{
+  "kind": "ingest",
+  "packet_id": "9d744a930046463f92cfcc8c6e77f0f05b41ab236a3f42153dcdb173359f492e",
+  "status": "rejected",
+  "alignment_index": 0.9397714874867978,
+  "phase_gate": "anchored",
+  "thresholds": {
+    "I_ENTRY": 0.66,
+    "I_STABLE": 0.787,
+    "I_ANCHOR": 0.87,
+    "I_CRITICAL": 0.946,
+    "I_HORIZON": 0.995204
+  },
+  "dissonance_score": 0.2916666666666667,
+  "penalty_gamma": 0.1967263286166932,
+  "cvm_alignment_raw": 0.99715,
+  "cvm_phi_min": 0.03906476262485557,
+  "cvm_phi_max": 0.250241,
+  "attractor_id": "T29",
+  "approach_velocity": 0,
+  "near_identity": false,
+  "residue_deposited": true
+}
+COMMAND: node dist/cli.js ingest --file C:\CT\github\strat-1\data\inbox\outcomes20\A03_ts_sort.ts --uri local://outcomes20/A03_ts_sort.ts --cycle 0 --eps 0.5
+EXIT: 0
+ct-cvm-mini: converged=true i=0.997175 iters=113
+?? [CVM RAW] i_raw=0.99717500 phi_min=0.039069 phi_max=0.250173 eps_son=0.5
+
+?? [SPECTRE CT - SLOT T29]
+?? i=0.937302 | phase=anchored | i_raw=0.997175 | dissonance=0.3043
+??? status=rejected | near_identity=false
+{
+  "kind": "ingest",
+  "packet_id": "680a0f442795076f277fae5312979b19d45c05293e0cd658973c780a4533b6ae",
+  "status": "rejected",
+  "alignment_index": 0.9373017695514411,
+  "phase_gate": "anchored",
+  "thresholds": {
+    "I_ENTRY": 0.66,
+    "I_STABLE": 0.787,
+    "I_ANCHOR": 0.87,
+    "I_CRITICAL": 0.946,
+    "I_HORIZON": 0.995204
+  },
+  "dissonance_score": 0.30434782608695654,
+  "penalty_gamma": 0.1967263286166932,
+  "cvm_alignment_raw": 0.9971749999999999,
+  "cvm_phi_min": 0.03906899370853664,
+  "cvm_phi_max": 0.250173,
+  "attractor_id": "T29",
+  "approach_velocity": 0,
+  "near_identity": false,
+  "residue_deposited": true
+}
+COMMAND: node dist/cli.js ingest --file C:\CT\github\strat-1\data\inbox\outcomes20\A04_ts_sort.ts --uri local://outcomes20/A04_ts_sort.ts --cycle 0 --eps 0.5
+EXIT: 0
+ct-cvm-mini: converged=true i=0.997150 iters=114
+?? [CVM RAW] i_raw=0.99715000 phi_min=0.039097 phi_max=0.250634 eps_son=0.5
+
+?? [SPECTRE CT - SLOT T29]
+?? i=0.939771 | phase=anchored | i_raw=0.997150 | dissonance=0.2917
+??? status=rejected | near_identity=false
+{
+  "kind": "ingest",
+  "packet_id": "55434a03bddfc35223e73857b255c91bbb62b0113fb4f934810f9942af8cf37f",
+  "status": "rejected",
+  "alignment_index": 0.9397714874867978,
+  "phase_gate": "anchored",
+  "thresholds": {
+    "I_ENTRY": 0.66,
+    "I_STABLE": 0.787,
+    "I_ANCHOR": 0.87,
+    "I_CRITICAL": 0.946,
+    "I_HORIZON": 0.995204
+  },
+  "dissonance_score": 0.2916666666666667,
+  "penalty_gamma": 0.1967263286166932,
+  "cvm_alignment_raw": 0.99715,
+  "cvm_phi_min": 0.0390971832846227,
+  "cvm_phi_max": 0.250634,
+  "attractor_id": "T29",
+  "approach_velocity": 0,
+  "near_identity": false,
+  "residue_deposited": true
+}
+COMMAND: node dist/cli.js ingest --file C:\CT\github\strat-1\data\inbox\outcomes20\A05_ts_sort.ts --uri local://outcomes20/A01_ts_sort.ts --cycle 0 --eps 0.5
+EXIT: 0
+ct-cvm-mini: converged=true i=0.997175 iters=113
+?? [CVM RAW] i_raw=0.99717500 phi_min=0.039069 phi_max=0.250173 eps_son=0.5
+
+?? [SPECTRE CT - SLOT T29]
+?? i=0.937302 | phase=anchored | i_raw=0.997175 | dissonance=0.3043
+??? status=rejected | near_identity=false
+{
+  "kind": "ingest",
+  "packet_id": "efca41440595aaccfb3d09f113b2562d9c2dcb323a9d7d0ca8ffdc740d94000a",
+  "status": "rejected",
+  "alignment_index": 0.9373017695514411,
+  "phase_gate": "anchored",
+  "thresholds": {
+    "I_ENTRY": 0.66,
+    "I_STABLE": 0.787,
+    "I_ANCHOR": 0.87,
+    "I_CRITICAL": 0.946,
+    "I_HORIZON": 0.995204
+  },
+  "dissonance_score": 0.30434782608695654,
+  "penalty_gamma": 0.1967263286166932,
+  "cvm_alignment_raw": 0.9971749999999999,
+  "cvm_phi_min": 0.03906899370853664,
+  "cvm_phi_max": 0.250173,
+  "attractor_id": "T29",
+  "approach_velocity": 0,
+  "near_identity": false,
+  "residue_deposited": true
+}
+COMMAND: node dist/cli.js ingest --file C:\CT\github\strat-1\data\inbox\outcomes20\B01_parser.js --uri local://outcomes20/B01_parser.js --cycle 0 --eps 0.5
+EXIT: 0
+ct-cvm-mini: converged=true i=0.997125 iters=115
+?? [CVM RAW] i_raw=0.99712500 phi_min=0.040188 phi_max=0.257912 eps_son=0.5
+
+?? [SPECTRE CT - SLOT T29]
+?? i=0.931550 | phase=anchored | i_raw=0.997125 | dissonance=0.3333
+??? status=rejected | near_identity=false
+{
+  "kind": "ingest",
+  "packet_id": "81ad97ac11c87937abd809326e8678ed2226278f9e5fb365722d5cbf9a4e2d36",
+  "status": "rejected",
+  "alignment_index": 0.9315495571277689,
+  "phase_gate": "anchored",
+  "thresholds": {
+    "I_ENTRY": 0.66,
+    "I_STABLE": 0.787,
+    "I_ANCHOR": 0.87,
+    "I_CRITICAL": 0.946,
+    "I_HORIZON": 0.995204
+  },
+  "dissonance_score": 0.3333333333333333,
+  "penalty_gamma": 0.1967263286166932,
+  "cvm_alignment_raw": 0.9971249999999999,
+  "cvm_phi_min": 0.04018796915049226,
+  "cvm_phi_max": 0.257912,
+  "attractor_id": "T29",
+  "approach_velocity": 0,
+  "near_identity": false,
+  "residue_deposited": true
+}
+COMMAND: node dist/cli.js ingest --file C:\CT\github\strat-1\data\inbox\outcomes20\B02_parser.js --uri local://outcomes20/B02_parser.js --cycle 0 --eps 0.5
+EXIT: 0
+ct-cvm-mini: converged=true i=0.997125 iters=115
+?? [CVM RAW] i_raw=0.99712500 phi_min=0.040162 phi_max=0.257810 eps_son=0.5
+
+?? [SPECTRE CT - SLOT T29]
+?? i=0.931550 | phase=anchored | i_raw=0.997125 | dissonance=0.3333
+??? status=rejected | near_identity=false
+{
+  "kind": "ingest",
+  "packet_id": "737622414fb4c8616ab492a6e9d57ac1da0882cad981959d5452edf5cc9339ba",
+  "status": "rejected",
+  "alignment_index": 0.9315495571277689,
+  "phase_gate": "anchored",
+  "thresholds": {
+    "I_ENTRY": 0.66,
+    "I_STABLE": 0.787,
+    "I_ANCHOR": 0.87,
+    "I_CRITICAL": 0.946,
+    "I_HORIZON": 0.995204
+  },
+  "dissonance_score": 0.3333333333333333,
+  "penalty_gamma": 0.1967263286166932,
+  "cvm_alignment_raw": 0.9971249999999999,
+  "cvm_phi_min": 0.04016208816227269,
+  "cvm_phi_max": 0.25781,
+  "attractor_id": "T29",
+  "approach_velocity": 0,
+  "near_identity": false,
+  "residue_deposited": true
+}
+COMMAND: node dist/cli.js ingest --file C:\CT\github\strat-1\data\inbox\outcomes20\B03_parser.js --uri local://outcomes20/B03_parser.js --cycle 0 --eps 0.5
+EXIT: 0
+ct-cvm-mini: converged=true i=0.997125 iters=115
+?? [CVM RAW] i_raw=0.99712500 phi_min=0.040162 phi_max=0.257810 eps_son=0.5
+
+?? [SPECTRE CT - SLOT T29]
+?? i=0.931550 | phase=anchored | i_raw=0.997125 | dissonance=0.3333
+??? status=rejected | near_identity=false
+{
+  "kind": "ingest",
+  "packet_id": "c304d104007094210da5f9eb0e33d2304c10993f5a1ed9edcc4796106ae11100",
+  "status": "rejected",
+  "alignment_index": 0.9315495571277689,
+  "phase_gate": "anchored",
+  "thresholds": {
+    "I_ENTRY": 0.66,
+    "I_STABLE": 0.787,
+    "I_ANCHOR": 0.87,
+    "I_CRITICAL": 0.946,
+    "I_HORIZON": 0.995204
+  },
+  "dissonance_score": 0.3333333333333333,
+  "penalty_gamma": 0.1967263286166932,
+  "cvm_alignment_raw": 0.9971249999999999,
+  "cvm_phi_min": 0.04016208816227269,
+  "cvm_phi_max": 0.25781,
+  "attractor_id": "T29",
+  "approach_velocity": 0,
+  "near_identity": false,
+  "residue_deposited": true
+}
+COMMAND: node dist/cli.js ingest --file C:\CT\github\strat-1\data\inbox\outcomes20\B04_parser.js --uri local://outcomes20/B04_parser.js --cycle 0 --eps 0.5
+EXIT: 0
+ct-cvm-mini: converged=true i=0.997125 iters=115
+?? [CVM RAW] i_raw=0.99712500 phi_min=0.040162 phi_max=0.257810 eps_son=0.5
+
+?? [SPECTRE CT - SLOT T29]
+?? i=0.931550 | phase=anchored | i_raw=0.997125 | dissonance=0.3333
+??? status=rejected | near_identity=false
+{
+  "kind": "ingest",
+  "packet_id": "29bac3498f2ce887a48655e7a34a49d05e5c360855e3d00bc5e9de15713f140e",
+  "status": "rejected",
+  "alignment_index": 0.9315495571277689,
+  "phase_gate": "anchored",
+  "thresholds": {
+    "I_ENTRY": 0.66,
+    "I_STABLE": 0.787,
+    "I_ANCHOR": 0.87,
+    "I_CRITICAL": 0.946,
+    "I_HORIZON": 0.995204
+  },
+  "dissonance_score": 0.3333333333333333,
+  "penalty_gamma": 0.1967263286166932,
+  "cvm_alignment_raw": 0.9971249999999999,
+  "cvm_phi_min": 0.04016208816227269,
+  "cvm_phi_max": 0.25781,
+  "attractor_id": "T29",
+  "approach_velocity": 0,
+  "near_identity": false,
+  "residue_deposited": true
+}
+COMMAND: node dist/cli.js ingest --file C:\CT\github\strat-1\data\inbox\outcomes20\B05_parser.js --uri local://outcomes20/B05_parser.js --cycle 0 --eps 0.5
+EXIT: 0
+ct-cvm-mini: converged=true i=0.995800 iters=168
+?? [CVM RAW] i_raw=0.99580000 phi_min=0.150270 phi_max=0.568096 eps_son=0.5
+
+?? [SPECTRE CT - SLOT T10]
+?? i=0.995204 | phase=near_identity | i_raw=0.995800 | dissonance=0.0000
+??? status=sutured | near_identity=true
+{
+  "kind": "ingest",
+  "packet_id": "33370e6d963fe4ca5a5b9909821baca32eb219e75ce3d924c681abbe809e325d",
+  "status": "sutured",
+  "alignment_index": 0.995204,
+  "phase_gate": "near_identity",
+  "thresholds": {
+    "I_ENTRY": 0.66,
+    "I_STABLE": 0.787,
+    "I_ANCHOR": 0.87,
+    "I_CRITICAL": 0.946,
+    "I_HORIZON": 0.995204
+  },
+  "dissonance_score": 0,
+  "penalty_gamma": 0.1967263286166932,
+  "cvm_alignment_raw": 0.9958,
+  "cvm_phi_min": 0.15027046177415054,
+  "cvm_phi_max": 0.568096,
+  "attractor_id": "T10",
+  "approach_velocity": 0,
+  "near_identity": true,
+  "residue_deposited": true
+}
+COMMAND: node dist/cli.js ingest --file C:\CT\github\strat-1\data\inbox\outcomes20\C01_math.py --uri local://outcomes20/C01_math.py --cycle 0 --eps 0.5
+EXIT: 0
+ct-cvm-mini: converged=true i=0.997150 iters=114
+?? [CVM RAW] i_raw=0.99715000 phi_min=0.039575 phi_max=0.251282 eps_son=0.5
+
+?? [SPECTRE CT - SLOT T29]
+?? i=0.940942 | phase=anchored | i_raw=0.997150 | dissonance=0.2857
+??? status=rejected | near_identity=false
+{
+  "kind": "ingest",
+  "packet_id": "67e7cf4fa4d3a733f82a30880aac3b75cc115bacd82d0ac4e3528010114dab51",
+  "status": "rejected",
+  "alignment_index": 0.9409424775380877,
+  "phase_gate": "anchored",
+  "thresholds": {
+    "I_ENTRY": 0.66,
+    "I_STABLE": 0.787,
+    "I_ANCHOR": 0.87,
+    "I_CRITICAL": 0.946,
+    "I_HORIZON": 0.995204
+  },
+  "dissonance_score": 0.2857142857142857,
+  "penalty_gamma": 0.1967263286166932,
+  "cvm_alignment_raw": 0.99715,
+  "cvm_phi_min": 0.03957465914590878,
+  "cvm_phi_max": 0.251282,
+  "attractor_id": "T29",
+  "approach_velocity": 0,
+  "near_identity": false,
+  "residue_deposited": true
+}
+COMMAND: node dist/cli.js ingest --file C:\CT\github\strat-1\data\inbox\outcomes20\C02_math.py --uri local://outcomes20/C02_math.py --cycle 0 --eps 0.5
+EXIT: 0
+ct-cvm-mini: converged=true i=0.997150 iters=114
+?? [CVM RAW] i_raw=0.99715000 phi_min=0.039575 phi_max=0.251282 eps_son=0.5
+
+?? [SPECTRE CT - SLOT T29]
+?? i=0.940942 | phase=anchored | i_raw=0.997150 | dissonance=0.2857
+??? status=rejected | near_identity=false
+{
+  "kind": "ingest",
+  "packet_id": "8d3d9167ea34cad681da5db0633eef48054e86ba309546073c0623c8335f0841",
+  "status": "rejected",
+  "alignment_index": 0.9409424775380877,
+  "phase_gate": "anchored",
+  "thresholds": {
+    "I_ENTRY": 0.66,
+    "I_STABLE": 0.787,
+    "I_ANCHOR": 0.87,
+    "I_CRITICAL": 0.946,
+    "I_HORIZON": 0.995204
+  },
+  "dissonance_score": 0.2857142857142857,
+  "penalty_gamma": 0.1967263286166932,
+  "cvm_alignment_raw": 0.99715,
+  "cvm_phi_min": 0.03957465914590878,
+  "cvm_phi_max": 0.251282,
+  "attractor_id": "T29",
+  "approach_velocity": 0,
+  "near_identity": false,
+  "residue_deposited": true
+}
+COMMAND: node dist/cli.js ingest --file C:\CT\github\strat-1\data\inbox\outcomes20\C03_math.py --uri local://outcomes20/C03_math.py --cycle 0 --eps 0.5
+EXIT: 0
+ct-cvm-mini: converged=true i=0.997150 iters=114
+?? [CVM RAW] i_raw=0.99715000 phi_min=0.039643 phi_max=0.251544 eps_son=0.5
+
+?? [SPECTRE CT - SLOT T29]
+?? i=0.940942 | phase=anchored | i_raw=0.997150 | dissonance=0.2857
+??? status=rejected | near_identity=false
+{
+  "kind": "ingest",
+  "packet_id": "de04585676f2d23c6b5c26dfd5e5ca999c8b2016e8ca576a81732c721272ddf0",
+  "status": "rejected",
+  "alignment_index": 0.9409424775380877,
+  "phase_gate": "anchored",
+  "thresholds": {
+    "I_ENTRY": 0.66,
+    "I_STABLE": 0.787,
+    "I_ANCHOR": 0.87,
+    "I_CRITICAL": 0.946,
+    "I_HORIZON": 0.995204
+  },
+  "dissonance_score": 0.2857142857142857,
+  "penalty_gamma": 0.1967263286166932,
+  "cvm_alignment_raw": 0.99715,
+  "cvm_phi_min": 0.039643042081128246,
+  "cvm_phi_max": 0.251544,
+  "attractor_id": "T29",
+  "approach_velocity": 0,
+  "near_identity": false,
+  "residue_deposited": true
+}
+COMMAND: node dist/cli.js ingest --file C:\CT\github\strat-1\data\inbox\outcomes20\C04_math.py --uri local://outcomes20/C04_math.py --cycle 0 --eps 0.5
+EXIT: 0
+ct-cvm-mini: converged=true i=0.997150 iters=114
+?? [CVM RAW] i_raw=0.99715000 phi_min=0.039643 phi_max=0.251544 eps_son=0.5
+
+?? [SPECTRE CT - SLOT T29]
+?? i=0.940942 | phase=anchored | i_raw=0.997150 | dissonance=0.2857
+??? status=rejected | near_identity=false
+{
+  "kind": "ingest",
+  "packet_id": "74b3583b9fd6f3e0fdae5947ff3492b575e9cf9df20a7ce1b2c0f7e935698e74",
+  "status": "rejected",
+  "alignment_index": 0.9409424775380877,
+  "phase_gate": "anchored",
+  "thresholds": {
+    "I_ENTRY": 0.66,
+    "I_STABLE": 0.787,
+    "I_ANCHOR": 0.87,
+    "I_CRITICAL": 0.946,
+    "I_HORIZON": 0.995204
+  },
+  "dissonance_score": 0.2857142857142857,
+  "penalty_gamma": 0.1967263286166932,
+  "cvm_alignment_raw": 0.99715,
+  "cvm_phi_min": 0.039643042081128246,
+  "cvm_phi_max": 0.251544,
+  "attractor_id": "T29",
+  "approach_velocity": 0,
+  "near_identity": false,
+  "residue_deposited": true
+}
+COMMAND: node dist/cli.js ingest --file C:\CT\github\strat-1\data\inbox\outcomes20\C05_math.py --uri local://outcomes20/C05_math.py --cycle 0 --eps 0.5
+EXIT: 0
+ct-cvm-mini: converged=true i=0.997150 iters=114
+?? [CVM RAW] i_raw=0.99715000 phi_min=0.039591 phi_max=0.251344 eps_son=0.5
+
+?? [SPECTRE CT - SLOT T29]
+?? i=0.940942 | phase=anchored | i_raw=0.997150 | dissonance=0.2857
+??? status=rejected | near_identity=false
+{
+  "kind": "ingest",
+  "packet_id": "70fcc88faf714fc6a6601e832f86b04ba3452977ff30c334741f5fbdea2218b5",
+  "status": "rejected",
+  "alignment_index": 0.9409424775380877,
+  "phase_gate": "anchored",
+  "thresholds": {
+    "I_ENTRY": 0.66,
+    "I_STABLE": 0.787,
+    "I_ANCHOR": 0.87,
+    "I_CRITICAL": 0.946,
+    "I_HORIZON": 0.995204
+  },
+  "dissonance_score": 0.2857142857142857,
+  "penalty_gamma": 0.1967263286166932,
+  "cvm_alignment_raw": 0.99715,
+  "cvm_phi_min": 0.03959119803409987,
+  "cvm_phi_max": 0.251344,
+  "attractor_id": "T29",
+  "approach_velocity": 0,
+  "near_identity": false,
+  "residue_deposited": true
+}
+COMMAND: node dist/cli.js ingest --file C:\CT\github\strat-1\data\inbox\outcomes20\D01_spec.md --uri local://outcomes20/D01_spec.md --cycle 0 --eps 0.5
+EXIT: 0
+ct-cvm-mini: converged=true i=0.996575 iters=137
+?? [CVM RAW] i_raw=0.99657500 phi_min=0.064758 phi_max=0.348905 eps_son=0.5
+
+?? [SPECTRE CT - SLOT T29]
+?? i=0.909141 | phase=anchored | i_raw=0.996575 | dissonance=0.4444
+??? status=rejected | near_identity=false
+{
+  "kind": "ingest",
+  "packet_id": "d66934f15cb275f36ed5b2fcb0a6cee65eb6f0fdd1ebee16ec8d63f06495c0bb",
+  "status": "rejected",
+  "alignment_index": 0.9091410761703586,
+  "phase_gate": "anchored",
+  "thresholds": {
+    "I_ENTRY": 0.66,
+    "I_STABLE": 0.787,
+    "I_ANCHOR": 0.87,
+    "I_CRITICAL": 0.946,
+    "I_HORIZON": 0.995204
+  },
+  "dissonance_score": 0.4444444444444444,
+  "penalty_gamma": 0.1967263286166932,
+  "cvm_alignment_raw": 0.996575,
+  "cvm_phi_min": 0.06475800514335349,
+  "cvm_phi_max": 0.348905,
+  "attractor_id": "T29",
+  "approach_velocity": 0,
+  "near_identity": false,
+  "residue_deposited": true
+}
+COMMAND: node dist/cli.js ingest --file C:\CT\github\strat-1\data\inbox\outcomes20\D02_spec.md --uri local://outcomes20/D02_spec.md --cycle 0 --eps 0.5
+EXIT: 0
+ct-cvm-mini: converged=true i=0.996575 iters=137
+?? [CVM RAW] i_raw=0.99657500 phi_min=0.064833 phi_max=0.349144 eps_son=0.5
+
+?? [SPECTRE CT - SLOT T29]
+?? i=0.887283 | phase=anchored | i_raw=0.996575 | dissonance=0.5556
+??? status=rejected | near_identity=false
+{
+  "kind": "ingest",
+  "packet_id": "4af4691e02f106141452db346ab29d2b4a1d22a9b2ce973d852b1070968cad8a",
+  "status": "rejected",
+  "alignment_index": 0.8872825952129482,
+  "phase_gate": "anchored",
+  "thresholds": {
+    "I_ENTRY": 0.66,
+    "I_STABLE": 0.787,
+    "I_ANCHOR": 0.87,
+    "I_CRITICAL": 0.946,
+    "I_HORIZON": 0.995204
+  },
+  "dissonance_score": 0.5555555555555556,
+  "penalty_gamma": 0.1967263286166932,
+  "cvm_alignment_raw": 0.996575,
+  "cvm_phi_min": 0.0648330889876073,
+  "cvm_phi_max": 0.349144,
+  "attractor_id": "T29",
+  "approach_velocity": 0,
+  "near_identity": false,
+  "residue_deposited": true
+}
+COMMAND: node dist/cli.js ingest --file C:\CT\github\strat-1\data\inbox\outcomes20\D03_schema.json --uri local://outcomes20/D03_schema.json --cycle 0 --eps 0.5
+EXIT: 0
+ct-cvm-mini: converged=true i=0.997175 iters=113
+?? [CVM RAW] i_raw=0.99717500 phi_min=0.039175 phi_max=0.248570 eps_son=0.5
+
+?? [SPECTRE CT - SLOT T29]
+?? i=0.925638 | phase=anchored | i_raw=0.997175 | dissonance=0.3636
+??? status=rejected | near_identity=false
+{
+  "kind": "ingest",
+  "packet_id": "1fd175dcfdf9d3d57a4ba1a669adde7ec17d3db1143314ca69b97059c5f84b48",
+  "status": "rejected",
+  "alignment_index": 0.9256381532302933,
+  "phase_gate": "anchored",
+  "thresholds": {
+    "I_ENTRY": 0.66,
+    "I_STABLE": 0.787,
+    "I_ANCHOR": 0.87,
+    "I_CRITICAL": 0.946,
+    "I_HORIZON": 0.995204
+  },
+  "dissonance_score": 0.36363636363636365,
+  "penalty_gamma": 0.1967263286166932,
+  "cvm_alignment_raw": 0.9971749999999999,
+  "cvm_phi_min": 0.039175393545127515,
+  "cvm_phi_max": 0.24857,
+  "attractor_id": "T29",
+  "approach_velocity": 0,
+  "near_identity": false,
+  "residue_deposited": true
+}
+COMMAND: node dist/cli.js ingest --file C:\CT\github\strat-1\data\inbox\outcomes20\D04_schema.json --uri local://outcomes20/D04_schema.json --cycle 0 --eps 0.5
+EXIT: 0
+ct-cvm-mini: converged=true i=0.997175 iters=113
+?? [CVM RAW] i_raw=0.99717500 phi_min=0.039185 phi_max=0.248604 eps_son=0.5
+
+?? [SPECTRE CT - SLOT T29]
+?? i=0.925638 | phase=anchored | i_raw=0.997175 | dissonance=0.3636
+??? status=rejected | near_identity=false
+{
+  "kind": "ingest",
+  "packet_id": "72af1305ccb1b3bb974eee6861d057a635552ddd718564c3b937ced2467592e1",
+  "status": "rejected",
+  "alignment_index": 0.9256381532302933,
+  "phase_gate": "anchored",
+  "thresholds": {
+    "I_ENTRY": 0.66,
+    "I_STABLE": 0.787,
+    "I_ANCHOR": 0.87,
+    "I_CRITICAL": 0.946,
+    "I_HORIZON": 0.995204
+  },
+  "dissonance_score": 0.36363636363636365,
+  "penalty_gamma": 0.1967263286166932,
+  "cvm_alignment_raw": 0.9971749999999999,
+  "cvm_phi_min": 0.03918488039448212,
+  "cvm_phi_max": 0.248604,
+  "attractor_id": "T29",
+  "approach_velocity": 0,
+  "near_identity": false,
+  "residue_deposited": true
+}
+COMMAND: node dist/cli.js ingest --file C:\CT\github\strat-1\data\inbox\outcomes20\D05_pseudo.txt --uri local://outcomes20/D05_pseudo.txt --cycle 0 --eps 0.5
+EXIT: 0
+ct-cvm-mini: converged=true i=0.997125 iters=115
+?? [CVM RAW] i_raw=0.99712500 phi_min=0.039681 phi_max=0.255772 eps_son=0.5
+
+?? [SPECTRE CT - SLOT T29]
+?? i=0.915156 | phase=anchored | i_raw=0.997125 | dissonance=0.4167
+??? status=rejected | near_identity=false
+{
+  "kind": "ingest",
+  "packet_id": "354439a3c0f6c4cfeac4a812eee56d8ded548f80b1f651f83dca7b85d6718054",
+  "status": "rejected",
+  "alignment_index": 0.9151556964097111,
+  "phase_gate": "anchored",
+  "thresholds": {
+    "I_ENTRY": 0.66,
+    "I_STABLE": 0.787,
+    "I_ANCHOR": 0.87,
+    "I_CRITICAL": 0.946,
+    "I_HORIZON": 0.995204
+  },
+  "dissonance_score": 0.4166666666666667,
+  "penalty_gamma": 0.1967263286166932,
+  "cvm_alignment_raw": 0.9971249999999999,
+  "cvm_phi_min": 0.03968070049298937,
+  "cvm_phi_max": 0.255772,
+  "attractor_id": "T29",
+  "approach_velocity": 0,
+  "near_identity": false,
+  "residue_deposited": true
+}
+file	status	outcome
+A01_ts_sort.ts	rejected	RESIDUE
+A02_ts_sort.ts	rejected	RESIDUE
+A03_ts_sort.ts	rejected	RESIDUE
+A04_ts_sort.ts	rejected	RESIDUE
+A05_ts_sort.ts	rejected	DUPLICATE
+B01_parser.js	rejected	RESIDUE
+B02_parser.js	rejected	RESIDUE
+B03_parser.js	rejected	RESIDUE
+B04_parser.js	rejected	RESIDUE
+B05_parser.js	sutured	SUTURED
+C01_math.py	rejected	RESIDUE
+C02_math.py	rejected	RESIDUE
+C03_math.py	rejected	RESIDUE
+C04_math.py	rejected	RESIDUE
+C05_math.py	rejected	RESIDUE
+D01_spec.md	rejected	RESIDUE
+D02_spec.md	rejected	RESIDUE
+D03_schema.json	rejected	RESIDUE
+D04_schema.json	rejected	RESIDUE
+D05_pseudo.txt	rejected	RESIDUE
+count_DUPLICATE=1
+count_SUTURED=1
+count_RESIDUE=18
+pool deduped: 14 clusters
+
+=== BLOCK C - round 1 ===
+COMMAND: node dist/cli.js round --cycle 1 --eps 0.5 --scope event
+EXIT: 0
+{
+  "kind": "round",
+  "utc": "2026-01-14T23:00:31.533Z",
+  "scope": "event",
+  "cycle_depth": 1,
+  "eps_son": 0.5,
+  "merges": 12,
+  "clusters_after": 2,
+  "trace_sample": [
+    {
+      "step": "merge",
+      "pass": 0,
+      "a": "11f287d942720d9c",
+      "b": "445cc29eb7b6338b",
+      "d_son": 2.6030508324209306e-7,
+      "phase": "cycle",
+      "sim": 0.9999998159365104,
+      "w": 0,
+      "r_before_a": 4.973868565727465,
+      "r_before_b": 4.973864261391861,
+      "r_after": 4.973864261391861,
+      "eps_son": 0.5,
+      "merged_id": "5a7e6f2bfb8362fc"
+    },
+    {
+      "step": "merge",
+      "pass": 1,
+      "a": "386292f5b2ea021a",
+      "b": "a5a2c55c3ceac171",
+      "d_son": 4.780867592512931e-7,
+      "phase": "cycle",
+      "sim": 0.9999996619416105,
+      "w": 0,
+      "r_before_a": 4.973517695980759,
+      "r_before_b": 4.973509795311699,
+      "r_after": 4.973509795311699,
+      "eps_son": 0.5,
+      "merged_id": "b929864b2c505fc8"
+    },
+    {
+      "step": "merge",
+      "pass": 2,
+      "a": "82a94061eeeffbba",
+      "b": "ab2dba162facafb6",
+      "d_son": 6.181493559398078e-7,
+      "phase": "cycle",
+      "sim": 0.9999995629023987,
+      "w": 0,
+      "r_before_a": 4.973654103240662,
+      "r_before_b": 4.973644864864955,
+      "r_after": 4.973644603212364,
+      "eps_son": 0.5,
+      "merged_id": "fb51003568af3a30"
+    },
+    {
+      "step": "merge",
+      "pass": 3,
+      "a": "65e727eb55bc2421",
+      "b": "8f0421d0cc62c836",
+      "d_son": 7.835575750441652e-7,
+      "phase": "cycle",
+      "sim": 0.9999994459411252,
+      "w": 0,
+      "r_before_a": 4.97264387455508,
+      "r_before_b": 4.972656932841789,
+      "r_after": 4.97264387455508,
+      "eps_son": 0.5,
+      "merged_id": "e8acdfe7f8432b91"
+    },
+    {
+      "step": "merge",
+      "pass": 4,
+      "a": "e67060265a428cdd",
+      "b": "b929864b2c505fc8",
+      "d_son": 0.0000015422526682794716,
+      "phase": "cycle",
+      "sim": 0.99999890946268,
+      "w": 0,
+      "r_before_a": 4.973484324764016,
+      "r_before_b": 4.973509795311699,
+      "r_after": 4.973484324764016,
+      "eps_son": 0.5,
+      "merged_id": "8a9396e472eb8231"
+    },
+    {
+      "step": "merge",
+      "pass": 5,
+      "a": "edb985a955b0a4ba",
+      "b": "a6499d08a64594b8",
+      "d_son": 0.0000017105939344969223,
+      "phase": "cycle",
+      "sim": 0.999998790427429,
+      "w": 0,
+      "r_before_a": 4.960090747356765,
+      "r_before_b": 4.960056640651747,
+      "r_after": 4.960056640651747,
+      "eps_son": 0.5,
+      "merged_id": "32e75488d8af0f68"
+    },
+    {
+      "step": "merge",
+      "pass": 6,
+      "a": "d7c94e07bbdee84c",
+      "b": "fb51003568af3a30",
+      "d_son": 0.0000030950981557311648,
+      "phase": "cycle",
+      "sim": 0.9999978114351057,
+      "w": 0,
+      "r_before_a": 4.973593237974104,
+      "r_before_b": 4.973644603212364,
+      "r_after": 4.973593237974104,
+      "eps_son": 0.5,
+      "merged_id": "ba0be23612e78659"
+    },
+    {
+      "step": "merge",
+      "pass": 7,
+      "a": "8a9396e472eb8231",
+      "b": "ba0be23612e78659",
+      "d_son": 0.000010531060146606389,
+      "phase": "cycle",
+      "sim": 0.9999925534159573,
+      "w": 0,
+      "r_before_a": 4.973484324764016,
+      "r_before_b": 4.973593237974104,
+      "r_after": 4.973465781152512,
+      "eps_son": 0.5,
+      "merged_id": "2026127ac92ad273"
+    },
+    {
+      "step": "merge",
+      "pass": 8,
+      "a": "9130d5108dbc7638",
+      "b": "e8acdfe7f8432b91",
+      "d_son": 0.000016286287715154598,
+      "phase": "cycle",
+      "sim": 0.9999884838555163,
+      "w": 0,
+      "r_before_a": 4.972919271170835,
+      "r_before_b": 4.97264387455508,
+      "r_after": 4.97264387455508,
+      "eps_son": 0.5,
+      "merged_id": "8d4ddba02e83262d"
+    },
+    {
+      "step": "merge",
+      "pass": 9,
+      "a": "5a7e6f2bfb8362fc",
+      "b": "2026127ac92ad273",
+      "d_son": 0.000021587821457480395,
+      "phase": "cycle",
+      "sim": 0.9999847351050564,
+      "w": 0,
+      "r_before_a": 4.973864261391861,
+      "r_before_b": 4.973465781152512,
+      "r_after": 4.973465781152512,
+      "eps_son": 0.5,
+      "merged_id": "8f2fe25bb36f04d3"
+    },
+    {
+      "step": "merge",
+      "pass": 10,
+      "a": "8d4ddba02e83262d",
+      "b": "8f2fe25bb36f04d3",
+      "d_son": 0.000049852983867095585,
+      "phase": "cycle",
+      "sim": 0.9999647486170452,
+      "w": 0,
+      "r_before_a": 4.97264387455508,
+      "r_before_b": 4.973465781152512,
+      "r_after": 4.97264387455508,
+      "eps_son": 0.5,
+      "merged_id": "e27aea834531953c"
+    },
+    {
+      "step": "merge",
+      "pass": 11,
+      "a": "53f39ccd7ca92305",
+      "b": "e27aea834531953c",
+      "d_son": 0.0052533666248079005,
+      "phase": "cycle",
+      "sim": 0.9962853088355392,
+      "w": 0,
+      "r_before_a": 4.925114077839988,
+      "r_before_b": 4.97264387455508,
+      "r_after": 4.918792666658495,
+      "eps_son": 0.5,
+      "merged_id": "d990e2a0bf7c2de8"
+    }
+  ]
+}
+merges=12
+clusters_after=2
+trace_sample (up to 10 merges):
+[
+  {
+    "step": "merge",
+    "pass": 0,
+    "a": "11f287d942720d9c",
+    "b": "445cc29eb7b6338b",
+    "d_son": 2.6030508324209306e-7,
+    "phase": "cycle",
+    "sim": 0.9999998159365104,
+    "w": 0,
+    "r_before_a": 4.973868565727465,
+    "r_before_b": 4.973864261391861,
+    "r_after": 4.973864261391861,
+    "eps_son": 0.5,
+    "merged_id": "5a7e6f2bfb8362fc"
+  },
+  {
+    "step": "merge",
+    "pass": 1,
+    "a": "386292f5b2ea021a",
+    "b": "a5a2c55c3ceac171",
+    "d_son": 4.780867592512931e-7,
+    "phase": "cycle",
+    "sim": 0.9999996619416105,
+    "w": 0,
+    "r_before_a": 4.973517695980759,
+    "r_before_b": 4.973509795311699,
+    "r_after": 4.973509795311699,
+    "eps_son": 0.5,
+    "merged_id": "b929864b2c505fc8"
+  },
+  {
+    "step": "merge",
+    "pass": 2,
+    "a": "82a94061eeeffbba",
+    "b": "ab2dba162facafb6",
+    "d_son": 6.181493559398078e-7,
+    "phase": "cycle",
+    "sim": 0.9999995629023987,
+    "w": 0,
+    "r_before_a": 4.973654103240662,
+    "r_before_b": 4.973644864864955,
+    "r_after": 4.973644603212364,
+    "eps_son": 0.5,
+    "merged_id": "fb51003568af3a30"
+  },
+  {
+    "step": "merge",
+    "pass": 3,
+    "a": "65e727eb55bc2421",
+    "b": "8f0421d0cc62c836",
+    "d_son": 7.835575750441652e-7,
+    "phase": "cycle",
+    "sim": 0.9999994459411252,
+    "w": 0,
+    "r_before_a": 4.97264387455508,
+    "r_before_b": 4.972656932841789,
+    "r_after": 4.97264387455508,
+    "eps_son": 0.5,
+    "merged_id": "e8acdfe7f8432b91"
+  },
+  {
+    "step": "merge",
+    "pass": 4,
+    "a": "e67060265a428cdd",
+    "b": "b929864b2c505fc8",
+    "d_son": 0.0000015422526682794716,
+    "phase": "cycle",
+    "sim": 0.99999890946268,
+    "w": 0,
+    "r_before_a": 4.973484324764016,
+    "r_before_b": 4.973509795311699,
+    "r_after": 4.973484324764016,
+    "eps_son": 0.5,
+    "merged_id": "8a9396e472eb8231"
+  },
+  {
+    "step": "merge",
+    "pass": 5,
+    "a": "edb985a955b0a4ba",
+    "b": "a6499d08a64594b8",
+    "d_son": 0.0000017105939344969223,
+    "phase": "cycle",
+    "sim": 0.999998790427429,
+    "w": 0,
+    "r_before_a": 4.960090747356765,
+    "r_before_b": 4.960056640651747,
+    "r_after": 4.960056640651747,
+    "eps_son": 0.5,
+    "merged_id": "32e75488d8af0f68"
+  },
+  {
+    "step": "merge",
+    "pass": 6,
+    "a": "d7c94e07bbdee84c",
+    "b": "fb51003568af3a30",
+    "d_son": 0.0000030950981557311648,
+    "phase": "cycle",
+    "sim": 0.9999978114351057,
+    "w": 0,
+    "r_before_a": 4.973593237974104,
+    "r_before_b": 4.973644603212364,
+    "r_after": 4.973593237974104,
+    "eps_son": 0.5,
+    "merged_id": "ba0be23612e78659"
+  },
+  {
+    "step": "merge",
+    "pass": 7,
+    "a": "8a9396e472eb8231",
+    "b": "ba0be23612e78659",
+    "d_son": 0.000010531060146606389,
+    "phase": "cycle",
+    "sim": 0.9999925534159573,
+    "w": 0,
+    "r_before_a": 4.973484324764016,
+    "r_before_b": 4.973593237974104,
+    "r_after": 4.973465781152512,
+    "eps_son": 0.5,
+    "merged_id": "2026127ac92ad273"
+  },
+  {
+    "step": "merge",
+    "pass": 8,
+    "a": "9130d5108dbc7638",
+    "b": "e8acdfe7f8432b91",
+    "d_son": 0.000016286287715154598,
+    "phase": "cycle",
+    "sim": 0.9999884838555163,
+    "w": 0,
+    "r_before_a": 4.972919271170835,
+    "r_before_b": 4.97264387455508,
+    "r_after": 4.97264387455508,
+    "eps_son": 0.5,
+    "merged_id": "8d4ddba02e83262d"
+  },
+  {
+    "step": "merge",
+    "pass": 9,
+    "a": "5a7e6f2bfb8362fc",
+    "b": "2026127ac92ad273",
+    "d_son": 0.000021587821457480395,
+    "phase": "cycle",
+    "sim": 0.9999847351050564,
+    "w": 0,
+    "r_before_a": 4.973864261391861,
+    "r_before_b": 4.973465781152512,
+    "r_after": 4.973465781152512,
+    "eps_son": 0.5,
+    "merged_id": "8f2fe25bb36f04d3"
+  }
+]
+
+=== BLOCK D - round 2 idempotence ===
+COMMAND: node dist/cli.js round --cycle 1 --eps 0.5 --scope event
+EXIT: 0
+{
+  "kind": "round",
+  "utc": "2026-01-14T23:00:31.738Z",
+  "scope": "event",
+  "cycle_depth": 1,
+  "eps_son": 0.5,
+  "merges": 0,
+  "clusters_after": 2,
+  "trace_sample": [
+    {
+      "step": "noop",
+      "scope": "event",
+      "cycle_depth": 1,
+      "eps_son": 0.5,
+      "clusters": 2
+    }
+  ]
+}
+round1.merges=12 round2.merges=0
+round1.clusters_after=2 round2.clusters_after=2
+
+=== BLOCK E - recap ===
+counts: DUPLICATE=1 SUTURED=1 RESIDUE=18
+merges=12
+compression/gain verified for all merges
+RESULT003: PASS

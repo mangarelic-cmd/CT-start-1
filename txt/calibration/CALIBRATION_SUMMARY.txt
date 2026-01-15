@@ -1,0 +1,14 @@
+Date: 2026-01-14T13:19:24.6616795-08:00
+OS: Windows
+Node: v24.12.0
+build:all: OK
+test:cvm-contract: FAIL
+Phi5 contract enforced: NO
+Dist up-to-date: YES
+Windows paths writable: YES
+Files:
+build_all.log.txt
+CALIBRATION_SUMMARY.txt
+extra_smoke_checks.log.txt
+start1_package.json.txt
+test_cvm_contract.log.txt

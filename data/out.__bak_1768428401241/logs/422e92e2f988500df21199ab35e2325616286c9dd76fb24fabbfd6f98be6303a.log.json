@@ -1,0 +1,22 @@
+{
+  "alignment_index": 0.9442146457022151,
+  "approach_velocity": 0,
+  "attractor_id": "T29",
+  "cvm_alignment_raw": 0.996675,
+  "cvm_phi_max": 0.332203,
+  "cvm_phi_min": 0.05966078826616878,
+  "dissonance_score": 0.26666666666666666,
+  "kind": "ingest",
+  "near_identity": false,
+  "packet_id": "422e92e2f988500df21199ab35e2325616286c9dd76fb24fabbfd6f98be6303a",
+  "penalty_gamma": 0.1967263286166932,
+  "phase_gate": "anchored",
+  "status": "rejected",
+  "thresholds": {
+    "I_ANCHOR": 0.87,
+    "I_CRITICAL": 0.946,
+    "I_ENTRY": 0.66,
+    "I_HORIZON": 0.995204,
+    "I_STABLE": 0.787
+  }
+}

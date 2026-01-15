@@ -1,0 +1,197 @@
+{
+  "packet_id": "b1603473b01477d5b1cc4adc66402074971ba4b320ba74026201bf535a52adb3",
+  "source": {
+    "uri": "codex://idem/1",
+    "fetched_utc": "2026-01-13T21:33:48.250Z"
+  },
+  "raw": "\"Line 1\"\n\"Line 2\"\n\"Line 3\"\n\"Line 4\"\n\"Line 5\"\n\"Line 6\"\n\"Line 7\"\n\"Line 8\"\n\"Line 9\"\n\"Line 10\"\r\n",
+  "claims": [
+    {
+      "id": "8c1209425ec10f560e01e63d9ad03b751c292fcf1948dd957807ca7a8d3d8771",
+      "text": "\"Line 1\"\n\"Line 2\"\n\"Line 3\"\n\"Line 4\"\n\"Line 5\"\n\"Line 6\"\n\"Line 7\"\n\"Line 8\"\n\"Line 9\"\n\"Line 10\"",
+      "utc": "2026-01-13T21:33:48.252Z"
+    }
+  ],
+  "status": "sutured",
+  "trace": [
+    {
+      "step": "ingest",
+      "utc": "2026-01-13T21:33:48.252Z",
+      "info": {
+        "file": "C:\\CT\\github\\strat-1\\data\\inbox\\codex_idem.txt",
+        "uri": "codex://idem/1"
+      }
+    },
+    {
+      "step": "atomize",
+      "utc": "2026-01-13T21:33:48.253Z",
+      "info": {
+        "claim_id": "8c1209425ec10f560e01e63d9ad03b751c292fcf1948dd957807ca7a8d3d8771",
+        "claim_len": 90
+      }
+    },
+    {
+      "step": "transpose",
+      "utc": "2026-01-13T21:33:48.262Z",
+      "info": {
+        "dominance": "SQRT3",
+        "vector": {
+          "PI": 0.2487146472103927,
+          "SQRT2": 0,
+          "SQRT3": 0.49088417212577506,
+          "PHI": 0,
+          "LN5": 0.2604011806638323
+        }
+      }
+    },
+    {
+      "step": "csl",
+      "utc": "2026-01-13T21:33:48.263Z",
+      "info": {
+        "csl_bytes": 387
+      }
+    },
+    {
+      "step": "cvm",
+      "utc": "2026-01-13T21:33:48.425Z",
+      "info": {
+        "converged": true,
+        "iters": 131,
+        "i": 0.996725
+      }
+    },
+    {
+      "step": "gate",
+      "utc": "2026-01-13T21:33:48.431Z",
+      "info": {
+        "ok": true,
+        "reasons": []
+      }
+    },
+    {
+      "step": "status",
+      "utc": "2026-01-13T21:33:48.431Z",
+      "info": {
+        "status": "sutured"
+      }
+    }
+  ],
+  "skin": {
+    "skin_id": "831f2ab85d611d44c7c74e49bbcc88ac0883470fc72dadf36133845f5b97cfc0",
+    "vector": {
+      "PI": 0.2487146472103927,
+      "SQRT2": 0,
+      "SQRT3": 0.49088417212577506,
+      "PHI": 0,
+      "LN5": 0.2604011806638323
+    },
+    "dominance": "SQRT3",
+    "alignment_index": 0.996725,
+    "converged": true,
+    "iters": 131,
+    "cvm_trace_sample": [
+      {
+        "iter": 1,
+        "max_delta": 0.010458185443200001,
+        "energy": 0
+      },
+      {
+        "iter": 2,
+        "max_delta": 0.00973473142496835,
+        "energy": 0
+      },
+      {
+        "iter": 3,
+        "max_delta": 0.009061399521766142,
+        "energy": 0
+      },
+      {
+        "iter": 4,
+        "max_delta": 0.008434640639644622,
+        "energy": 0
+      },
+      {
+        "iter": 5,
+        "max_delta": 0.007851233415881682,
+        "energy": 0
+      },
+      {
+        "iter": 6,
+        "max_delta": 0.007308179302971979,
+        "energy": 0
+      },
+      {
+        "iter": 7,
+        "max_delta": 0.006802687156944015,
+        "energy": 0
+      },
+      {
+        "iter": 8,
+        "max_delta": 0.006332158891672504,
+        "energy": 0
+      },
+      {
+        "iter": 9,
+        "max_delta": 0.0058941761254533015,
+        "energy": 0
+      },
+      {
+        "iter": 10,
+        "max_delta": 0.005486487751207941,
+        "energy": 0
+      },
+      {
+        "iter": 11,
+        "max_delta": 0.0051069983664324,
+        "energy": 0
+      },
+      {
+        "iter": 12,
+        "max_delta": 0.004753757503422995,
+        "energy": 0
+      },
+      {
+        "iter": 13,
+        "max_delta": 0.004424949604426243,
+        "energy": 0
+      },
+      {
+        "iter": 14,
+        "max_delta": 0.0041188846901872855,
+        "energy": 0
+      },
+      {
+        "iter": 15,
+        "max_delta": 0.0038339896739364027,
+        "energy": 0
+      },
+      {
+        "iter": 16,
+        "max_delta": 0.0035688002761695703,
+        "energy": 0
+      }
+    ]
+  },
+  "residue": {
+    "residue_id": "240c348dd5ddf86a79ce4b238f1b939d332904d2c5008b0c144252bd33ad497b",
+    "parent_skin_id": "831f2ab85d611d44c7c74e49bbcc88ac0883470fc72dadf36133845f5b97cfc0",
+    "residue_vector": {
+      "PI": 0.9908773511302894,
+      "SQRT2": 0.9928567827866419,
+      "SQRT3": 0.9714925066945996,
+      "PHI": 0.9928567827866419,
+      "LN5": 0.9907570389785539
+    },
+    "dominance": "SQRT2",
+    "cycle_depth": 1,
+    "age_band": "fresh",
+    "absorption_proxy": {
+      "PI": 0.009122648869710561,
+      "SQRT2": 0.007143217213358134,
+      "SQRT3": 0.028507493305400405,
+      "PHI": 0.007143217213358134,
+      "LN5": 0.00924296102144611
+    },
+    "raw_excerpt": "\"Line 1\"\n\"Line 2\"\n\"Line 3\"\n\"Line 4\"\n\"Line 5\"\n\"Line 6\"\n\"Line 7\"\n\"Line 8\"\n\"Line 9\"\n\"Line 10\""
+  }
+}

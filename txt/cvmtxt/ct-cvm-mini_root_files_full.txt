@@ -1,0 +1,101 @@
+# CT-CVM-MINI ROOT FILES FULL CONTENT
+# Root: C:\CT\github\strat-1\ct-cvm-mini
+# Generated: 2026-01-14T14:41:30.8398262-08:00
+
+===== FILE: ct-cvm-mini\LICENSE =====
+MIT License
+
+Copyright (c) 2026 CT-LAB
+
+===== FILE: ct-cvm-mini\package.json =====
+{
+  "name": "@ct-lab/ct-cvm-mini",
+  "version": "0.1.0",
+  "description": "Causal Virtual Machine Mini-Engine",
+  "license": "MIT",
+  "type": "module",
+  "main": "dist/cli.js",
+  "bin": {
+    "ct-cvm-mini": "dist/cli.js"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json && npm run guard:dist",
+    "guard:dist": "node -e \"import('node:fs').then(fs=>{const bad=[];const walk=p=>{for(const e of fs.readdirSync(p,{withFileTypes:true})){const f=p+'/'+e.name;if(e.isDirectory()) walk(f); else if(f.endsWith('.ts') && !f.endsWith('.d.ts')) bad.push(f);} }; walk('dist'); if(bad.length){console.error('dist contains .ts files:', bad.join(',')); process.exit(1);} })\"",
+    "clean": "node -e \"import('node:fs').then(fs=>fs.rmSync('dist',{recursive:true,force:true}))\"",
+    "test:contract": "npm run build && node dist/cli.js run examples/demo.csl out/test_contract.json && node -e \"const j=require('fs').readFileSync('out/test_contract.json','utf8'); const o=JSON.parse(j); const p=o.final?.phi||{}; const k=['PI','SQRT2','SQRT3','PHI','LN5']; for(const kk of k){ if(!(kk in p)) throw new Error('missing '+kk); const v=Number(p[kk]); if(!Number.isFinite(v)) throw new Error('non-finite '+kk); } console.log('OK contract');\""
+  },
+  "devDependencies": {
+    "@types/node": "^25.0.3",
+    "typescript": "^5.6.3"
+  }
+}
+
+
+===== FILE: ct-cvm-mini\package-lock.json =====
+{
+  "name": "@ct-lab/ct-cvm-mini",
+  "version": "0.1.0",
+  "lockfileVersion": 3,
+  "requires": true,
+  "packages": {
+    "": {
+      "name": "@ct-lab/ct-cvm-mini",
+      "version": "0.1.0",
+      "license": "MIT",
+      "bin": {
+        "ct-cvm-mini": "dist/cli.js"
+      },
+      "devDependencies": {
+        "@types/node": "^25.0.3",
+        "typescript": "^5.6.3"
+      }
+    },
+    "node_modules/@types/node": {
+      "version": "25.0.3",
+      "resolved": "https://registry.npmjs.org/@types/node/-/node-25.0.3.tgz",
+      "integrity": "sha512-W609buLVRVmeW693xKfzHeIV6nJGGz98uCPfeXI1ELMLXVeKYZ9m15fAMSaUPBHYLGFsVRcMmSCksQOrZV9BYA==",
+      "dev": true,
+      "license": "MIT",
+      "dependencies": {
+        "undici-types": "~7.16.0"
+      }
+    },
+    "node_modules/typescript": {
+      "version": "5.9.3",
+      "resolved": "https://registry.npmjs.org/typescript/-/typescript-5.9.3.tgz",
+      "integrity": "sha512-jl1vZzPDinLr9eUt3J/t7V6FgNEw9QjvBPdysz9KfQDD41fQrC2Y4vKQdiaUpFT4bXlb1RHhLpp8wtm6M5TgSw==",
+      "dev": true,
+      "license": "Apache-2.0",
+      "bin": {
+        "tsc": "bin/tsc",
+        "tsserver": "bin/tsserver"
+      },
+      "engines": {
+        "node": ">=14.17"
+      }
+    },
+    "node_modules/undici-types": {
+      "version": "7.16.0",
+      "resolved": "https://registry.npmjs.org/undici-types/-/undici-types-7.16.0.tgz",
+      "integrity": "sha512-Zz+aZWSj8LE6zoxD+xrjh4VfkIG8Ya6LvYkZqtUQGJPZjYl53ypCaUwWqo7eI0x66KBGeRo+mlBEkMSeSZ38Nw==",
+      "dev": true,
+      "license": "MIT"
+    }
+  }
+}
+
+
+===== FILE: ct-cvm-mini\tsconfig.json =====
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "outDir": "dist",
+    "rootDir": "src",
+    "strict": true,
+    "skipLibCheck": true,
+    "declaration": true
+  },
+  "include": ["src/**/*"]
+}

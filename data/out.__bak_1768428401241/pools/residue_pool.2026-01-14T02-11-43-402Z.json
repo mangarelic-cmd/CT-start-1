@@ -1,0 +1,78 @@
+{
+  "schema_version": "ct.start1.residue_pool.v5",
+  "updated_utc": "2026-01-14T02:11:17.004Z",
+  "clusters": [
+    {
+      "cluster_id": "c1e9d1bc48daa915",
+      "mode": "SQRT2",
+      "age_band": "fresh",
+      "representative": {
+        "PI": 0.9910635440653319,
+        "SQRT2": 0.9911865456700035,
+        "SQRT3": 0.9680908166232571,
+        "PHI": 0.9911865456700035,
+        "LN5": 0.9859387644279929
+      },
+      "representative_hash": "f9fbf5dc28b11ae28b9f6dfe136fe0adc4a502c94e8a2e4a648a4f857a422e61",
+      "count": 1,
+      "member_residue_ids": [
+        "1a133041ff867b0787fe56383f89aaeae8f825fa381f08cb636b92b748879705"
+      ],
+      "attractor_id": "T10",
+      "d_son_current": 0.0034239591167648064,
+      "d_son_min": 0.0034239591167648064,
+      "approach_velocity": 0,
+      "last_cycle_depth": 1,
+      "stable_streak": 0,
+      "law_candidate": false
+    },
+    {
+      "cluster_id": "37f7ecc152ea7898",
+      "mode": "SQRT2",
+      "age_band": "fresh",
+      "representative": {
+        "PI": 0.9910786324752998,
+        "SQRT2": 0.9911931923982144,
+        "SQRT3": 0.968103516510674,
+        "PHI": 0.9911931923982144,
+        "LN5": 0.9859237664497407
+      },
+      "representative_hash": "9d3d177598d88d2ba6f80ce06dd43556ba2eec33637a5c0217db8b14c8cbc2a0",
+      "count": 1,
+      "member_residue_ids": [
+        "6784fa447be1148446882e31688af578f14099db83dd6435559cab21ac308292"
+      ],
+      "attractor_id": "T10",
+      "d_son_current": 0.003424172663455351,
+      "d_son_min": 0.003424172663455351,
+      "approach_velocity": 0,
+      "last_cycle_depth": 1,
+      "stable_streak": 0,
+      "law_candidate": false
+    },
+    {
+      "cluster_id": "b60e1f21b162c5ea",
+      "mode": "SQRT2",
+      "age_band": "fresh",
+      "representative": {
+        "PI": 0.9911798622306865,
+        "SQRT2": 0.9914191726590434,
+        "SQRT3": 0.9685418802142722,
+        "PHI": 0.9914191726590434,
+        "LN5": 0.9864337648968012
+      },
+      "representative_hash": "2eaf67d875310de6552eddabf05c8d967048a12ec50fce7b8aef331e294b6816",
+      "count": 1,
+      "member_residue_ids": [
+        "c4e4e3b702c97612763d39b347e4ca613285108c36a0aec8975951a1031bcb1c"
+      ],
+      "attractor_id": "T10",
+      "d_son_current": 0.0033796469125348862,
+      "d_son_min": 0.0033796469125348862,
+      "approach_velocity": 0,
+      "last_cycle_depth": 1,
+      "stable_streak": 0,
+      "law_candidate": false
+    }
+  ]
+}

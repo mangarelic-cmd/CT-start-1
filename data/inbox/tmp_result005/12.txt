@@ -1,0 +1,1 @@
+FORME: rectangle | DECOMP: deux triangles | NOTE: diagonale

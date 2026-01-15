@@ -1,0 +1,96 @@
+{
+  "skin_id": "831f2ab85d611d44c7c74e49bbcc88ac0883470fc72dadf36133845f5b97cfc0",
+  "vector": {
+    "PI": 0.2487146472103927,
+    "SQRT2": 0,
+    "SQRT3": 0.49088417212577506,
+    "PHI": 0,
+    "LN5": 0.2604011806638323
+  },
+  "dominance": "SQRT3",
+  "alignment_index": 0.996725,
+  "converged": true,
+  "iters": 131,
+  "cvm_trace_sample": [
+    {
+      "iter": 1,
+      "max_delta": 0.010458185443200001,
+      "energy": 0
+    },
+    {
+      "iter": 2,
+      "max_delta": 0.00973473142496835,
+      "energy": 0
+    },
+    {
+      "iter": 3,
+      "max_delta": 0.009061399521766142,
+      "energy": 0
+    },
+    {
+      "iter": 4,
+      "max_delta": 0.008434640639644622,
+      "energy": 0
+    },
+    {
+      "iter": 5,
+      "max_delta": 0.007851233415881682,
+      "energy": 0
+    },
+    {
+      "iter": 6,
+      "max_delta": 0.007308179302971979,
+      "energy": 0
+    },
+    {
+      "iter": 7,
+      "max_delta": 0.006802687156944015,
+      "energy": 0
+    },
+    {
+      "iter": 8,
+      "max_delta": 0.006332158891672504,
+      "energy": 0
+    },
+    {
+      "iter": 9,
+      "max_delta": 0.0058941761254533015,
+      "energy": 0
+    },
+    {
+      "iter": 10,
+      "max_delta": 0.005486487751207941,
+      "energy": 0
+    },
+    {
+      "iter": 11,
+      "max_delta": 0.0051069983664324,
+      "energy": 0
+    },
+    {
+      "iter": 12,
+      "max_delta": 0.004753757503422995,
+      "energy": 0
+    },
+    {
+      "iter": 13,
+      "max_delta": 0.004424949604426243,
+      "energy": 0
+    },
+    {
+      "iter": 14,
+      "max_delta": 0.0041188846901872855,
+      "energy": 0
+    },
+    {
+      "iter": 15,
+      "max_delta": 0.0038339896739364027,
+      "energy": 0
+    },
+    {
+      "iter": 16,
+      "max_delta": 0.0035688002761695703,
+      "energy": 0
+    }
+  ]
+}

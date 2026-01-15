@@ -1,0 +1,562 @@
+# ROOT FILES FULL CONTENT
+# Root: C:\CT\github\strat-1
+# Generated: 2026-01-14T14:41:26.3391080-08:00
+
+===== FILE: .gitignore =====
+node_modules/
+dist/
+data/out/
+*.log
+
+
+===== FILE: package.json =====
+{
+  "name": "start-1",
+  "version": "0.5.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "build:all": "npm --prefix ct-cvm-mini run build && npm run build",
+    "test:smoke": "npm run build && node scripts/smoke_test.mjs",
+    "test:cvm-contract": "npm --prefix ct-cvm-mini run test:contract && node scripts/cvm_contract_smoke.mjs",
+    "test:exhaustive": "node scripts/exhaustive_test.mjs",
+    "test:all": "npm run build:all && npm run test:cvm-contract && npm run test:exhaustive",
+    "ingest": "npm run build && node dist/cli.js ingest",
+    "round": "npm run build && node dist/cli.js round"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "typescript": "5.9.3"
+  }
+}
+
+
+===== FILE: package-lock.json =====
+{
+  "name": "start-1",
+  "version": "0.5.0",
+  "lockfileVersion": 3,
+  "requires": true,
+  "packages": {
+    "": {
+      "name": "start-1",
+      "version": "0.5.0",
+      "devDependencies": {
+        "@types/node": "^20.0.0",
+        "typescript": "^5.6.3"
+      }
+    },
+    "node_modules/@types/node": {
+      "version": "20.19.28",
+      "resolved": "https://registry.npmjs.org/@types/node/-/node-20.19.28.tgz",
+      "integrity": "sha512-VyKBr25BuFDzBFCK5sUM6ZXiWfqgCTwTAOK8qzGV/m9FCirXYDlmczJ+d5dXBAQALGCdRRdbteKYfJ84NGEusw==",
+      "dev": true,
+      "license": "MIT",
+      "dependencies": {
+        "undici-types": "~6.21.0"
+      }
+    },
+    "node_modules/typescript": {
+      "version": "5.9.3",
+      "resolved": "https://registry.npmjs.org/typescript/-/typescript-5.9.3.tgz",
+      "integrity": "sha512-jl1vZzPDinLr9eUt3J/t7V6FgNEw9QjvBPdysz9KfQDD41fQrC2Y4vKQdiaUpFT4bXlb1RHhLpp8wtm6M5TgSw==",
+      "dev": true,
+      "license": "Apache-2.0",
+      "bin": {
+        "tsc": "bin/tsc",
+        "tsserver": "bin/tsserver"
+      },
+      "engines": {
+        "node": ">=14.17"
+      }
+    },
+    "node_modules/undici-types": {
+      "version": "6.21.0",
+      "resolved": "https://registry.npmjs.org/undici-types/-/undici-types-6.21.0.tgz",
+      "integrity": "sha512-iwDZqg0QAGrg9Rav5H4n0M64c3mkR59cJ6wQp+7C4nI0gsmExaedaYLNO44eT4AtBBwjbTiGPMlt2Md0T9H9JQ==",
+      "dev": true,
+      "license": "MIT"
+    }
+  }
+}
+
+
+===== FILE: README.md =====
+# start-1 (CT) - Dedup + Skin + Residue Fusion
+*(CLA + ??_son + stabilit?? + phases CT de duplication)*
+
+Start-1 est un **d??duplicateur de formes**.
+Il n'??value ni la v??rit??, ni le sens, ni la valeur.
+Il retire la sym??trie redondante, extrait des formes stables, et conserve le reste sous forme de r??sidus tra??ables.
+
+---
+
+## 1. R??le dans l'architecture CT
+
+- **Start-1 = Phase Sym??trie / Int??grit??**
+- Start-2 = Correction
+- Start-3 = Sens / Interpr??tation
+- Start-4 = Compression / R??ponse directe
+
+Start-1 ne fait **que** de la d??duplication g??om??trique.
+
+---
+
+## 2. Entr??es / Sorties
+
+### Entr??e
+- Texte, code, ??quations, symboles, documents
+- Toute information ??crite ou structur??e
+
+### Sorties possibles (uniquement)
+- **DUPLICATE** : identit?? exacte d??j?? connue
+- **SUTURED (Skin)** : forme stable int??grable
+- **RESIDUE** : mati??re non fusionn??e, conserv??e
+
+Aucune autre sortie n'est autoris??e.
+
+---
+
+## 3. Objets fondamentaux
+
+### Packet
+- Enregistrement brut, append-only
+- Identit?? d??terministe (hash)
+- Jamais modifi?? apr??s cr??ation
+
+### Skin
+- Forme canonique stable
+- Signature CT minimale
+- Peut absorber d'autres formes
+
+### Residue
+- Vecteur 5D : `{ PI, SQRT2, SQRT3, PHI, LN5 }`
+- `cycle_depth`, `age_band`, `mode dominant`
+- Jamais d??truit
+
+### Residue Pool
+- Ensemble vivant de clusters de r??sidus
+- R????valu?? par **rondes ??v??nementielles**
+
+---
+
+## 4. M??triques CT (gel??es)
+
+- **CT-R** :
+  `R_total = somme des composantes du r??sidu`
+- **CT-C** :
+  `C = -R_total` (coh??rence monotone)
+- **Coordonn??es Son** :
+  `s = r / R_total` (si `R_total > 0`, sinon uniforme)
+- **Distance Son** :
+  `d_Son = ||s1 - s2||2`
+
+---
+
+## 5. Similarit?? et phases CT de duplication
+
+La similarit?? `sim ??? [0,1]` est d??riv??e de `d_Son` (d??terministe).
+
+### Phases CT (trace uniquement, jamais verdict)
+
+| sim               | phase CT        | m??canisme dominant |
+|-------------------|-----------------|--------------------|
+| `< 0.61`          | none            | pas de fusion      |
+| `[0.61, 0.66)`    | symmetry        | sym??trie pure      |
+| `[0.66, 0.78)`    | correction      | sym??trie corrig??e  |
+| `[0.78, 0.87)`    | expansion       | sym??trie ??tendue   |
+| `[0.87, 0.946)`   | dissipation     | sym??trie dissip??e  |
+| `>= 0.946`        | cycle           | sym??trie de cycle  |
+
+Ces phases sont **des m??canismes**, pas des v??rit??s.
+
+---
+
+## 6. Poids de r??sidu (d??terministe)
+
+Le poids `w ??? [0,1]` contr??le la part de diff??rence conserv??e apr??s fusion.
+
+Points d'ancrage :
+
+- `w(0.61)  = 1.00`
+- `w(0.66)  = 0.75`
+- `w(0.78)  = 0.50`
+- `w(0.87)  = 0.25`
+- `w(0.946) = 0.00`
+
+Interpolation lin??aire, monotone d??croissante, clamp strict `[0,1]`.
+
+---
+
+## 7. Op??rateur de fusion (r??sidu <-> r??sidu)
+
+### D??finition
+
+```
+intersection = min(a, b)        (composante par composante)
+diff         = |a - b|
+r_after      = intersection + w * diff
+```
+
+- `w = 0` : intersection pure (compression maximale)
+- `w = 1` : toute la diff??rence conserv??e
+
+Clamp / clean identique au reste du code.
+
+---
+
+## 8. Conditions de merge (hard gates)
+
+Une fusion est autoris??e **uniquement si** :
+
+1. M??me `mode dominant`
+2. M??me `age_band`
+3. `sim >= 0.61`
+4. (si utilis??) `d_Son <= ??_son`
+5. **Am??lioration stricte** :
+
+```
+R_after < max(R_before_A, R_before_B)
+```
+
+Aucun autre crit??re n'est autoris??.
+
+---
+
+## 9. Rondes (r??duction)
+
+- Les rondes sont **??v??nementielles**, jamais calendaires.
+- D??clench??es par :
+  - arriv??e d'un nouveau r??sidu
+  - cr??ation d'un cluster composite
+- Une ronde s'arr??te au **point fixe** (plus de fusion possible).
+- Le nombre de passes **n'est pas fig??** (3, 4, 5, selon la causalit??).
+
+---
+
+## 10. Clusters et stabilit??
+
+- Les **clusters** (pas les infos individuelles) accumulent les fusions.
+- Un cluster devient **structurel** lorsqu'il :
+  - ne change plus sous les rondes
+  - ou a travers?? un cycle complet de phases CT
+- Les slots **118 (CT-1030)** sont des **adresses/baskets**, jamais des v??rit??s.
+
+---
+
+## 11. Traces (audit obligatoire)
+
+Chaque fusion trace :
+
+```json
+{
+  "step": "merge",
+  "d_son": ...,
+  "sim": ...,
+  "phase": "cycle | dissipation | expansion | correction | symmetry",
+  "w": ...,
+  "r_before_a": ...,
+  "r_before_b": ...,
+  "r_after": ...
+}
+```
+
+Chaque cluster peut porter :
+
+- `last_dup_phase`
+- `last_merge_sim`
+- `last_merge_weight`
+
+Tous ces champs sont **optionnels** (compatibilit?? legacy).
+
+---
+
+## 12. Commandes
+
+### Build
+
+```bash
+npm run build
+```
+
+### Ingest (obligatoire : `--eps`)
+
+```bash
+npm run ingest --
+  --file data/inbox/sample.txt
+  --uri local://sample
+  --cycle 0
+  --eps 0.0001
+```
+
+### Round (r??duction)
+
+```bash
+npm run round -- --cycle 1 --eps 0.0001 --scope daily
+npm run round -- --cycle 3 --eps 0.0001 --scope weekly
+npm run round -- --cycle 5 --eps 0.0001 --scope monthly
+npm run round -- --cycle 8 --eps 0.0001 --scope yearly
+```
+
+`--scope` est **un label de journalisation**, pas une loi causale.
+
+---
+
+## 13. Notes finales (non n??gociables)
+
+- Start-1 **ne tue rien**
+- Start-1 **ne d??clare rien**
+- Start-1 **n'??value pas la v??rit??**
+- Les phases CT sont **des m??canismes, pas des verdicts**
+- Toute information reste **tra??able et r??ins??rable**
+- M??me input + m??me code = m??mes r??sultats (d??terminisme strict)
+
+---
+
+## R??sum??
+
+> **Start-1 est une centrifugeuse de formes :
+> la sym??trie commune se compacte,
+> la diff??rence devient r??sidu,
+> et le temps (les rondes) r??v??le la structure.**
+
+for more information visit:
+
+https://zenodo.org/records/17740562
+https://zenodo.org/records/17564091
+https://zenodo.org/records/17802660
+https://zenodo.org/records/18040237
+https://zenodo.org/records/18040262
+https://zenodo.org/records/18063546
+
+===== FILE: START-1_CONTRACT.md =====
+# START-1_CONTRACT (CT)  Causal Deduplication by Form
+
+## 0) Status
+This document is the constitutional contract for **Start-1**.
+Start-1 must obey these rules. Any deviation is a protocol violation.
+
+---
+
+## 1) Scope and Purpose (Non-Negotiable)
+
+**Start-1 is a form deduplication instrument.**
+It compares **forms** (geometries), not meanings.
+
+Start-1 exists to:
+1) remove redundant symmetry,
+2) extract stable form representatives (skins),
+3) preserve and re-process non-fusable matter (residue) until stable.
+
+Start-1 must NOT:
+- judge truth,
+- interpret semantics,
+- produce meaning scores,
+- act as a truth engine.
+
+---
+
+## 2) Core Objects
+
+### 2.1 Packet
+A Packet is the raw, append-only record of an ingested input.
+Packet must be immutable after creation.
+
+### 2.2 Skin
+A Skin is a stable **canonical form** representing a deduplicated structure.
+A Skin is integrable and may absorb future inputs.
+
+### 2.3 Residue
+Residue is **not an error**.
+Residue is matter that is currently non-fusable or not yet neighbored.
+Residue must be preserved and re-compared over time.
+
+### 2.4 Residue Pool
+The residue pool is persistent storage of residues and their clusters/attractors.
+Pool is a live system: new residues may trigger new fusions among older residues.
+
+---
+
+## 3) Input/Output Contract
+
+### 3.1 Input
+Start-1 ingests raw data (typically text) and treats it strictly as geometry.
+
+### 3.2 Output States (Only these three)
+- **DUPLICATE**: exact identity match; no further measurement required.
+- **SUTURED**: integrated into an existing structure / forms a stable Skin.
+- **RESIDUE**: stored in residue pool for future rounds.
+
+Start-1 must not output any of:
+- truth labels,
+- semantic explanations,
+- probabilistic claims.
+
+---
+
+## 4) Canonical Invariance Rules
+
+Start-1 must be invariant under superficial symmetry:
+- normalization (unicode, accents/case/spacing),
+- benign punctuation variation,
+- line breaks.
+
+This invariance must be deterministic and idempotent.
+
+---
+
+## 5) Identity First (Hard Dedup)
+
+**Rule:** If identity is known duplicate, dedup occurs immediately.
+
+- Compute deterministic packet identity (hash/ID).
+- If that identity is already present, return **DUPLICATE** and stop.
+- No CVM computation is allowed in this case.
+
+---
+
+## 6) Form Signature and Distance
+
+### 6.1 Form Signature
+Start-1 maps each input to a stable form signature (e.g., Vector5).
+This signature is used only for:
+- indexing,
+- distance computation,
+- clustering,
+- deterministic merging.
+
+### 6.2 Distance
+Start-1 must define a deterministic distance function:
+d(A,B) -> nonnegative real.
+
+No global dataset statistics are allowed to redefine per-item meaning.
+(Example forbidden: normalizing an item by median of other items.)
+
+---
+
+## 7) 118 Slots = Addresses, Not Meanings
+
+Start-1 may implement 118 slots as discrete attractor addresses for clustering.
+
+**Slots are not semantic labels.**
+A slot is an address in form-space:
+- "belongs to slot 001" is allowed,
+- "is Hydrogen" is not allowed at Start-1.
+
+Slots are used to stabilize indexing and clustering, not to interpret content.
+
+---
+
+## 8) Event-Driven Rounds (No Calendar Laws)
+
+### 8.1 Trigger
+Rounds are **event-driven**:
+- triggered by arrival of a new residue, OR
+- triggered by creation of a composite residue after a merge.
+
+Calendar batching (daily/monthly) is permitted only as an operational scheduler,
+and must never change causal logic.
+
+### 8.2 Round Definition
+A round is a sequence of residue-residue comparisons and merges.
+
+Typical depth: 34 passes (bounded) to avoid forced fusion.
+Stop condition: no merge is possible without increasing dissipation.
+
+---
+
+## 9) Merge Rule = Proximity AND Gain (Activation Barrier)
+
+A merge is allowed ONLY if BOTH conditions hold:
+
+### 9.1 Proximity condition
+d(Ra, Rb) <= eps
+
+### 9.2 Minimal gain condition (activation barrier / friction)
+E(before) - E(after) >= I"_min
+
+Where:
+- E(.) is the internal objective/energy (deterministic),
+- I"_min is a fixed threshold (may be Son-linked),
+- merges without sufficient gain are forbidden.
+
+This prevents over-merging and preserves stable differences.
+
+---
+
+## 10) Residue is First-Class
+
+Residue must never be treated as dead.
+Every new residue may unlock merges among older residues.
+Pool reprocessing is mandatory under the event-driven rule.
+
+---
+
+## 11) Determinism and Reproducibility
+
+- Same input + same code + same constants => same decisions.
+- Output IDs may differ only where explicitly ledger-based (timestamps),
+  but the dedup decisions must remain invariant.
+- No hidden randomness unless seeded and logged deterministically.
+
+---
+
+## 12) Forbidden Failure Mode: Flatline Scoring
+
+Any scalar score that saturates to a constant across diverse inputs
+(e.g., 0.999975 for everything) is considered a measurement failure.
+
+Start-1 must never rely on a saturated scalar to decide dedup.
+Dedup decisions must be grounded in identity + distance + merge rule.
+
+---
+
+## 13) Boundary of Start-1 vs Start-2/Start-3
+
+Start-1 ends when:
+- the input is deduped (DUPLICATE/SUTURED), OR
+- residue is stored and stabilized after bounded event-driven passes.
+
+Start-2 (correction) may operate after Start-1, but Start-1 must not do Start-2 work.
+Start-3 (meaning) is strictly out of scope.
+
+---
+
+## 14) Implementation Notes (Non-binding but recommended)
+
+Recommended artifacts:
+- packets (append-only)
+- skins (canonical forms)
+- residue (non-fusable matter)
+- pools (persistent clusters)
+- logs (ledger trace)
+
+Required property:
+- idempotent re-runs produce identical decisions.
+
+===== FILE: strat-1.code-workspace =====
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {}
+}
+
+===== FILE: tsconfig.json =====
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "outDir": "dist",
+    "rootDir": "src",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true
+  },
+  "include": ["src/**/*.ts"]
+}
+

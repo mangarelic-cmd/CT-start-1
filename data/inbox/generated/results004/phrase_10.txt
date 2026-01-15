@@ -1,0 +1,1 @@
+Pack items: map, rope, water, torch.
