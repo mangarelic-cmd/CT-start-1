@@ -1,0 +1,35 @@
+name: Temporary export French-English model
+
+on:
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  export-model:
+    if: github.head_ref == 'artifact/ue-v2-english-build-20260721'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download public Bergamot model files
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p fr-en-bergamot
+          curl --fail --location --retry 5 \
+            'https://raw.githubusercontent.com/maemo-leste-extras/maemo-translate-data/master/model/fr/model.fren.intgemm.alphas.bin' \
+            --output fr-en-bergamot/model.fren.intgemm.alphas.bin
+          curl --fail --location --retry 5 \
+            'https://raw.githubusercontent.com/maemo-leste-extras/maemo-translate-data/master/model/fr/vocab.fren.spm' \
+            --output fr-en-bergamot/vocab.fren.spm
+          test "$(stat -c%s fr-en-bergamot/model.fren.intgemm.alphas.bin)" -gt 17000000
+          test "$(stat -c%s fr-en-bergamot/vocab.fren.spm)" -gt 900000
+          sha256sum fr-en-bergamot/* > fr-en-bergamot/SHA256SUMS.txt
+      - name: Upload model artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: fr-en-bergamot
+          path: fr-en-bergamot
+          if-no-files-found: error
+          retention-days: 1
