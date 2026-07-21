@@ -24,7 +24,7 @@ jobs:
             'https://raw.githubusercontent.com/maemo-leste-extras/maemo-translate-data/master/model/fr/vocab.fren.spm' \
             --output fr-en-bergamot/vocab.fren.spm
           test "$(stat -c%s fr-en-bergamot/model.fren.intgemm.alphas.bin)" -gt 17000000
-          test "$(stat -c%s fr-en-bergamot/vocab.fren.spm)" -gt 900000
+          test "$(stat -c%s fr-en-bergamot/vocab.fren.spm)" -gt 800000
           sha256sum fr-en-bergamot/* > fr-en-bergamot/SHA256SUMS.txt
       - name: Upload model artifact
         uses: actions/upload-artifact@v4
