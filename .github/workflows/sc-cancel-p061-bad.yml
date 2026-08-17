@@ -11,4 +11,4 @@ jobs:
     steps:
       - env:
           GH_TOKEN: ${{ github.token }}
-        run: gh run cancel 32044468849 --repo mangarelic-cmd/CT-start-1 || true
+        run: gh run cancel 32044578158 --repo mangarelic-cmd/CT-start-1 || true
