@@ -1,0 +1,64 @@
+name: SC FAIR-MAST P064 FRESH FREEZE
+on:
+  push:
+    branches: [sc-fair-mast-p057]
+    paths: ['.github/workflows/sc-fair-mast-p064-fresh-freeze.yml']
+permissions: {contents: read}
+jobs:
+  freeze:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - name: Freeze untouched M6 heldout from pinned availability only
+        run: |
+          mkdir -p p064-freeze
+          python - <<'PY'
+          import csv,io,json,hashlib,urllib.request
+          from pathlib import Path
+          OUT=Path('p064-freeze')
+          COMMIT='1a200f4588addaad2ae3d53d438d9e1946c09294'
+          PATH='src/MAST_tools/metadata/signal_availability.csv'
+          URL=f'https://raw.githubusercontent.com/UKAEA-IBM-STFC-Fusion-FMs/tokamark/{COMMIT}/{PATH}'
+          raw=urllib.request.urlopen(URL,timeout=60).read()
+          source_sha256=hashlib.sha256(raw).hexdigest()
+          rows=list(csv.DictReader(io.StringIO(raw.decode('utf-8'))))
+          EX=set([11766,12010,12080,12088,12202,12228,12232,12460,12474,12697,12747,12901,12931,12964,13038,13093,13094,13108,13274,13430,13479,13557,13583,13644,13742,13766,13816,13905,14017,14160,14209,14373,14520,14568,14583,14612,14624,14804,15052,15081,15113,15133,15153,15279,15315,15507,15570,15617,15618,15703,15898,15993,16022,16036,16109,16139,16151,16195,16443,16444,16731,16828,16862,16987,17093,17664,17712,17713,17768,17901,17964,17990,17999,18076,18328,18369,18496,18531,18762,18886,19382,19911,19955,20013,20428,20465,20479,20495,20498,20505,20514,20519,20570,20651,20849,20862,20880,20918,21333,21344,21517,21707,21771,21785,21797,21801,21825,21876,21902,21906,21971,22162,22213,22215,22287,22300,22308,22309,22382,22399,22402,22430,22507,22526,23143,23384,23445,23485,23489,23598,23626,23667,23742,23776,23784,23889,24004,24018,24088,24126,24136,24143,24145,24194,24208,24344,24430,24432,24474,24514,24528,24625,24665,24717,24726,24905,24933,25365,25696,25697,26004,26068,26163,26310,26448,26463,26531,26596,26651,26867,26953,27042,27050,27125,27169,27171,27198,27276,27401,27411,27450,27584,27588,27601,27639,27640,27740,27814,27822,27935,28027,28076,28178,28259,28267,28811,28816,28819,28860,28911,28997,29047,29077,29143,29199,29229,29369,29420,29440,29442,29488,29660,29702,29983,30048,30145,30209,30468])
+          NEED=['thomson_scattering-n_e','thomson_scattering-t_e','summary-greenwald_density','summary-power_nbi']
+          yes=lambda v:str(v).strip().upper()=='TRUE'
+          eligible=[]
+          for r in rows:
+            try:s=int(r['shot_id'])
+            except:continue
+            if s in EX:continue
+            if all(yes(r.get(c,'')) for c in NEED):eligible.append(s)
+          seed='SC_FAIR_MAST_P064_FRESH_M6_SELF_GATE_V1'
+          ranked=sorted(eligible,key=lambda s:hashlib.sha256(f'{seed}|{s}'.encode()).hexdigest())
+          primary=ranked[:30]; reserve=ranked[30:50]
+          m={
+            'seed':seed,'source_commit':COMMIT,'source_path':PATH,'source_sha256':source_sha256,
+            'required':NEED,'excluded_count':len(EX),'eligible_count':len(eligible),
+            'primary_shots':primary,'reserve_shots':reserve,
+            'fair_mast_values_read':False,'te_values_read':False,
+            'model_id':'M6_SELF_GATED_EXACT_SATURATION',
+            'model_freeze':{
+              'alpha_greenwald':'4/3','gamma_nbi':'1/5','width':'1/7','pre_slope':'9/8','post_slope':'0',
+              'activation':'g(t)=sigmoid(7*median_r(u(r,t)))',
+              'frozen_intercept':-44.10460779411159
+            }
+          }
+          (OUT/'FRESH_HELDOUT_SELECTION_P064.json').write_text(json.dumps(m,indent=2,sort_keys=True)+'\n')
+          (OUT/'FRESH_HELDOUT_CERTIFICATE_P064.json').write_text(json.dumps({
+            'seed':seed,'primary_count':len(primary),'reserve_count':len(reserve),'source_sha256':source_sha256,
+            'values_read':False,'model_id':m['model_id'],'excluded_count':len(EX)
+          },indent=2,sort_keys=True)+'\n')
+          print(json.dumps({'eligible':len(eligible),'primary':primary,'reserve':reserve},indent=2))
+          assert len(primary)==30 and len(set(primary)&EX)==0
+          PY
+      - name: Hash freeze
+        run: find p064-freeze -type f ! -name SHA256SUMS.txt -print0 | sort -z | xargs -0 sha256sum > p064-freeze/SHA256SUMS.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: p064-freeze
+          path: p064-freeze
+          retention-days: 1
