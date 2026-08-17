@@ -1,0 +1,102 @@
+name: SC FAIR-MAST P061 STATE MATERIALIZATION
+on:
+  push:
+    branches: [sc-fair-mast-p057]
+    paths: ['.github/workflows/sc-fair-mast-p061-state.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  materialize-state:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - name: Install reader
+        run: python -m pip install --disable-pip-version-check 'numpy>=1.26' 'pandas>=2.0' 'xarray[io]>=2024.1' 'zarr>=3.0' 's3fs>=2025.3.0'
+      - name: Materialize Z without Te
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p p061-state
+          python - <<'PY'
+          import json, traceback
+          from pathlib import Path
+          import numpy as np, pandas as pd, xarray as xr, s3fs
+          OUT=Path('p061-state'); ENDPOINT='https://s3.echo.stfc.ac.uk'
+          CAL=[13038,16195,17664,20880,22308,24143,25365]
+          N100=[12474,27169,18531,17812,24717,21787,13489,16797,28267,26004,20526,28816,12088,25697,17375,23667,19970,22430,19238,18341,28860,27822,17401,14726,27198,29440,20263,27640,16672,29488,27601,24004,28811,19535,16179,14562,29077,13755,21487,14911,16474,26067,27125,14584,26651,23489,13761,25696,23143,16640,13126,29047,15969,12537,18346,13652,23485,15038,29229,16365,19833,24528,13264,16172,13997,27050,17430,28178,19251,14417,28997,27450,17094,21823,27401,16042,26953,26163,15099,19435,16307,26867,16513,17231,24514,30048,13144,14413,22382,14973,16924,16464,24474,26463,22526,19768,18568,18831,14145,23598]
+          SHOTS=CAL+N100; assert len(set(SHOTS))==107
+          BREAK=3.063183234813295e19
+          fs=s3fs.S3FileSystem(anon=True,client_kwargs={'endpoint_url':ENDPOINT})
+          channels={'summary':['ip','line_average_n_e','power_nbi','power_radiated','greenwald_density'],'equilibrium':['q95','whmd','beta_normal','beta_pol','beta_tor','vloop_dynamic','vloop_static'],'magnetics':['ip'],'pulse_schedule':['i_plasma','n_e_line']}
+          def find_time(ds):
+              if 'time' in ds.coords: return np.asarray(ds.coords['time'].load().values,float).reshape(-1)
+              if 'time' in ds: return np.asarray(ds['time'].load().values,float).reshape(-1)
+              for c in ds.coords:
+                  if 'time' in c.lower(): return np.asarray(ds.coords[c].load().values,float).reshape(-1)
+              raise KeyError('NO_TIME_COORD')
+          def series(ds,var):
+              if var not in ds: return None,None,'ABSENT_VAR'
+              try: t=find_time(ds)
+              except Exception as e: return None,None,'NO_TIME:'+type(e).__name__
+              a=np.squeeze(np.asarray(ds[var].load().values,float))
+              if a.ndim!=1 or a.shape[0]!=len(t): return None,None,f'NON_1D:{list(np.shape(a))}:ntime={len(t)}'
+              return t,a,'OK'
+          def interp(t,v,q):
+              m=np.isfinite(t)&np.isfinite(v); t=np.asarray(t)[m]; v=np.asarray(v)[m]
+              if len(t)<2: return np.full(len(q),np.nan)
+              o=np.argsort(t); t=t[o]; v=v[o]; t,idx=np.unique(t,return_index=True); v=v[idx]
+              out=np.interp(q,t,v,left=np.nan,right=np.nan); out[(q<t[0])|(q>t[-1])]=np.nan; return out
+          rows=[]; receipts=[]
+          for sid in SHOTS:
+              split='CAL7' if sid in CAL else 'N100'; key=f'mast/level2/shots/{sid}.zarr'; rec={'shot_id':sid,'split':split,'te_loaded':False,'unknown_is_zero':False}
+              try:
+                  mapper=fs.get_mapper(key); th=xr.open_zarr(mapper,group='thomson_scattering',consolidated=None)
+                  ne=th['n_e']; dims=list(ne.dims); td=np.asarray(th.coords['time'].load().values,float).reshape(-1)
+                  nv=np.asarray(ne.load().values,float); nv=np.moveaxis(nv,dims.index('time'),-1).reshape((-1,len(td)))
+                  pos=np.where(np.isfinite(nv)&(nv>0),nv,np.nan)
+                  with np.errstate(all='ignore'):
+                      med=np.nanmedian(pos,axis=0); mean=np.nanmean(pos,axis=0); mx=np.nanmax(pos,axis=0); mn=np.nanmin(pos,axis=0); frac=np.nanmean(pos>BREAK,axis=0); lr=np.log(mx)-np.log(mn)
+                  base=pd.DataFrame({'shot_id':sid,'split':split,'time':td,'ne_profile_median':med,'ne_profile_mean':mean,'ne_profile_log_range':lr,'ne_fraction_above_p059_break':frac})
+                  coverage={}
+                  for group,vars_ in channels.items():
+                      try: ds=xr.open_zarr(mapper,group=group,consolidated=None)
+                      except Exception as e:
+                          for var in vars_: base[f'{group}.{var}']=np.nan; coverage[f'{group}.{var}']={'status':'GROUP_OPEN_FAIL:'+type(e).__name__,'coverage':0.0}
+                          continue
+                      for var in vars_:
+                          ts,vs,status=series(ds,var); col=f'{group}.{var}'
+                          if status!='OK': base[col]=np.nan; coverage[col]={'status':status,'coverage':0.0}; continue
+                          vals=interp(ts,vs,td); base[col]=vals; coverage[col]={'status':'OK','coverage':float(np.isfinite(vals).mean()),'source_points':int(len(ts))}
+                  a=base['summary.line_average_n_e'].to_numpy(float); g=base['summary.greenwald_density'].to_numpy(float)
+                  base['derived.f_greenwald']=np.where(np.isfinite(a)&np.isfinite(g)&(g!=0),a/g,np.nan)
+                  pn=base['summary.power_nbi'].to_numpy(float); pr=base['summary.power_radiated'].to_numpy(float)
+                  base['derived.p_nbi_minus_prad']=np.where(np.isfinite(pn)&np.isfinite(pr),pn-pr,np.nan)
+                  rows.append(base); rec.update({'status':'OK','thomson_times':len(td),'coverage':coverage,'te_variable_present_but_not_loaded':bool('t_e' in th)})
+              except Exception as e: rec.update({'status':'FAILED','error_type':type(e).__name__,'error':str(e),'traceback':traceback.format_exc()})
+              receipts.append(rec)
+          df=pd.concat(rows,ignore_index=True); df.to_csv(OUT/'TRAINING_STATE_AT_THOMSON_TIMES_P061.csv',index=False)
+          cov={}
+          for c in df.columns:
+              if c in ('shot_id','split','time'): continue
+              a=pd.to_numeric(df[c],errors='coerce').to_numpy(float); cov[c]={'finite_rows':int(np.isfinite(a).sum()),'rows':len(a),'fraction':float(np.isfinite(a).mean()),'shots_with_any':int(df.loc[np.isfinite(a),'shot_id'].nunique())}
+          summary={'requested_shots':107,'successful_shots':sum(r['status']=='OK' for r in receipts),'failed_shots':sum(r['status']!='OK' for r in receipts),'rows':len(df),'te_loaded_anywhere':False,'breakpoint_used_only_for_ne_diagnostic':BREAK,'channel_coverage':cov}
+          (OUT/'STATE_MATERIALIZATION_SUMMARY_P061.json').write_text(json.dumps(summary,indent=2,sort_keys=True)+'\n')
+          (OUT/'STATE_RECEIPTS_P061.json').write_text(json.dumps(receipts,indent=2,sort_keys=True)+'\n')
+          print(json.dumps(summary,indent=2,sort_keys=True))
+          if summary['successful_shots']<80: raise SystemExit('STATE_SHOT_COVERAGE_TOO_LOW')
+          PY
+      - name: Hash payload
+        if: always()
+        run: find p061-state -maxdepth 1 -type f ! -name SHA256SUMS_P061_STATE.txt -print0 | sort -z | xargs -0 sha256sum > p061-state/SHA256SUMS_P061_STATE.txt
+      - name: Upload artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: p061-state
+          path: p061-state
+          retention-days: 1
+          if-no-files-found: error
