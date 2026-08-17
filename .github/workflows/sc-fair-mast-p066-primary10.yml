@@ -3,7 +3,7 @@ on:
   push:
     branches: [sc-fair-mast-p057]
     paths: ['.github/workflows/sc-fair-mast-p066-primary10.yml']
-permissions: {contents: read}
+permissions: {contents: write}
 jobs:
   shard:
     strategy:
@@ -41,3 +41,49 @@ jobs:
           name: p066-primary-${{ matrix.shard }}
           path: p066-primary-${{ matrix.shard }}
           retention-days: 1
+  aggregate:
+    needs: shard
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: python -m pip install --disable-pip-version-check 'numpy>=1.26' 'pandas>=2.0'
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: p066-primary-*
+          path: p066-download
+      - name: Aggregate frozen fresh result
+        run: python scripts/p066_aggregate.py
+      - name: Materialize authoritative run provenance
+        run: |
+          python - <<'PY'
+          import json,os
+          from pathlib import Path
+          p=Path('p066-authority/RUN_PROVENANCE_TEMPLATE.json')
+          d=json.loads(p.read_text())
+          d['run_id']=int(os.environ['GITHUB_RUN_ID'])
+          d['run_attempt']=int(os.environ['GITHUB_RUN_ATTEMPT'])
+          d['head_sha']=os.environ['GITHUB_SHA']
+          d['workflow']='sc-fair-mast-p066-primary10.yml'
+          q=Path('p066-authority/RUN_PROVENANCE_P066.json')
+          q.write_text(json.dumps(d,indent=2,sort_keys=True)+'\n')
+          p.unlink()
+          PY
+          cd p066-authority
+          find . -maxdepth 1 -type f ! -name SHA256SUMS_FINAL.txt -print0 | sort -z | xargs -0 sha256sum > SHA256SUMS_FINAL.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: p066-authority
+          path: p066-authority
+          retention-days: 1
+      - name: Commit authority summary to isolated branch
+        run: |
+          git config user.name 'sc-p066-bot'
+          git config user.email 'sc-p066-bot@users.noreply.github.com'
+          rm -rf P066_AUTHORITY
+          cp -a p066-authority P066_AUTHORITY
+          git add P066_AUTHORITY
+          git commit -m 'P066 materialize frozen M7 fresh authority result' || exit 0
+          git push origin HEAD:sc-fair-mast-p057
