@@ -1,0 +1,38 @@
+name: SC FAIR-MAST P065 FRESH FREEZE
+on:
+  push:
+    branches: [sc-fair-mast-p057]
+    paths: ['.github/workflows/sc-fair-mast-p065-fresh-freeze.yml']
+permissions: {contents: read}
+jobs:
+  freeze:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - name: Freeze untouched M7 heldout from pinned availability only
+        run: |
+          mkdir -p p065-freeze
+          python - <<'PY'
+          import csv,io,json,hashlib,urllib.request,re,ast
+          from pathlib import Path
+          OUT=Path('p065-freeze');COMMIT='1a200f4588addaad2ae3d53d438d9e1946c09294';PATH='src/MAST_tools/metadata/signal_availability.csv'
+          raw=urllib.request.urlopen(f'https://raw.githubusercontent.com/UKAEA-IBM-STFC-Fusion-FMs/tokamark/{COMMIT}/{PATH}',timeout=60).read();source_sha256=hashlib.sha256(raw).hexdigest();rows=list(csv.DictReader(io.StringIO(raw.decode())))
+          txt=Path('.github/workflows/sc-fair-mast-p064-fresh-freeze.yml').read_text();m=re.search(r'EX=set\((\[[^\n]+\])\)',txt);assert m;EX=set(ast.literal_eval(m.group(1)))
+          P=[15340,18743,23792,23457,17921,17098,12168,13365,24821,27731,13797,13632,20708,15325,24896,24619,16265,20107,17820,18578,16396,17994,21066,13696,14621,20508,15109,22657,23530,20036]
+          R=[17823,16299,20392,21267,20007,13053,24698,20871,28200,28204,30156,23709,22413,16793,29206,15668,18694,24911,13575,24411];EX.update(P);EX.update(R)
+          NEED=['thomson_scattering-n_e','thomson_scattering-t_e','summary-greenwald_density','summary-power_nbi'];yes=lambda v:str(v).strip().upper()=='TRUE';eligible=[]
+          for r in rows:
+            try:s=int(r['shot_id'])
+            except:continue
+            if s not in EX and all(yes(r.get(c,'')) for c in NEED):eligible.append(s)
+          seed='SC_FAIR_MAST_P065_FRESH_M7_REGIME_COMPLETION_V1';ranked=sorted(eligible,key=lambda s:hashlib.sha256(f'{seed}|{s}'.encode()).hexdigest());primary=ranked[:30];reserve=ranked[30:50]
+          freeze={'seed':seed,'source_commit':COMMIT,'source_path':PATH,'source_sha256':source_sha256,'required':NEED,'excluded_count':len(EX),'eligible_count':len(eligible),'primary_shots':primary,'reserve_shots':reserve,'fair_mast_values_read':False,'te_values_read':False,'model_id':'M7_EXACT_PRETE_SHOT_REGIME_GATE','model_freeze':{'threshold_expression':'1-sqrt(2)','threshold_value':1-2**0.5,'shot_coordinate':'mean_t(median_r(u(r,t)))','coordinate_inputs':['n_e','summary.greenwald_density','summary.power_nbi'],'decision':'M6 iff coordinate > threshold else M5','m5_intercept':-44.07528851419499,'m6_intercept':-44.10460779411159,'alpha_greenwald':'4/3','gamma_nbi':'1/5','width':'1/7','pre_slope':'9/8','post_slope':'0'}}
+          (OUT/'FRESH_HELDOUT_SELECTION_P065.json').write_text(json.dumps(freeze,indent=2,sort_keys=True)+'\n');(OUT/'FRESH_HELDOUT_CERTIFICATE_P065.json').write_text(json.dumps({'seed':seed,'primary_count':30,'reserve_count':20,'source_sha256':source_sha256,'values_read':False,'model_id':freeze['model_id'],'excluded_count':len(EX),'intersection_with_excluded':sorted(set(primary+reserve)&EX)},indent=2,sort_keys=True)+'\n')
+          print(json.dumps({'excluded':len(EX),'eligible':len(eligible),'primary':primary,'reserve':reserve},indent=2));assert len(primary)==30 and len(reserve)==20 and not(set(primary+reserve)&EX)
+          PY
+      - name: Hash freeze
+        run: find p065-freeze -type f ! -name SHA256SUMS.txt -print0 | sort -z | xargs -0 sha256sum > p065-freeze/SHA256SUMS.txt
+      - uses: actions/upload-artifact@v4
+        with: {name: p065-freeze, path: p065-freeze, retention-days: 1}
