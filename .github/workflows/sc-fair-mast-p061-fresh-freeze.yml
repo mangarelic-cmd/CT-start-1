@@ -1,0 +1,58 @@
+name: SC FAIR-MAST P061 FRESH HELDOUT FREEZE
+on:
+  push:
+    branches: [sc-fair-mast-p057]
+    paths: ['.github/workflows/sc-fair-mast-p061-fresh-freeze.yml']
+  workflow_dispatch:
+permissions: {contents: read}
+jobs:
+  freeze:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - name: Freeze fresh heldout without FAIR-MAST value reads
+        run: |
+          mkdir -p p061-fresh-freeze
+          python - <<'PY'
+          import csv,io,json,hashlib,urllib.request
+          from pathlib import Path
+          OUT=Path('p061-fresh-freeze')
+          COMMIT='1a200f4588addaad2ae3d53d438d9e1946c09294'
+          PATH='src/MAST_tools/metadata/signal_availability.csv'
+          URL=f'https://raw.githubusercontent.com/UKAEA-IBM-STFC-Fusion-FMs/tokamark/{COMMIT}/{PATH}'
+          raw=urllib.request.urlopen(URL,timeout=60).read(); source_sha256=hashlib.sha256(raw).hexdigest()
+          text=raw.decode('utf-8'); rows=list(csv.DictReader(io.StringIO(text)))
+          CAL10={11766,13038,14804,16195,17664,19382,20880,22308,24143,25365}
+          TEST8={26068,26596,27171,27584,28027,28819,29442,29983}
+          N100={12088,12202,12228,12474,12901,12931,12964,13093,13108,13274,13430,13557,13583,13644,13742,13766,14017,14520,14583,15113,15153,15279,15507,15703,15898,15993,16036,16151,16731,16828,16862,17712,17768,17901,17964,17999,18328,18496,18531,20428,20465,20495,20514,20570,20651,20862,21344,21517,21771,21785,21797,22162,22215,22287,22300,22309,22382,22430,22526,23143,23485,23489,23598,23667,24004,24474,24514,24528,24665,24717,25696,25697,26004,26163,26463,26651,26867,26953,27050,27125,27169,27198,27401,27450,27601,27640,27740,27822,28178,28267,28811,28816,28860,28997,29047,29077,29229,29440,29488,30048}
+          EX=CAL10|TEST8|N100
+          NEED=['thomson_scattering-n_e','thomson_scattering-t_e','summary-greenwald_density','summary-power_nbi']
+          def yes(v): return str(v).strip().upper()=='TRUE'
+          eligible=[]
+          for r in rows:
+            try:sid=int(r['shot_id'])
+            except:continue
+            if sid in EX:continue
+            if all(yes(r.get(c,'')) for c in NEED):eligible.append(sid)
+          SEED='SC_FAIR_MAST_P061_FRESH_HELDOUT_M4_V1'
+          ranked=sorted(eligible,key=lambda s:hashlib.sha256(f'{SEED}|{s}'.encode()).hexdigest())
+          primary=ranked[:30]; reserve=ranked[30:50]
+          manifest={'seed':SEED,'source_repository':'UKAEA-IBM-STFC-Fusion-FMs/tokamark','source_commit':COMMIT,'source_path':PATH,'source_sha256':source_sha256,'required_availability_columns':NEED,'excluded_seen_count':len(EX),'eligible_fresh_count':len(eligible),'primary_count':len(primary),'reserve_count':len(reserve),'primary_shots':primary,'reserve_shots':reserve,'fair_mast_values_read':False,'te_values_read':False,'m4_channels':['summary.greenwald_density','summary.power_nbi']}
+          b=(json.dumps(manifest,indent=2,sort_keys=True)+'\n').encode(); manifest_sha=hashlib.sha256(b).hexdigest(); manifest['pre_certificate_payload_sha256']=manifest_sha
+          (OUT/'FRESH_HELDOUT_SELECTION_P061.json').write_text(json.dumps(manifest,indent=2,sort_keys=True)+'\n')
+          cert={'certificate_type':'P061_FRESH_HELDOUT_FREEZE','seed':SEED,'primary_count':len(primary),'reserve_count':len(reserve),'m4_channels':['summary.greenwald_density','summary.power_nbi'],'source_commit':COMMIT,'source_path':PATH,'source_sha256':source_sha256,'fair_mast_values_read':False,'te_values_read':False}
+          (OUT/'FRESH_HELDOUT_CERTIFICATE_P061.json').write_text(json.dumps(cert,indent=2,sort_keys=True)+'\n')
+          print(json.dumps({'eligible':len(eligible),'primary':primary,'reserve':reserve},indent=2))
+          if len(primary)!=30: raise SystemExit('UNDERCOVERED_FRESH_POOL')
+          PY
+      - name: Hash freeze
+        run: find p061-fresh-freeze -type f ! -name SHA256SUMS.txt -print0 | sort -z | xargs -0 sha256sum > p061-fresh-freeze/SHA256SUMS.txt
+      - name: Upload freeze
+        uses: actions/upload-artifact@v4
+        with:
+          name: p061-fresh-freeze
+          path: p061-fresh-freeze
+          retention-days: 1
+          if-no-files-found: error
