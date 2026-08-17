@@ -1,0 +1,156 @@
+name: SC C-Mod Z fetch P056
+
+on:
+  push:
+    branches: [sc-cmod-z-fetch-p056]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  fetch-cmod-z:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install thin MDSplus client
+        run: python -m pip install --disable-pip-version-check 'mdsthin>=1.0' 'numpy>=1.26'
+      - name: Fetch measured C-Mod state at frozen profile times
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p p056-cmod-z
+          python - <<'PY'
+          import csv, json, math, socket, traceback
+          from pathlib import Path
+          import numpy as np
+          import mdsthin as mds
+
+          HOST='alcdata.psfc.mit.edu'; PORT=8000; USER='cmodpub'; PASSWORD='cmodpub'
+          targets=[
+              {'shot':1030523030,'profile_label':'q25','time_ms':1527.0},
+              {'shot':1030523030,'profile_label':'q50','time_ms':1594.0},
+              {'shot':1030523030,'profile_label':'q75','time_ms':1661.0},
+              {'shot':1050413031,'profile_label':'q25','time_ms':377.0},
+              {'shot':1050413031,'profile_label':'q50','time_ms':544.0},
+              {'shot':1050413031,'profile_label':'q75','time_ms':710.0},
+          ]
+          channels=[
+              ('I_p','MAGNETICS',r'\\MAGNETICS::IP','A','PUBLIC_2026'),
+              ('V_loop','MAGNETICS',r'\\MAGNETICS::VLOOP',None,'PUBLIC_2026'),
+              ('W_mhd','ANALYSIS',r'\\ANALYSIS::EFIT_AEQDSK:WPLASM','J','PUBLIC_2026'),
+              ('P_rad','BOLOMETER',r'\\BOLOMETER::TOP.RESULTS.TWOCOLOR:PRAD_TOT',None,'PUBLIC_2026'),
+              ('P_ICRF','RF',r'\\RF::TOP.ICRF:PICHRF_TOT',None,'PUBLIC_2026'),
+              ('q95','ANALYSIS',r'\\ANALYSIS::EFIT_AEQDSK:Q95',None,'PUBLIC_2026'),
+              ('I_p_EFIT','ANALYSIS',r'\\ANALYSIS::EFIT_AEQDSK:CPASMA','A','PUBLIC_2026'),
+              ('beta_t','ANALYSIS',r'\\ANALYSIS::EFIT_AEQDSK:BETAT',None,'PUBLIC_2026'),
+              ('B_T','CMOD',r'\\BTOR','T','LEGACY_2018'),
+              ('P_LH','LH',r'\\LH::TOP.RESULTS:NETPOW',None,'LEGACY_2018'),
+              ('P_rad_twopi_foil','SPECTROSCOPY',r'\\TWOPI_FOIL',None,'LEGACY_2018'),
+              ('fueling_piezo4','ENGINEERING',r'\\ENGINEERING::TOP.TORVAC.GAS.PVALVE_4:WAVEFORM',None,'LEGACY_2018'),
+          ]
+
+          def connect():
+              c=mds.Connection(f'{HOST}:{PORT}')
+              c.sendArg(USER); c.sendArg(PASSWORD)
+              return c
+
+          def get_signal(c,shot,tree,node):
+              c.openTree(tree,int(shot))
+              y=np.asarray(c.get(f'data({node})').data(),dtype=float).reshape(-1)
+              t=np.asarray(c.get(f'dim_of({node})').data(),dtype=float).reshape(-1)
+              if len(t)!=len(y) or len(t)<1:
+                  raise ValueError(f'invalid time/data lengths {len(t)} {len(y)}')
+              m=np.isfinite(t)&np.isfinite(y)
+              t=t[m]; y=y[m]
+              if len(t)<1: raise ValueError('no finite samples')
+              o=np.argsort(t); return t[o],y[o]
+
+          def bracket(t,y,target_s):
+              j=int(np.searchsorted(t,target_s,side='left'))
+              if j==0:
+                  if t[0] != target_s: raise ValueError('target before support')
+                  return y[0],t[0],t[0],y[0],y[0],0.0,'EXACT'
+              if j==len(t): raise ValueError('target after support')
+              if t[j]==target_s:
+                  return y[j],t[j],t[j],y[j],y[j],0.0,'EXACT'
+              i=j-1
+              if t[j]==t[i]: raise ValueError('duplicate bracket time')
+              a=(target_s-t[i])/(t[j]-t[i])
+              v=y[i]+a*(y[j]-y[i])
+              return v,t[i],t[j],y[i],y[j],a,'LINEAR_BRACKETED'
+
+          payload={
+              'artifact_type':'P056_GITHUB_RUNNER_MEASURED_CMOD_STATE',
+              'backend':f'{HOST}:{PORT}',
+              'client':'mdsthin',
+              'credentials_class':'PUBLIC_CMODPUB',
+              'target_leakage_firewall':'NO_TE',
+              'unknown_policy':'UNKNOWN != ZERO != ABSENT',
+              'targets':targets,
+              'rows':[],
+          }
+          try:
+              with socket.create_connection((HOST,PORT),timeout=10):
+                  payload['tcp_preflight']='PASS'
+          except Exception as e:
+              payload['tcp_preflight']='FAIL'
+              payload['tcp_preflight_error']=repr(e)
+
+          c=None
+          cache={}
+          try:
+              c=connect()
+              payload['mdsthin_connection']='PASS'
+              for tar in targets:
+                  for name,tree,node,unit,source_class in channels:
+                      row={**tar,'channel':name,'tree':tree,'node':node,'unit_hint':unit,'source_class':source_class}
+                      key=(tar['shot'],tree,node)
+                      try:
+                          if key not in cache:
+                              cache[key]=get_signal(c,*key)
+                          t,y=cache[key]
+                          v,t0,t1,y0,y1,a,mode=bracket(t,y,tar['time_ms']/1000.0)
+                          row.update(status='RETURNED',value_native=float(v),source_t0_s=float(t0),source_t1_s=float(t1),source_y0=float(y0),source_y1=float(y1),interpolation_fraction=float(a),join_mode=mode,signal_n_samples=int(len(t)),signal_t_min_s=float(t[0]),signal_t_max_s=float(t[-1]))
+                      except Exception as e:
+                          row.update(status='UNKNOWN',error_type=type(e).__name__,error=str(e))
+                      payload['rows'].append(row)
+          except Exception as e:
+              payload['mdsthin_connection']='FAIL'
+              payload['connection_error_type']=type(e).__name__
+              payload['connection_error']=str(e)
+              payload['traceback']=traceback.format_exc()
+          finally:
+              if c is not None:
+                  try: c.disconnect()
+                  except Exception: pass
+
+          out=Path('p056-cmod-z')
+          (out/'RETURNED_STATE_VALUES_P056.json').write_text(json.dumps(payload,indent=2,sort_keys=True)+'\n')
+          fields=['shot','profile_label','time_ms','channel','tree','node','source_class','unit_hint','status','value_native','source_t0_s','source_t1_s','source_y0','source_y1','interpolation_fraction','join_mode','signal_n_samples','signal_t_min_s','signal_t_max_s','error_type','error']
+          with (out/'RETURNED_STATE_VALUES_P056.csv').open('w',newline='') as f:
+              w=csv.DictWriter(f,fieldnames=fields,extrasaction='ignore'); w.writeheader(); w.writerows(payload['rows'])
+          returned=sum(r.get('status')=='RETURNED' for r in payload['rows'])
+          unknown=sum(r.get('status')=='UNKNOWN' for r in payload['rows'])
+          summary={'tcp_preflight':payload.get('tcp_preflight'),'mdsthin_connection':payload.get('mdsthin_connection'),'returned':returned,'unknown':unknown,'total_rows':len(payload['rows']),'shots':sorted({t['shot'] for t in targets}),'no_te':True}
+          (out/'RUN_SUMMARY_P056.json').write_text(json.dumps(summary,indent=2,sort_keys=True)+'\n')
+          print(json.dumps(summary,indent=2))
+          if returned == 0:
+              raise SystemExit('No measured state values returned')
+          PY
+      - name: Hash payload
+        if: always()
+        run: |
+          if [ -d p056-cmod-z ]; then sha256sum p056-cmod-z/* > p056-cmod-z/SHA256SUMS_P056.txt; fi
+      - name: Upload measured state artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: p056-cmod-z
+          path: p056-cmod-z
+          if-no-files-found: error
+          retention-days: 1
