@@ -32,6 +32,7 @@ jobs:
           path: p067-state-${{ matrix.shard }}
           retention-days: 1
   authority:
+    if: always()
     needs: shard
     runs-on: ubuntu-latest
     steps:
@@ -44,10 +45,10 @@ jobs:
       - name: Seal authority provenance
         run: |
           python - <<'PY'
-          import json,os,glob
+          import json,os
           from pathlib import Path
           root=Path('P067_STATE_AUTHORITY')
-          sums={'schema':'P067_STATE_AUTHORITY_V1','run_id':os.environ.get('GITHUB_RUN_ID'),'head_sha':os.environ.get('GITHUB_SHA'),'artifact_dirs':sorted(p.name for p in root.glob('p067-state-*'))}
+          sums={'schema':'P067_STATE_AUTHORITY_V2','run_id':os.environ.get('GITHUB_RUN_ID'),'head_sha':os.environ.get('GITHUB_SHA'),'artifact_dirs':sorted(p.name for p in root.glob('p067-state-*'))}
           (root/'RUN_PROVENANCE_P067.json').write_text(json.dumps(sums,indent=2,sort_keys=True)+'\n')
           PY
           find P067_STATE_AUTHORITY -type f ! -name SHA256SUMS_FINAL.txt -print0 | sort -z | xargs -0 sha256sum > P067_STATE_AUTHORITY/SHA256SUMS_FINAL.txt
