@@ -1,0 +1,49 @@
+name: SC FAIR-MAST P069 STATE10 OBSERVED
+on:
+  push:
+    branches: [sc-fair-mast-p057]
+    paths: ['.github/workflows/sc-fair-mast-p069-state10-observed.yml']
+permissions: {contents: write}
+jobs:
+  stamp:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: {ref: sc-fair-mast-p057}
+      - name: Materialize run id before data access
+        run: |
+          mkdir -p P069_RUN_OBSERVED
+          printf '{"schema":"P069_RUN_START_V1","run_id":"%s","head_sha":"%s","data_read":false}\n' "$GITHUB_RUN_ID" "$GITHUB_SHA" > P069_RUN_OBSERVED/RUN_START.json
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add P069_RUN_OBSERVED/RUN_START.json
+          git commit -m 'P069 observable run start' || exit 0
+          git push origin HEAD:sc-fair-mast-p057
+  shard:
+    needs: stamp
+    strategy:
+      fail-fast: false
+      matrix: {shard: [0,1,2,3,4,5,6,7,8,9]}
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    env: {SHARD: '${{ matrix.shard }}', NS: '10'}
+    steps:
+      - uses: actions/checkout@v4
+        with: {ref: sc-fair-mast-p057}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: python -m pip install --disable-pip-version-check 'numpy>=1.26' 'pandas>=2.0' 'xarray[io]>=2024.1' 'zarr>=3.0' 's3fs>=2025.3.0'
+      - name: Fetch P069 orthogonal state
+        run: python scripts/p069_state_completion_fetch.py
+      - name: Firewall and hashes
+        if: always()
+        run: |
+          mkdir -p p069-state-$SHARD
+          printf '%s\n' 'development_target=P068_ALREADY_OPENED' 'new_te_loaded=NO' 'new_ne_loaded=NO' 'unknown_to_zero=NO' 'state_only=YES' > p069-state-$SHARD/FIREWALL_P069.txt
+          find p069-state-$SHARD -type f ! -name SHA256SUMS.txt -print0 | sort -z | xargs -0 sha256sum > p069-state-$SHARD/SHA256SUMS.txt
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: p069-observed-state-${{ matrix.shard }}
+          path: p069-state-${{ matrix.shard }}
+          retention-days: 1
