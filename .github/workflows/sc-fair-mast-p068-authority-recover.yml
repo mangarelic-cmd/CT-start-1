@@ -1,0 +1,54 @@
+name: SC FAIR-MAST P068 AUTHORITY RECOVER
+on:
+  push:
+    branches: [sc-fair-mast-p057]
+    paths: ['.github/workflows/sc-fair-mast-p068-authority-recover.yml']
+permissions: {contents: write, actions: read}
+jobs:
+  authority:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: {ref: sc-fair-mast-p057}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: python -m pip install --disable-pip-version-check 'numpy>=1.26'
+      - uses: actions/download-artifact@v4
+        with:
+          github-token: '${{ github.token }}'
+          run-id: 32078114041
+          pattern: p068-observed-primary-*
+          path: P068_AUTHORITY
+      - name: Normalize downloaded directories
+        run: |
+          for d in P068_AUTHORITY/p068-observed-primary-*; do [ -d "$d" ] || continue; n=$(basename "$d" | sed 's/p068-observed-primary-/p068-primary-/'); mv "$d" "P068_AUTHORITY/$n"; done
+      - name: Aggregate and independently reconstruct existing shards only
+        run: python scripts/p068_aggregate.py
+      - name: Mark recovery provenance
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path('P068_AUTHORITY/RUN_PROVENANCE_P068.json')
+          o=json.loads(p.read_text())
+          o['source_data_run_id']='32078114041'
+          o['recovery_mode']='AGGREGATE_ONLY_NO_NEW_FAIR_MAST_READ'
+          p.write_text(json.dumps(o,indent=2,sort_keys=True)+'\n')
+          PY
+      - name: Seal authority hashes
+        run: find P068_AUTHORITY -type f ! -name SHA256SUMS_FINAL.txt -print0 | sort -z | xargs -0 sha256sum > P068_AUTHORITY/SHA256SUMS_FINAL.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: p068-recovered-authority
+          path: P068_AUTHORITY
+          retention-days: 1
+      - name: Materialize authority on branch
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          rm -rf P068_AUTHORITY_COMMITTED
+          cp -a P068_AUTHORITY P068_AUTHORITY_COMMITTED
+          git add P068_AUTHORITY_COMMITTED
+          git commit -m 'P068 recover authority from completed observed shards' || exit 0
+          git pull --rebase origin sc-fair-mast-p057
+          git push origin HEAD:sc-fair-mast-p057
