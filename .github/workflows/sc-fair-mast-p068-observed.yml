@@ -1,0 +1,84 @@
+name: SC FAIR-MAST P068 OBSERVED AUTHORITY
+on:
+  push:
+    branches: [sc-fair-mast-p057]
+    paths: ['.github/workflows/sc-fair-mast-p068-observed.yml']
+permissions: {contents: write}
+jobs:
+  stamp:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: {ref: sc-fair-mast-p057}
+      - name: Materialize run id before data access
+        run: |
+          mkdir -p P068_RUN_OBSERVED
+          printf '{"schema":"P068_RUN_START_V1","run_id":"%s","head_sha":"%s","data_read":false}\n' "$GITHUB_RUN_ID" "$GITHUB_SHA" > P068_RUN_OBSERVED/RUN_START.json
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add P068_RUN_OBSERVED/RUN_START.json
+          git commit -m 'P068 observed authority start' || exit 0
+          git push origin HEAD:sc-fair-mast-p057
+  shard:
+    needs: stamp
+    strategy:
+      fail-fast: false
+      matrix: {shard: [0,1,2,3,4,5,6,7,8,9]}
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env: {SHARD: '${{ matrix.shard }}', NS: '10'}
+    steps:
+      - uses: actions/checkout@v4
+        with: {ref: sc-fair-mast-p057}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: python -m pip install --disable-pip-version-check 'numpy>=1.26' 'pandas>=2.0' 'xarray[io]>=2024.1' 'zarr>=3.0' 's3fs>=2025.3.0'
+      - name: Frozen P068 M8 vs M7 fresh test
+        run: python scripts/p068_m8_dynamic_fueling_fresh_score.py
+      - name: Seal shard firewall and hashes
+        if: always()
+        run: |
+          mkdir -p p068-primary-$SHARD
+          printf '%s\n' 'authority=OBSERVED_P068' 'selection=METADATA_ONLY_SHA256_BEFORE_VALUES' 'excluded_prior_unique=249' 'model=M8_DYNAMIC_FUELING_FROZEN_P067' 'comparator=M7_FROZEN_P065_CONFIRMED_P066' 'refit=NO' 'retune=NO' 'te_used_in_state_or_gate=NO' 'missing_state=FAIL_CLOSED' 'same_support=M7_AND_M8' > p068-primary-$SHARD/FIREWALL_P068.txt
+          find p068-primary-$SHARD -type f ! -name SHA256SUMS.txt -print0 | sort -z | xargs -0 sha256sum > p068-primary-$SHARD/SHA256SUMS.txt
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: p068-observed-primary-${{ matrix.shard }}
+          path: p068-primary-${{ matrix.shard }}
+          retention-days: 1
+  authority:
+    needs: shard
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: {ref: sc-fair-mast-p057}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: p068-observed-primary-*
+          path: P068_AUTHORITY
+      - name: Normalize downloaded directories
+        run: |
+          for d in P068_AUTHORITY/p068-observed-primary-*; do [ -d "$d" ] || continue; n=$(basename "$d" | sed 's/p068-observed-primary-/p068-primary-/'); mv "$d" "P068_AUTHORITY/$n"; done
+      - name: Aggregate and independently reconstruct
+        run: python scripts/p068_aggregate.py
+      - name: Seal authority hashes
+        run: find P068_AUTHORITY -type f ! -name SHA256SUMS_FINAL.txt -print0 | sort -z | xargs -0 sha256sum > P068_AUTHORITY/SHA256SUMS_FINAL.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: p068-observed-authority
+          path: P068_AUTHORITY
+          retention-days: 1
+      - name: Materialize authority on branch
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          rm -rf P068_AUTHORITY_COMMITTED
+          cp -a P068_AUTHORITY P068_AUTHORITY_COMMITTED
+          git add P068_AUTHORITY_COMMITTED
+          git commit -m 'P068 observed materialize fresh M8 authority' || exit 0
+          git pull --rebase origin sc-fair-mast-p057
+          git push origin HEAD:sc-fair-mast-p057
