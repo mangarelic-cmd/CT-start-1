@@ -1,0 +1,16 @@
+{
+  "failed_shots": 0,
+  "ne_loaded_anywhere": false,
+  "nshard": 10,
+  "requested_ids": [
+    18890,
+    29942,
+    16260
+  ],
+  "rows": 320,
+  "schema": "P069_OPENED_P068_STATE_COMPLETION_V1",
+  "shard": 8,
+  "successful_shots": 3,
+  "te_loaded_anywhere": false,
+  "unknown_is_zero": false
+}

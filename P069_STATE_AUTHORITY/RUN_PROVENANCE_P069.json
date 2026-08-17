@@ -1,0 +1,17 @@
+{
+  "artifact_dirs": [
+    "p069-state-0",
+    "p069-state-1",
+    "p069-state-2",
+    "p069-state-3",
+    "p069-state-4",
+    "p069-state-5",
+    "p069-state-6",
+    "p069-state-7",
+    "p069-state-8",
+    "p069-state-9"
+  ],
+  "head_sha": "e446d58cc1e23dd3db14fe6dfa71688715b11374",
+  "run_id": "32078749754",
+  "schema": "P069_STATE_AUTHORITY_V1"
+}

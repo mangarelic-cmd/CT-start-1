@@ -1,0 +1,5 @@
+development_target=P068_ALREADY_OPENED
+new_te_loaded=NO
+new_ne_loaded=NO
+unknown_to_zero=NO
+state_only=YES
