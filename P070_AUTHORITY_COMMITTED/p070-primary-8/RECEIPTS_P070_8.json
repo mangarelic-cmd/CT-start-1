@@ -1,0 +1,71 @@
+[
+  {
+    "delta_m9_minus_m7": -0.0037958529490932924,
+    "delta_m9_minus_m8": 0.0019004721374600297,
+    "m7_mse": 0.36058616861240195,
+    "m8_mse": 0.3548898435258486,
+    "m9_beats_m7": true,
+    "m9_beats_m8": false,
+    "m9_mse": 0.35679031566330865,
+    "missing_beta_pol": "FAIL_CLOSED",
+    "models": [
+      "M7",
+      "M8",
+      "M9_OUTBOARD_BETAPOL"
+    ],
+    "n_pairs": 7150,
+    "refit": false,
+    "retune": false,
+    "shot_id": 13277,
+    "split": "P070_FRESH",
+    "status": "USABLE",
+    "te_availability_mask_used_in_state_or_gate": false,
+    "te_used_in_state_or_gate": false
+  },
+  {
+    "delta_m9_minus_m7": -0.12781759642715806,
+    "delta_m9_minus_m8": 0.03949246551622476,
+    "m7_mse": 0.7426900794847129,
+    "m8_mse": 0.5753800175413301,
+    "m9_beats_m7": true,
+    "m9_beats_m8": false,
+    "m9_mse": 0.6148724830575548,
+    "missing_beta_pol": "FAIL_CLOSED",
+    "models": [
+      "M7",
+      "M8",
+      "M9_OUTBOARD_BETAPOL"
+    ],
+    "n_pairs": 2196,
+    "refit": false,
+    "retune": false,
+    "shot_id": 12280,
+    "split": "P070_FRESH",
+    "status": "USABLE",
+    "te_availability_mask_used_in_state_or_gate": false,
+    "te_used_in_state_or_gate": false
+  },
+  {
+    "delta_m9_minus_m7": 0.00778373231379037,
+    "delta_m9_minus_m8": 0.0251009255734847,
+    "m7_mse": 0.515135923065012,
+    "m8_mse": 0.49781872980531766,
+    "m9_beats_m7": false,
+    "m9_beats_m8": false,
+    "m9_mse": 0.5229196553788024,
+    "missing_beta_pol": "FAIL_CLOSED",
+    "models": [
+      "M7",
+      "M8",
+      "M9_OUTBOARD_BETAPOL"
+    ],
+    "n_pairs": 7574,
+    "refit": false,
+    "retune": false,
+    "shot_id": 30430,
+    "split": "P070_FRESH",
+    "status": "USABLE",
+    "te_availability_mask_used_in_state_or_gate": false,
+    "te_used_in_state_or_gate": false
+  }
+]

@@ -1,0 +1,10 @@
+selection=METADATA_ONLY_SHA256_BEFORE_VALUES
+excluded_prior_unique=299
+model=M9_OUTBOARD_BETAPOL_FROZEN_P069
+comparators=M7,M8
+refit=NO
+retune=NO
+te_used_in_state_or_gate=NO
+te_availability_mask_used_in_state_or_gate=NO
+missing_beta_pol=FAIL_CLOSED
+same_support=M7_M8_M9
