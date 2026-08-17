@@ -1,0 +1,38 @@
+name: SC FAIR-MAST P065 RETRY STALLED PRIMARIES
+on:
+  push:
+    branches: [sc-fair-mast-p057]
+    paths: ['.github/workflows/sc-fair-mast-p065-retry-stalled-primaries.yml']
+permissions: {contents: read}
+jobs:
+  shot:
+    strategy:
+      fail-fast: false
+      matrix: {shot: [17925,22734,14510,29074,20438,13994]}
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env: {SHOT: '${{ matrix.shot }}'}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: python -m pip install --disable-pip-version-check 'numpy>=1.26' 'pandas>=2.0' 'xarray[io]>=2024.1' 'zarr>=3.0' 's3fs>=2025.3.0'
+      - name: Build exact one-shot adapter
+        run: |
+          python - <<'PY'
+          import os,re
+          from pathlib import Path
+          shot=int(os.environ['SHOT']);s=Path('scripts/p065_m7_fresh_score.py').read_text();s=s.replace("SHARD=int(os.environ.get('SHARD','0'));NS=int(os.environ.get('NS','10'))","SHARD=0;NS=1");s=re.sub(r'PRIMARY=\[[^\n]+\]',f'PRIMARY=[{shot}]',s,count=1);s=s.replace("OUT=Path(os.environ.get('OUT',f'p065-primary-{SHARD}'))",f"OUT=Path('p065-retry-{shot}')");s=s.replace("'P065_FRESH_PRIMARY'","'P065_FRESH_PRIMARY_RETRY'");Path('/tmp/one.py').write_text(s)
+          PY
+          python /tmp/one.py
+      - name: Certify
+        if: always()
+        run: |
+          printf '%s\n' "shot=$SHOT" 'same_frozen_model=YES' 'same_selection=YES' 'refit=NO' 'retune=NO' 'reason=stalled_original_shard_retry' > p065-retry-$SHOT/RETRY_CERTIFICATE_P065.txt
+          find p065-retry-$SHOT -type f ! -name SHA256SUMS.txt -print0 | sort -z | xargs -0 sha256sum > p065-retry-$SHOT/SHA256SUMS.txt
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: p065-retry-${{ matrix.shot }}
+          path: p065-retry-${{ matrix.shot }}
+          retention-days: 1
