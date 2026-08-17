@@ -1,0 +1,30 @@
+name: SC FAIR-MAST P065 RAW BUNDLE V2
+on:
+  push:
+    branches: [sc-fair-mast-p057]
+    paths: ['.github/workflows/sc-fair-mast-p065-raw-bundle-v2.yml']
+permissions:
+  contents: read
+  actions: read
+jobs:
+  bundle:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    env:
+      GH_TOKEN: '${{ github.token }}'
+    steps:
+      - name: Download exact P065 V2 state artifacts
+        run: |
+          mkdir p065-state-v2-raw
+          gh run download 32053301548 --repo mangarelic-cmd/CT-start-1 --dir p065-state-v2-raw
+          echo "artifact_dirs=$(find p065-state-v2-raw -maxdepth 1 -type d -name 'p065-state-v2-*' | wc -l)" | tee p065-state-v2-raw/BUNDLE_COUNT.txt
+          test "$(find p065-state-v2-raw -maxdepth 1 -type d -name 'p065-state-v2-*' | wc -l)" -eq 30
+      - name: Bundle certificate
+        run: |
+          printf '%s\n' 'source_run_id=32053301548' 'expected_artifacts=30' 'transformation=NONE' 'te_read_by_state_workflow=NO' 'unknown_to_zero=FORBIDDEN' > p065-state-v2-raw/BUNDLE_CERTIFICATE.txt
+          find p065-state-v2-raw -type f -print0 | sort -z | xargs -0 sha256sum > p065-state-v2-raw/RAW_BUNDLE_SHA256SUMS.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: p065-state-v2-raw-bundle
+          path: p065-state-v2-raw
+          retention-days: 1
