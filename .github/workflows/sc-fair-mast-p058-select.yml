@@ -1,95 +1,14 @@
-name: SC FAIR-MAST P058 SELECT N100
+name: SC FAIR-MAST P058 SELECT N100 ARCHIVED
 
 on:
   workflow_dispatch:
-  push:
-    branches: [sc-fair-mast-p057]
-    paths:
-      - '.github/workflows/sc-fair-mast-p058-select.yml'
 
 permissions:
   contents: read
 
 jobs:
-  select-n100:
+  archived:
+    if: ${{ false }}
     runs-on: ubuntu-latest
-    timeout-minutes: 10
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
-      - name: Freeze N100 selection from pinned availability metadata only
-        shell: bash
-        run: |
-          set -euo pipefail
-          mkdir -p p058-n100-selection
-          python - <<'PY'
-          import csv, hashlib, io, json, urllib.request
-          from pathlib import Path
-
-          OUT=Path('p058-n100-selection')
-          SRC_COMMIT='1a200f4588addaad2ae3d53d438d9e1946c09294'
-          SRC_BLOB='78985703becf4cb153487679aaa217912daacc94'
-          SRC_PATH='src/MAST_tools/metadata/signal_availability.csv'
-          URL=f'https://raw.githubusercontent.com/UKAEA-IBM-STFC-Fusion-FMs/tokamark/{SRC_COMMIT}/{SRC_PATH}'
-          SEED='P058_N100_CONFIRMATION_V1'
-          EXCLUDED=[11766,13038,14804,16195,17664,19382,20880,22308,24143,25365,
-                    26068,26596,27171,27584,28027,28819,29442,29983]
-
-          raw=urllib.request.urlopen(URL,timeout=60).read()
-          text=raw.decode('utf-8-sig')
-          rows=list(csv.DictReader(io.StringIO(text)))
-          need=['shot_id','thomson_scattering-n_e','thomson_scattering-t_e']
-          missing=[c for c in need if c not in (rows[0].keys() if rows else [])]
-          if missing: raise SystemExit(f'MISSING_COLUMNS:{missing}')
-
-          eligible=[]
-          for r in rows:
-              try: sid=int(r['shot_id'])
-              except Exception: continue
-              if sid in EXCLUDED: continue
-              if str(r['thomson_scattering-n_e']).strip().upper()!='TRUE': continue
-              if str(r['thomson_scattering-t_e']).strip().upper()!='TRUE': continue
-              rank=hashlib.sha256(f'{SEED}:{sid}'.encode()).hexdigest()
-              eligible.append((rank,sid))
-          eligible.sort()
-          if len(eligible)<100: raise SystemExit(f'UNDERCOVERED_ELIGIBLE:{len(eligible)}')
-          chosen=eligible[:100]
-          shots=[sid for rank,sid in chosen]
-          canon=json.dumps(shots,separators=(',',':')).encode()
-          selection_sha=hashlib.sha256(canon).hexdigest()
-
-          manifest={
-            'pass':'P058','role':'N100_CONFIRMATION_SELECTION','selection_frozen_before_any_N100_value_read':True,
-            'provider_for_future_execution':'FAIR-MAST_LEVEL2','selection_metadata_source':'TOKAMARK_SIGNAL_AVAILABILITY_ONLY',
-            'source_repo':'UKAEA-IBM-STFC-Fusion-FMs/tokamark','source_commit':SRC_COMMIT,'source_blob_sha1':SRC_BLOB,
-            'source_path':SRC_PATH,'source_url':URL,'source_bytes_sha256':hashlib.sha256(raw).hexdigest(),
-            'seed':SEED,'algorithm':'eligible iff pinned metadata says Thomson n_e=TRUE and t_e=TRUE; exclude P057 CAL10+TEST8; rank ascending by sha256(seed+":"+shot_id); take first 100',
-            'excluded_shots':EXCLUDED,'eligible_count':len(eligible),'selected_count':len(shots),
-            'selected_shots':shots,'selection_sha256':selection_sha,
-            'forbidden':['read FAIR-MAST N100 Zarr before this selection is sealed','rerank using any n_e/t_e value','drop selected shots by score','refit CAL parameters']
-          }
-          (OUT/'N100_SELECTION_MANIFEST_P058.json').write_text(json.dumps(manifest,indent=2,sort_keys=True)+'\n')
-          with (OUT/'N100_SELECTION_P058.csv').open('w',newline='') as f:
-              w=csv.writer(f); w.writerow(['selection_rank','sha256_rank','shot_id'])
-              for i,(rank,sid) in enumerate(chosen,1): w.writerow([i,rank,sid])
-          cert={
-            'certificate_type':'P058_N100_SELECTION_FREEZE','selection_sha256':selection_sha,
-            'manifest_sha256':hashlib.sha256((OUT/'N100_SELECTION_MANIFEST_P058.json').read_bytes()).hexdigest(),
-            'selected_count':100,'source_blob_sha1':SRC_BLOB,'n100_values_read':False
-          }
-          (OUT/'N100_SELECTION_CERTIFICATE_P058.json').write_text(json.dumps(cert,indent=2,sort_keys=True)+'\n')
-          print(json.dumps({'selected_count':100,'eligible_count':len(eligible),'selection_sha256':selection_sha,
-                            'min_shot':min(shots),'max_shot':max(shots),'n100_values_read':False},indent=2))
-          PY
-      - name: Hash selection payload
-        run: |
-          find p058-n100-selection -maxdepth 1 -type f ! -name SHA256SUMS_P058_SELECTION.txt -print0 | sort -z | xargs -0 sha256sum > p058-n100-selection/SHA256SUMS_P058_SELECTION.txt
-      - name: Upload selection artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: p058-n100-selection
-          path: p058-n100-selection
-          if-no-files-found: error
-          retention-days: 1
+      - run: echo 'P058 selection is sealed; workflow disabled.'
