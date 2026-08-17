@@ -16,37 +16,37 @@ jobs:
     steps:
       - uses: actions/setup-python@v5
         with: {python-version: '3.12'}
-      - name: Install gather dependency
-        run: python -m pip install --disable-pip-version-check 'pandas>=2.0'
-      - name: Gather all 30 state artifacts
+      - run: python -m pip install --disable-pip-version-check 'pandas>=2.0'
+      - name: Gather all 30 state artifacts fail-closed
         run: |
           python - <<'PY'
-          import os,json,time,urllib.request,zipfile,io,hashlib
+          import os,json,urllib.request,zipfile,io,hashlib
           from pathlib import Path
           import pandas as pd
           token=os.environ['GH_TOKEN'];run=os.environ['RUN_ID'];repo='mangarelic-cmd/CT-start-1';out=Path('p065-state-v2-gather');out.mkdir()
           hdr={'Authorization':f'Bearer {token}','Accept':'application/vnd.github+json','X-GitHub-Api-Version':'2022-11-28'}
-          def get(url):
-            q=urllib.request.Request(url,headers=hdr);return urllib.request.urlopen(q,timeout=60).read()
-          d=json.loads(get(f'https://api.github.com/repos/{repo}/actions/runs/{run}/artifacts?per_page=100'))
-          arts=[a for a in d['artifacts'] if a['name'].startswith('p065-state-v2-')]
+          def get(url):return urllib.request.urlopen(urllib.request.Request(url,headers=hdr),timeout=60).read()
+          d=json.loads(get(f'https://api.github.com/repos/{repo}/actions/runs/{run}/artifacts?per_page=100'));arts=[a for a in d['artifacts'] if a['name'].startswith('p065-state-v2-')]
           if len(arts)!=30:raise SystemExit(f'EXPECTED_30_ARTIFACTS_GOT_{len(arts)}')
           receipts=[];rows=[];manifest=[]
           for a in sorted(arts,key=lambda x:x['name']):
             raw=get(a['archive_download_url']);manifest.append({'id':a['id'],'name':a['name'],'artifact_digest':a.get('digest'),'download_sha256':hashlib.sha256(raw).hexdigest()})
             with zipfile.ZipFile(io.BytesIO(raw)) as z:
-              rname=[n for n in z.namelist() if n.endswith('STATE_V2_RECEIPT_P065.json')][0];cname=[n for n in z.namelist() if n.endswith('STATE_V2_TIMESERIES_P065.csv')][0]
-              r=json.loads(z.read(rname));receipts.append(r);rr={'shot_id':r['shot_id'],'status':r['status']}
+              rn=[n for n in z.namelist() if n.endswith('STATE_V2_RECEIPT_P065.json')]
+              if not rn:raise SystemExit('MISSING_RECEIPT_'+a['name'])
+              r=json.loads(z.read(rn[0]));receipts.append(r);rr={'shot_id':r['shot_id'],'status':r['status']}
               for g,gx in r.get('groups',{}).items():
                 rr[f'{g}.opened']=gx.get('opened',False)
                 for v,dd in gx.get('materialized',{}).items():
                   for k in ['status','coverage','mean','median','std','q10','q90','min','max']:
                     if k in dd:rr[f'{g}.{v}.{k}']=dd[k]
-              rows.append(rr);shot=r['shot_id'];(out/f'SHOT_{shot}_STATE_V2_RECEIPT_P065.json').write_bytes(z.read(rname));(out/f'SHOT_{shot}_STATE_V2_TIMESERIES_P065.csv').write_bytes(z.read(cname))
+              rows.append(rr);shot=r['shot_id'];(out/f'SHOT_{shot}_STATE_V2_RECEIPT_P065.json').write_bytes(z.read(rn[0]))
+              cn=[n for n in z.namelist() if n.endswith('STATE_V2_TIMESERIES_P065.csv')]
+              if cn:(out/f'SHOT_{shot}_STATE_V2_TIMESERIES_P065.csv').write_bytes(z.read(cn[0]))
           pd.DataFrame(rows).sort_values('shot_id').to_csv(out/'STATE_V2_SHOT_SUMMARY_P065.csv',index=False)
-          (out/'STATE_V2_RECEIPTS_P065.json').write_text(json.dumps(sorted(receipts,key=lambda x:x['shot_id']),indent=2,sort_keys=True)+'\n')
-          (out/'STATE_V2_ARTIFACT_MANIFEST_P065.json').write_text(json.dumps(manifest,indent=2,sort_keys=True)+'\n')
-          (out/'STATE_V2_GATHER_CERTIFICATE_P065.json').write_text(json.dumps({'source_run_id':int(run),'artifact_count':len(arts),'shot_count':len(receipts),'te_loaded_anywhere':any(r.get('te_loaded') for r in receipts),'unknown_is_zero_anywhere':any(r.get('unknown_is_zero') for r in receipts),'provider_corrections':['whmd->wmhd','beta_normal->beta_tor_normal']},indent=2,sort_keys=True)+'\n')
+          (out/'STATE_V2_RECEIPTS_P065.json').write_text(json.dumps(sorted(receipts,key=lambda x:x['shot_id']),indent=2,sort_keys=True)+'\n');(out/'STATE_V2_ARTIFACT_MANIFEST_P065.json').write_text(json.dumps(manifest,indent=2,sort_keys=True)+'\n')
+          failed=[r['shot_id'] for r in receipts if r.get('status')!='MATERIALIZED']
+          (out/'STATE_V2_GATHER_CERTIFICATE_P065.json').write_text(json.dumps({'source_run_id':int(run),'artifact_count':len(arts),'shot_count':len(receipts),'materialized_count':len(receipts)-len(failed),'failed_shots':failed,'te_loaded_anywhere':any(r.get('te_loaded') for r in receipts),'unknown_is_zero_anywhere':any(r.get('unknown_is_zero') for r in receipts),'provider_corrections':['whmd->wmhd','beta_normal->beta_tor_normal']},indent=2,sort_keys=True)+'\n')
           PY
       - name: Hash gather
         run: find p065-state-v2-gather -type f ! -name SHA256SUMS.txt -print0 | sort -z | xargs -0 sha256sum > p065-state-v2-gather/SHA256SUMS.txt
