@@ -11,7 +11,7 @@
     "p067-state-8",
     "p067-state-9"
   ],
-  "head_sha": "039ee7df52e5141f9bb42f8b271c80817148e585",
-  "run_id": "32076525764",
-  "schema": "P067_STATE_AUTHORITY_V1"
+  "head_sha": "da4c409e52df5af5f0680f5e3eff06328c2ef44c",
+  "run_id": "32076719105",
+  "schema": "P067_STATE_AUTHORITY_V2"
 }
