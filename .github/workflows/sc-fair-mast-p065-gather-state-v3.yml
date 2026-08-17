@@ -1,0 +1,58 @@
+name: SC FAIR-MAST P065 GATHER STATE V3
+on:
+  push:
+    branches: [sc-fair-mast-p057]
+    paths: ['.github/workflows/sc-fair-mast-p065-gather-state-v3.yml']
+permissions:
+  contents: read
+  actions: read
+jobs:
+  gather:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    env:
+      GH_TOKEN: '${{ github.token }}'
+    steps:
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: python -m pip install --disable-pip-version-check 'pandas>=2.0'
+      - name: Download state run artifacts with gh
+        run: |
+          mkdir artifacts
+          gh run download 32053301548 --repo mangarelic-cmd/CT-start-1 --dir artifacts
+          test "$(find artifacts -maxdepth 1 -type d -name 'p065-state-v2-*' | wc -l)" -eq 30
+      - name: Gather fail-closed
+        run: |
+          python - <<'PY'
+          import json,glob,hashlib,shutil
+          from pathlib import Path
+          import pandas as pd
+          out=Path('p065-state-v2-gather');out.mkdir(); receipts=[];rows=[];manifest=[]
+          dirs=sorted(Path('artifacts').glob('p065-state-v2-*'))
+          if len(dirs)!=30:raise SystemExit(f'EXPECTED_30_DIRS_GOT_{len(dirs)}')
+          for d in dirs:
+            rn=list(d.rglob('STATE_V2_RECEIPT_P065.json'))
+            if not rn:raise SystemExit('MISSING_RECEIPT_'+d.name)
+            r=json.loads(rn[0].read_text());receipts.append(r);rr={'shot_id':r['shot_id'],'status':r['status']}
+            for g,gx in r.get('groups',{}).items():
+              rr[f'{g}.opened']=gx.get('opened',False)
+              for v,dd in gx.get('materialized',{}).items():
+                for k in ['status','coverage','mean','median','std','q10','q90','min','max']:
+                  if k in dd:rr[f'{g}.{v}.{k}']=dd[k]
+            rows.append(rr);shot=r['shot_id'];shutil.copy2(rn[0],out/f'SHOT_{shot}_STATE_V2_RECEIPT_P065.json')
+            cn=list(d.rglob('STATE_V2_TIMESERIES_P065.csv'))
+            if cn:shutil.copy2(cn[0],out/f'SHOT_{shot}_STATE_V2_TIMESERIES_P065.csv')
+            hs=list(d.rglob('SHA256SUMS.txt'));manifest.append({'artifact_dir':d.name,'shot_id':shot,'receipt_sha256':hashlib.sha256(rn[0].read_bytes()).hexdigest(),'source_hash_file_present':bool(hs)})
+          pd.DataFrame(rows).sort_values('shot_id').to_csv(out/'STATE_V2_SHOT_SUMMARY_P065.csv',index=False)
+          (out/'STATE_V2_RECEIPTS_P065.json').write_text(json.dumps(sorted(receipts,key=lambda x:x['shot_id']),indent=2,sort_keys=True)+'\n');(out/'STATE_V2_ARTIFACT_MANIFEST_P065.json').write_text(json.dumps(manifest,indent=2,sort_keys=True)+'\n')
+          failed=[r['shot_id'] for r in receipts if r.get('status')!='MATERIALIZED']
+          cert={'source_run_id':32053301548,'artifact_count':30,'shot_count':30,'materialized_count':30-len(failed),'failed_shots':failed,'te_loaded_anywhere':any(r.get('te_loaded') for r in receipts),'unknown_is_zero_anywhere':any(r.get('unknown_is_zero') for r in receipts),'provider_corrections':['whmd->wmhd','beta_normal->beta_tor_normal']}
+          (out/'STATE_V2_GATHER_CERTIFICATE_P065.json').write_text(json.dumps(cert,indent=2,sort_keys=True)+'\n')
+          PY
+      - name: Hash gather
+        run: find p065-state-v2-gather -type f ! -name SHA256SUMS.txt -print0 | sort -z | xargs -0 sha256sum > p065-state-v2-gather/SHA256SUMS.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: p065-state-v2-gather
+          path: p065-state-v2-gather
+          retention-days: 1
