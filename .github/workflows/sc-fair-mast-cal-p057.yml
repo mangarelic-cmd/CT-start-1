@@ -1,155 +1,18 @@
-name: SC FAIR-MAST P057 CAL10
+name: SC FAIR-MAST P057 CAL10 — FROZEN
 
 on:
-  push:
-    branches: [sc-fair-mast-p057]
   workflow_dispatch:
 
 permissions:
   contents: read
 
 jobs:
-  fair-mast-cal10:
+  frozen-cal-record:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
-      - name: Install FAIR-MAST reader
-        run: python -m pip install --disable-pip-version-check 'numpy>=1.26' 'pandas>=2.0' 'xarray[io]>=2024.1' 'zarr>=3.0' 's3fs>=2025.3.0'
-      - name: Acquire CAL10 only and freeze fit
-        shell: bash
-        run: |
-          set -euo pipefail
-          mkdir -p p057-fair-mast-cal
-          python - <<'PY'
-          import hashlib, json, traceback
-          from pathlib import Path
-          import numpy as np
-          import pandas as pd
-          import xarray as xr
-          import s3fs
-
-          OUT=Path('p057-fair-mast-cal')
-          ENDPOINT='https://s3.echo.stfc.ac.uk'
-          CAL=[
-              (11766,'M5','train'),(13038,'M5','train'),(14804,'M6','train'),
-              (16195,'M6','train'),(17664,'M6','validation'),(19382,'M7','train'),
-              (20880,'M7','validation'),(22308,'M7','train'),(24143,'M7','train'),
-              (25365,'Unknown','train')]
-          CT_B=1.0/3.0
-          fs=s3fs.S3FileSystem(anon=True, client_kwargs={'endpoint_url':ENDPOINT})
-
-          def jdefault(x):
-              if isinstance(x,np.generic): return x.item()
-              raise TypeError(type(x).__name__)
-
-          receipts=[]; frames=[]
-          for sid,campaign,split in CAL:
-              key=f'mast/level2/shots/{sid}.zarr'
-              rec={'shot_id':sid,'campaign':campaign,'split':split,'source':'FAIR-MAST_LEVEL2',
-                   'source_uri':f's3://{key}','https_uri':f'{ENDPOINT}/{key}',
-                   'source_group':'thomson_scattering','provider_level':'level2',
-                   'provider_processing_notice':'FAIR-MAST level2 may include provider-side cropping/interpolation/calibration; no SC-side interpolation is applied',
-                   'sc_interpolation_used':False}
-              try:
-                  mapper=fs.get_mapper(key)
-                  ds=xr.open_zarr(mapper, group='thomson_scattering', consolidated=None)
-                  if 'n_e' not in ds or 't_e' not in ds:
-                      raise KeyError(f"required vars absent; vars={list(ds.data_vars)}")
-                  ne=ds['n_e']; te=ds['t_e']
-                  ne_dims=list(ne.dims); te_dims=list(te.dims)
-                  rec['n_e_dims']=ne_dims; rec['t_e_dims']=te_dims
-                  rec['n_e_shape']=list(ne.shape); rec['t_e_shape']=list(te.shape)
-                  rec['n_e_attrs']={str(k):str(v) for k,v in ne.attrs.items()}
-                  rec['t_e_attrs']={str(k):str(v) for k,v in te.attrs.items()}
-                  if set(ne_dims)!=set(te_dims):
-                      raise ValueError('DIMENSION_SET_MISMATCH')
-                  if te_dims!=ne_dims: te=te.transpose(*ne_dims)
-                  nv=np.asarray(ne.load().values,dtype=float)
-                  tv=np.asarray(te.load().values,dtype=float)
-                  if nv.shape!=tv.shape: raise ValueError('VALUE_SHAPE_MISMATCH')
-                  save={'n_e':nv,'t_e':tv}
-                  coord_report={}
-                  for d in ne_dims:
-                      if d not in ne.coords or d not in te.coords:
-                          raise ValueError(f'MISSING_COORD:{d}')
-                      nc=np.asarray(ne.coords[d].load().values)
-                      tc=np.asarray(te.coords[d].load().values)
-                      if nc.shape!=tc.shape or not np.array_equal(nc,tc,equal_nan=True):
-                          raise ValueError(f'SOURCE_COORDINATE_MISMATCH:{d}')
-                      save[f'coord_{d}']=nc
-                      coord_report[d]={'shape':list(nc.shape),'dtype':str(nc.dtype)}
-                  rec['coordinates']=coord_report
-                  finite=np.isfinite(nv)&np.isfinite(tv)
-                  pos=finite&(nv>0)&(tv>0)
-                  flat=np.flatnonzero(pos.reshape(-1))
-                  rec['raw_pairs']=int(nv.size); rec['finite_positive_pairs']=int(len(flat))
-                  if len(flat)==0: raise ValueError('NO_FINITE_POSITIVE_PAIRS')
-                  npz=OUT/f'SHOT_{sid}_THOMSON.npz'
-                  np.savez_compressed(npz,**save)
-                  rec['npz']=npz.name
-                  rec['npz_sha256']=hashlib.sha256(npz.read_bytes()).hexdigest()
-                  fn=nv.reshape(-1); ft=tv.reshape(-1)
-                  frames.append(pd.DataFrame({'shot_id':sid,'campaign':campaign,'split':split,
-                                              'n_e':fn[flat],'t_e':ft[flat]}))
-                  # Metadata-only audit of global state group; no TEST bytes involved.
-                  try:
-                      sm=xr.open_zarr(mapper,group='summary',consolidated=None)
-                      rec['summary_vars']=list(sm.data_vars)
-                  except Exception as e:
-                      rec['summary_metadata_error']=f'{type(e).__name__}: {e}'
-                  rec['state']='PAIRED_EXACT'
-              except Exception as e:
-                  rec['state']='FAILED'
-                  rec['error_type']=type(e).__name__; rec['error']=str(e)
-                  rec['traceback']=traceback.format_exc()
-              receipts.append(rec)
-              (OUT/f'SHOT_{sid}_RECEIPT.json').write_text(json.dumps(rec,indent=2,sort_keys=True,default=jdefault)+'\n')
-
-          pairable=[r for r in receipts if r.get('state')=='PAIRED_EXACT']
-          summary={'phase':'CALIBRATION','expected_shots':[x[0] for x in CAL],
-                   'pairable_shots':len(pairable),'failed_shots':len(CAL)-len(pairable),
-                   'admissible_pairs':sum(r.get('finite_positive_pairs',0) for r in pairable),
-                   'test_bytes_read':False,'ct_b':CT_B,'endpoint':ENDPOINT,
-                   'provider':'FAIR-MAST level2','sc_side_interpolation':False}
-          fit=None
-          if len(pairable)>=6:
-              cal=pd.concat(frames,ignore_index=True)
-              x=np.log(cal.n_e.to_numpy(float)); y=np.log(cal.t_e.to_numpy(float))
-              a_ct=float(np.mean(y-CT_B*x))
-              X=np.column_stack([np.ones(len(x)),x])
-              a_free,b_free=np.linalg.lstsq(X,y,rcond=None)[0]
-              a_null=float(np.mean(y))
-              fit={'a_ct':a_ct,'a_free':float(a_free),'b_free':float(b_free),'a_null':a_null,
-                   'ct_b':CT_B,'fit_rows':int(len(cal)),'fit_shots':int(cal.shot_id.nunique()),
-                   'source':'FAIR-MAST_LEVEL2_CAL10','test_bytes_read':False}
-              fp=OUT/'FROZEN_REAL_FIT_P057.json'
-              fp.write_text(json.dumps(fit,indent=2,sort_keys=True)+'\n')
-              fsha=hashlib.sha256(fp.read_bytes()).hexdigest()
-              cert={'certificate_type':'P057_FAIR_MAST_FROZEN_REAL_FIT','fit_sha256':fsha,
-                    'ct_b':CT_B,'fit_shots':fit['fit_shots'],'fit_rows':fit['fit_rows'],
-                    'test_bytes_read':False,'provider':'FAIR-MAST_LEVEL2'}
-              cp=OUT/'FIT_CERTIFICATE_P057.json'; cp.write_text(json.dumps(cert,indent=2,sort_keys=True)+'\n')
-              summary['gate']='PASS_TO_TEST'; summary['fit_certificate_sha256']=hashlib.sha256(cp.read_bytes()).hexdigest()
-          else:
-              summary['gate']='STOP_BEFORE_TEST'
-          (OUT/'CAL_SUMMARY_P057.json').write_text(json.dumps(summary,indent=2,sort_keys=True)+'\n')
-          (OUT/'CAL_RECEIPTS_P057.json').write_text(json.dumps(receipts,indent=2,sort_keys=True,default=jdefault)+'\n')
-          print(json.dumps(summary,indent=2))
-          if len(pairable)<6: raise SystemExit('CALIBRATION_UNDERCOVERED')
-          PY
-      - name: Hash CAL payload
-        if: always()
-        run: |
-          if [ -d p057-fair-mast-cal ]; then find p057-fair-mast-cal -maxdepth 1 -type f ! -name SHA256SUMS_P057.txt -print0 | sort -z | xargs -0 sha256sum > p057-fair-mast-cal/SHA256SUMS_P057.txt; fi
-      - name: Upload CAL artifact
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: p057-fair-mast-cal
-          path: p057-fair-mast-cal
-          if-no-files-found: error
-          retention-days: 1
+      - run: |
+          echo 'CAL10 acquisition is frozen after run 32037972292.'
+          echo 'Frozen source commit: 5bfd965aee14772403a9e00a71f53716e20b9a76'
+          echo 'Fit SHA256: 80a5741fedcdbf39429f4a24e66b8de2169b0a4bee8a1933fbfcad3f4bf922c8'
+          echo 'Certificate SHA256: bb24f629692aeff388d82fa7d342305346c0df6d06ae6cfbcbe0c6f743be6437'
+          echo 'TEST bytes read during CAL: false'
