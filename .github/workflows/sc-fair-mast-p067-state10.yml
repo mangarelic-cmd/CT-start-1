@@ -1,9 +1,9 @@
-name: SC FAIR-MAST P067 STATE10
+name: SC FAIR-MAST P067 STATE10 AUTHORITY
 on:
   push:
     branches: [sc-fair-mast-p057]
     paths: ['.github/workflows/sc-fair-mast-p067-state10.yml']
-permissions: {contents: read}
+permissions: {contents: write}
 jobs:
   shard:
     strategy:
@@ -31,3 +31,30 @@ jobs:
           name: p067-state-${{ matrix.shard }}
           path: p067-state-${{ matrix.shard }}
           retention-days: 1
+  authority:
+    needs: shard
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: {ref: sc-fair-mast-p057}
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: p067-state-*
+          path: P067_STATE_AUTHORITY
+      - name: Seal authority provenance
+        run: |
+          python - <<'PY'
+          import json,os,glob
+          from pathlib import Path
+          root=Path('P067_STATE_AUTHORITY')
+          sums={'schema':'P067_STATE_AUTHORITY_V1','run_id':os.environ.get('GITHUB_RUN_ID'),'head_sha':os.environ.get('GITHUB_SHA'),'artifact_dirs':sorted(p.name for p in root.glob('p067-state-*'))}
+          (root/'RUN_PROVENANCE_P067.json').write_text(json.dumps(sums,indent=2,sort_keys=True)+'\n')
+          PY
+          find P067_STATE_AUTHORITY -type f ! -name SHA256SUMS_FINAL.txt -print0 | sort -z | xargs -0 sha256sum > P067_STATE_AUTHORITY/SHA256SUMS_FINAL.txt
+      - name: Commit authority state packet
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add P067_STATE_AUTHORITY
+          git commit -m 'P067 materialize state completion authority' || exit 0
+          git push origin HEAD:sc-fair-mast-p057
