@@ -1,0 +1,440 @@
+[
+  {
+    "coverage": {
+      "equilibrium.beta_normal": {
+        "coverage": 0.0,
+        "status": "ABSENT_VAR"
+      },
+      "equilibrium.beta_pol": {
+        "coverage": 0.8,
+        "source_points": 115,
+        "status": "OK"
+      },
+      "equilibrium.beta_tor": {
+        "coverage": 0.8,
+        "source_points": 115,
+        "status": "OK"
+      },
+      "equilibrium.elongation": {
+        "coverage": 0.8,
+        "source_points": 115,
+        "status": "OK"
+      },
+      "equilibrium.li": {
+        "coverage": 0.8,
+        "source_points": 115,
+        "status": "OK"
+      },
+      "equilibrium.major_radius": {
+        "coverage": 0.0,
+        "status": "NON_1D:[65]:ntime=115"
+      },
+      "equilibrium.minor_radius": {
+        "coverage": 0.8,
+        "source_points": 115,
+        "status": "OK"
+      },
+      "equilibrium.q95": {
+        "coverage": 0.8,
+        "source_points": 115,
+        "status": "OK"
+      },
+      "equilibrium.q_axis": {
+        "coverage": 0.8,
+        "source_points": 115,
+        "status": "OK"
+      },
+      "equilibrium.triangularity_lower": {
+        "coverage": 0.8,
+        "source_points": 115,
+        "status": "OK"
+      },
+      "equilibrium.triangularity_upper": {
+        "coverage": 0.8,
+        "source_points": 115,
+        "status": "OK"
+      },
+      "equilibrium.vloop_dynamic": {
+        "coverage": 0.8,
+        "source_points": 115,
+        "status": "OK"
+      },
+      "equilibrium.vloop_static": {
+        "coverage": 0.8,
+        "source_points": 115,
+        "status": "OK"
+      },
+      "equilibrium.whmd": {
+        "coverage": 0.0,
+        "status": "ABSENT_VAR"
+      },
+      "gas_injection.inboard_total": {
+        "coverage": 0.9894736842105263,
+        "source_points": 11346,
+        "status": "OK"
+      },
+      "gas_injection.outboard_total": {
+        "coverage": 0.9894736842105263,
+        "source_points": 11346,
+        "status": "OK"
+      },
+      "gas_injection.pressure": {
+        "coverage": 0.9894736842105263,
+        "source_points": 11346,
+        "status": "OK"
+      },
+      "gas_injection.total_injected": {
+        "coverage": 0.9894736842105263,
+        "source_points": 11346,
+        "status": "OK"
+      },
+      "magnetics.ip": {
+        "coverage": 0.9894736842105263,
+        "source_points": 2838,
+        "status": "OK"
+      },
+      "spectrometer_visible.density_gradient": {
+        "coverage": 0.9894736842105263,
+        "source_points": 23862,
+        "status": "OK"
+      },
+      "spectrometer_visible.filter_spectrometer_bes_voltage": {
+        "coverage": 0.0,
+        "status": "ABSENT_VAR"
+      },
+      "spectrometer_visible.filter_spectrometer_dalpha_voltage": {
+        "coverage": 0.0,
+        "status": "NON_1D:[3, 23862]:ntime=23862"
+      },
+      "summary.greenwald_density": {
+        "coverage": 0.8,
+        "source_points": 569,
+        "status": "OK"
+      },
+      "summary.ip": {
+        "coverage": 0.9894736842105263,
+        "source_points": 569,
+        "status": "OK"
+      },
+      "summary.line_average_n_e": {
+        "coverage": 0.9894736842105263,
+        "source_points": 569,
+        "status": "OK"
+      },
+      "summary.neutron_rates_total": {
+        "coverage": 0.9894736842105263,
+        "source_points": 569,
+        "status": "OK"
+      },
+      "summary.power_nbi": {
+        "coverage": 0.9894736842105263,
+        "source_points": 569,
+        "status": "OK"
+      },
+      "summary.power_radiated": {
+        "coverage": 0.9894736842105263,
+        "source_points": 569,
+        "status": "OK"
+      }
+    },
+    "ne_loaded": false,
+    "ne_variable_present_but_not_loaded": true,
+    "shot_id": 24136,
+    "status": "OK",
+    "te_loaded": false,
+    "te_variable_present_but_not_loaded": true,
+    "thomson_times": 95,
+    "unknown_is_zero": false
+  },
+  {
+    "coverage": {
+      "equilibrium.beta_normal": {
+        "coverage": 0.0,
+        "status": "ABSENT_VAR"
+      },
+      "equilibrium.beta_pol": {
+        "coverage": 0.7647058823529411,
+        "source_points": 122,
+        "status": "OK"
+      },
+      "equilibrium.beta_tor": {
+        "coverage": 0.7647058823529411,
+        "source_points": 122,
+        "status": "OK"
+      },
+      "equilibrium.elongation": {
+        "coverage": 0.7647058823529411,
+        "source_points": 122,
+        "status": "OK"
+      },
+      "equilibrium.li": {
+        "coverage": 0.7647058823529411,
+        "source_points": 122,
+        "status": "OK"
+      },
+      "equilibrium.major_radius": {
+        "coverage": 0.0,
+        "status": "NON_1D:[65]:ntime=122"
+      },
+      "equilibrium.minor_radius": {
+        "coverage": 0.7647058823529411,
+        "source_points": 122,
+        "status": "OK"
+      },
+      "equilibrium.q95": {
+        "coverage": 0.7647058823529411,
+        "source_points": 122,
+        "status": "OK"
+      },
+      "equilibrium.q_axis": {
+        "coverage": 0.7647058823529411,
+        "source_points": 122,
+        "status": "OK"
+      },
+      "equilibrium.triangularity_lower": {
+        "coverage": 0.7647058823529411,
+        "source_points": 122,
+        "status": "OK"
+      },
+      "equilibrium.triangularity_upper": {
+        "coverage": 0.7647058823529411,
+        "source_points": 122,
+        "status": "OK"
+      },
+      "equilibrium.vloop_dynamic": {
+        "coverage": 0.7647058823529411,
+        "source_points": 122,
+        "status": "OK"
+      },
+      "equilibrium.vloop_static": {
+        "coverage": 0.7647058823529411,
+        "source_points": 122,
+        "status": "OK"
+      },
+      "equilibrium.whmd": {
+        "coverage": 0.0,
+        "status": "ABSENT_VAR"
+      },
+      "gas_injection.inboard_total": {
+        "coverage": 0.9901960784313726,
+        "source_points": 12018,
+        "status": "OK"
+      },
+      "gas_injection.outboard_total": {
+        "coverage": 0.9901960784313726,
+        "source_points": 12018,
+        "status": "OK"
+      },
+      "gas_injection.pressure": {
+        "coverage": 0.9901960784313726,
+        "source_points": 12018,
+        "status": "OK"
+      },
+      "gas_injection.total_injected": {
+        "coverage": 0.9901960784313726,
+        "source_points": 12018,
+        "status": "OK"
+      },
+      "magnetics.ip": {
+        "coverage": 0.9901960784313726,
+        "source_points": 3006,
+        "status": "OK"
+      },
+      "spectrometer_visible.density_gradient": {
+        "coverage": 0.7843137254901961,
+        "source_points": 25542,
+        "status": "OK"
+      },
+      "spectrometer_visible.filter_spectrometer_bes_voltage": {
+        "coverage": 0.0,
+        "status": "ABSENT_VAR"
+      },
+      "spectrometer_visible.filter_spectrometer_dalpha_voltage": {
+        "coverage": 0.0,
+        "status": "NON_1D:[3, 25542]:ntime=25542"
+      },
+      "summary.greenwald_density": {
+        "coverage": 0.7647058823529411,
+        "source_points": 602,
+        "status": "OK"
+      },
+      "summary.ip": {
+        "coverage": 0.9901960784313726,
+        "source_points": 602,
+        "status": "OK"
+      },
+      "summary.line_average_n_e": {
+        "coverage": 0.9509803921568627,
+        "source_points": 602,
+        "status": "OK"
+      },
+      "summary.neutron_rates_total": {
+        "coverage": 0.9901960784313726,
+        "source_points": 602,
+        "status": "OK"
+      },
+      "summary.power_nbi": {
+        "coverage": 0.9901960784313726,
+        "source_points": 602,
+        "status": "OK"
+      },
+      "summary.power_radiated": {
+        "coverage": 0.9901960784313726,
+        "source_points": 602,
+        "status": "OK"
+      }
+    },
+    "ne_loaded": false,
+    "ne_variable_present_but_not_loaded": true,
+    "shot_id": 15570,
+    "status": "OK",
+    "te_loaded": false,
+    "te_variable_present_but_not_loaded": true,
+    "thomson_times": 102,
+    "unknown_is_zero": false
+  },
+  {
+    "coverage": {
+      "equilibrium.beta_normal": {
+        "coverage": 0.0,
+        "status": "ABSENT_VAR"
+      },
+      "equilibrium.beta_pol": {
+        "coverage": 0.7297297297297297,
+        "source_points": 94,
+        "status": "OK"
+      },
+      "equilibrium.beta_tor": {
+        "coverage": 0.7297297297297297,
+        "source_points": 94,
+        "status": "OK"
+      },
+      "equilibrium.elongation": {
+        "coverage": 0.7297297297297297,
+        "source_points": 94,
+        "status": "OK"
+      },
+      "equilibrium.li": {
+        "coverage": 0.7297297297297297,
+        "source_points": 94,
+        "status": "OK"
+      },
+      "equilibrium.major_radius": {
+        "coverage": 0.0,
+        "status": "NON_1D:[65]:ntime=94"
+      },
+      "equilibrium.minor_radius": {
+        "coverage": 0.7297297297297297,
+        "source_points": 94,
+        "status": "OK"
+      },
+      "equilibrium.q95": {
+        "coverage": 0.7297297297297297,
+        "source_points": 94,
+        "status": "OK"
+      },
+      "equilibrium.q_axis": {
+        "coverage": 0.7297297297297297,
+        "source_points": 94,
+        "status": "OK"
+      },
+      "equilibrium.triangularity_lower": {
+        "coverage": 0.7297297297297297,
+        "source_points": 94,
+        "status": "OK"
+      },
+      "equilibrium.triangularity_upper": {
+        "coverage": 0.7297297297297297,
+        "source_points": 94,
+        "status": "OK"
+      },
+      "equilibrium.vloop_dynamic": {
+        "coverage": 0.7297297297297297,
+        "source_points": 94,
+        "status": "OK"
+      },
+      "equilibrium.vloop_static": {
+        "coverage": 0.7297297297297297,
+        "source_points": 94,
+        "status": "OK"
+      },
+      "equilibrium.whmd": {
+        "coverage": 0.0,
+        "status": "ABSENT_VAR"
+      },
+      "gas_injection.inboard_total": {
+        "coverage": 0.9864864864864865,
+        "source_points": 9277,
+        "status": "OK"
+      },
+      "gas_injection.outboard_total": {
+        "coverage": 0.9864864864864865,
+        "source_points": 9277,
+        "status": "OK"
+      },
+      "gas_injection.pressure": {
+        "coverage": 0.0,
+        "status": "ABSENT_VAR"
+      },
+      "gas_injection.total_injected": {
+        "coverage": 0.0,
+        "status": "ABSENT_VAR"
+      },
+      "magnetics.ip": {
+        "coverage": 0.9864864864864865,
+        "source_points": 2320,
+        "status": "OK"
+      },
+      "spectrometer_visible.density_gradient": {
+        "coverage": 0.9864864864864865,
+        "source_points": 18691,
+        "status": "OK"
+      },
+      "spectrometer_visible.filter_spectrometer_bes_voltage": {
+        "coverage": 0.0,
+        "status": "ABSENT_VAR"
+      },
+      "spectrometer_visible.filter_spectrometer_dalpha_voltage": {
+        "coverage": 0.0,
+        "status": "NON_1D:[3, 18691]:ntime=18691"
+      },
+      "summary.greenwald_density": {
+        "coverage": 0.7297297297297297,
+        "source_points": 465,
+        "status": "OK"
+      },
+      "summary.ip": {
+        "coverage": 0.9864864864864865,
+        "source_points": 465,
+        "status": "OK"
+      },
+      "summary.line_average_n_e": {
+        "coverage": 0.9864864864864865,
+        "source_points": 465,
+        "status": "OK"
+      },
+      "summary.neutron_rates_total": {
+        "coverage": 0.0,
+        "status": "ABSENT_VAR"
+      },
+      "summary.power_nbi": {
+        "coverage": 0.9864864864864865,
+        "source_points": 465,
+        "status": "OK"
+      },
+      "summary.power_radiated": {
+        "coverage": 0.9864864864864865,
+        "source_points": 465,
+        "status": "OK"
+      }
+    },
+    "ne_loaded": false,
+    "ne_variable_present_but_not_loaded": true,
+    "shot_id": 13905,
+    "status": "OK",
+    "te_loaded": false,
+    "te_variable_present_but_not_loaded": true,
+    "thomson_times": 74,
+    "unknown_is_zero": false
+  }
+]

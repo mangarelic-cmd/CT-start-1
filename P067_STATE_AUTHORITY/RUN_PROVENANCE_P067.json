@@ -1,0 +1,17 @@
+{
+  "artifact_dirs": [
+    "p067-state-0",
+    "p067-state-1",
+    "p067-state-2",
+    "p067-state-3",
+    "p067-state-4",
+    "p067-state-5",
+    "p067-state-6",
+    "p067-state-7",
+    "p067-state-8",
+    "p067-state-9"
+  ],
+  "head_sha": "039ee7df52e5141f9bb42f8b271c80817148e585",
+  "run_id": "32076525764",
+  "schema": "P067_STATE_AUTHORITY_V1"
+}

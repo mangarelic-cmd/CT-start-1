@@ -1,0 +1,16 @@
+{
+  "failed_shots": 0,
+  "ne_loaded_anywhere": false,
+  "nshard": 10,
+  "requested_ids": [
+    27411,
+    15052,
+    22213
+  ],
+  "rows": 277,
+  "schema": "P067_PRETE_STATE_COMPLETION_V1",
+  "shard": 0,
+  "successful_shots": 3,
+  "te_loaded_anywhere": false,
+  "unknown_is_zero": false
+}
