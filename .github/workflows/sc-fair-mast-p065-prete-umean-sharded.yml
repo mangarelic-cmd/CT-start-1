@@ -1,0 +1,71 @@
+name: SC FAIR-MAST P065 PRETE UMEAN SHARDED
+on:
+  push:
+    branches: [sc-fair-mast-p057]
+    paths: ['.github/workflows/sc-fair-mast-p065-prete-umean-sharded.yml']
+permissions: {contents: read}
+jobs:
+  shard:
+    strategy:
+      fail-fast: false
+      matrix: {shard: [0,1,2,3,4,5,6,7,8,9]}
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    env: {SHARD: '${{ matrix.shard }}'}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: python -m pip install --disable-pip-version-check 'numpy>=1.26' 'pandas>=2.0' 'xarray[io]>=2024.1' 'zarr>=3.0' 's3fs>=2025.3.0'
+      - name: Strict pre-Te coordinate shard
+        run: |
+          python - <<'PY'
+          import os,traceback
+          from pathlib import Path
+          import numpy as np,pandas as pd,xarray as xr,s3fs
+          ALL=[15340,18743,23457,17921,17098,12168,13365,24821,27731,13797,13632,20708,15325,24896,24619,16265,20107,17820,18578,16396,17994,21066,13696,14621,20508,15109,22657,23530,20036,17823]
+          sh=int(os.environ['SHARD']);shots=[s for i,s in enumerate(ALL) if i%10==sh];MU=1198323.3541824967;SD=1182370.4221535327;L=np.log(1e19)
+          fs=s3fs.S3FileSystem(anon=True,client_kwargs={'endpoint_url':'https://s3.echo.stfc.ac.uk'});rows=[]
+          def gt(ds):
+            if 'time' in ds.coords:return np.asarray(ds.coords['time'].load().values,float).reshape(-1)
+            if 'time' in ds:return np.asarray(ds['time'].load().values,float).reshape(-1)
+            for c in ds.coords:
+              if 'time' in c.lower():return np.asarray(ds.coords[c].load().values,float).reshape(-1)
+            raise KeyError('NO_TIME')
+          def ori(v,t):
+            a=np.asarray(v.load().values,float);d=list(v.dims)
+            if 'time' in d:a=np.moveaxis(a,d.index('time'),-1)
+            elif a.shape[-1]==len(t):pass
+            elif a.shape[0]==len(t):a=np.moveaxis(a,0,-1)
+            else:raise ValueError('NO_TIME_AXIS')
+            return a.reshape((-1,len(t)))
+          def ser(ds,v):
+            t=gt(ds);a=np.squeeze(np.asarray(ds[v].load().values,float));
+            if a.ndim!=1 or len(a)!=len(t):raise ValueError('BAD_'+v)
+            return t,a
+          def ip(t,v,q):
+            m=np.isfinite(t)&np.isfinite(v);t=t[m];v=v[m]
+            if len(t)<2:return np.full(len(q),np.nan)
+            o=np.argsort(t);t=t[o];v=v[o];t,ix=np.unique(t,return_index=True);v=v[ix];z=np.interp(q,t,v,left=np.nan,right=np.nan);z[(q<t[0])|(q>t[-1])]=np.nan;return z
+          for sid in shots:
+            r={'shot_id':sid,'te_loaded':False,'status':'OPEN'}
+            try:
+              mp=fs.get_mapper(f'mast/level2/shots/{sid}.zarr');th=xr.open_zarr(mp,group='thomson_scattering',consolidated=None);tt=gt(th);ne=ori(th['n_e'],tt);su=xr.open_zarr(mp,group='summary',consolidated=None);tg,vg=ser(su,'greenwald_density');tn,vn=ser(su,'power_nbi');gw=ip(tg,vg,tt);nb=ip(tn,vn,tt);ub=[];gb=[];npnt=0
+              for j in range(len(tt)):
+                if not(np.isfinite(gw[j]) and gw[j]>0 and np.isfinite(nb[j])):continue
+                m=np.isfinite(ne[:,j])&(ne[:,j]>0)
+                if not m.any():continue
+                x=np.log(ne[m,j]);u=(x-L)-(4/3)*(np.log(gw[j])-L)-(1/5)*((nb[j]-MU)/SD)+4/3;u0=float(np.median(u));ub.append(u0);gb.append(float(1/(1+np.exp(-np.clip(7*u0,-60,60)))));npnt+=int(m.sum())
+              if not ub:raise ValueError('NO_PRETE')
+              r.update({'status':'USABLE','n_times':len(ub),'n_ne_points':npnt,'u_time_mean':float(np.mean(ub)),'u_time_median':float(np.median(ub)),'u_time_std':float(np.std(ub)),'gate_time_mean':float(np.mean(gb))})
+            except Exception as e:r.update({'status':'FAILED','error_type':type(e).__name__,'error':str(e)})
+            rows.append(r)
+          out=Path(f'p065-prete-{sh}');out.mkdir();pd.DataFrame(rows).to_csv(out/f'PRETE_{sh}.csv',index=False)
+          PY
+      - name: Hash
+        run: find p065-prete-$SHARD -type f ! -name SHA256SUMS.txt -print0 | sort -z | xargs -0 sha256sum > p065-prete-$SHARD/SHA256SUMS.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: p065-prete-${{ matrix.shard }}
+          path: p065-prete-${{ matrix.shard }}
+          retention-days: 1
