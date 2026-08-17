@@ -1,0 +1,48 @@
+name: SC FAIR-MAST P064 NEONLY RETRY4
+on:
+  push:
+    branches: [sc-fair-mast-p057]
+    paths: ['.github/workflows/sc-fair-mast-p064-neonly-retry4.yml']
+permissions: {contents: read}
+jobs:
+  retry4:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: python -m pip install --disable-pip-version-check 'numpy>=1.26' 'pandas>=2.0' 'xarray[io]>=2024.1' 'zarr>=3.0' 's3fs>=2025.3.0'
+      - name: Build NE-only retry
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+          s=Path('scripts/p064_m6_self_gate_fresh_score.py').read_text()
+          s=s.replace("SHARD=int(os.environ['SHARD']);NS=10","SHARD=0;NS=1")
+          s=re.sub(r"PRIMARY=\[[^\n]*\]\n","PRIMARY=[17921,24896,14621,17823]\n",s,count=1)
+          old="""   m=np.isfinite(ne[:,j])&np.isfinite(te[:,j])&(ne[:,j]>0)&(te[:,j]>0)\n   if not m.any():continue\n   xj=np.log(ne[m,j]); yj=np.log(te[m,j]); zn5=(nbi[j]-MU_N5)/SD_N5\n   uj=(xj-L)-(4/3)*(np.log(g[j])-L)-(1/5)*zn5+4/3\n   ubar=float(np.median(uj)); gate=1/(1+np.exp(-np.clip(7*ubar,-60,60)))\n   X.append(xj);Y.append(yj);G.append(np.full(m.sum(),g[j]));N.append(np.full(m.sum(),nbi[j]));T.append(np.full(m.sum(),t));GA.append(np.full(m.sum(),gate))\n"""
+          new="""   mg=np.isfinite(ne[:,j])&(ne[:,j]>0)\n   if not mg.any():continue\n   xg=np.log(ne[mg,j]); zn5=(nbi[j]-MU_N5)/SD_N5\n   ug=(xg-L)-(4/3)*(np.log(g[j])-L)-(1/5)*zn5+4/3\n   ubar=float(np.median(ug)); gate=1/(1+np.exp(-np.clip(7*ubar,-60,60)))\n   m=mg&np.isfinite(te[:,j])&(te[:,j]>0)\n   if not m.any():continue\n   xj=np.log(ne[m,j]); yj=np.log(te[m,j])\n   X.append(xj);Y.append(yj);G.append(np.full(m.sum(),g[j]));N.append(np.full(m.sum(),nbi[j]));T.append(np.full(m.sum(),t));GA.append(np.full(m.sum(),gate))\n"""
+          if old not in s: raise SystemExit('FAIL_CLOSED target mask block absent')
+          s=s.replace(old,new,1)
+          s=s.replace("OUT=Path(f'p064-primary-{SHARD}')","OUT=Path('p064-neonly-retry4')",1)
+          s=s.replace("'P064_FRESH_PRIMARY'","'P064_FRESH_NEONLY_RETRY4'",1)
+          s=s.replace("'model_id':'M6_SELF_GATED_EXACT_SATURATION'","'model_id':'M6_SELF_GATED_EXACT_SATURATION_NEONLY','gate_target_availability_used':False",1)
+          s=s.replace("SHOT_{sid}_P064_RAW_SCORE_PACKET.npz","SHOT_{sid}_P064_NEONLY_RAW_SCORE_PACKET.npz",1)
+          s=s.replace("(OUT/f'RECEIPTS_{SHARD}.json')","(OUT/'RECEIPTS_NEONLY_RETRY4.json')",1)
+          s=s.replace("(OUT/f'SUMMARY_{SHARD}.json')","(OUT/'SUMMARY_NEONLY_RETRY4.json')",1)
+          Path('/tmp/retry.py').write_text(s)
+          PY
+          python /tmp/retry.py
+      - name: Certify
+        if: always()
+        run: |
+          cp /tmp/retry.py p064-neonly-retry4/AUTHORITY_SCORER_NEONLY_RETRY4.py
+          printf '%s\n' '{"authority":"CORRECTED_NEONLY_GATE_RETRY","shots":[17921,24896,14621,17823],"gate_target_availability_used":false,"refit":false,"retune":false}' > p064-neonly-retry4/GATE_FIREWALL_CERTIFICATE.json
+          find p064-neonly-retry4 -type f ! -name SHA256SUMS.txt -print0 | sort -z | xargs -0 sha256sum > p064-neonly-retry4/SHA256SUMS.txt
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: p064-neonly-retry4
+          path: p064-neonly-retry4
+          retention-days: 1
