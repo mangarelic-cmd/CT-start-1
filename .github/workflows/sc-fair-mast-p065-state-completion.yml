@@ -1,0 +1,91 @@
+name: SC FAIR-MAST P065 STATE COMPLETION
+on:
+  push:
+    branches: [sc-fair-mast-p057]
+    paths: ['.github/workflows/sc-fair-mast-p065-state-completion.yml']
+permissions: {contents: read}
+jobs:
+  state:
+    strategy:
+      fail-fast: false
+      matrix:
+        shot: [15340,18743,23457,17921,17098,12168,13365,24821,27731,13797,13632,20708,15325,24896,24619,16265,20107,17820,18578,16396,17994,21066,13696,14621,20508,15109,22657,23530,20036,17823]
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    env: {SHOT: '${{ matrix.shot }}'}
+    steps:
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - name: Install FAIR-MAST reader
+        run: python -m pip install --disable-pip-version-check 'numpy>=1.26' 'pandas>=2.0' 'xarray[io]>=2024.1' 'zarr>=3.0' 's3fs>=2025.3.0'
+      - name: Materialize pre-Te state
+        run: |
+          python - <<'PY'
+          import os,json,traceback
+          from pathlib import Path
+          import numpy as np,pandas as pd,xarray as xr,s3fs
+          sid=int(os.environ['SHOT']); out=Path(f'p065-state-{sid}'); out.mkdir(exist_ok=True)
+          fs=s3fs.S3FileSystem(anon=True,client_kwargs={'endpoint_url':'https://s3.echo.stfc.ac.uk'})
+          mp=fs.get_mapper(f'mast/level2/shots/{sid}.zarr')
+          rec={'shot_id':sid,'te_loaded':False,'unknown_is_zero':False,'groups':{},'status':'OPEN'}
+          def gettime(ds):
+            if 'time' in ds.coords:return np.asarray(ds.coords['time'].load().values,float).reshape(-1)
+            if 'time' in ds:return np.asarray(ds['time'].load().values,float).reshape(-1)
+            for c in ds.coords:
+              if 'time' in c.lower():return np.asarray(ds.coords[c].load().values,float).reshape(-1)
+            return None
+          def one_dim(ds,v):
+            try:
+              a=np.squeeze(np.asarray(ds[v].load().values,float)); t=gettime(ds)
+              if t is None or a.ndim!=1 or len(a)!=len(t):return None,None
+              return t,a
+            except:return None,None
+          def interp(t,v,q):
+            m=np.isfinite(t)&np.isfinite(v);t=np.asarray(t)[m];v=np.asarray(v)[m]
+            if len(t)<2:return np.full(len(q),np.nan)
+            o=np.argsort(t);t=t[o];v=v[o];t,ix=np.unique(t,return_index=True);v=v[ix]
+            z=np.interp(q,t,v,left=np.nan,right=np.nan); z[(q<t[0])|(q>t[-1])]=np.nan; return z
+          try:
+            th=xr.open_zarr(mp,group='thomson_scattering',consolidated=None)
+            tt=gettime(th)
+            if tt is None: raise ValueError('NO_THOMSON_TIME')
+            rows={'time_s':tt}
+            wanted={
+              'summary':['ip','line_average_n_e','power_nbi','power_radiated','greenwald_density'],
+              'equilibrium':['q95','whmd','beta_normal','beta_pol','beta_tor','vloop_dynamic','vloop_static'],
+              'magnetics':['ip']
+            }
+            for grp,vars0 in wanted.items():
+              try:
+                ds=xr.open_zarr(mp,group=grp,consolidated=None)
+                present=list(ds.data_vars)
+                rec['groups'][grp]={'opened':True,'present_vars':present,'requested':vars0,'materialized':{}}
+                for v in vars0:
+                  if v not in ds:
+                    rec['groups'][grp]['materialized'][v]={'status':'ABSENT_IN_GROUP'}; continue
+                  t,a=one_dim(ds,v)
+                  if t is None:
+                    rec['groups'][grp]['materialized'][v]={'status':'NON_1D_OR_NO_TIME'}; continue
+                  z=interp(t,a,tt); key=f'{grp}.{v}'; rows[key]=z
+                  f=np.isfinite(z); d={'status':'OK' if f.any() else 'UNKNOWN_NO_OVERLAP','finite':int(f.sum()),'coverage':float(f.mean())}
+                  if f.any():
+                    y=z[f];d.update({'mean':float(np.mean(y)),'median':float(np.median(y)),'std':float(np.std(y)),'q10':float(np.quantile(y,.1)),'q90':float(np.quantile(y,.9)),'min':float(np.min(y)),'max':float(np.max(y))})
+                  rec['groups'][grp]['materialized'][v]=d
+              except Exception as e:
+                rec['groups'][grp]={'opened':False,'error_type':type(e).__name__,'error':str(e),'requested':vars0}
+            pd.DataFrame(rows).to_csv(out/f'SHOT_{sid}_STATE_TIMESERIES_P065.csv',index=False)
+            rec['status']='MATERIALIZED'
+          except Exception as e:
+            rec.update({'status':'FAILED','error_type':type(e).__name__,'error':str(e),'traceback':traceback.format_exc()})
+          (out/f'SHOT_{sid}_STATE_RECEIPT_P065.json').write_text(json.dumps(rec,indent=2,sort_keys=True)+'\n')
+          print(json.dumps({'shot':sid,'status':rec['status'],'groups':{k:v.get('opened') for k,v in rec.get('groups',{}).items()}},indent=2))
+          PY
+      - name: Hash
+        if: always()
+        run: find p065-state-$SHOT -type f ! -name SHA256SUMS.txt -print0 | sort -z | xargs -0 sha256sum > p065-state-$SHOT/SHA256SUMS.txt
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: p065-state-${{ matrix.shot }}
+          path: p065-state-${{ matrix.shot }}
+          retention-days: 1
