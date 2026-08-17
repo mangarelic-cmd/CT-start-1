@@ -1,49 +1,9 @@
 name: SC FAIR-MAST P063 FRESH FREEZE
-on:
-  push:
-    branches: [sc-fair-mast-p057]
-    paths: ['.github/workflows/sc-fair-mast-p063-fresh-freeze.yml']
+on: workflow_dispatch
 permissions: {contents: read}
 jobs:
   freeze:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/setup-python@v5
-        with: {python-version: '3.12'}
-      - name: Freeze untouched heldout from pinned availability only
-        run: |
-          mkdir -p p063-freeze
-          python - <<'PY'
-          import csv,io,json,hashlib,urllib.request
-          from pathlib import Path
-          OUT=Path('p063-freeze')
-          COMMIT='1a200f4588addaad2ae3d53d438d9e1946c09294'
-          PATH='src/MAST_tools/metadata/signal_availability.csv'
-          URL=f'https://raw.githubusercontent.com/UKAEA-IBM-STFC-Fusion-FMs/tokamark/{COMMIT}/{PATH}'
-          raw=urllib.request.urlopen(URL,timeout=60).read(); source_sha256=hashlib.sha256(raw).hexdigest()
-          rows=list(csv.DictReader(io.StringIO(raw.decode('utf-8'))))
-          EX={11766,12010,12080,12088,12202,12228,12232,12460,12474,12901,12931,12964,13038,13093,13094,13108,13274,13430,13479,13557,13583,13644,13742,13766,13816,13905,14017,14160,14520,14568,14583,14624,14804,15052,15113,15153,15279,15315,15507,15570,15703,15898,15993,16022,16036,16109,16151,16195,16444,16731,16828,16862,17664,17712,17713,17768,17901,17964,17990,17999,18328,18496,18531,19382,19911,20428,20465,20479,20495,20505,20514,20519,20570,20651,20849,20862,20880,20918,21344,21517,21771,21785,21797,21876,21902,21906,21971,22162,22215,22287,22300,22308,22309,22382,22430,22507,22526,23143,23384,23485,23489,23598,23667,23776,24004,24018,24126,24143,24208,24430,24474,24514,24528,24625,24665,24717,24933,25365,25696,25697,26004,26068,26163,26310,26448,26463,26531,26596,26651,26867,26953,27050,27125,27169,27171,27198,27401,27411,27450,27584,27588,27601,27639,27640,27740,27814,27822,28027,28076,28178,28267,28811,28816,28819,28860,28911,28997,29047,29077,29229,29369,29440,29442,29488,29660,29983,30048,30209}
-          NEED=['thomson_scattering-n_e','thomson_scattering-t_e','summary-greenwald_density','summary-power_nbi']
-          yes=lambda v:str(v).strip().upper()=='TRUE'
-          eligible=[]
-          for r in rows:
-            try:s=int(r['shot_id'])
-            except:continue
-            if s in EX:continue
-            if all(yes(r.get(c,'')) for c in NEED):eligible.append(s)
-          seed='SC_FAIR_MAST_P063_FRESH_M5_EXACT_V1'
-          ranked=sorted(eligible,key=lambda s:hashlib.sha256(f'{seed}|{s}'.encode()).hexdigest())
-          primary=ranked[:30]; reserve=ranked[30:50]
-          m={'seed':seed,'source_commit':COMMIT,'source_path':PATH,'source_sha256':source_sha256,'required':NEED,'excluded_count':len(EX),'eligible_count':len(eligible),'primary_shots':primary,'reserve_shots':reserve,'fair_mast_values_read':False,'te_values_read':False,'model_id':'M5_EXACT_STATE_NORMALIZED_SATURATION'}
-          (OUT/'FRESH_HELDOUT_SELECTION_P063.json').write_text(json.dumps(m,indent=2,sort_keys=True)+'\n')
-          (OUT/'FRESH_HELDOUT_CERTIFICATE_P063.json').write_text(json.dumps({'seed':seed,'primary_count':len(primary),'reserve_count':len(reserve),'source_sha256':source_sha256,'values_read':False,'model_id':m['model_id']},indent=2,sort_keys=True)+'\n')
-          print(json.dumps({'eligible':len(eligible),'primary':primary,'reserve':reserve},indent=2))
-          assert len(primary)==30
-          PY
-      - name: Hash freeze
-        run: find p063-freeze -type f ! -name SHA256SUMS.txt -print0 | sort -z | xargs -0 sha256sum > p063-freeze/SHA256SUMS.txt
-      - uses: actions/upload-artifact@v4
-        with:
-          name: p063-freeze
-          path: p063-freeze
-          retention-days: 1
+      - name: Archived
+        run: echo 'P063 fresh freeze archived; authoritative run 32048097742 already sealed.'
