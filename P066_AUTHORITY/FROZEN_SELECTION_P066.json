@@ -1,0 +1,590 @@
+{
+  "candidate_rank": [
+    27411,
+    21333,
+    24432,
+    24136,
+    29420,
+    27042,
+    20013,
+    23626,
+    22399,
+    27276,
+    21971,
+    15052,
+    21825,
+    19911,
+    16022,
+    18076,
+    14624,
+    15315,
+    29369,
+    15570,
+    24126,
+    15133,
+    27935,
+    13816,
+    13479,
+    20918,
+    16139,
+    22213,
+    12010,
+    14373,
+    13905,
+    20505,
+    14612,
+    24430,
+    30468,
+    19955,
+    21707,
+    21906,
+    20479
+  ],
+  "eligible_rank": [
+    27411,
+    21333,
+    24432,
+    24136,
+    29420,
+    27042,
+    20013,
+    23626,
+    22399,
+    21971,
+    15052,
+    14624,
+    29369,
+    15570,
+    24126,
+    15133,
+    27935,
+    13479,
+    20918,
+    16139,
+    22213,
+    12010,
+    14373,
+    13905,
+    20505,
+    14612,
+    24430,
+    30468,
+    21707,
+    20479
+  ],
+  "fresh_Te_values_read_before_freeze": false,
+  "fresh_fair_mast_values_read_before_freeze": false,
+  "metadata_source_commit": "1a200f4588addaad2ae3d53d438d9e1946c09294",
+  "metadata_source_url": "https://raw.githubusercontent.com/UKAEA-IBM-STFC-Fusion-FMs/tokamark/1a200f4588addaad2ae3d53d438d9e1946c09294/src/MAST_tools/metadata/signal_availability.csv",
+  "primary": [
+    27411,
+    21333,
+    24432,
+    24136,
+    29420,
+    27042,
+    20013,
+    23626,
+    22399,
+    21971,
+    15052,
+    14624,
+    29369,
+    15570,
+    24126,
+    15133,
+    27935,
+    13479,
+    20918,
+    16139,
+    22213,
+    12010,
+    14373,
+    13905,
+    20505,
+    14612,
+    24430,
+    30468,
+    21707,
+    20479
+  ],
+  "required_columns": [
+    "thomson_scattering-n_e",
+    "thomson_scattering-t_e",
+    "summary-greenwald_density",
+    "summary-power_nbi",
+    "summary-power_radiated"
+  ],
+  "reserves": [],
+  "schema": "P066_FROZEN_METADATA_ONLY_SELECTION_V1",
+  "selection_rows": [
+    {
+      "eligible": true,
+      "flags": {
+        "summary-greenwald_density": true,
+        "summary-power_nbi": true,
+        "summary-power_radiated": true,
+        "thomson_scattering-n_e": true,
+        "thomson_scattering-t_e": true
+      },
+      "present": true,
+      "shot_id": 27411
+    },
+    {
+      "eligible": true,
+      "flags": {
+        "summary-greenwald_density": true,
+        "summary-power_nbi": true,
+        "summary-power_radiated": true,
+        "thomson_scattering-n_e": true,
+        "thomson_scattering-t_e": true
+      },
+      "present": true,
+      "shot_id": 21333
+    },
+    {
+      "eligible": true,
+      "flags": {
+        "summary-greenwald_density": true,
+        "summary-power_nbi": true,
+        "summary-power_radiated": true,
+        "thomson_scattering-n_e": true,
+        "thomson_scattering-t_e": true
+      },
+      "present": true,
+      "shot_id": 24432
+    },
+    {
+      "eligible": true,
+      "flags": {
+        "summary-greenwald_density": true,
+        "summary-power_nbi": true,
+        "summary-power_radiated": true,
+        "thomson_scattering-n_e": true,
+        "thomson_scattering-t_e": true
+      },
+      "present": true,
+      "shot_id": 24136
+    },
+    {
+      "eligible": true,
+      "flags": {
+        "summary-greenwald_density": true,
+        "summary-power_nbi": true,
+        "summary-power_radiated": true,
+        "thomson_scattering-n_e": true,
+        "thomson_scattering-t_e": true
+      },
+      "present": true,
+      "shot_id": 29420
+    },
+    {
+      "eligible": true,
+      "flags": {
+        "summary-greenwald_density": true,
+        "summary-power_nbi": true,
+        "summary-power_radiated": true,
+        "thomson_scattering-n_e": true,
+        "thomson_scattering-t_e": true
+      },
+      "present": true,
+      "shot_id": 27042
+    },
+    {
+      "eligible": true,
+      "flags": {
+        "summary-greenwald_density": true,
+        "summary-power_nbi": true,
+        "summary-power_radiated": true,
+        "thomson_scattering-n_e": true,
+        "thomson_scattering-t_e": true
+      },
+      "present": true,
+      "shot_id": 20013
+    },
+    {
+      "eligible": true,
+      "flags": {
+        "summary-greenwald_density": true,
+        "summary-power_nbi": true,
+        "summary-power_radiated": true,
+        "thomson_scattering-n_e": true,
+        "thomson_scattering-t_e": true
+      },
+      "present": true,
+      "shot_id": 23626
+    },
+    {
+      "eligible": true,
+      "flags": {
+        "summary-greenwald_density": true,
+        "summary-power_nbi": true,
+        "summary-power_radiated": true,
+        "thomson_scattering-n_e": true,
+        "thomson_scattering-t_e": true
+      },
+      "present": true,
+      "shot_id": 22399
+    },
+    {
+      "eligible": false,
+      "flags": {
+        "summary-greenwald_density": true,
+        "summary-power_nbi": true,
+        "summary-power_radiated": false,
+        "thomson_scattering-n_e": true,
+        "thomson_scattering-t_e": true
+      },
+      "present": true,
+      "shot_id": 27276
+    },
+    {
+      "eligible": true,
+      "flags": {
+        "summary-greenwald_density": true,
+        "summary-power_nbi": true,
+        "summary-power_radiated": true,
+        "thomson_scattering-n_e": true,
+        "thomson_scattering-t_e": true
+      },
+      "present": true,
+      "shot_id": 21971
+    },
+    {
+      "eligible": true,
+      "flags": {
+        "summary-greenwald_density": true,
+        "summary-power_nbi": true,
+        "summary-power_radiated": true,
+        "thomson_scattering-n_e": true,
+        "thomson_scattering-t_e": true
+      },
+      "present": true,
+      "shot_id": 15052
+    },
+    {
+      "eligible": false,
+      "flags": {
+        "summary-greenwald_density": true,
+        "summary-power_nbi": true,
+        "summary-power_radiated": false,
+        "thomson_scattering-n_e": true,
+        "thomson_scattering-t_e": true
+      },
+      "present": true,
+      "shot_id": 21825
+    },
+    {
+      "eligible": false,
+      "flags": {
+        "summary-greenwald_density": true,
+        "summary-power_nbi": true,
+        "summary-power_radiated": false,
+        "thomson_scattering-n_e": true,
+        "thomson_scattering-t_e": true
+      },
+      "present": true,
+      "shot_id": 19911
+    },
+    {
+      "eligible": false,
+      "flags": {
+        "summary-greenwald_density": true,
+        "summary-power_nbi": true,
+        "summary-power_radiated": false,
+        "thomson_scattering-n_e": true,
+        "thomson_scattering-t_e": true
+      },
+      "present": true,
+      "shot_id": 16022
+    },
+    {
+      "eligible": false,
+      "flags": {
+        "summary-greenwald_density": true,
+        "summary-power_nbi": true,
+        "summary-power_radiated": false,
+        "thomson_scattering-n_e": true,
+        "thomson_scattering-t_e": true
+      },
+      "present": true,
+      "shot_id": 18076
+    },
+    {
+      "eligible": true,
+      "flags": {
+        "summary-greenwald_density": true,
+        "summary-power_nbi": true,
+        "summary-power_radiated": true,
+        "thomson_scattering-n_e": true,
+        "thomson_scattering-t_e": true
+      },
+      "present": true,
+      "shot_id": 14624
+    },
+    {
+      "eligible": false,
+      "flags": {
+        "summary-greenwald_density": true,
+        "summary-power_nbi": true,
+        "summary-power_radiated": false,
+        "thomson_scattering-n_e": true,
+        "thomson_scattering-t_e": true
+      },
+      "present": true,
+      "shot_id": 15315
+    },
+    {
+      "eligible": true,
+      "flags": {
+        "summary-greenwald_density": true,
+        "summary-power_nbi": true,
+        "summary-power_radiated": true,
+        "thomson_scattering-n_e": true,
+        "thomson_scattering-t_e": true
+      },
+      "present": true,
+      "shot_id": 29369
+    },
+    {
+      "eligible": true,
+      "flags": {
+        "summary-greenwald_density": true,
+        "summary-power_nbi": true,
+        "summary-power_radiated": true,
+        "thomson_scattering-n_e": true,
+        "thomson_scattering-t_e": true
+      },
+      "present": true,
+      "shot_id": 15570
+    },
+    {
+      "eligible": true,
+      "flags": {
+        "summary-greenwald_density": true,
+        "summary-power_nbi": true,
+        "summary-power_radiated": true,
+        "thomson_scattering-n_e": true,
+        "thomson_scattering-t_e": true
+      },
+      "present": true,
+      "shot_id": 24126
+    },
+    {
+      "eligible": true,
+      "flags": {
+        "summary-greenwald_density": true,
+        "summary-power_nbi": true,
+        "summary-power_radiated": true,
+        "thomson_scattering-n_e": true,
+        "thomson_scattering-t_e": true
+      },
+      "present": true,
+      "shot_id": 15133
+    },
+    {
+      "eligible": true,
+      "flags": {
+        "summary-greenwald_density": true,
+        "summary-power_nbi": true,
+        "summary-power_radiated": true,
+        "thomson_scattering-n_e": true,
+        "thomson_scattering-t_e": true
+      },
+      "present": true,
+      "shot_id": 27935
+    },
+    {
+      "eligible": false,
+      "flags": {
+        "summary-greenwald_density": true,
+        "summary-power_nbi": true,
+        "summary-power_radiated": false,
+        "thomson_scattering-n_e": true,
+        "thomson_scattering-t_e": true
+      },
+      "present": true,
+      "shot_id": 13816
+    },
+    {
+      "eligible": true,
+      "flags": {
+        "summary-greenwald_density": true,
+        "summary-power_nbi": true,
+        "summary-power_radiated": true,
+        "thomson_scattering-n_e": true,
+        "thomson_scattering-t_e": true
+      },
+      "present": true,
+      "shot_id": 13479
+    },
+    {
+      "eligible": true,
+      "flags": {
+        "summary-greenwald_density": true,
+        "summary-power_nbi": true,
+        "summary-power_radiated": true,
+        "thomson_scattering-n_e": true,
+        "thomson_scattering-t_e": true
+      },
+      "present": true,
+      "shot_id": 20918
+    },
+    {
+      "eligible": true,
+      "flags": {
+        "summary-greenwald_density": true,
+        "summary-power_nbi": true,
+        "summary-power_radiated": true,
+        "thomson_scattering-n_e": true,
+        "thomson_scattering-t_e": true
+      },
+      "present": true,
+      "shot_id": 16139
+    },
+    {
+      "eligible": true,
+      "flags": {
+        "summary-greenwald_density": true,
+        "summary-power_nbi": true,
+        "summary-power_radiated": true,
+        "thomson_scattering-n_e": true,
+        "thomson_scattering-t_e": true
+      },
+      "present": true,
+      "shot_id": 22213
+    },
+    {
+      "eligible": true,
+      "flags": {
+        "summary-greenwald_density": true,
+        "summary-power_nbi": true,
+        "summary-power_radiated": true,
+        "thomson_scattering-n_e": true,
+        "thomson_scattering-t_e": true
+      },
+      "present": true,
+      "shot_id": 12010
+    },
+    {
+      "eligible": true,
+      "flags": {
+        "summary-greenwald_density": true,
+        "summary-power_nbi": true,
+        "summary-power_radiated": true,
+        "thomson_scattering-n_e": true,
+        "thomson_scattering-t_e": true
+      },
+      "present": true,
+      "shot_id": 14373
+    },
+    {
+      "eligible": true,
+      "flags": {
+        "summary-greenwald_density": true,
+        "summary-power_nbi": true,
+        "summary-power_radiated": true,
+        "thomson_scattering-n_e": true,
+        "thomson_scattering-t_e": true
+      },
+      "present": true,
+      "shot_id": 13905
+    },
+    {
+      "eligible": true,
+      "flags": {
+        "summary-greenwald_density": true,
+        "summary-power_nbi": true,
+        "summary-power_radiated": true,
+        "thomson_scattering-n_e": true,
+        "thomson_scattering-t_e": true
+      },
+      "present": true,
+      "shot_id": 20505
+    },
+    {
+      "eligible": true,
+      "flags": {
+        "summary-greenwald_density": true,
+        "summary-power_nbi": true,
+        "summary-power_radiated": true,
+        "thomson_scattering-n_e": true,
+        "thomson_scattering-t_e": true
+      },
+      "present": true,
+      "shot_id": 14612
+    },
+    {
+      "eligible": true,
+      "flags": {
+        "summary-greenwald_density": true,
+        "summary-power_nbi": true,
+        "summary-power_radiated": true,
+        "thomson_scattering-n_e": true,
+        "thomson_scattering-t_e": true
+      },
+      "present": true,
+      "shot_id": 24430
+    },
+    {
+      "eligible": true,
+      "flags": {
+        "summary-greenwald_density": true,
+        "summary-power_nbi": true,
+        "summary-power_radiated": true,
+        "thomson_scattering-n_e": true,
+        "thomson_scattering-t_e": true
+      },
+      "present": true,
+      "shot_id": 30468
+    },
+    {
+      "eligible": false,
+      "flags": {
+        "summary-greenwald_density": true,
+        "summary-power_nbi": true,
+        "summary-power_radiated": false,
+        "thomson_scattering-n_e": true,
+        "thomson_scattering-t_e": true
+      },
+      "present": true,
+      "shot_id": 19955
+    },
+    {
+      "eligible": true,
+      "flags": {
+        "summary-greenwald_density": true,
+        "summary-power_nbi": true,
+        "summary-power_radiated": true,
+        "thomson_scattering-n_e": true,
+        "thomson_scattering-t_e": true
+      },
+      "present": true,
+      "shot_id": 21707
+    },
+    {
+      "eligible": false,
+      "flags": {
+        "summary-greenwald_density": true,
+        "summary-power_nbi": true,
+        "summary-power_radiated": false,
+        "thomson_scattering-n_e": true,
+        "thomson_scattering-t_e": true
+      },
+      "present": true,
+      "shot_id": 21906
+    },
+    {
+      "eligible": true,
+      "flags": {
+        "summary-greenwald_density": true,
+        "summary-power_nbi": true,
+        "summary-power_radiated": true,
+        "thomson_scattering-n_e": true,
+        "thomson_scattering-t_e": true
+      },
+      "present": true,
+      "shot_id": 20479
+    }
+  ]
+}
