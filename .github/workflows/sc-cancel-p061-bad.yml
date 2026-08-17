@@ -1,0 +1,14 @@
+name: Cancel P061 Non Authority
+on:
+  push:
+    branches: [sc-fair-mast-p057]
+    paths: ['.github/workflows/sc-cancel-p061-bad.yml']
+permissions:
+  actions: write
+jobs:
+  cancel:
+    runs-on: ubuntu-latest
+    steps:
+      - env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh run cancel 32043804047 --repo mangarelic-cmd/CT-start-1 || true
