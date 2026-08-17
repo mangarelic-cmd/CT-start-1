@@ -1,0 +1,61 @@
+name: SC FAIR-MAST P069 STATE10
+on:
+  push:
+    branches: [sc-fair-mast-p057]
+    paths: ['.github/workflows/sc-fair-mast-p069-state10.yml']
+permissions: {contents: write}
+jobs:
+  shard:
+    strategy:
+      fail-fast: false
+      matrix: {shard: [0,1,2,3,4,5,6,7,8,9]}
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    env: {SHARD: '${{ matrix.shard }}', NS: '10'}
+    steps:
+      - uses: actions/checkout@v4
+        with: {ref: sc-fair-mast-p057}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: python -m pip install --disable-pip-version-check 'numpy>=1.26' 'pandas>=2.0' 'xarray[io]>=2024.1' 'zarr>=3.0' 's3fs>=2025.3.0'
+      - name: Fetch P069 orthogonal state
+        run: python scripts/p069_state_completion_fetch.py
+      - name: Firewall and hashes
+        if: always()
+        run: |
+          mkdir -p p069-state-$SHARD
+          printf '%s\n' 'development_target=P068_ALREADY_OPENED' 'new_te_loaded=NO' 'new_ne_loaded=NO' 'unknown_to_zero=NO' 'state_only=YES' > p069-state-$SHARD/FIREWALL_P069.txt
+          find p069-state-$SHARD -type f ! -name SHA256SUMS.txt -print0 | sort -z | xargs -0 sha256sum > p069-state-$SHARD/SHA256SUMS.txt
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: p069-state-${{ matrix.shard }}
+          path: p069-state-${{ matrix.shard }}
+          retention-days: 1
+  authority:
+    needs: shard
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: {ref: sc-fair-mast-p057}
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: p069-state-*
+          path: P069_STATE_AUTHORITY
+      - name: Seal provenance
+        run: |
+          python - <<'PY'
+          import json,os
+          from pathlib import Path
+          r=Path('P069_STATE_AUTHORITY'); d={'schema':'P069_STATE_AUTHORITY_V1','run_id':os.environ.get('GITHUB_RUN_ID'),'head_sha':os.environ.get('GITHUB_SHA'),'artifact_dirs':sorted(x.name for x in r.glob('p069-state-*'))}
+          (r/'RUN_PROVENANCE_P069.json').write_text(json.dumps(d,indent=2,sort_keys=True)+'\n')
+          PY
+          find P069_STATE_AUTHORITY -type f ! -name SHA256SUMS_FINAL.txt -print0 | sort -z | xargs -0 sha256sum > P069_STATE_AUTHORITY/SHA256SUMS_FINAL.txt
+      - name: Commit authority
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add P069_STATE_AUTHORITY
+          git commit -m 'P069 materialize opened P068 state authority' || exit 0
+          git push origin HEAD:sc-fair-mast-p057
