@@ -1,0 +1,53 @@
+name: SC FAIR-MAST P062 RESERVE1
+on:
+  push:
+    branches: [sc-fair-mast-p057]
+    paths: ['.github/workflows/sc-fair-mast-p062-reserve1.yml']
+  workflow_dispatch:
+permissions: {contents: read}
+jobs:
+  reserve1:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - name: Install reader
+        run: python -m pip install --disable-pip-version-check 'numpy>=1.26' 'pandas>=2.0' 'xarray[io]>=2024.1' 'zarr>=3.0' 's3fs>=2025.3.0'
+      - name: Derive byte-auditable one-shot reserve adapter from frozen primary scorer
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+          s=Path('scripts/p062_fresh_primary_score.py').read_text()
+          s=s.replace("SHARD=int(os.environ['SHARD']); NSHARD=10","SHARD=0; NSHARD=1")
+          s=s.replace("OUT=Path(f'p062-primary-{SHARD}')","OUT=Path('p062-reserve-24018')")
+          s=re.sub(r"PRIMARY=\[[^\n]*\]\n","PRIMARY=[24018]\n",s,count=1)
+          s=s.replace("assert len(PRIMARY)==30 and len(set(PRIMARY))==30","assert PRIMARY==[24018]")
+          s=s.replace("'FRESH_PRIMARY_P062'","'FRESH_RESERVE1_P062'")
+          s=s.replace("PRIMARY_RECEIPTS_SHARD_{SHARD}_P062.json","RESERVE1_RECEIPTS_P062.json")
+          s=s.replace("PRIMARY_SUMMARY_SHARD_{SHARD}_P062.json","RESERVE1_SUMMARY_P062.json")
+          Path('/tmp/p062_reserve1.py').write_text(s)
+          PY
+          SHARD=0 python /tmp/p062_reserve1.py
+      - name: Activation certificate
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path('p062-reserve-24018')
+          d={'activated_shot':24018,'reserve_rank':1,'reason':'primary shot 23776 failed NO_PAIRABLE_STATE_GATED_THOMSON_POINTS','other_reserves_opened':False,'refit':False,'retune':False}
+          (p/'RESERVE1_ACTIVATION_CERTIFICATE_P062.json').write_text(json.dumps(d,indent=2,sort_keys=True)+'\n')
+          PY
+      - name: Hash reserve
+        if: always()
+        run: find p062-reserve-24018 -type f ! -name SHA256SUMS.txt -print0 | sort -z | xargs -0 sha256sum > p062-reserve-24018/SHA256SUMS.txt
+      - name: Upload reserve
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: p062-reserve-24018
+          path: p062-reserve-24018
+          retention-days: 1
+          if-no-files-found: error
