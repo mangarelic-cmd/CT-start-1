@@ -1,0 +1,49 @@
+name: SC FAIR-MAST P064 RESERVE1
+on:
+  push:
+    branches: [sc-fair-mast-p057]
+    paths: ['.github/workflows/sc-fair-mast-p064-reserve1.yml']
+permissions: {contents: read}
+jobs:
+  reserve1:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - name: Install reader
+        run: python -m pip install --disable-pip-version-check 'numpy>=1.26' 'pandas>=2.0' 'xarray[io]>=2024.1' 'zarr>=3.0' 's3fs>=2025.3.0'
+      - name: Derive one-shot adapter from frozen P064 scorer
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+          s=Path('scripts/p064_m6_self_gate_fresh_score.py').read_text()
+          s=s.replace("SHARD=int(os.environ['SHARD']);NS=10","SHARD=0;NS=1")
+          s=re.sub(r"PRIMARY=\[[^\n]*\]\n","PRIMARY=[17823]\n",s,count=1)
+          s=s.replace("OUT=Path(f'p064-primary-{SHARD}')","OUT=Path('p064-reserve-17823')")
+          s=s.replace("'P064_FRESH_PRIMARY'","'P064_FRESH_RESERVE1'")
+          s=s.replace("RECEIPTS_{SHARD}.json","RESERVE1_RECEIPTS_P064.json")
+          s=s.replace("SUMMARY_{SHARD}.json","RESERVE1_SUMMARY_P064.json")
+          Path('/tmp/p064_reserve1.py').write_text(s)
+          PY
+          python /tmp/p064_reserve1.py
+      - name: Activation certificate
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path('p064-reserve-17823')
+          d={'activated_shot':17823,'reserve_rank':1,'reason':'primary shot 23792 failed NO_PAIRABLE_STATE_GATED_THOMSON_POINTS','other_reserves_opened':False,'refit':False,'retune':False,'model_id':'M6_SELF_GATED_EXACT_SATURATION'}
+          (p/'RESERVE1_ACTIVATION_CERTIFICATE_P064.json').write_text(json.dumps(d,indent=2,sort_keys=True)+'\n')
+          PY
+      - name: Hash reserve
+        if: always()
+        run: find p064-reserve-17823 -type f ! -name SHA256SUMS.txt -print0 | sort -z | xargs -0 sha256sum > p064-reserve-17823/SHA256SUMS.txt
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: p064-reserve-17823
+          path: p064-reserve-17823
+          retention-days: 1
