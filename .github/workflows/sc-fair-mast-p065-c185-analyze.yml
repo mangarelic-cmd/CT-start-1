@@ -1,0 +1,133 @@
+name: SC FAIR-MAST P065 C185 ANALYZE
+on:
+  push:
+    branches: [sc-fair-mast-p057]
+    paths: ['.github/workflows/sc-fair-mast-p065-c185-analyze.yml']
+permissions:
+  contents: read
+  actions: read
+jobs:
+  analyze:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: python -m pip install --disable-pip-version-check 'numpy>=1.26' 'pandas>=2.0' 'scikit-learn>=1.5'
+      - name: Download exact P065 V2 state artifacts
+        uses: actions/download-artifact@v4
+        with:
+          pattern: p065-state-v2-*
+          path: p065-state-v2-all
+          merge-multiple: false
+          github-token: '${{ github.token }}'
+          repository: mangarelic-cmd/CT-start-1
+          run-id: 32053301548
+      - name: C185 individual pairwise global fixed point
+        run: |
+          python - <<'PY'
+          import json,glob,math,hashlib
+          from pathlib import Path
+          import numpy as np,pandas as pd
+          from sklearn.linear_model import LogisticRegression
+          from sklearn.pipeline import make_pipeline
+          from sklearn.preprocessing import StandardScaler
+          OUT=Path('p065-c185');OUT.mkdir()
+          base=pd.read_csv('scripts/p065_c185_input_p064.csv')
+          recs=[]
+          for fn in glob.glob('p065-state-v2-all/**/SHOT_*_STATE_V2_RECEIPT_P065.json',recursive=True):
+            r=json.load(open(fn)); row={'shot_id':int(r['shot_id']),'state_status':r.get('status')}
+            for grp,gx in r.get('groups',{}).items():
+              for v,d in gx.get('materialized',{}).items():
+                if d.get('status')=='OK':
+                  for stat in ['median','mean','std']:
+                    if stat in d: row[f'{grp}.{v}.{stat}']=d[stat]
+            recs.append(row)
+          S=pd.DataFrame(recs).drop_duplicates('shot_id')
+          D=base.merge(S,on='shot_id',how='left');D['target']=(D.m6<D.m5).astype(int)
+          D.to_csv(OUT/'C185_JOINED_DEVELOPMENT_P065.csv',index=False)
+          # Exact predeclared minimalist candidate.
+          c_exact=1-math.sqrt(2)
+          pred_exact=(D.u_mean>c_exact).astype(int)
+          mse_exact=float(np.mean(np.where(pred_exact==1,D.m6,D.m5)))
+          # LOO threshold evaluator. Train threshold/direction only on n-1; heldout stays untouched.
+          def loo_threshold(col):
+            ok=D[col].notna().values; inds=np.where(ok)[0]
+            if len(inds)<18:return None
+            held=[]
+            for ii in inds:
+              tr=np.array([j for j in inds if j!=ii]); vals=D.loc[tr,col].astype(float).values; y=D.loc[tr,'target'].values
+              uv=np.unique(vals); cuts=np.r_[-np.inf,(uv[:-1]+uv[1:])/2,np.inf]
+              best=None
+              for direction in [1,-1]:
+                for c in cuts:
+                  p=(direction*vals>direction*c).astype(int); loss=np.mean(p!=y)
+                  key=(loss,abs(c) if np.isfinite(c) else 1e99,direction,c)
+                  if best is None or key<best[0]:best=(key,direction,c)
+              _,direction,c=best; v=float(D.loc[ii,col]); p=int(direction*v>direction*c)
+              held.append((ii,p))
+            idx=[i for i,_ in held];p=np.array([q for _,q in held]);m=np.where(p==1,D.loc[idx,'m6'].values,D.loc[idx,'m5'].values)
+            return {'feature':col,'n':len(idx),'loo_mse':float(np.mean(m)),'loo_accuracy':float(np.mean(p==D.loc[idx,'target'].values))}
+          physical=[c for c in D.columns if c.endswith('.median') and c not in ['summary.greenwald_density.median','summary.power_nbi.median']]
+          indiv=[]
+          for c in ['u_mean']+physical:
+            z=loo_threshold(c)
+            if z:indiv.append(z)
+          indiv=sorted(indiv,key=lambda z:z['loo_mse']);pd.DataFrame(indiv).to_csv(OUT/'C185_INDIVIDUAL_RANKING_P065.csv',index=False)
+          # Pairwise logistic u + each physical feature, strict LOO, median-impute train only.
+          pair=[]
+          for c in physical:
+            X=D[['u_mean',c]].copy(); usable=np.isfinite(X.u_mean.values) & D[c].notna().values
+            inds=np.where(usable)[0]
+            if len(inds)<18:continue
+            ms=[];acc=[]
+            for ii in inds:
+              tr=np.array([j for j in inds if j!=ii]); Xt=D.loc[tr,['u_mean',c]].astype(float); yt=D.loc[tr,'target'].values
+              med=Xt.median();Xt=Xt.fillna(med);xh=D.loc[[ii],['u_mean',c]].astype(float).fillna(med)
+              try:
+                mod=make_pipeline(StandardScaler(),LogisticRegression(C=0.5,solver='liblinear',random_state=0)).fit(Xt,yt);p=int(mod.predict(xh)[0])
+              except Exception:continue
+              ms.append(float(D.loc[ii,'m6'] if p else D.loc[ii,'m5']));acc.append(p==int(D.loc[ii,'target']))
+            if len(ms)>=18:pair.append({'features':['u_mean',c],'physical':c,'n':len(ms),'loo_mse':float(np.mean(ms)),'loo_accuracy':float(np.mean(acc))})
+          pair=sorted(pair,key=lambda z:z['loo_mse']);(OUT/'C185_PAIRWISE_RANKING_P065.json').write_text(json.dumps(pair,indent=2,sort_keys=True)+'\n')
+          # Small global: u + top up to 3 pairwise physicals, same LOO.
+          top=[]
+          for z in pair:
+            if z['physical'] not in top:top.append(z['physical'])
+            if len(top)==3:break
+          glob=None
+          if top:
+            cols=['u_mean']+top; inds=np.where(np.isfinite(D.u_mean.values))[0];ms=[];acc=[];nused=0
+            for ii in inds:
+              tr=np.array([j for j in inds if j!=ii]);Xt=D.loc[tr,cols].astype(float);yt=D.loc[tr,'target'].values;med=Xt.median();Xt=Xt.fillna(med);xh=D.loc[[ii],cols].astype(float).fillna(med)
+              try:mod=make_pipeline(StandardScaler(),LogisticRegression(C=0.25,solver='liblinear',random_state=0)).fit(Xt,yt);p=int(mod.predict(xh)[0])
+              except:continue
+              ms.append(float(D.loc[ii,'m6'] if p else D.loc[ii,'m5']));acc.append(p==int(D.loc[ii,'target']));nused+=1
+            if nused>=18:glob={'features':cols,'n':nused,'loo_mse':float(np.mean(ms)),'loo_accuracy':float(np.mean(acc))}
+          (OUT/'C185_GLOBAL_P065.json').write_text(json.dumps(glob,indent=2,sort_keys=True)+'\n')
+          # Complexity-safe choice. Physical model must beat exact gate by >=0.5% LOO-equivalent target MSE and have >=24 coverage.
+          exact={'model_id':'M7_EXACT_U_REGIME_GATE','rule':'choose M6 iff shot_u_mean > 1-sqrt(2), else M5','threshold':c_exact,'development_mse':mse_exact,'inputs':['n_e','greenwald_density','power_nbi'],'te_in_gate':False}
+          chosen=exact;reason='EXACT_MINIMAL_GATE_RETAINED'
+          if pair and pair[0]['n']>=24 and pair[0]['loo_mse'] < mse_exact*0.995:
+            c=pair[0]['physical'];cols=['u_mean',c];X=D[cols].astype(float);med=X.median();Xf=X.fillna(med);mod=make_pipeline(StandardScaler(),LogisticRegression(C=0.5,solver='liblinear',random_state=0)).fit(Xf,D.target)
+            sc=mod.named_steps['standardscaler'];lr=mod.named_steps['logisticregression']
+            chosen={'model_id':'M7_PAIRWISE_STATE_GATE','features':cols,'physical_feature':c,'development_loo_mse':pair[0]['loo_mse'],'input_medians':{k:float(v) for k,v in med.items()},'scaler_mean':sc.mean_.tolist(),'scaler_scale':sc.scale_.tolist(),'coef':lr.coef_[0].tolist(),'intercept':float(lr.intercept_[0]),'te_in_gate':False};reason='PAIRWISE_MATERIAL_IMPROVEMENT'
+          if glob and glob['n']>=24 and glob['loo_mse'] < (chosen.get('development_loo_mse',mse_exact))*0.995:
+            cols=glob['features'];X=D[cols].astype(float);med=X.median();Xf=X.fillna(med);mod=make_pipeline(StandardScaler(),LogisticRegression(C=0.25,solver='liblinear',random_state=0)).fit(Xf,D.target);sc=mod.named_steps['standardscaler'];lr=mod.named_steps['logisticregression']
+            chosen={'model_id':'M7_GLOBAL_STATE_GATE','features':cols,'development_loo_mse':glob['loo_mse'],'input_medians':{k:float(v) for k,v in med.items()},'scaler_mean':sc.mean_.tolist(),'scaler_scale':sc.scale_.tolist(),'coef':lr.coef_[0].tolist(),'intercept':float(lr.intercept_[0]),'te_in_gate':False};reason='GLOBAL_MATERIAL_IMPROVEMENT'
+          chosen['selection_reason']=reason;chosen['provider_corrections']=['whmd->wmhd','beta_normal->beta_tor_normal'];chosen['development_shots']=int(len(D));chosen['state_materialized_shots']=int((D.state_status=='MATERIALIZED').sum())
+          (OUT/'FROZEN_M7_P065.json').write_text(json.dumps(chosen,indent=2,sort_keys=True)+'\n')
+          # C185 cycle/fixed-point record.
+          cyc={'C1_INDIVIDUAL':indiv[:10],'C2_PAIRWISE':pair[:10],'C3_GLOBAL':glob,'C4_REBROADCAST':{'minimal_exact_gate_mse':mse_exact,'candidate_selected':chosen['model_id'],'reason':reason},'C5_FIXED_POINT':{'new_executable_structure':0}}
+          (OUT/'C185_FIXED_POINT_P065.json').write_text(json.dumps(cyc,indent=2,sort_keys=True)+'\n')
+          dig=hashlib.sha256((json.dumps(chosen,sort_keys=True)+json.dumps(cyc,sort_keys=True)).encode()).hexdigest();(OUT/'C185_DIGEST_P065.txt').write_text(dig+'\n')
+          print(json.dumps({'mse_exact':mse_exact,'best_individual':indiv[:3],'best_pairwise':pair[:3],'global':glob,'chosen':chosen},indent=2))
+          PY
+      - name: Hash C185
+        run: find p065-c185 -type f ! -name SHA256SUMS.txt -print0 | sort -z | xargs -0 sha256sum > p065-c185/SHA256SUMS.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: p065-c185-analysis
+          path: p065-c185
+          retention-days: 1
