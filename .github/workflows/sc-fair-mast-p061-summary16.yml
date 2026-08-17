@@ -1,0 +1,36 @@
+name: SC FAIR-MAST P061 SUMMARY16
+on:
+  push:
+    branches: [sc-fair-mast-p057]
+    paths: ['.github/workflows/sc-fair-mast-p061-summary16.yml']
+  workflow_dispatch:
+permissions: {contents: read}
+jobs:
+  shard:
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    env:
+      SHARD: ${{ matrix.shard }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - name: Install reader
+        run: python -m pip install --disable-pip-version-check 'numpy>=1.26' 'pandas>=2.0' 'xarray[io]>=2024.1' 'zarr>=3.0' 's3fs>=2025.3.0'
+      - name: Materialize summary Z on Thomson clock without ne or Te reads
+        run: python scripts/p061_summary_state_fetch.py
+      - name: Hash shard
+        if: always()
+        run: find p061-summary-$SHARD -maxdepth 1 -type f ! -name SHA256SUMS.txt -print0 | sort -z | xargs -0 sha256sum > p061-summary-$SHARD/SHA256SUMS.txt
+      - name: Upload shard
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: p061-summary-${{ matrix.shard }}
+          path: p061-summary-${{ matrix.shard }}
+          retention-days: 1
+          if-no-files-found: error
