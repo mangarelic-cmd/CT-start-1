@@ -1,0 +1,10 @@
+authority=OBSERVED_P068
+selection=METADATA_ONLY_SHA256_BEFORE_VALUES
+excluded_prior_unique=249
+model=M8_DYNAMIC_FUELING_FROZEN_P067
+comparator=M7_FROZEN_P065_CONFIRMED_P066
+refit=NO
+retune=NO
+te_used_in_state_or_gate=NO
+missing_state=FAIL_CLOSED
+same_support=M7_AND_M8

@@ -1,0 +1,56 @@
+[
+  {
+    "delta_m8_minus_m7": -0.28647376093843313,
+    "m7_mse": 0.938633836149748,
+    "m8_beats_m7": true,
+    "m8_mse": 0.6521600752113149,
+    "models": [
+      "M7",
+      "M8_DYNAMIC_FUELING"
+    ],
+    "n_pairs": 6695,
+    "refit": false,
+    "retune": false,
+    "shot_id": 15272,
+    "split": "P068_FRESH",
+    "status": "USABLE",
+    "te_availability_mask_used_in_state_or_gate": false,
+    "te_used_in_state_or_gate": false
+  },
+  {
+    "delta_m8_minus_m7": 0.061866899426159305,
+    "m7_mse": 0.5060758635394359,
+    "m8_beats_m7": false,
+    "m8_mse": 0.5679427629655952,
+    "models": [
+      "M7",
+      "M8_DYNAMIC_FUELING"
+    ],
+    "n_pairs": 9183,
+    "refit": false,
+    "retune": false,
+    "shot_id": 24751,
+    "split": "P068_FRESH",
+    "status": "USABLE",
+    "te_availability_mask_used_in_state_or_gate": false,
+    "te_used_in_state_or_gate": false
+  },
+  {
+    "delta_m8_minus_m7": 0.3436490733244749,
+    "m7_mse": 0.8424145051976261,
+    "m8_beats_m7": false,
+    "m8_mse": 1.186063578522101,
+    "models": [
+      "M7",
+      "M8_DYNAMIC_FUELING"
+    ],
+    "n_pairs": 8809,
+    "refit": false,
+    "retune": false,
+    "shot_id": 28021,
+    "split": "P068_FRESH",
+    "status": "USABLE",
+    "te_availability_mask_used_in_state_or_gate": false,
+    "te_used_in_state_or_gate": false
+  }
+]

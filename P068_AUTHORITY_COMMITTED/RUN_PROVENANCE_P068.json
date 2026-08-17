@@ -1,0 +1,8 @@
+{
+  "head_sha": "3c20a938f332c42a593247b477fd139f374e5797",
+  "recovery_mode": "AGGREGATE_ONLY_NO_NEW_FAIR_MAST_READ",
+  "run_id": "32078281301",
+  "schema": "P068_GITHUB_AUTHORITY_PROVENANCE_V1",
+  "source_data_run_id": "32078114041",
+  "workflow": "sc-fair-mast-p068-primary10.yml"
+}

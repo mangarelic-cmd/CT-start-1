@@ -1,0 +1,18 @@
+{
+  "failed": 0,
+  "primary": [
+    30090,
+    20306,
+    28206
+  ],
+  "refit": false,
+  "reserve_activated": [],
+  "reserve_owned": [
+    15493,
+    15874
+  ],
+  "retune": false,
+  "schema": "P068_PRIMARY_SHARD_SUMMARY_V1",
+  "shard": 8,
+  "usable": 3
+}
