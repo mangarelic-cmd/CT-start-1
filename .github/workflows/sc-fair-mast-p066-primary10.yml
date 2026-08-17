@@ -1,0 +1,43 @@
+name: SC FAIR-MAST P066 PRIMARY10
+on:
+  push:
+    branches: [sc-fair-mast-p057]
+    paths: ['.github/workflows/sc-fair-mast-p066-primary10.yml']
+permissions: {contents: read}
+jobs:
+  shard:
+    strategy:
+      fail-fast: false
+      matrix: {shard: [0,1,2,3,4,5,6,7,8,9]}
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    env:
+      SHARD: '${{ matrix.shard }}'
+      NS: '10'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: python -m pip install --disable-pip-version-check 'numpy>=1.26' 'pandas>=2.0' 'xarray[io]>=2024.1' 'zarr>=3.0' 's3fs>=2025.3.0'
+      - name: Execute frozen P066 M7 vs M6 fresh test
+        run: python scripts/p066_m7_radiative_fresh_score.py
+      - name: Seal shard firewall and hashes
+        if: always()
+        run: |
+          mkdir -p p066-primary-$SHARD
+          printf '%s\n' \
+            'selection=METADATA_ONLY_BEFORE_FAIR_MAST_VALUES' \
+            'model=M7_RADIATIVE_BALANCE_FROZEN_P065' \
+            'comparator=M6_FROZEN_P064' \
+            'refit=NO' 'retune=NO' \
+            'te_used_in_gate=NO' \
+            'te_availability_mask_used_in_gate=NO' \
+            'missing_prad=FAIL_CLOSED' \
+            'same_support=M6_AND_M7' > p066-primary-$SHARD/FIREWALL_P066.txt
+          find p066-primary-$SHARD -type f ! -name SHA256SUMS.txt -print0 | sort -z | xargs -0 sha256sum > p066-primary-$SHARD/SHA256SUMS.txt
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: p066-primary-${{ matrix.shard }}
+          path: p066-primary-${{ matrix.shard }}
+          retention-days: 1
