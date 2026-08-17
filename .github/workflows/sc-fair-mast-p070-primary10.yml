@@ -1,0 +1,81 @@
+name: SC FAIR-MAST P070 M9 FRESH AUTHORITY
+on:
+  push:
+    branches: [sc-fair-mast-p057]
+    paths: ['.github/workflows/sc-fair-mast-p070-primary10.yml']
+permissions: {contents: write}
+jobs:
+  stamp:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: {ref: sc-fair-mast-p057}
+      - name: Materialize run id before data access
+        run: |
+          mkdir -p P070_RUN_OBSERVED
+          printf '{"schema":"P070_RUN_START_V1","run_id":"%s","head_sha":"%s","data_read":false}\n' "$GITHUB_RUN_ID" "$GITHUB_SHA" > P070_RUN_OBSERVED/RUN_START.json
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add P070_RUN_OBSERVED/RUN_START.json
+          git commit -m 'P070 stamp fresh authority run' || true
+          git push origin HEAD:sc-fair-mast-p057 || true
+  shard:
+    needs: stamp
+    strategy:
+      fail-fast: false
+      matrix: {shard: [0,1,2,3,4,5,6,7,8,9]}
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env: {SHARD: '${{ matrix.shard }}', NS: '10'}
+    steps:
+      - uses: actions/checkout@v4
+        with: {ref: sc-fair-mast-p057}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: python -m pip install --disable-pip-version-check 'numpy>=1.26' 'pandas>=2.0' 'xarray[io]>=2024.1' 'zarr>=3.0' 's3fs>=2025.3.0'
+      - name: Frozen P070 M9 vs M7 M8 fresh test
+        run: python scripts/p070_m9_fresh_score.py
+      - name: Seal shard firewall and hashes
+        if: always()
+        run: |
+          mkdir -p p070-primary-$SHARD
+          printf '%s\n' 'selection=METADATA_ONLY_SHA256_BEFORE_VALUES' 'excluded_prior_unique=299' 'model=M9_OUTBOARD_BETAPOL_FROZEN_P069' 'comparators=M7,M8' 'refit=NO' 'retune=NO' 'te_used_in_state_or_gate=NO' 'te_availability_mask_used_in_state_or_gate=NO' 'missing_beta_pol=FAIL_CLOSED' 'same_support=M7_M8_M9' > p070-primary-$SHARD/FIREWALL_P070.txt
+          find p070-primary-$SHARD -type f ! -name SHA256SUMS.txt -print0 | sort -z | xargs -0 sha256sum > p070-primary-$SHARD/SHA256SUMS.txt
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: p070-primary-${{ matrix.shard }}
+          path: p070-primary-${{ matrix.shard }}
+          retention-days: 1
+  authority:
+    needs: shard
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: {ref: sc-fair-mast-p057}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: python -m pip install --disable-pip-version-check 'numpy>=1.26'
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: p070-primary-*
+          path: P070_AUTHORITY
+      - name: Aggregate and independently reconstruct
+        run: python scripts/p070_aggregate.py
+      - name: Seal authority hashes
+        run: find P070_AUTHORITY -type f ! -name SHA256SUMS_FINAL.txt -print0 | sort -z | xargs -0 sha256sum > P070_AUTHORITY/SHA256SUMS_FINAL.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: p070-authority
+          path: P070_AUTHORITY
+          retention-days: 1
+      - name: Materialize authority on branch
+        run: |
+          rm -rf P070_AUTHORITY_COMMITTED
+          mv P070_AUTHORITY P070_AUTHORITY_COMMITTED
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add P070_AUTHORITY_COMMITTED
+          git commit -m 'P070 materialize fresh M9 authority' || exit 0
+          git push origin HEAD:sc-fair-mast-p057
