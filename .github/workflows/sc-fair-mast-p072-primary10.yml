@@ -1,0 +1,81 @@
+name: SC FAIR-MAST P072 M10 FRESH AUTHORITY
+on:
+  push:
+    branches: [sc-fair-mast-p057]
+    paths: ['.github/workflows/sc-fair-mast-p072-primary10.yml']
+permissions: {contents: write}
+jobs:
+  stamp:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: {ref: sc-fair-mast-p057}
+      - name: Materialize run id before data access
+        run: |
+          mkdir -p P072_RUN_OBSERVED
+          printf '{"schema":"P072_RUN_START_V1","run_id":"%s","head_sha":"%s","data_read":false}\n' "$GITHUB_RUN_ID" "$GITHUB_SHA" > P072_RUN_OBSERVED/RUN_START.json
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add P072_RUN_OBSERVED/RUN_START.json
+          git commit -m 'P072 stamp fresh authority run' || true
+          git push origin HEAD:sc-fair-mast-p057 || true
+  shard:
+    needs: stamp
+    strategy:
+      fail-fast: false
+      matrix: {shard: [0,1,2,3,4,5,6,7,8,9]}
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env: {SHARD: '${{ matrix.shard }}', NS: '10'}
+    steps:
+      - uses: actions/checkout@v4
+        with: {ref: sc-fair-mast-p057}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: python -m pip install --disable-pip-version-check 'numpy>=1.26' 'pandas>=2.0' 'xarray[io]>=2024.1' 'zarr>=3.0' 's3fs>=2025.3.0'
+      - name: Frozen P072 M10 vs M9 M8 M7 fresh test
+        run: python scripts/p072_m10_fresh_score.py
+      - name: Seal shard firewall and hashes
+        if: always()
+        run: |
+          mkdir -p p072-primary-$SHARD
+          printf '%s\n' 'selection=METADATA_ONLY_SHA256_BEFORE_VALUES' 'excluded_prior_unique=329' 'model=M10_LOCAL_GAS_PRESSURE_FROZEN_P071' 'comparators=M9,M8,M7' 'pressure_required_for_selection=NO' 'missing_pressure=M10_EQUALS_M9' 'unknown_is_zero=NO' 'refit=NO' 'retune=NO' 'same_support=M7_M8_M9_M10' > p072-primary-$SHARD/FIREWALL_P072.txt
+          find p072-primary-$SHARD -type f ! -name SHA256SUMS.txt -print0 | sort -z | xargs -0 sha256sum > p072-primary-$SHARD/SHA256SUMS.txt
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: p072-primary-${{ matrix.shard }}
+          path: p072-primary-${{ matrix.shard }}
+          retention-days: 1
+  authority:
+    needs: shard
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: {ref: sc-fair-mast-p057}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: python -m pip install --disable-pip-version-check 'numpy>=1.26'
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: p072-primary-*
+          path: P072_AUTHORITY
+      - name: Aggregate and independently reconstruct
+        run: python scripts/p072_aggregate.py
+      - name: Seal authority hashes
+        run: find P072_AUTHORITY -type f ! -name SHA256SUMS_FINAL.txt -print0 | sort -z | xargs -0 sha256sum > P072_AUTHORITY/SHA256SUMS_FINAL.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: p072-authority
+          path: P072_AUTHORITY
+          retention-days: 1
+      - name: Materialize authority on branch
+        run: |
+          rm -rf P072_AUTHORITY_COMMITTED
+          mv P072_AUTHORITY P072_AUTHORITY_COMMITTED
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add P072_AUTHORITY_COMMITTED
+          git commit -m 'P072 materialize fresh M10 authority' || exit 0
+          git push origin HEAD:sc-fair-mast-p057
