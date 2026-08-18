@@ -1,0 +1,29 @@
+name: SC FAIR-MAST P073 FAST CANONICAL STATE
+on:
+  push:
+    branches: [sc-fair-mast-p057]
+    paths: ['.github/workflows/sc-fair-mast-p073-fast-state10.yml']
+jobs:
+  shard:
+    strategy:
+      fail-fast: false
+      matrix: {shard: [0,1,2,3,4,5,6,7,8,9]}
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env: {SHARD: '${{ matrix.shard }}'}
+    steps:
+      - uses: actions/checkout@v4
+        with: {ref: sc-fair-mast-p057}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: python -m pip install --disable-pip-version-check 'numpy>=1.26' 'pandas>=2.0' 'xarray[io]>=2024.1' 'zarr>=3.0' 's3fs>=2025.3.0'
+      - run: python scripts/p073_fast_state_fetch.py
+      - if: always()
+        run: |
+          find p073-fast-$SHARD -type f ! -name SHA256SUMS.txt -print0 | sort -z | xargs -0 sha256sum > p073-fast-$SHARD/SHA256SUMS.txt
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: p073-fast-${{ matrix.shard }}
+          path: p073-fast-${{ matrix.shard }}
+          retention-days: 1
