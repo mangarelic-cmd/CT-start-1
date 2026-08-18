@@ -1,0 +1,12 @@
+{
+  "candidate_inventory_records": 0,
+  "candidate_value_rows": 0,
+  "failed_shots": 30,
+  "fresh_target_values_loaded": false,
+  "p076_touched": false,
+  "presence": [],
+  "requested_shots": 30,
+  "schema": "P075J_DEEP_PHYSICS_ACQUISITION_V2",
+  "successful_shots": 0,
+  "value_summary": []
+}
