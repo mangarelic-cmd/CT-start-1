@@ -3,8 +3,23 @@ on:
   push:
     branches: [sc-fair-mast-p057]
     paths: ['.github/workflows/sc-fair-mast-p073-fast-state10.yml']
+permissions: {contents: write}
 jobs:
+  stamp:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: {ref: sc-fair-mast-p057}
+      - run: |
+          mkdir -p P073_FAST_RUN_OBSERVED
+          printf '{"schema":"P073_FAST_RUN_START_V1","run_id":"%s","head_sha":"%s","data_read":false,"target":"P072_OPENED_ONLY"}\n' "$GITHUB_RUN_ID" "$GITHUB_SHA" > P073_FAST_RUN_OBSERVED/RUN_START.json
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add P073_FAST_RUN_OBSERVED/RUN_START.json
+          git commit -m 'P073 fast state stamp' || true
+          git push origin HEAD:sc-fair-mast-p057 || true
   shard:
+    needs: stamp
     strategy:
       fail-fast: false
       matrix: {shard: [0,1,2,3,4,5,6,7,8,9]}
