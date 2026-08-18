@@ -1,0 +1,56 @@
+name: SC FAIR-MAST P071 STATE10
+on:
+  push:
+    branches: [sc-fair-mast-p057]
+    paths:
+      - 'scripts/p071_state_fetch.py'
+      - '.github/workflows/sc-fair-mast-p071-state10.yml'
+permissions:
+  contents: write
+jobs:
+  stamp:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: {ref: sc-fair-mast-p057}
+      - name: Materialize run id before data access
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          mkdir -p P071_RUN_OBSERVED
+          python - <<'PY'
+          import json,os
+          from pathlib import Path
+          Path('P071_RUN_OBSERVED/RUN_START.json').write_text(json.dumps({'schema':'P071_RUN_START_V1','run_id':int(os.environ['GITHUB_RUN_ID']),'head_sha':os.environ['GITHUB_SHA'],'data_read':False},sort_keys=True)+'\n')
+          PY
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add P071_RUN_OBSERVED/RUN_START.json
+          git commit -m 'P071 stamp orthogonal state run' || true
+          git push origin HEAD:sc-fair-mast-p057
+  shard:
+    needs: stamp
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [0,1,2,3,4,5,6,7,8,9]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: {ref: sc-fair-mast-p057}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.11'}
+      - run: python -m pip install --disable-pip-version-check 'numpy>=1.26' 'pandas>=2.0' 'xarray[io]>=2024.1' 'zarr>=3.0' 's3fs>=2025.3.0'
+      - name: Fetch P071 orthogonal state
+        env:
+          SHARD: ${{ matrix.shard }}
+        run: python scripts/p071_state_fetch.py
+      - name: Seal shard hashes
+        env:
+          SHARD: ${{ matrix.shard }}
+        run: find p071-state-$SHARD -type f ! -name SHA256SUMS.txt -print0 | sort -z | xargs -0 sha256sum > p071-state-$SHARD/SHA256SUMS.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: p071-state-${{ matrix.shard }}
+          path: p071-state-${{ matrix.shard }}
+          retention-days: 1
