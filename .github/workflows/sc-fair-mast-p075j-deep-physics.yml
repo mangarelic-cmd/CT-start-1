@@ -1,0 +1,118 @@
+name: SC FAIR-MAST P075J DEEP PHYSICAL MATERIALIZATION
+on:
+  push:
+    branches: [sc-fair-mast-p057]
+    paths: ['.github/workflows/sc-fair-mast-p075j-deep-physics.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  materialize:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - name: Install FAIR-MAST reader
+        run: python -m pip install --disable-pip-version-check 'numpy>=1.26' 'pandas>=2.0' 'xarray[io]>=2024.1' 'zarr>=2.18,<3' 's3fs>=2025.3.0'
+      - name: Materialize deep physics on frozen P072 shots only
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p p075j-deep
+          python - <<'PY'
+          import json, traceback, re, hashlib
+          from pathlib import Path
+          import numpy as np, pandas as pd, xarray as xr, s3fs
+          OUT=Path('p075j-deep'); ENDPOINT='https://s3.echo.stfc.ac.uk'
+          SHOTS=[12779,12989,14281,15060,15094,16374,16738,17746,17792,17822,17930,18826,20727,21338,21725,22785,23288,24198,24668,25008,25009,26790,26993,27446,27500,27613,29159,30022,30410,30419]
+          assert len(SHOTS)==30 and len(set(SHOTS))==30
+          fs=s3fs.S3FileSystem(anon=True,client_kwargs={'endpoint_url':ENDPOINT})
+          keywords=('power_ohm','power_icrh','power_ecrh','power_ec','power_rf','power_lh','power_nbi','power_radiated','energy','wmhd','whmd','w_th','thermal','stored','fusion','alpha','neutron','wall','divertor','heat_flux','heatflux','disruption','strike_point')
+          selected_exact={
+            'summary.power_ohm','summary.power_nbi','summary.power_radiated','summary.neutron_rates_total',
+            'equilibrium.whmd','equilibrium.wmhd','summary.energy_thermal','summary.energy_diamagnetic',
+            'summary.power_icrh','summary.power_ecrh','summary.power_ec','summary.power_rf','summary.power_lh'
+          }
+          inventories=[]; values=[]; receipts=[]
+          def find_time(ds):
+              if 'time' in ds.coords: return np.asarray(ds.coords['time'].load().values,float).reshape(-1)
+              if 'time' in ds: return np.asarray(ds['time'].load().values,float).reshape(-1)
+              for c in ds.coords:
+                  if 'time' in c.lower(): return np.asarray(ds.coords[c].load().values,float).reshape(-1)
+              raise KeyError('NO_TIME')
+          for sid in SHOTS:
+              key=f'mast/level2/shots/{sid}.zarr'; mapper=fs.get_mapper(key)
+              rec={'shot_id':sid,'source_uri':'s3://'+key,'status':'UNKNOWN','fresh_target_values_loaded':False,'p076_touched':False}
+              try:
+                  raw=mapper['.zmetadata']
+                  if isinstance(raw,bytes): raw=raw.decode('utf-8')
+                  zm=json.loads(raw); meta=zm.get('metadata',{})
+                  arr_paths=[]
+                  for k,v in meta.items():
+                      if k.endswith('/.zarray'):
+                          arr_paths.append(k[:-8])
+                  candidate=[]
+                  for ap in sorted(arr_paths):
+                      low=ap.lower(); attrs=meta.get(ap+'/.zattrs',{}) or {}; za=meta.get(ap+'/.zarray',{}) or {}
+                      label=' '.join(str(attrs.get(x,'')) for x in ('name','label','description','imas','uda_name')).lower()
+                      hit=(any(k in low or k in label for k in keywords) or ap.replace('/','.') in selected_exact)
+                      if not hit: continue
+                      dims=attrs.get('_ARRAY_DIMENSIONS',[]); shape=za.get('shape',[]); dtype=za.get('dtype')
+                      inventories.append({'shot_id':sid,'path':ap,'group':ap.split('/')[0] if '/' in ap else '', 'var':ap.split('/')[-1], 'dims':dims,'shape':shape,'dtype':dtype,'attrs':{k:attrs.get(k) for k in ('name','label','description','imas','uda_name','units') if k in attrs}})
+                      candidate.append((ap,dims,shape))
+                  groups={ap.split('/')[0] for ap,_,_ in candidate if '/' in ap}
+                  opened={}
+                  for g in groups:
+                      try: opened[g]=xr.open_zarr(mapper,group=g,consolidated=None)
+                      except Exception: pass
+                  for ap,dims,shape in candidate:
+                      if '/' not in ap: continue
+                      g,var=ap.split('/',1)
+                      if '/' in var: continue
+                      ds=opened.get(g)
+                      if ds is None or var not in ds: continue
+                      try:
+                          a=np.squeeze(np.asarray(ds[var].load().values,float))
+                          if a.ndim!=1 or a.size>10000: continue
+                          t=find_time(ds)
+                          if len(t)!=len(a): continue
+                          for ti,vi in zip(t,a):
+                              if np.isfinite(ti) and np.isfinite(vi): values.append({'shot_id':sid,'path':ap,'time':float(ti),'value':float(vi)})
+                      except Exception:
+                          continue
+                  rec.update({'status':'OK','candidate_arrays':len(candidate),'inventory_arrays_total':len(arr_paths)})
+              except Exception as e:
+                  rec.update({'status':'FAILED','error_type':type(e).__name__,'error':str(e),'traceback':traceback.format_exc()})
+              receipts.append(rec)
+          pd.DataFrame(values).to_csv(OUT/'P075J_CANDIDATE_1D_VALUES.csv',index=False)
+          (OUT/'P075J_METADATA_INVENTORY.json').write_text(json.dumps(inventories,indent=2,sort_keys=True)+'\n')
+          (OUT/'P075J_RECEIPTS.json').write_text(json.dumps(receipts,indent=2,sort_keys=True)+'\n')
+          # Presence summary by exact path across shots.
+          invdf=pd.DataFrame([{'shot_id':x['shot_id'],'path':x['path']} for x in inventories])
+          presence=[]
+          if len(invdf):
+              for path,g in invdf.groupby('path'):
+                  presence.append({'path':path,'shots_present':int(g.shot_id.nunique()),'shot_ids':sorted(map(int,g.shot_id.unique()))})
+          vdf=pd.DataFrame(values)
+          val_summary=[]
+          if len(vdf):
+              for path,g in vdf.groupby('path'):
+                  val_summary.append({'path':path,'finite_values':int(len(g)),'shots_with_values':int(g.shot_id.nunique()),'min':float(g.value.min()),'max':float(g.value.max()),'mean':float(g.value.mean())})
+          summary={'schema':'P075J_DEEP_PHYSICS_ACQUISITION_V1','requested_shots':30,'successful_shots':sum(r['status']=='OK' for r in receipts),'failed_shots':sum(r['status']!='OK' for r in receipts),'fresh_target_values_loaded':False,'p076_touched':False,'candidate_inventory_records':len(inventories),'candidate_value_rows':len(values),'presence':presence,'value_summary':val_summary}
+          (OUT/'P075J_SUMMARY.json').write_text(json.dumps(summary,indent=2,sort_keys=True)+'\n')
+          print(json.dumps(summary,indent=2,sort_keys=True))
+          if summary['successful_shots']<25: raise SystemExit('P075J_SHOT_COVERAGE_TOO_LOW')
+          PY
+      - name: Hash payload
+        if: always()
+        run: find p075j-deep -maxdepth 1 -type f ! -name SHA256SUMS_P075J.txt -print0 | sort -z | xargs -0 sha256sum > p075j-deep/SHA256SUMS_P075J.txt
+      - name: Upload artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: p075j-deep
+          path: p075j-deep
+          retention-days: 1
+          if-no-files-found: error
