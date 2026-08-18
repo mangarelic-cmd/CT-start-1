@@ -22,16 +22,17 @@ jobs:
           set -euo pipefail
           rm -rf p075j-deep && mkdir -p p075j-deep
           python - <<'PY'
-          import json, traceback
+          import json, traceback, os
           from pathlib import Path
           import numpy as np, pandas as pd, xarray as xr, s3fs
           OUT=Path('p075j-deep'); ENDPOINT='https://s3.echo.stfc.ac.uk'
           SHOTS=[12779,12989,14281,15060,15094,16374,16738,17746,17792,17822,17930,18826,20727,21338,21725,22785,23288,24198,24668,25008,25009,26790,26993,27446,27500,27613,29159,30022,30410,30419]
           assert len(SHOTS)==30 and len(set(SHOTS))==30
           fs=s3fs.S3FileSystem(anon=True,client_kwargs={'endpoint_url':ENDPOINT})
-          keywords=('power_ohm','power_icrh','power_ecrh','power_ec','power_rf','power_lh','power_nbi','power_radiated','energy','wmhd','whmd','w_th','thermal','stored','fusion','alpha','neutron','wall','divertor','heat_flux','heatflux','disruption','strike_point')
-          selected_exact={'summary.power_ohm','summary.power_nbi','summary.power_radiated','summary.neutron_rates_total','equilibrium.whmd','equilibrium.wmhd','summary.energy_thermal','summary.energy_diamagnetic','summary.power_icrh','summary.power_ecrh','summary.power_ec','summary.power_rf','summary.power_lh'}
-          inventories=[]; values=[]; receipts=[]
+          base_groups={'summary','equilibrium','charge_exchange','magnetics','pf_active','gas_injection','pulse_schedule','spectrometer_visible','bolometer','soft_x_rays'}
+          keywords=('power','energy','wmhd','whmd','w_th','thermal','stored','fusion','alpha','neutron','wall','divertor','heat','disruption','strike','beta','q95','current','voltage','temperature','t_i')
+          exact_vars={'summary.power_ohm','summary.power_nbi','summary.power_radiated','summary.neutron_rates_total','equilibrium.whmd','equilibrium.wmhd','summary.energy_thermal','summary.energy_diamagnetic','summary.power_icrh','summary.power_ecrh','summary.power_ec','summary.power_rf','summary.power_lh'}
+          inventories=[]; values=[]; receipts=[]; group_lists=[]
           def find_time(ds):
               if 'time' in ds.coords: return np.asarray(ds.coords['time'].load().values,float).reshape(-1)
               if 'time' in ds: return np.asarray(ds['time'].load().values,float).reshape(-1)
@@ -42,51 +43,52 @@ jobs:
               key=f'mast/level2/shots/{sid}.zarr'; mapper=fs.get_mapper(key)
               rec={'shot_id':sid,'source_uri':'s3://'+key,'status':'UNKNOWN','fresh_target_values_loaded':False,'p076_touched':False}
               try:
-                  raw=mapper['.zmetadata']; raw=raw.decode('utf-8') if isinstance(raw,bytes) else raw
-                  zm=json.loads(raw); meta=zm.get('metadata',{})
-                  arr_paths=[k[:-8] for k in meta if k.endswith('/.zarray')]
-                  candidate=[]
-                  for ap in sorted(arr_paths):
-                      low=ap.lower(); attrs=meta.get(ap+'/.zattrs',{}) or {}; za=meta.get(ap+'/.zarray',{}) or {}
-                      label=' '.join(str(attrs.get(x,'')) for x in ('name','label','description','imas','uda_name')).lower()
-                      hit=(any(k in low or k in label for k in keywords) or ap.replace('/','.') in selected_exact)
-                      if not hit: continue
-                      dims=attrs.get('_ARRAY_DIMENSIONS',[]); shape=za.get('shape',[]); dtype=za.get('dtype')
-                      inventories.append({'shot_id':sid,'path':ap,'group':ap.split('/')[0] if '/' in ap else '', 'var':ap.split('/')[-1], 'dims':dims,'shape':shape,'dtype':dtype,'attrs':{k:attrs.get(k) for k in ('name','label','description','imas','uda_name','units') if k in attrs}})
-                      candidate.append((ap,dims,shape))
-                  groups={ap.split('/')[0] for ap,_,_ in candidate if '/' in ap}
-                  opened={}
-                  for g in groups:
-                      try: opened[g]=xr.open_zarr(mapper,group=g,consolidated=None)
-                      except Exception: pass
-                  for ap,dims,shape in candidate:
-                      if '/' not in ap: continue
-                      g,var=ap.split('/',1)
-                      if '/' in var: continue
-                      ds=opened.get(g)
-                      if ds is None or var not in ds: continue
+                  # discover top-level groups from object listing; no consolidated .zmetadata assumption
+                  children=fs.ls(key,detail=False)
+                  groups=set(base_groups)
+                  for ch in children:
+                      rel=ch[len(key):].lstrip('/') if ch.startswith(key) else ch.split('/')[-1]
+                      top=rel.split('/')[0]
+                      if top and not top.startswith('.') and (any(k in top.lower() for k in keywords) or top in base_groups): groups.add(top)
+                  group_lists.append({'shot_id':sid,'groups':sorted(groups),'raw_children':len(children)})
+                  opened={}; good=0
+                  for g in sorted(groups):
                       try:
-                          a=np.squeeze(np.asarray(ds[var].load().values,float))
-                          if a.ndim!=1 or a.size>10000: continue
-                          t=find_time(ds)
-                          if len(t)!=len(a): continue
-                          for ti,vi in zip(t,a):
-                              if np.isfinite(ti) and np.isfinite(vi): values.append({'shot_id':sid,'path':ap,'time':float(ti),'value':float(vi)})
-                      except Exception: continue
-                  rec.update({'status':'OK','candidate_arrays':len(candidate),'inventory_arrays_total':len(arr_paths)})
+                          ds=xr.open_zarr(mapper,group=g,consolidated=None)
+                          opened[g]=ds; good+=1
+                      except Exception:
+                          continue
+                      try: t=find_time(ds)
+                      except Exception: t=None
+                      for var in sorted(ds.data_vars):
+                          da=ds[var]; attrs={k:da.attrs.get(k) for k in ('name','label','description','imas','uda_name','units') if k in da.attrs}
+                          label=' '.join([g,var]+[str(v) for v in attrs.values()]).lower(); full=f'{g}.{var}'
+                          hit=(full in exact_vars) or any(k in label for k in keywords)
+                          if not hit: continue
+                          inventories.append({'shot_id':sid,'path':full,'group':g,'var':var,'dims':list(da.dims),'shape':list(da.shape),'dtype':str(da.dtype),'attrs':attrs})
+                          if t is None: continue
+                          try:
+                              a=np.squeeze(np.asarray(da.load().values,float))
+                              if a.ndim!=1 or a.size>10000 or len(t)!=len(a): continue
+                              for ti,vi in zip(t,a):
+                                  if np.isfinite(ti) and np.isfinite(vi): values.append({'shot_id':sid,'path':full,'time':float(ti),'value':float(vi)})
+                          except Exception:
+                              continue
+                  rec.update({'status':'OK','groups_opened':good,'groups_attempted':len(groups)})
               except Exception as e:
                   rec.update({'status':'FAILED','error_type':type(e).__name__,'error':str(e),'traceback':traceback.format_exc()})
               receipts.append(rec)
           pd.DataFrame(values).to_csv(OUT/'P075J_CANDIDATE_1D_VALUES.csv',index=False)
           (OUT/'P075J_METADATA_INVENTORY.json').write_text(json.dumps(inventories,indent=2,sort_keys=True)+'\n')
           (OUT/'P075J_RECEIPTS.json').write_text(json.dumps(receipts,indent=2,sort_keys=True)+'\n')
+          (OUT/'P075J_GROUP_LISTS.json').write_text(json.dumps(group_lists,indent=2,sort_keys=True)+'\n')
           invdf=pd.DataFrame([{'shot_id':x['shot_id'],'path':x['path']} for x in inventories]); presence=[]
           if len(invdf):
               for path,g in invdf.groupby('path'): presence.append({'path':path,'shots_present':int(g.shot_id.nunique()),'shot_ids':sorted(map(int,g.shot_id.unique()))})
           vdf=pd.DataFrame(values); val_summary=[]
           if len(vdf):
               for path,g in vdf.groupby('path'): val_summary.append({'path':path,'finite_values':int(len(g)),'shots_with_values':int(g.shot_id.nunique()),'min':float(g.value.min()),'max':float(g.value.max()),'mean':float(g.value.mean())})
-          summary={'schema':'P075J_DEEP_PHYSICS_ACQUISITION_V2','requested_shots':30,'successful_shots':sum(r['status']=='OK' for r in receipts),'failed_shots':sum(r['status']!='OK' for r in receipts),'fresh_target_values_loaded':False,'p076_touched':False,'candidate_inventory_records':len(inventories),'candidate_value_rows':len(values),'presence':presence,'value_summary':val_summary}
+          summary={'schema':'P075J_DEEP_PHYSICS_ACQUISITION_V3','requested_shots':30,'successful_shots':sum(r['status']=='OK' for r in receipts),'failed_shots':sum(r['status']!='OK' for r in receipts),'fresh_target_values_loaded':False,'p076_touched':False,'candidate_inventory_records':len(inventories),'candidate_value_rows':len(values),'presence':presence,'value_summary':val_summary}
           (OUT/'P075J_SUMMARY.json').write_text(json.dumps(summary,indent=2,sort_keys=True)+'\n')
           print(json.dumps(summary,indent=2,sort_keys=True))
           if summary['successful_shots']<25: raise SystemExit('P075J_SHOT_COVERAGE_TOO_LOW')
@@ -105,7 +107,7 @@ jobs:
           git config user.name 'sc-p075j-bot'
           git config user.email 'sc-p075j-bot@users.noreply.github.com'
           git add p075j-results
-          git commit -m 'P075J deep physical materialization receipts [skip ci]' || true
+          git commit -m 'P075J deep physical materialization receipts v3 [skip ci]' || true
           git push origin HEAD:sc-fair-mast-p057
       - name: Upload artifact
         if: always()
