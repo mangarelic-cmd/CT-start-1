@@ -1,302 +1,272 @@
 [
   {
-    "error": "'.zmetadata'",
-    "error_type": "KeyError",
     "fresh_target_values_loaded": false,
+    "groups_attempted": 11,
+    "groups_opened": 0,
     "p076_touched": false,
     "shot_id": 12779,
     "source_uri": "s3://mast/level2/shots/12779.zarr",
-    "status": "FAILED",
-    "traceback": "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/mapping.py\", line 155, in __getitem__\n    result = self.fs.cat(k)\n             ^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 118, in wrapper\n    return sync(self.loop, func, *args, **kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 103, in sync\n    raise return_result\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 56, in _runner\n    result[0] = await coro\n                ^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 498, in _cat\n    raise ex\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 260, in _run_coro\n    return await asyncio.wait_for(coro, timeout=timeout), i\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/asyncio/tasks.py\", line 520, in wait_for\n    return await fut\n           ^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/s3fs/core.py\", line 1327, in _cat_file\n    content_length = await self._size(path)\n                     ^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 727, in _size\n    return (await self._info(path)).get(\"size\", None)\n            ^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/s3fs/core.py\", line 1799, in _info\n    raise FileNotFoundError(path)\nFileNotFoundError: mast/level2/shots/12779.zarr/.zmetadata\n\nThe above exception was the direct cause of the following exception:\n\nTraceback (most recent call last):\n  File \"<stdin>\", line 21, in <module>\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/mapping.py\", line 159, in __getitem__\n    raise KeyError(key) from exc\nKeyError: '.zmetadata'\n"
+    "status": "OK"
   },
   {
-    "error": "'.zmetadata'",
-    "error_type": "KeyError",
     "fresh_target_values_loaded": false,
+    "groups_attempted": 11,
+    "groups_opened": 0,
     "p076_touched": false,
     "shot_id": 12989,
     "source_uri": "s3://mast/level2/shots/12989.zarr",
-    "status": "FAILED",
-    "traceback": "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/mapping.py\", line 155, in __getitem__\n    result = self.fs.cat(k)\n             ^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 118, in wrapper\n    return sync(self.loop, func, *args, **kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 103, in sync\n    raise return_result\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 56, in _runner\n    result[0] = await coro\n                ^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 498, in _cat\n    raise ex\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 260, in _run_coro\n    return await asyncio.wait_for(coro, timeout=timeout), i\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/asyncio/tasks.py\", line 520, in wait_for\n    return await fut\n           ^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/s3fs/core.py\", line 1327, in _cat_file\n    content_length = await self._size(path)\n                     ^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 727, in _size\n    return (await self._info(path)).get(\"size\", None)\n            ^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/s3fs/core.py\", line 1799, in _info\n    raise FileNotFoundError(path)\nFileNotFoundError: mast/level2/shots/12989.zarr/.zmetadata\n\nThe above exception was the direct cause of the following exception:\n\nTraceback (most recent call last):\n  File \"<stdin>\", line 21, in <module>\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/mapping.py\", line 159, in __getitem__\n    raise KeyError(key) from exc\nKeyError: '.zmetadata'\n"
+    "status": "OK"
   },
   {
-    "error": "'.zmetadata'",
-    "error_type": "KeyError",
     "fresh_target_values_loaded": false,
+    "groups_attempted": 11,
+    "groups_opened": 0,
     "p076_touched": false,
     "shot_id": 14281,
     "source_uri": "s3://mast/level2/shots/14281.zarr",
-    "status": "FAILED",
-    "traceback": "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/mapping.py\", line 155, in __getitem__\n    result = self.fs.cat(k)\n             ^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 118, in wrapper\n    return sync(self.loop, func, *args, **kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 103, in sync\n    raise return_result\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 56, in _runner\n    result[0] = await coro\n                ^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 498, in _cat\n    raise ex\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 260, in _run_coro\n    return await asyncio.wait_for(coro, timeout=timeout), i\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/asyncio/tasks.py\", line 520, in wait_for\n    return await fut\n           ^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/s3fs/core.py\", line 1327, in _cat_file\n    content_length = await self._size(path)\n                     ^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 727, in _size\n    return (await self._info(path)).get(\"size\", None)\n            ^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/s3fs/core.py\", line 1799, in _info\n    raise FileNotFoundError(path)\nFileNotFoundError: mast/level2/shots/14281.zarr/.zmetadata\n\nThe above exception was the direct cause of the following exception:\n\nTraceback (most recent call last):\n  File \"<stdin>\", line 21, in <module>\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/mapping.py\", line 159, in __getitem__\n    raise KeyError(key) from exc\nKeyError: '.zmetadata'\n"
+    "status": "OK"
   },
   {
-    "error": "'.zmetadata'",
-    "error_type": "KeyError",
     "fresh_target_values_loaded": false,
+    "groups_attempted": 11,
+    "groups_opened": 0,
     "p076_touched": false,
     "shot_id": 15060,
     "source_uri": "s3://mast/level2/shots/15060.zarr",
-    "status": "FAILED",
-    "traceback": "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/mapping.py\", line 155, in __getitem__\n    result = self.fs.cat(k)\n             ^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 118, in wrapper\n    return sync(self.loop, func, *args, **kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 103, in sync\n    raise return_result\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 56, in _runner\n    result[0] = await coro\n                ^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 498, in _cat\n    raise ex\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 260, in _run_coro\n    return await asyncio.wait_for(coro, timeout=timeout), i\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/asyncio/tasks.py\", line 520, in wait_for\n    return await fut\n           ^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/s3fs/core.py\", line 1327, in _cat_file\n    content_length = await self._size(path)\n                     ^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 727, in _size\n    return (await self._info(path)).get(\"size\", None)\n            ^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/s3fs/core.py\", line 1799, in _info\n    raise FileNotFoundError(path)\nFileNotFoundError: mast/level2/shots/15060.zarr/.zmetadata\n\nThe above exception was the direct cause of the following exception:\n\nTraceback (most recent call last):\n  File \"<stdin>\", line 21, in <module>\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/mapping.py\", line 159, in __getitem__\n    raise KeyError(key) from exc\nKeyError: '.zmetadata'\n"
+    "status": "OK"
   },
   {
-    "error": "'.zmetadata'",
-    "error_type": "KeyError",
     "fresh_target_values_loaded": false,
+    "groups_attempted": 11,
+    "groups_opened": 0,
     "p076_touched": false,
     "shot_id": 15094,
     "source_uri": "s3://mast/level2/shots/15094.zarr",
-    "status": "FAILED",
-    "traceback": "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/mapping.py\", line 155, in __getitem__\n    result = self.fs.cat(k)\n             ^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 118, in wrapper\n    return sync(self.loop, func, *args, **kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 103, in sync\n    raise return_result\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 56, in _runner\n    result[0] = await coro\n                ^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 498, in _cat\n    raise ex\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 260, in _run_coro\n    return await asyncio.wait_for(coro, timeout=timeout), i\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/asyncio/tasks.py\", line 520, in wait_for\n    return await fut\n           ^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/s3fs/core.py\", line 1327, in _cat_file\n    content_length = await self._size(path)\n                     ^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 727, in _size\n    return (await self._info(path)).get(\"size\", None)\n            ^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/s3fs/core.py\", line 1799, in _info\n    raise FileNotFoundError(path)\nFileNotFoundError: mast/level2/shots/15094.zarr/.zmetadata\n\nThe above exception was the direct cause of the following exception:\n\nTraceback (most recent call last):\n  File \"<stdin>\", line 21, in <module>\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/mapping.py\", line 159, in __getitem__\n    raise KeyError(key) from exc\nKeyError: '.zmetadata'\n"
+    "status": "OK"
   },
   {
-    "error": "'.zmetadata'",
-    "error_type": "KeyError",
     "fresh_target_values_loaded": false,
+    "groups_attempted": 11,
+    "groups_opened": 0,
     "p076_touched": false,
     "shot_id": 16374,
     "source_uri": "s3://mast/level2/shots/16374.zarr",
-    "status": "FAILED",
-    "traceback": "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/mapping.py\", line 155, in __getitem__\n    result = self.fs.cat(k)\n             ^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 118, in wrapper\n    return sync(self.loop, func, *args, **kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 103, in sync\n    raise return_result\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 56, in _runner\n    result[0] = await coro\n                ^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 498, in _cat\n    raise ex\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 260, in _run_coro\n    return await asyncio.wait_for(coro, timeout=timeout), i\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/asyncio/tasks.py\", line 520, in wait_for\n    return await fut\n           ^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/s3fs/core.py\", line 1327, in _cat_file\n    content_length = await self._size(path)\n                     ^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 727, in _size\n    return (await self._info(path)).get(\"size\", None)\n            ^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/s3fs/core.py\", line 1799, in _info\n    raise FileNotFoundError(path)\nFileNotFoundError: mast/level2/shots/16374.zarr/.zmetadata\n\nThe above exception was the direct cause of the following exception:\n\nTraceback (most recent call last):\n  File \"<stdin>\", line 21, in <module>\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/mapping.py\", line 159, in __getitem__\n    raise KeyError(key) from exc\nKeyError: '.zmetadata'\n"
+    "status": "OK"
   },
   {
-    "error": "'.zmetadata'",
-    "error_type": "KeyError",
     "fresh_target_values_loaded": false,
+    "groups_attempted": 11,
+    "groups_opened": 0,
     "p076_touched": false,
     "shot_id": 16738,
     "source_uri": "s3://mast/level2/shots/16738.zarr",
-    "status": "FAILED",
-    "traceback": "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/mapping.py\", line 155, in __getitem__\n    result = self.fs.cat(k)\n             ^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 118, in wrapper\n    return sync(self.loop, func, *args, **kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 103, in sync\n    raise return_result\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 56, in _runner\n    result[0] = await coro\n                ^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 498, in _cat\n    raise ex\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 260, in _run_coro\n    return await asyncio.wait_for(coro, timeout=timeout), i\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/asyncio/tasks.py\", line 520, in wait_for\n    return await fut\n           ^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/s3fs/core.py\", line 1327, in _cat_file\n    content_length = await self._size(path)\n                     ^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 727, in _size\n    return (await self._info(path)).get(\"size\", None)\n            ^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/s3fs/core.py\", line 1799, in _info\n    raise FileNotFoundError(path)\nFileNotFoundError: mast/level2/shots/16738.zarr/.zmetadata\n\nThe above exception was the direct cause of the following exception:\n\nTraceback (most recent call last):\n  File \"<stdin>\", line 21, in <module>\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/mapping.py\", line 159, in __getitem__\n    raise KeyError(key) from exc\nKeyError: '.zmetadata'\n"
+    "status": "OK"
   },
   {
-    "error": "'.zmetadata'",
-    "error_type": "KeyError",
     "fresh_target_values_loaded": false,
+    "groups_attempted": 11,
+    "groups_opened": 0,
     "p076_touched": false,
     "shot_id": 17746,
     "source_uri": "s3://mast/level2/shots/17746.zarr",
-    "status": "FAILED",
-    "traceback": "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/mapping.py\", line 155, in __getitem__\n    result = self.fs.cat(k)\n             ^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 118, in wrapper\n    return sync(self.loop, func, *args, **kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 103, in sync\n    raise return_result\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 56, in _runner\n    result[0] = await coro\n                ^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 498, in _cat\n    raise ex\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 260, in _run_coro\n    return await asyncio.wait_for(coro, timeout=timeout), i\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/asyncio/tasks.py\", line 520, in wait_for\n    return await fut\n           ^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/s3fs/core.py\", line 1327, in _cat_file\n    content_length = await self._size(path)\n                     ^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 727, in _size\n    return (await self._info(path)).get(\"size\", None)\n            ^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/s3fs/core.py\", line 1799, in _info\n    raise FileNotFoundError(path)\nFileNotFoundError: mast/level2/shots/17746.zarr/.zmetadata\n\nThe above exception was the direct cause of the following exception:\n\nTraceback (most recent call last):\n  File \"<stdin>\", line 21, in <module>\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/mapping.py\", line 159, in __getitem__\n    raise KeyError(key) from exc\nKeyError: '.zmetadata'\n"
+    "status": "OK"
   },
   {
-    "error": "'.zmetadata'",
-    "error_type": "KeyError",
     "fresh_target_values_loaded": false,
+    "groups_attempted": 11,
+    "groups_opened": 0,
     "p076_touched": false,
     "shot_id": 17792,
     "source_uri": "s3://mast/level2/shots/17792.zarr",
-    "status": "FAILED",
-    "traceback": "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/mapping.py\", line 155, in __getitem__\n    result = self.fs.cat(k)\n             ^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 118, in wrapper\n    return sync(self.loop, func, *args, **kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 103, in sync\n    raise return_result\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 56, in _runner\n    result[0] = await coro\n                ^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 498, in _cat\n    raise ex\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 260, in _run_coro\n    return await asyncio.wait_for(coro, timeout=timeout), i\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/asyncio/tasks.py\", line 520, in wait_for\n    return await fut\n           ^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/s3fs/core.py\", line 1327, in _cat_file\n    content_length = await self._size(path)\n                     ^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 727, in _size\n    return (await self._info(path)).get(\"size\", None)\n            ^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/s3fs/core.py\", line 1799, in _info\n    raise FileNotFoundError(path)\nFileNotFoundError: mast/level2/shots/17792.zarr/.zmetadata\n\nThe above exception was the direct cause of the following exception:\n\nTraceback (most recent call last):\n  File \"<stdin>\", line 21, in <module>\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/mapping.py\", line 159, in __getitem__\n    raise KeyError(key) from exc\nKeyError: '.zmetadata'\n"
+    "status": "OK"
   },
   {
-    "error": "'.zmetadata'",
-    "error_type": "KeyError",
     "fresh_target_values_loaded": false,
+    "groups_attempted": 11,
+    "groups_opened": 0,
     "p076_touched": false,
     "shot_id": 17822,
     "source_uri": "s3://mast/level2/shots/17822.zarr",
-    "status": "FAILED",
-    "traceback": "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/mapping.py\", line 155, in __getitem__\n    result = self.fs.cat(k)\n             ^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 118, in wrapper\n    return sync(self.loop, func, *args, **kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 103, in sync\n    raise return_result\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 56, in _runner\n    result[0] = await coro\n                ^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 498, in _cat\n    raise ex\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 260, in _run_coro\n    return await asyncio.wait_for(coro, timeout=timeout), i\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/asyncio/tasks.py\", line 520, in wait_for\n    return await fut\n           ^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/s3fs/core.py\", line 1327, in _cat_file\n    content_length = await self._size(path)\n                     ^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 727, in _size\n    return (await self._info(path)).get(\"size\", None)\n            ^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/s3fs/core.py\", line 1799, in _info\n    raise FileNotFoundError(path)\nFileNotFoundError: mast/level2/shots/17822.zarr/.zmetadata\n\nThe above exception was the direct cause of the following exception:\n\nTraceback (most recent call last):\n  File \"<stdin>\", line 21, in <module>\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/mapping.py\", line 159, in __getitem__\n    raise KeyError(key) from exc\nKeyError: '.zmetadata'\n"
+    "status": "OK"
   },
   {
-    "error": "'.zmetadata'",
-    "error_type": "KeyError",
     "fresh_target_values_loaded": false,
+    "groups_attempted": 11,
+    "groups_opened": 0,
     "p076_touched": false,
     "shot_id": 17930,
     "source_uri": "s3://mast/level2/shots/17930.zarr",
-    "status": "FAILED",
-    "traceback": "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/mapping.py\", line 155, in __getitem__\n    result = self.fs.cat(k)\n             ^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 118, in wrapper\n    return sync(self.loop, func, *args, **kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 103, in sync\n    raise return_result\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 56, in _runner\n    result[0] = await coro\n                ^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 498, in _cat\n    raise ex\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 260, in _run_coro\n    return await asyncio.wait_for(coro, timeout=timeout), i\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/asyncio/tasks.py\", line 520, in wait_for\n    return await fut\n           ^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/s3fs/core.py\", line 1327, in _cat_file\n    content_length = await self._size(path)\n                     ^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 727, in _size\n    return (await self._info(path)).get(\"size\", None)\n            ^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/s3fs/core.py\", line 1799, in _info\n    raise FileNotFoundError(path)\nFileNotFoundError: mast/level2/shots/17930.zarr/.zmetadata\n\nThe above exception was the direct cause of the following exception:\n\nTraceback (most recent call last):\n  File \"<stdin>\", line 21, in <module>\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/mapping.py\", line 159, in __getitem__\n    raise KeyError(key) from exc\nKeyError: '.zmetadata'\n"
+    "status": "OK"
   },
   {
-    "error": "'.zmetadata'",
-    "error_type": "KeyError",
     "fresh_target_values_loaded": false,
+    "groups_attempted": 11,
+    "groups_opened": 0,
     "p076_touched": false,
     "shot_id": 18826,
     "source_uri": "s3://mast/level2/shots/18826.zarr",
-    "status": "FAILED",
-    "traceback": "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/mapping.py\", line 155, in __getitem__\n    result = self.fs.cat(k)\n             ^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 118, in wrapper\n    return sync(self.loop, func, *args, **kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 103, in sync\n    raise return_result\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 56, in _runner\n    result[0] = await coro\n                ^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 498, in _cat\n    raise ex\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 260, in _run_coro\n    return await asyncio.wait_for(coro, timeout=timeout), i\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/asyncio/tasks.py\", line 520, in wait_for\n    return await fut\n           ^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/s3fs/core.py\", line 1327, in _cat_file\n    content_length = await self._size(path)\n                     ^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 727, in _size\n    return (await self._info(path)).get(\"size\", None)\n            ^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/s3fs/core.py\", line 1799, in _info\n    raise FileNotFoundError(path)\nFileNotFoundError: mast/level2/shots/18826.zarr/.zmetadata\n\nThe above exception was the direct cause of the following exception:\n\nTraceback (most recent call last):\n  File \"<stdin>\", line 21, in <module>\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/mapping.py\", line 159, in __getitem__\n    raise KeyError(key) from exc\nKeyError: '.zmetadata'\n"
+    "status": "OK"
   },
   {
-    "error": "'.zmetadata'",
-    "error_type": "KeyError",
     "fresh_target_values_loaded": false,
+    "groups_attempted": 11,
+    "groups_opened": 0,
     "p076_touched": false,
     "shot_id": 20727,
     "source_uri": "s3://mast/level2/shots/20727.zarr",
-    "status": "FAILED",
-    "traceback": "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/mapping.py\", line 155, in __getitem__\n    result = self.fs.cat(k)\n             ^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 118, in wrapper\n    return sync(self.loop, func, *args, **kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 103, in sync\n    raise return_result\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 56, in _runner\n    result[0] = await coro\n                ^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 498, in _cat\n    raise ex\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 260, in _run_coro\n    return await asyncio.wait_for(coro, timeout=timeout), i\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/asyncio/tasks.py\", line 520, in wait_for\n    return await fut\n           ^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/s3fs/core.py\", line 1327, in _cat_file\n    content_length = await self._size(path)\n                     ^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 727, in _size\n    return (await self._info(path)).get(\"size\", None)\n            ^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/s3fs/core.py\", line 1799, in _info\n    raise FileNotFoundError(path)\nFileNotFoundError: mast/level2/shots/20727.zarr/.zmetadata\n\nThe above exception was the direct cause of the following exception:\n\nTraceback (most recent call last):\n  File \"<stdin>\", line 21, in <module>\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/mapping.py\", line 159, in __getitem__\n    raise KeyError(key) from exc\nKeyError: '.zmetadata'\n"
+    "status": "OK"
   },
   {
-    "error": "'.zmetadata'",
-    "error_type": "KeyError",
     "fresh_target_values_loaded": false,
+    "groups_attempted": 11,
+    "groups_opened": 0,
     "p076_touched": false,
     "shot_id": 21338,
     "source_uri": "s3://mast/level2/shots/21338.zarr",
-    "status": "FAILED",
-    "traceback": "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/mapping.py\", line 155, in __getitem__\n    result = self.fs.cat(k)\n             ^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 118, in wrapper\n    return sync(self.loop, func, *args, **kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 103, in sync\n    raise return_result\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 56, in _runner\n    result[0] = await coro\n                ^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 498, in _cat\n    raise ex\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 260, in _run_coro\n    return await asyncio.wait_for(coro, timeout=timeout), i\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/asyncio/tasks.py\", line 520, in wait_for\n    return await fut\n           ^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/s3fs/core.py\", line 1327, in _cat_file\n    content_length = await self._size(path)\n                     ^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 727, in _size\n    return (await self._info(path)).get(\"size\", None)\n            ^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/s3fs/core.py\", line 1799, in _info\n    raise FileNotFoundError(path)\nFileNotFoundError: mast/level2/shots/21338.zarr/.zmetadata\n\nThe above exception was the direct cause of the following exception:\n\nTraceback (most recent call last):\n  File \"<stdin>\", line 21, in <module>\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/mapping.py\", line 159, in __getitem__\n    raise KeyError(key) from exc\nKeyError: '.zmetadata'\n"
+    "status": "OK"
   },
   {
-    "error": "'.zmetadata'",
-    "error_type": "KeyError",
     "fresh_target_values_loaded": false,
+    "groups_attempted": 11,
+    "groups_opened": 0,
     "p076_touched": false,
     "shot_id": 21725,
     "source_uri": "s3://mast/level2/shots/21725.zarr",
-    "status": "FAILED",
-    "traceback": "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/mapping.py\", line 155, in __getitem__\n    result = self.fs.cat(k)\n             ^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 118, in wrapper\n    return sync(self.loop, func, *args, **kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 103, in sync\n    raise return_result\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 56, in _runner\n    result[0] = await coro\n                ^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 498, in _cat\n    raise ex\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 260, in _run_coro\n    return await asyncio.wait_for(coro, timeout=timeout), i\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/asyncio/tasks.py\", line 520, in wait_for\n    return await fut\n           ^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/s3fs/core.py\", line 1327, in _cat_file\n    content_length = await self._size(path)\n                     ^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 727, in _size\n    return (await self._info(path)).get(\"size\", None)\n            ^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/s3fs/core.py\", line 1799, in _info\n    raise FileNotFoundError(path)\nFileNotFoundError: mast/level2/shots/21725.zarr/.zmetadata\n\nThe above exception was the direct cause of the following exception:\n\nTraceback (most recent call last):\n  File \"<stdin>\", line 21, in <module>\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/mapping.py\", line 159, in __getitem__\n    raise KeyError(key) from exc\nKeyError: '.zmetadata'\n"
+    "status": "OK"
   },
   {
-    "error": "'.zmetadata'",
-    "error_type": "KeyError",
     "fresh_target_values_loaded": false,
+    "groups_attempted": 11,
+    "groups_opened": 0,
     "p076_touched": false,
     "shot_id": 22785,
     "source_uri": "s3://mast/level2/shots/22785.zarr",
-    "status": "FAILED",
-    "traceback": "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/mapping.py\", line 155, in __getitem__\n    result = self.fs.cat(k)\n             ^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 118, in wrapper\n    return sync(self.loop, func, *args, **kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 103, in sync\n    raise return_result\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 56, in _runner\n    result[0] = await coro\n                ^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 498, in _cat\n    raise ex\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 260, in _run_coro\n    return await asyncio.wait_for(coro, timeout=timeout), i\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/asyncio/tasks.py\", line 520, in wait_for\n    return await fut\n           ^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/s3fs/core.py\", line 1327, in _cat_file\n    content_length = await self._size(path)\n                     ^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 727, in _size\n    return (await self._info(path)).get(\"size\", None)\n            ^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/s3fs/core.py\", line 1799, in _info\n    raise FileNotFoundError(path)\nFileNotFoundError: mast/level2/shots/22785.zarr/.zmetadata\n\nThe above exception was the direct cause of the following exception:\n\nTraceback (most recent call last):\n  File \"<stdin>\", line 21, in <module>\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/mapping.py\", line 159, in __getitem__\n    raise KeyError(key) from exc\nKeyError: '.zmetadata'\n"
+    "status": "OK"
   },
   {
-    "error": "'.zmetadata'",
-    "error_type": "KeyError",
     "fresh_target_values_loaded": false,
+    "groups_attempted": 11,
+    "groups_opened": 0,
     "p076_touched": false,
     "shot_id": 23288,
     "source_uri": "s3://mast/level2/shots/23288.zarr",
-    "status": "FAILED",
-    "traceback": "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/mapping.py\", line 155, in __getitem__\n    result = self.fs.cat(k)\n             ^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 118, in wrapper\n    return sync(self.loop, func, *args, **kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 103, in sync\n    raise return_result\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 56, in _runner\n    result[0] = await coro\n                ^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 498, in _cat\n    raise ex\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 260, in _run_coro\n    return await asyncio.wait_for(coro, timeout=timeout), i\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/asyncio/tasks.py\", line 520, in wait_for\n    return await fut\n           ^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/s3fs/core.py\", line 1327, in _cat_file\n    content_length = await self._size(path)\n                     ^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 727, in _size\n    return (await self._info(path)).get(\"size\", None)\n            ^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/s3fs/core.py\", line 1799, in _info\n    raise FileNotFoundError(path)\nFileNotFoundError: mast/level2/shots/23288.zarr/.zmetadata\n\nThe above exception was the direct cause of the following exception:\n\nTraceback (most recent call last):\n  File \"<stdin>\", line 21, in <module>\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/mapping.py\", line 159, in __getitem__\n    raise KeyError(key) from exc\nKeyError: '.zmetadata'\n"
+    "status": "OK"
   },
   {
-    "error": "'.zmetadata'",
-    "error_type": "KeyError",
     "fresh_target_values_loaded": false,
+    "groups_attempted": 11,
+    "groups_opened": 0,
     "p076_touched": false,
     "shot_id": 24198,
     "source_uri": "s3://mast/level2/shots/24198.zarr",
-    "status": "FAILED",
-    "traceback": "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/mapping.py\", line 155, in __getitem__\n    result = self.fs.cat(k)\n             ^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 118, in wrapper\n    return sync(self.loop, func, *args, **kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 103, in sync\n    raise return_result\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 56, in _runner\n    result[0] = await coro\n                ^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 498, in _cat\n    raise ex\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 260, in _run_coro\n    return await asyncio.wait_for(coro, timeout=timeout), i\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/asyncio/tasks.py\", line 520, in wait_for\n    return await fut\n           ^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/s3fs/core.py\", line 1327, in _cat_file\n    content_length = await self._size(path)\n                     ^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 727, in _size\n    return (await self._info(path)).get(\"size\", None)\n            ^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/s3fs/core.py\", line 1799, in _info\n    raise FileNotFoundError(path)\nFileNotFoundError: mast/level2/shots/24198.zarr/.zmetadata\n\nThe above exception was the direct cause of the following exception:\n\nTraceback (most recent call last):\n  File \"<stdin>\", line 21, in <module>\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/mapping.py\", line 159, in __getitem__\n    raise KeyError(key) from exc\nKeyError: '.zmetadata'\n"
+    "status": "OK"
   },
   {
-    "error": "'.zmetadata'",
-    "error_type": "KeyError",
     "fresh_target_values_loaded": false,
+    "groups_attempted": 11,
+    "groups_opened": 0,
     "p076_touched": false,
     "shot_id": 24668,
     "source_uri": "s3://mast/level2/shots/24668.zarr",
-    "status": "FAILED",
-    "traceback": "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/mapping.py\", line 155, in __getitem__\n    result = self.fs.cat(k)\n             ^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 118, in wrapper\n    return sync(self.loop, func, *args, **kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 103, in sync\n    raise return_result\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 56, in _runner\n    result[0] = await coro\n                ^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 498, in _cat\n    raise ex\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 260, in _run_coro\n    return await asyncio.wait_for(coro, timeout=timeout), i\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/asyncio/tasks.py\", line 520, in wait_for\n    return await fut\n           ^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/s3fs/core.py\", line 1327, in _cat_file\n    content_length = await self._size(path)\n                     ^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 727, in _size\n    return (await self._info(path)).get(\"size\", None)\n            ^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/s3fs/core.py\", line 1799, in _info\n    raise FileNotFoundError(path)\nFileNotFoundError: mast/level2/shots/24668.zarr/.zmetadata\n\nThe above exception was the direct cause of the following exception:\n\nTraceback (most recent call last):\n  File \"<stdin>\", line 21, in <module>\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/mapping.py\", line 159, in __getitem__\n    raise KeyError(key) from exc\nKeyError: '.zmetadata'\n"
+    "status": "OK"
   },
   {
-    "error": "'.zmetadata'",
-    "error_type": "KeyError",
     "fresh_target_values_loaded": false,
+    "groups_attempted": 11,
+    "groups_opened": 0,
     "p076_touched": false,
     "shot_id": 25008,
     "source_uri": "s3://mast/level2/shots/25008.zarr",
-    "status": "FAILED",
-    "traceback": "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/mapping.py\", line 155, in __getitem__\n    result = self.fs.cat(k)\n             ^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 118, in wrapper\n    return sync(self.loop, func, *args, **kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 103, in sync\n    raise return_result\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 56, in _runner\n    result[0] = await coro\n                ^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 498, in _cat\n    raise ex\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 260, in _run_coro\n    return await asyncio.wait_for(coro, timeout=timeout), i\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/asyncio/tasks.py\", line 520, in wait_for\n    return await fut\n           ^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/s3fs/core.py\", line 1327, in _cat_file\n    content_length = await self._size(path)\n                     ^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 727, in _size\n    return (await self._info(path)).get(\"size\", None)\n            ^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/s3fs/core.py\", line 1799, in _info\n    raise FileNotFoundError(path)\nFileNotFoundError: mast/level2/shots/25008.zarr/.zmetadata\n\nThe above exception was the direct cause of the following exception:\n\nTraceback (most recent call last):\n  File \"<stdin>\", line 21, in <module>\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/mapping.py\", line 159, in __getitem__\n    raise KeyError(key) from exc\nKeyError: '.zmetadata'\n"
+    "status": "OK"
   },
   {
-    "error": "'.zmetadata'",
-    "error_type": "KeyError",
     "fresh_target_values_loaded": false,
+    "groups_attempted": 11,
+    "groups_opened": 0,
     "p076_touched": false,
     "shot_id": 25009,
     "source_uri": "s3://mast/level2/shots/25009.zarr",
-    "status": "FAILED",
-    "traceback": "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/mapping.py\", line 155, in __getitem__\n    result = self.fs.cat(k)\n             ^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 118, in wrapper\n    return sync(self.loop, func, *args, **kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 103, in sync\n    raise return_result\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 56, in _runner\n    result[0] = await coro\n                ^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 498, in _cat\n    raise ex\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 260, in _run_coro\n    return await asyncio.wait_for(coro, timeout=timeout), i\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/asyncio/tasks.py\", line 520, in wait_for\n    return await fut\n           ^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/s3fs/core.py\", line 1327, in _cat_file\n    content_length = await self._size(path)\n                     ^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 727, in _size\n    return (await self._info(path)).get(\"size\", None)\n            ^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/s3fs/core.py\", line 1799, in _info\n    raise FileNotFoundError(path)\nFileNotFoundError: mast/level2/shots/25009.zarr/.zmetadata\n\nThe above exception was the direct cause of the following exception:\n\nTraceback (most recent call last):\n  File \"<stdin>\", line 21, in <module>\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/mapping.py\", line 159, in __getitem__\n    raise KeyError(key) from exc\nKeyError: '.zmetadata'\n"
+    "status": "OK"
   },
   {
-    "error": "'.zmetadata'",
-    "error_type": "KeyError",
     "fresh_target_values_loaded": false,
+    "groups_attempted": 11,
+    "groups_opened": 0,
     "p076_touched": false,
     "shot_id": 26790,
     "source_uri": "s3://mast/level2/shots/26790.zarr",
-    "status": "FAILED",
-    "traceback": "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/mapping.py\", line 155, in __getitem__\n    result = self.fs.cat(k)\n             ^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 118, in wrapper\n    return sync(self.loop, func, *args, **kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 103, in sync\n    raise return_result\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 56, in _runner\n    result[0] = await coro\n                ^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 498, in _cat\n    raise ex\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 260, in _run_coro\n    return await asyncio.wait_for(coro, timeout=timeout), i\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/asyncio/tasks.py\", line 520, in wait_for\n    return await fut\n           ^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/s3fs/core.py\", line 1327, in _cat_file\n    content_length = await self._size(path)\n                     ^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 727, in _size\n    return (await self._info(path)).get(\"size\", None)\n            ^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/s3fs/core.py\", line 1799, in _info\n    raise FileNotFoundError(path)\nFileNotFoundError: mast/level2/shots/26790.zarr/.zmetadata\n\nThe above exception was the direct cause of the following exception:\n\nTraceback (most recent call last):\n  File \"<stdin>\", line 21, in <module>\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/mapping.py\", line 159, in __getitem__\n    raise KeyError(key) from exc\nKeyError: '.zmetadata'\n"
+    "status": "OK"
   },
   {
-    "error": "'.zmetadata'",
-    "error_type": "KeyError",
     "fresh_target_values_loaded": false,
+    "groups_attempted": 11,
+    "groups_opened": 0,
     "p076_touched": false,
     "shot_id": 26993,
     "source_uri": "s3://mast/level2/shots/26993.zarr",
-    "status": "FAILED",
-    "traceback": "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/mapping.py\", line 155, in __getitem__\n    result = self.fs.cat(k)\n             ^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 118, in wrapper\n    return sync(self.loop, func, *args, **kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 103, in sync\n    raise return_result\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 56, in _runner\n    result[0] = await coro\n                ^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 498, in _cat\n    raise ex\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 260, in _run_coro\n    return await asyncio.wait_for(coro, timeout=timeout), i\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/asyncio/tasks.py\", line 520, in wait_for\n    return await fut\n           ^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/s3fs/core.py\", line 1327, in _cat_file\n    content_length = await self._size(path)\n                     ^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 727, in _size\n    return (await self._info(path)).get(\"size\", None)\n            ^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/s3fs/core.py\", line 1799, in _info\n    raise FileNotFoundError(path)\nFileNotFoundError: mast/level2/shots/26993.zarr/.zmetadata\n\nThe above exception was the direct cause of the following exception:\n\nTraceback (most recent call last):\n  File \"<stdin>\", line 21, in <module>\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/mapping.py\", line 159, in __getitem__\n    raise KeyError(key) from exc\nKeyError: '.zmetadata'\n"
+    "status": "OK"
   },
   {
-    "error": "'.zmetadata'",
-    "error_type": "KeyError",
     "fresh_target_values_loaded": false,
+    "groups_attempted": 11,
+    "groups_opened": 0,
     "p076_touched": false,
     "shot_id": 27446,
     "source_uri": "s3://mast/level2/shots/27446.zarr",
-    "status": "FAILED",
-    "traceback": "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/mapping.py\", line 155, in __getitem__\n    result = self.fs.cat(k)\n             ^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 118, in wrapper\n    return sync(self.loop, func, *args, **kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 103, in sync\n    raise return_result\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 56, in _runner\n    result[0] = await coro\n                ^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 498, in _cat\n    raise ex\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 260, in _run_coro\n    return await asyncio.wait_for(coro, timeout=timeout), i\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/asyncio/tasks.py\", line 520, in wait_for\n    return await fut\n           ^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/s3fs/core.py\", line 1327, in _cat_file\n    content_length = await self._size(path)\n                     ^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 727, in _size\n    return (await self._info(path)).get(\"size\", None)\n            ^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/s3fs/core.py\", line 1799, in _info\n    raise FileNotFoundError(path)\nFileNotFoundError: mast/level2/shots/27446.zarr/.zmetadata\n\nThe above exception was the direct cause of the following exception:\n\nTraceback (most recent call last):\n  File \"<stdin>\", line 21, in <module>\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/mapping.py\", line 159, in __getitem__\n    raise KeyError(key) from exc\nKeyError: '.zmetadata'\n"
+    "status": "OK"
   },
   {
-    "error": "'.zmetadata'",
-    "error_type": "KeyError",
     "fresh_target_values_loaded": false,
+    "groups_attempted": 11,
+    "groups_opened": 0,
     "p076_touched": false,
     "shot_id": 27500,
     "source_uri": "s3://mast/level2/shots/27500.zarr",
-    "status": "FAILED",
-    "traceback": "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/mapping.py\", line 155, in __getitem__\n    result = self.fs.cat(k)\n             ^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 118, in wrapper\n    return sync(self.loop, func, *args, **kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 103, in sync\n    raise return_result\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 56, in _runner\n    result[0] = await coro\n                ^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 498, in _cat\n    raise ex\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 260, in _run_coro\n    return await asyncio.wait_for(coro, timeout=timeout), i\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/asyncio/tasks.py\", line 520, in wait_for\n    return await fut\n           ^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/s3fs/core.py\", line 1327, in _cat_file\n    content_length = await self._size(path)\n                     ^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 727, in _size\n    return (await self._info(path)).get(\"size\", None)\n            ^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/s3fs/core.py\", line 1799, in _info\n    raise FileNotFoundError(path)\nFileNotFoundError: mast/level2/shots/27500.zarr/.zmetadata\n\nThe above exception was the direct cause of the following exception:\n\nTraceback (most recent call last):\n  File \"<stdin>\", line 21, in <module>\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/mapping.py\", line 159, in __getitem__\n    raise KeyError(key) from exc\nKeyError: '.zmetadata'\n"
+    "status": "OK"
   },
   {
-    "error": "'.zmetadata'",
-    "error_type": "KeyError",
     "fresh_target_values_loaded": false,
+    "groups_attempted": 11,
+    "groups_opened": 0,
     "p076_touched": false,
     "shot_id": 27613,
     "source_uri": "s3://mast/level2/shots/27613.zarr",
-    "status": "FAILED",
-    "traceback": "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/mapping.py\", line 155, in __getitem__\n    result = self.fs.cat(k)\n             ^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 118, in wrapper\n    return sync(self.loop, func, *args, **kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 103, in sync\n    raise return_result\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 56, in _runner\n    result[0] = await coro\n                ^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 498, in _cat\n    raise ex\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 260, in _run_coro\n    return await asyncio.wait_for(coro, timeout=timeout), i\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/asyncio/tasks.py\", line 520, in wait_for\n    return await fut\n           ^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/s3fs/core.py\", line 1327, in _cat_file\n    content_length = await self._size(path)\n                     ^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 727, in _size\n    return (await self._info(path)).get(\"size\", None)\n            ^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/s3fs/core.py\", line 1799, in _info\n    raise FileNotFoundError(path)\nFileNotFoundError: mast/level2/shots/27613.zarr/.zmetadata\n\nThe above exception was the direct cause of the following exception:\n\nTraceback (most recent call last):\n  File \"<stdin>\", line 21, in <module>\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/mapping.py\", line 159, in __getitem__\n    raise KeyError(key) from exc\nKeyError: '.zmetadata'\n"
+    "status": "OK"
   },
   {
-    "error": "'.zmetadata'",
-    "error_type": "KeyError",
     "fresh_target_values_loaded": false,
+    "groups_attempted": 11,
+    "groups_opened": 0,
     "p076_touched": false,
     "shot_id": 29159,
     "source_uri": "s3://mast/level2/shots/29159.zarr",
-    "status": "FAILED",
-    "traceback": "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/mapping.py\", line 155, in __getitem__\n    result = self.fs.cat(k)\n             ^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 118, in wrapper\n    return sync(self.loop, func, *args, **kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 103, in sync\n    raise return_result\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 56, in _runner\n    result[0] = await coro\n                ^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 498, in _cat\n    raise ex\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 260, in _run_coro\n    return await asyncio.wait_for(coro, timeout=timeout), i\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/asyncio/tasks.py\", line 520, in wait_for\n    return await fut\n           ^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/s3fs/core.py\", line 1327, in _cat_file\n    content_length = await self._size(path)\n                     ^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 727, in _size\n    return (await self._info(path)).get(\"size\", None)\n            ^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/s3fs/core.py\", line 1799, in _info\n    raise FileNotFoundError(path)\nFileNotFoundError: mast/level2/shots/29159.zarr/.zmetadata\n\nThe above exception was the direct cause of the following exception:\n\nTraceback (most recent call last):\n  File \"<stdin>\", line 21, in <module>\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/mapping.py\", line 159, in __getitem__\n    raise KeyError(key) from exc\nKeyError: '.zmetadata'\n"
+    "status": "OK"
   },
   {
-    "error": "'.zmetadata'",
-    "error_type": "KeyError",
     "fresh_target_values_loaded": false,
+    "groups_attempted": 11,
+    "groups_opened": 0,
     "p076_touched": false,
     "shot_id": 30022,
     "source_uri": "s3://mast/level2/shots/30022.zarr",
-    "status": "FAILED",
-    "traceback": "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/mapping.py\", line 155, in __getitem__\n    result = self.fs.cat(k)\n             ^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 118, in wrapper\n    return sync(self.loop, func, *args, **kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 103, in sync\n    raise return_result\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 56, in _runner\n    result[0] = await coro\n                ^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 498, in _cat\n    raise ex\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 260, in _run_coro\n    return await asyncio.wait_for(coro, timeout=timeout), i\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/asyncio/tasks.py\", line 520, in wait_for\n    return await fut\n           ^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/s3fs/core.py\", line 1327, in _cat_file\n    content_length = await self._size(path)\n                     ^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 727, in _size\n    return (await self._info(path)).get(\"size\", None)\n            ^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/s3fs/core.py\", line 1799, in _info\n    raise FileNotFoundError(path)\nFileNotFoundError: mast/level2/shots/30022.zarr/.zmetadata\n\nThe above exception was the direct cause of the following exception:\n\nTraceback (most recent call last):\n  File \"<stdin>\", line 21, in <module>\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/mapping.py\", line 159, in __getitem__\n    raise KeyError(key) from exc\nKeyError: '.zmetadata'\n"
+    "status": "OK"
   },
   {
-    "error": "'.zmetadata'",
-    "error_type": "KeyError",
     "fresh_target_values_loaded": false,
+    "groups_attempted": 11,
+    "groups_opened": 0,
     "p076_touched": false,
     "shot_id": 30410,
     "source_uri": "s3://mast/level2/shots/30410.zarr",
-    "status": "FAILED",
-    "traceback": "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/mapping.py\", line 155, in __getitem__\n    result = self.fs.cat(k)\n             ^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 118, in wrapper\n    return sync(self.loop, func, *args, **kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 103, in sync\n    raise return_result\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 56, in _runner\n    result[0] = await coro\n                ^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 498, in _cat\n    raise ex\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 260, in _run_coro\n    return await asyncio.wait_for(coro, timeout=timeout), i\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/asyncio/tasks.py\", line 520, in wait_for\n    return await fut\n           ^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/s3fs/core.py\", line 1327, in _cat_file\n    content_length = await self._size(path)\n                     ^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 727, in _size\n    return (await self._info(path)).get(\"size\", None)\n            ^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/s3fs/core.py\", line 1799, in _info\n    raise FileNotFoundError(path)\nFileNotFoundError: mast/level2/shots/30410.zarr/.zmetadata\n\nThe above exception was the direct cause of the following exception:\n\nTraceback (most recent call last):\n  File \"<stdin>\", line 21, in <module>\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/mapping.py\", line 159, in __getitem__\n    raise KeyError(key) from exc\nKeyError: '.zmetadata'\n"
+    "status": "OK"
   },
   {
-    "error": "'.zmetadata'",
-    "error_type": "KeyError",
     "fresh_target_values_loaded": false,
+    "groups_attempted": 11,
+    "groups_opened": 0,
     "p076_touched": false,
     "shot_id": 30419,
     "source_uri": "s3://mast/level2/shots/30419.zarr",
-    "status": "FAILED",
-    "traceback": "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/mapping.py\", line 155, in __getitem__\n    result = self.fs.cat(k)\n             ^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 118, in wrapper\n    return sync(self.loop, func, *args, **kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 103, in sync\n    raise return_result\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 56, in _runner\n    result[0] = await coro\n                ^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 498, in _cat\n    raise ex\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 260, in _run_coro\n    return await asyncio.wait_for(coro, timeout=timeout), i\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/asyncio/tasks.py\", line 520, in wait_for\n    return await fut\n           ^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/s3fs/core.py\", line 1327, in _cat_file\n    content_length = await self._size(path)\n                     ^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/asyn.py\", line 727, in _size\n    return (await self._info(path)).get(\"size\", None)\n            ^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/s3fs/core.py\", line 1799, in _info\n    raise FileNotFoundError(path)\nFileNotFoundError: mast/level2/shots/30419.zarr/.zmetadata\n\nThe above exception was the direct cause of the following exception:\n\nTraceback (most recent call last):\n  File \"<stdin>\", line 21, in <module>\n  File \"/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/fsspec/mapping.py\", line 159, in __getitem__\n    raise KeyError(key) from exc\nKeyError: '.zmetadata'\n"
+    "status": "OK"
   }
 ]

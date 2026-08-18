@@ -1,0 +1,512 @@
+[
+  {
+    "groups": [
+      "bolometer",
+      "charge_exchange",
+      "equilibrium",
+      "gas_injection",
+      "magnetics",
+      "pf_active",
+      "pulse_schedule",
+      "soft_x_rays",
+      "spectrometer_visible",
+      "summary",
+      "wall"
+    ],
+    "raw_children": 15,
+    "shot_id": 12779
+  },
+  {
+    "groups": [
+      "bolometer",
+      "charge_exchange",
+      "equilibrium",
+      "gas_injection",
+      "magnetics",
+      "pf_active",
+      "pulse_schedule",
+      "soft_x_rays",
+      "spectrometer_visible",
+      "summary",
+      "wall"
+    ],
+    "raw_children": 15,
+    "shot_id": 12989
+  },
+  {
+    "groups": [
+      "bolometer",
+      "charge_exchange",
+      "equilibrium",
+      "gas_injection",
+      "magnetics",
+      "pf_active",
+      "pulse_schedule",
+      "soft_x_rays",
+      "spectrometer_visible",
+      "summary",
+      "wall"
+    ],
+    "raw_children": 15,
+    "shot_id": 14281
+  },
+  {
+    "groups": [
+      "bolometer",
+      "charge_exchange",
+      "equilibrium",
+      "gas_injection",
+      "magnetics",
+      "pf_active",
+      "pulse_schedule",
+      "soft_x_rays",
+      "spectrometer_visible",
+      "summary",
+      "wall"
+    ],
+    "raw_children": 15,
+    "shot_id": 15060
+  },
+  {
+    "groups": [
+      "bolometer",
+      "charge_exchange",
+      "equilibrium",
+      "gas_injection",
+      "magnetics",
+      "pf_active",
+      "pulse_schedule",
+      "soft_x_rays",
+      "spectrometer_visible",
+      "summary",
+      "wall"
+    ],
+    "raw_children": 15,
+    "shot_id": 15094
+  },
+  {
+    "groups": [
+      "bolometer",
+      "charge_exchange",
+      "equilibrium",
+      "gas_injection",
+      "magnetics",
+      "pf_active",
+      "pulse_schedule",
+      "soft_x_rays",
+      "spectrometer_visible",
+      "summary",
+      "wall"
+    ],
+    "raw_children": 15,
+    "shot_id": 16374
+  },
+  {
+    "groups": [
+      "bolometer",
+      "charge_exchange",
+      "equilibrium",
+      "gas_injection",
+      "magnetics",
+      "pf_active",
+      "pulse_schedule",
+      "soft_x_rays",
+      "spectrometer_visible",
+      "summary",
+      "wall"
+    ],
+    "raw_children": 15,
+    "shot_id": 16738
+  },
+  {
+    "groups": [
+      "bolometer",
+      "charge_exchange",
+      "equilibrium",
+      "gas_injection",
+      "magnetics",
+      "pf_active",
+      "pulse_schedule",
+      "soft_x_rays",
+      "spectrometer_visible",
+      "summary",
+      "wall"
+    ],
+    "raw_children": 16,
+    "shot_id": 17746
+  },
+  {
+    "groups": [
+      "bolometer",
+      "charge_exchange",
+      "equilibrium",
+      "gas_injection",
+      "magnetics",
+      "pf_active",
+      "pulse_schedule",
+      "soft_x_rays",
+      "spectrometer_visible",
+      "summary",
+      "wall"
+    ],
+    "raw_children": 15,
+    "shot_id": 17792
+  },
+  {
+    "groups": [
+      "bolometer",
+      "charge_exchange",
+      "equilibrium",
+      "gas_injection",
+      "magnetics",
+      "pf_active",
+      "pulse_schedule",
+      "soft_x_rays",
+      "spectrometer_visible",
+      "summary",
+      "wall"
+    ],
+    "raw_children": 15,
+    "shot_id": 17822
+  },
+  {
+    "groups": [
+      "bolometer",
+      "charge_exchange",
+      "equilibrium",
+      "gas_injection",
+      "magnetics",
+      "pf_active",
+      "pulse_schedule",
+      "soft_x_rays",
+      "spectrometer_visible",
+      "summary",
+      "wall"
+    ],
+    "raw_children": 16,
+    "shot_id": 17930
+  },
+  {
+    "groups": [
+      "bolometer",
+      "charge_exchange",
+      "equilibrium",
+      "gas_injection",
+      "magnetics",
+      "pf_active",
+      "pulse_schedule",
+      "soft_x_rays",
+      "spectrometer_visible",
+      "summary",
+      "wall"
+    ],
+    "raw_children": 16,
+    "shot_id": 18826
+  },
+  {
+    "groups": [
+      "bolometer",
+      "charge_exchange",
+      "equilibrium",
+      "gas_injection",
+      "magnetics",
+      "pf_active",
+      "pulse_schedule",
+      "soft_x_rays",
+      "spectrometer_visible",
+      "summary",
+      "wall"
+    ],
+    "raw_children": 15,
+    "shot_id": 20727
+  },
+  {
+    "groups": [
+      "bolometer",
+      "charge_exchange",
+      "equilibrium",
+      "gas_injection",
+      "magnetics",
+      "pf_active",
+      "pulse_schedule",
+      "soft_x_rays",
+      "spectrometer_visible",
+      "summary",
+      "wall"
+    ],
+    "raw_children": 16,
+    "shot_id": 21338
+  },
+  {
+    "groups": [
+      "bolometer",
+      "charge_exchange",
+      "equilibrium",
+      "gas_injection",
+      "magnetics",
+      "pf_active",
+      "pulse_schedule",
+      "soft_x_rays",
+      "spectrometer_visible",
+      "summary",
+      "wall"
+    ],
+    "raw_children": 16,
+    "shot_id": 21725
+  },
+  {
+    "groups": [
+      "bolometer",
+      "charge_exchange",
+      "equilibrium",
+      "gas_injection",
+      "magnetics",
+      "pf_active",
+      "pulse_schedule",
+      "soft_x_rays",
+      "spectrometer_visible",
+      "summary",
+      "wall"
+    ],
+    "raw_children": 17,
+    "shot_id": 22785
+  },
+  {
+    "groups": [
+      "bolometer",
+      "charge_exchange",
+      "equilibrium",
+      "gas_injection",
+      "magnetics",
+      "pf_active",
+      "pulse_schedule",
+      "soft_x_rays",
+      "spectrometer_visible",
+      "summary",
+      "wall"
+    ],
+    "raw_children": 16,
+    "shot_id": 23288
+  },
+  {
+    "groups": [
+      "bolometer",
+      "charge_exchange",
+      "equilibrium",
+      "gas_injection",
+      "magnetics",
+      "pf_active",
+      "pulse_schedule",
+      "soft_x_rays",
+      "spectrometer_visible",
+      "summary",
+      "wall"
+    ],
+    "raw_children": 17,
+    "shot_id": 24198
+  },
+  {
+    "groups": [
+      "bolometer",
+      "charge_exchange",
+      "equilibrium",
+      "gas_injection",
+      "magnetics",
+      "pf_active",
+      "pulse_schedule",
+      "soft_x_rays",
+      "spectrometer_visible",
+      "summary",
+      "wall"
+    ],
+    "raw_children": 17,
+    "shot_id": 24668
+  },
+  {
+    "groups": [
+      "bolometer",
+      "charge_exchange",
+      "equilibrium",
+      "gas_injection",
+      "magnetics",
+      "pf_active",
+      "pulse_schedule",
+      "soft_x_rays",
+      "spectrometer_visible",
+      "summary",
+      "wall"
+    ],
+    "raw_children": 17,
+    "shot_id": 25008
+  },
+  {
+    "groups": [
+      "bolometer",
+      "charge_exchange",
+      "equilibrium",
+      "gas_injection",
+      "magnetics",
+      "pf_active",
+      "pulse_schedule",
+      "soft_x_rays",
+      "spectrometer_visible",
+      "summary",
+      "wall"
+    ],
+    "raw_children": 17,
+    "shot_id": 25009
+  },
+  {
+    "groups": [
+      "bolometer",
+      "charge_exchange",
+      "equilibrium",
+      "gas_injection",
+      "magnetics",
+      "pf_active",
+      "pulse_schedule",
+      "soft_x_rays",
+      "spectrometer_visible",
+      "summary",
+      "wall"
+    ],
+    "raw_children": 15,
+    "shot_id": 26790
+  },
+  {
+    "groups": [
+      "bolometer",
+      "charge_exchange",
+      "equilibrium",
+      "gas_injection",
+      "magnetics",
+      "pf_active",
+      "pulse_schedule",
+      "soft_x_rays",
+      "spectrometer_visible",
+      "summary",
+      "wall"
+    ],
+    "raw_children": 17,
+    "shot_id": 26993
+  },
+  {
+    "groups": [
+      "bolometer",
+      "charge_exchange",
+      "equilibrium",
+      "gas_injection",
+      "magnetics",
+      "pf_active",
+      "pulse_schedule",
+      "soft_x_rays",
+      "spectrometer_visible",
+      "summary",
+      "wall"
+    ],
+    "raw_children": 17,
+    "shot_id": 27446
+  },
+  {
+    "groups": [
+      "bolometer",
+      "charge_exchange",
+      "equilibrium",
+      "gas_injection",
+      "magnetics",
+      "pf_active",
+      "pulse_schedule",
+      "soft_x_rays",
+      "spectrometer_visible",
+      "summary",
+      "wall"
+    ],
+    "raw_children": 17,
+    "shot_id": 27500
+  },
+  {
+    "groups": [
+      "bolometer",
+      "charge_exchange",
+      "equilibrium",
+      "gas_injection",
+      "magnetics",
+      "pf_active",
+      "pulse_schedule",
+      "soft_x_rays",
+      "spectrometer_visible",
+      "summary",
+      "wall"
+    ],
+    "raw_children": 17,
+    "shot_id": 27613
+  },
+  {
+    "groups": [
+      "bolometer",
+      "charge_exchange",
+      "equilibrium",
+      "gas_injection",
+      "magnetics",
+      "pf_active",
+      "pulse_schedule",
+      "soft_x_rays",
+      "spectrometer_visible",
+      "summary",
+      "wall"
+    ],
+    "raw_children": 17,
+    "shot_id": 29159
+  },
+  {
+    "groups": [
+      "bolometer",
+      "charge_exchange",
+      "equilibrium",
+      "gas_injection",
+      "magnetics",
+      "pf_active",
+      "pulse_schedule",
+      "soft_x_rays",
+      "spectrometer_visible",
+      "summary",
+      "wall"
+    ],
+    "raw_children": 16,
+    "shot_id": 30022
+  },
+  {
+    "groups": [
+      "bolometer",
+      "charge_exchange",
+      "equilibrium",
+      "gas_injection",
+      "magnetics",
+      "pf_active",
+      "pulse_schedule",
+      "soft_x_rays",
+      "spectrometer_visible",
+      "summary",
+      "wall"
+    ],
+    "raw_children": 17,
+    "shot_id": 30410
+  },
+  {
+    "groups": [
+      "bolometer",
+      "charge_exchange",
+      "equilibrium",
+      "gas_injection",
+      "magnetics",
+      "pf_active",
+      "pulse_schedule",
+      "soft_x_rays",
+      "spectrometer_visible",
+      "summary",
+      "wall"
+    ],
+    "raw_children": 17,
+    "shot_id": 30419
+  }
+]
