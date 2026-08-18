@@ -1,0 +1,92 @@
+name: SC FAIR-MAST P075J DEEP PHYSICS V4
+on:
+  push:
+    branches: [sc-fair-mast-p057]
+    paths: ['.github/workflows/sc-fair-mast-p075j-deep-physics-v4.yml']
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  materialize:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - name: Install reader
+        run: python -m pip install --disable-pip-version-check 'numpy>=1.26' 'pandas>=2.0' 'xarray[io]>=2024.1' 'zarr>=3.0' 's3fs>=2025.3.0'
+      - name: Read frozen P072 shots
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf p075j-v4 && mkdir p075j-v4
+          python - <<'PY'
+          import json, traceback
+          from pathlib import Path
+          import numpy as np, pandas as pd, xarray as xr, s3fs
+          OUT=Path('p075j-v4'); ENDPOINT='https://s3.echo.stfc.ac.uk'
+          SHOTS=[12779,12989,14281,15060,15094,16374,16738,17746,17792,17822,17930,18826,20727,21338,21725,22785,23288,24198,24668,25008,25009,26790,26993,27446,27500,27613,29159,30022,30410,30419]
+          GROUPS=['summary','equilibrium','charge_exchange','magnetics','pf_active','gas_injection','pulse_schedule','spectrometer_visible','bolometer','soft_x_rays','wall']
+          KEYWORDS=('power','energy','wmhd','whmd','w_th','thermal','stored','fusion','alpha','neutron','wall','divertor','heat','disruption','strike','beta','q95','current','voltage','temperature','t_i')
+          EXACT={'summary.power_ohm','summary.power_nbi','summary.power_radiated','summary.neutron_rates_total','equilibrium.whmd','equilibrium.wmhd','summary.energy_thermal','summary.energy_diamagnetic','summary.power_icrh','summary.power_ecrh','summary.power_ec','summary.power_rf','summary.power_lh'}
+          fs=s3fs.S3FileSystem(anon=True,client_kwargs={'endpoint_url':ENDPOINT})
+          inventory=[]; values=[]; receipts=[]
+          def time_axis(ds):
+              if 'time' in ds.coords: return np.asarray(ds.coords['time'].load().values,float).reshape(-1)
+              if 'time' in ds: return np.asarray(ds['time'].load().values,float).reshape(-1)
+              for c in ds.coords:
+                  if 'time' in c.lower(): return np.asarray(ds.coords[c].load().values,float).reshape(-1)
+              return None
+          for sid in SHOTS:
+              mapper=fs.get_mapper(f'mast/level2/shots/{sid}.zarr'); errs={}; opened=0; vars_seen=0
+              for g in GROUPS:
+                  try: ds=xr.open_zarr(mapper,group=g,consolidated=None)
+                  except Exception as e:
+                      errs[g]=type(e).__name__+':'+str(e)[:240]; continue
+                  opened+=1; vars_seen+=len(ds.data_vars); t=time_axis(ds)
+                  for var in sorted(ds.data_vars):
+                      da=ds[var]; attrs={k:da.attrs.get(k) for k in ('name','label','description','imas','uda_name','units') if k in da.attrs}
+                      full=f'{g}.{var}'; text=' '.join([full]+[str(x) for x in attrs.values()]).lower()
+                      if full not in EXACT and not any(k in text for k in KEYWORDS): continue
+                      inventory.append({'shot_id':sid,'path':full,'dims':list(da.dims),'shape':list(da.shape),'dtype':str(da.dtype),'attrs':attrs})
+                      if t is None: continue
+                      try:
+                          a=np.squeeze(np.asarray(da.load().values,float))
+                          if a.ndim!=1 or len(a)!=len(t) or a.size>20000: continue
+                          for ti,vi in zip(t,a):
+                              if np.isfinite(ti) and np.isfinite(vi): values.append({'shot_id':sid,'path':full,'time':float(ti),'value':float(vi)})
+                      except Exception: pass
+              receipts.append({'shot_id':sid,'groups_opened':opened,'groups_attempted':len(GROUPS),'vars_seen':vars_seen,'group_errors':errs,'fresh_target_values_loaded':False,'p076_touched':False})
+          (OUT/'P075J_V4_INVENTORY.json').write_text(json.dumps(inventory,indent=2,sort_keys=True)+'\n')
+          (OUT/'P075J_V4_RECEIPTS.json').write_text(json.dumps(receipts,indent=2,sort_keys=True)+'\n')
+          pd.DataFrame(values).to_csv(OUT/'P075J_V4_VALUES.csv',index=False)
+          inv=pd.DataFrame([{'shot_id':x['shot_id'],'path':x['path']} for x in inventory]); pres=[]
+          if len(inv):
+              for p,g in inv.groupby('path'): pres.append({'path':p,'shots_present':int(g.shot_id.nunique())})
+          vv=pd.DataFrame(values); val=[]
+          if len(vv):
+              for p,g in vv.groupby('path'): val.append({'path':p,'shots_with_values':int(g.shot_id.nunique()),'finite_values':int(len(g)),'min':float(g.value.min()),'max':float(g.value.max()),'mean':float(g.value.mean())})
+          summ={'schema':'P075J_DEEP_PHYSICS_V4','requested_shots':30,'shots_with_any_group':sum(r['groups_opened']>0 for r in receipts),'total_groups_opened':sum(r['groups_opened'] for r in receipts),'inventory_records':len(inventory),'value_rows':len(values),'presence':pres,'value_summary':val,'fresh_target_values_loaded':False,'p076_touched':False}
+          (OUT/'P075J_V4_SUMMARY.json').write_text(json.dumps(summ,indent=2,sort_keys=True)+'\n')
+          print(json.dumps(summ,indent=2,sort_keys=True))
+          if summ['shots_with_any_group']<25: raise SystemExit('GROUP_OPEN_COVERAGE_TOO_LOW')
+          PY
+      - name: Hash
+        if: always()
+        run: find p075j-v4 -maxdepth 1 -type f ! -name SHA256SUMS_P075J_V4.txt -print0 | sort -z | xargs -0 sha256sum > p075j-v4/SHA256SUMS_P075J_V4.txt
+      - name: Persist
+        if: always()
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf p075j-results-v4 && mkdir p075j-results-v4
+          cp -f p075j-v4/* p075j-results-v4/
+          git config user.name 'sc-p075j-bot'
+          git config user.email 'sc-p075j-bot@users.noreply.github.com'
+          git add p075j-results-v4
+          git commit -m 'P075J v4 deep physical materialization receipts [skip ci]' || true
+          git push origin HEAD:sc-fair-mast-p057
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: {name: p075j-v4, path: p075j-v4, retention-days: 1, if-no-files-found: error}
