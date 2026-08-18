@@ -1,0 +1,19 @@
+{
+  "failed": 0,
+  "pressure_active_shots": 2,
+  "primary": [
+    20727,
+    22785,
+    12989
+  ],
+  "refit": false,
+  "reserve_activated": [],
+  "reserve_owned": [
+    17516,
+    28043
+  ],
+  "retune": false,
+  "schema": "P072_PRIMARY_SHARD_SUMMARY_V1",
+  "shard": 2,
+  "usable": 3
+}

@@ -1,0 +1,10 @@
+selection=METADATA_ONLY_SHA256_BEFORE_VALUES
+excluded_prior_unique=329
+model=M10_LOCAL_GAS_PRESSURE_FROZEN_P071
+comparators=M9,M8,M7
+pressure_required_for_selection=NO
+missing_pressure=M10_EQUALS_M9
+unknown_is_zero=NO
+refit=NO
+retune=NO
+same_support=M7_M8_M9_M10
