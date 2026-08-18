@@ -1,0 +1,29 @@
+name: SC FAIR-MAST P075D TARGETED MATERIALIZATION
+on:
+  push:
+    branches: [sc-fair-mast-p057]
+    paths: ['.github/workflows/sc-fair-mast-p075d-material10.yml']
+jobs:
+  shard:
+    strategy:
+      fail-fast: false
+      matrix: {shard: [0,1,2,3,4,5,6,7,8,9]}
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env: {SHARD: '${{ matrix.shard }}'}
+    steps:
+      - uses: actions/checkout@v4
+        with: {ref: sc-fair-mast-p057}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: python -m pip install --disable-pip-version-check 'numpy>=1.26' 'xarray[io]>=2024.1' 'zarr>=3.0' 's3fs>=2025.3.0'
+      - run: python scripts/p075d_targeted_materialization.py
+      - if: always()
+        run: |
+          find p075d-material-$SHARD -type f ! -name SHA256SUMS.txt -print0 | sort -z | xargs -0 sha256sum > p075d-material-$SHARD/SHA256SUMS.txt
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: p075d-material-${{ matrix.shard }}
+          path: p075d-material-${{ matrix.shard }}
+          retention-days: 1
