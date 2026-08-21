@@ -17,8 +17,8 @@ permissions:
   contents: read
 
 env:
-  QISKIT_IBM_TOKEN: ${{ secrets.QISKIT_IBM_TOKEN }}
-  QISKIT_IBM_INSTANCE: ${{ secrets.QISKIT_IBM_INSTANCE }}
+  QISKIT_IBM_TOKEN: ${{ secrets.QISKIT_IBM_TOKEN || secrets.IBM_QUANTUM_TOKEN || secrets.IBM_TOKEN || secrets.IBM_CLOUD_API_KEY || secrets.QISKIT_TOKEN }}
+  QISKIT_IBM_INSTANCE: ${{ secrets.QISKIT_IBM_INSTANCE || secrets.IBM_CLOUD_CRN || secrets.IBM_QUANTUM_INSTANCE }}
   QISKIT_IBM_CHANNEL: ibm_quantum_platform
   IBM_BACKEND: ibm_fez
 
@@ -39,7 +39,7 @@ jobs:
         shell: bash
         run: |
           if [ -z "$QISKIT_IBM_TOKEN" ]; then
-            echo 'QISKIT_IBM_TOKEN repository secret is missing.' >&2
+            echo 'No IBM Quantum credential was found under the supported repository-secret names.' >&2
             exit 86
           fi
       - name: Execute frozen matched hardware pass
