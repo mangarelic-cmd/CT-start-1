@@ -6,6 +6,11 @@ on:
     paths:
       - 'hardware/decoherence_v1p002/**'
       - '.github/workflows/decoherence-hardware-v1p002.yml'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'hardware/decoherence_v1p002/**'
+      - '.github/workflows/decoherence-hardware-v1p002.yml'
   workflow_dispatch:
 
 permissions:
