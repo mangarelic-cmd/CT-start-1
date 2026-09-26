@@ -13,7 +13,6 @@
     "supplied_zip_sha256": "fcf5d778729950efa2bf56212f4a119a1d4c2baab6eb7a591cb81f654fa8acac",
     "standalone_source_sha256": "a504a1ecae81f245321e77c0a96706b3e06091c5360d0bc2adedca22384a1c8a",
     "reconstructed_manifest_schema": "AC79_RELEASE_MANIFEST_V1",
-    "reconstructed_file_count": 926,
     "targeted_fixed_point_tests": "5/5 PASS",
     "qualification": "9/9 PASS",
     "delivered_pytest": "123 passed, 1 deselected",
@@ -24,7 +23,10 @@
       "reduction_fraction": 0.5446,
       "ac78_stop": "RESOURCE_CHECKPOINT_MAX_CALLS",
       "ac79_stop": "FIXED_POINT_TERMINAL_LEAF"
-    }
+    },
+    "full_release_manifest_file_count": 926,
+    "repository_reconstruction": "COMPACT_RUNTIME_CLOSURE",
+    "repository_integrity_policy": "VERIFY_ALL_PRESENT_MANIFEST_FILES_AND_ALL_AC79_DELTA_FILES"
   },
   "hypertriangle_aux": {
     "version": "1.0.0",

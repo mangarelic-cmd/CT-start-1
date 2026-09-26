@@ -13,6 +13,8 @@ python "$ROOT_DIR/scripts/verify_ac79_delta.py"
 rm -rf "$DEST"
 mkdir -p "$DEST"
 
+# The repository AC78 artifact is intentionally a compact runtime closure,
+# not the complete historical source release.
 tar -xJf "$BASE" -C "$DEST"
 cat "$CHUNKS"/*.b64 | base64 --decode > "$DELTA"
 
@@ -33,27 +35,61 @@ from pathlib import Path
 import sys
 
 root = Path(sys.argv[1]).resolve()
-manifest_path = root / "SHA256SUMS.json"
-manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
-entries = manifest["files"]
+manifest = json.loads((root / "SHA256SUMS.json").read_text(encoding="utf-8"))
+entries = {entry["path"]: entry for entry in manifest["files"]}
 
 if manifest.get("schema") != "AC79_RELEASE_MANIFEST_V1":
     raise SystemExit(f"unexpected manifest schema: {manifest.get('schema')!r}")
 if manifest.get("file_count") != len(entries):
-    raise SystemExit("AC79 file_count mismatch")
+    raise SystemExit("AC79 manifest file_count mismatch")
 
-for entry in entries:
-    path = root / entry["path"]
+required_delta_files = [
+    "00_STATE/AC79_STATE.json",
+    "01_CONTRACT/AC79_PROGRESS_AWARE_FIXED_POINT_CONTRACT.json",
+    "02_RUNTIME/all_everything_wave_engine.py",
+    "02_RUNTIME/automation_reconciliation_ac66.py",
+    "02_RUNTIME/progress_fixed_point_guard.py",
+    "02_RUNTIME/run_ac79_qualification.py",
+    "02_RUNTIME/sovereign_solver.py",
+    "03_TESTS/test_ac78_hypertriangle_memory_integration.py",
+    "03_TESTS/test_ac79_progress_fixed_point.py",
+    "06_RECEIPTS/AC79_ANTI_LOOP_COMPARISON.json",
+    "06_RECEIPTS/AC79_PARENT_DELTA_RECEIPT.json",
+    "06_RECEIPTS/AC79_PYTEST_RECEIPT.json",
+    "06_RECEIPTS/AC79_QUALIFICATION_RECEIPT.json",
+    "AC79_REPORT_FR.md",
+    "RELEASE_AC79.md",
+]
+
+def verify(path_text: str) -> None:
+    entry = entries.get(path_text)
+    if entry is None:
+        raise SystemExit(f"AC79 manifest missing required entry: {path_text}")
+    path = root / path_text
     if not path.is_file():
-        raise SystemExit(f"AC79 missing reconstructed file: {entry['path']}")
+        raise SystemExit(f"AC79 runtime reconstruction missing required file: {path_text}")
     data = path.read_bytes()
     if len(data) != entry["size"]:
-        raise SystemExit(f"AC79 size mismatch: {entry['path']}")
+        raise SystemExit(f"AC79 size mismatch: {path_text}")
     actual = hashlib.sha256(data).hexdigest()
     if actual != entry["sha256"]:
-        raise SystemExit(f"AC79 hash mismatch: {entry['path']}")
+        raise SystemExit(f"AC79 hash mismatch: {path_text}")
 
-print(f"AC79 reconstruction integrity PASS: {len(entries)} files")
+for path_text in required_delta_files:
+    verify(path_text)
+
+present_verified = 0
+for path_text in entries:
+    if (root / path_text).is_file():
+        verify(path_text)
+        present_verified += 1
+
+missing_full_source = len(entries) - present_verified
+print(
+    "AC79 compact runtime reconstruction integrity PASS: "
+    f"{present_verified} present manifest files verified; "
+    f"{missing_full_source} inherited full-source-only files intentionally absent"
+)
 PY
 
 echo "$DEST"

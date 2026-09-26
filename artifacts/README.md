@@ -30,7 +30,7 @@ python scripts/verify_ac79_delta.py
 bash scripts/reconstruct_ac79.sh .ci/ac79
 ```
 
-The reconstructed tree contains `SHA256SUMS.json` with 926 AC79 file hashes.
+The reconstructed compact runtime tree contains AC79's full-source `SHA256SUMS.json` (926 entries). CI verifies every manifest-listed file present in the compact runtime closure and requires every AC79 delta file. Inherited full-source-only tests/docs absent from the compact AC78 base are not synthesized.
 
 ## Historical AC78 base
 

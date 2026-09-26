@@ -50,7 +50,7 @@ AC78 remains in the repository as the immutable historical base artifact:
 
 `artifacts/releases/AC78_HYPERTRIANGLE_CORE_SOURCE_20260925.tar.xz`
 
-AC79 is stored as a deterministic delta over that byte-stable base:
+The repository handoff reconstructs the AC79 runtime closure as a deterministic delta over that byte-stable compact AC78 base. The supplied full AC79 package remains the authority for the complete 926-file source manifest:
 
 `artifacts/releases/ac79_delta_b64/00.b64 ... 23.b64`
 
@@ -74,7 +74,7 @@ A deterministic standalone AC79 source archive produced during qualification has
 
 ## Qualification evidence
 
-Local qualification of the supplied AC79 package:
+Local qualification of the supplied full AC79 package:
 
 - release manifest integrity: **926/926 files verified**;
 - targeted AC79 fixed-point tests: **5/5 passed**;
@@ -118,7 +118,7 @@ The repository workflow now:
 1. verifies the historical embedded artifact hashes;
 2. verifies the 24-part AC79 delta and its SHA-256;
 3. reconstructs AC79 from AC78 + delta;
-4. verifies all 926 reconstructed files against `SHA256SUMS.json`;
+4. verifies every file present in the compact AC79 runtime reconstruction against AC79's full-source `SHA256SUMS.json`, including every AC79 delta file;
 5. runs the targeted AC79 fixed-point tests;
 6. runs the AC79 qualification program.
 
