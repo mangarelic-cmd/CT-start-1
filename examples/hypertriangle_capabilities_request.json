@@ -1,0 +1,5 @@
+{
+  "request_id": "example-capabilities",
+  "mode": "capabilities",
+  "payload": {}
+}

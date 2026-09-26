@@ -1,0 +1,56 @@
+name: CR handoff verify
+
+on:
+  push:
+    branches: [main, cr-engine-handoff-20260925]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install CR runtime dependencies
+        run: python -m pip install -r requirements-cr.txt
+
+      - name: Verify embedded artifact hashes
+        run: python scripts/verify_cr_artifacts.py
+
+      - name: Extract AC78
+        run: |
+          mkdir -p .ci/ac78
+          tar -xJf artifacts/releases/AC78_HYPERTRIANGLE_CORE_SOURCE_20260925.tar.xz -C .ci/ac78
+
+      - name: AC78 HyperTriangle cold smoke
+        env:
+          PYTHONDONTWRITEBYTECODE: "1"
+          PYTHONPATH: .ci/ac78/02_RUNTIME
+        run: |
+          python - <<'PY'
+          from sovereign_solver import SovereignSolver
+
+          solver = SovereignSolver()
+          receipt = solver.hypertriangle({
+              "request_id": "github-ci",
+              "mode": "capabilities",
+              "payload": {}
+          })
+
+          assert receipt["provider"] == "HYPERTRIANGLE_SOLVER_AUX"
+          assert receipt["version"] == "1.0.0"
+          assert receipt["truth_credit"] == 0
+          assert receipt["root_write_capability"] == "NONE"
+          assert receipt["return_write_capability"] == "NONE"
+          assert receipt["solver_mutation_capability"] == "NONE"
+          assert len(receipt["receipt"]["capabilities"]) == 61
+          print("AC78 HyperTriangle smoke PASS")
+          PY

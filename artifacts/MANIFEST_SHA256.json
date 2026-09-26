@@ -1,0 +1,21 @@
+{
+  "schema": "CR_GITHUB_HANDOFF_MANIFEST_V1",
+  "date": "2026-09-25",
+  "engine": {
+    "name": "SC_SOLVER_AC78_HYPERTRIANGLE_MEMORY_INTEGRATION_CORE",
+    "artifact": "AC78_HYPERTRIANGLE_CORE_SOURCE_20260925.tar.xz",
+    "sha256": "506c7c7ccb5994b8be6a0e239cc2e2c298bf928021a119b6675886b102f89d65",
+    "full_release_sha256": "0b07684db8c5716d96ea047464430b8a463d119a6f385ed13c069286333c5b3a",
+    "cold_smoke": "PASS",
+    "hypertriangle_capability_count": 61
+  },
+  "hypertriangle_aux": {
+    "version": "1.0.0",
+    "full_release_sha256": "fa82b76a200703afe38e1f3e6ecabe2b1cb363f4fbb89c34ca00adf24ea23295"
+  },
+  "research": {
+    "name": "DD094_PASS117",
+    "artifact": "DD094_PASS117_LATEST_RESEARCH_SOURCE_20260925.tar.xz",
+    "sha256": "20320d91932442c04cd873282ddbb0297fce9153998312027fc980d867b653f9"
+  }
+}

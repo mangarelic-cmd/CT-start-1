@@ -1,3 +1,11 @@
+# CR engine handoff
+
+**Current solver handoff (2026-09-25): [CR_ENGINE.md](CR_ENGINE.md)**
+
+For the SaaS/API starting point, see [docs/CHAD_START_HERE.md](docs/CHAD_START_HERE.md).
+
+---
+
 **start-1 (CT) — Dedup + Skin + Residue Fusion**
 
 *(CLA + ε_son + stability + CT duplication phases)*
