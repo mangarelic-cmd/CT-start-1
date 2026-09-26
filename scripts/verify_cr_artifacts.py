@@ -8,7 +8,7 @@ ROOT = Path(__file__).resolve().parents[1]
 
 EXPECTED = {
     ROOT / "artifacts" / "releases" / "AC78_HYPERTRIANGLE_CORE_SOURCE_20260925.tar.xz":
-        "3b1a97ef681d35061187c93ab9ecb9c3ab1b9cc3a0a3c335a792fb7788cec3ae",
+        "506c7c7ccb5994b8be6a0e239cc2e2c298bf928021a119b6675886b102f89d65",
     ROOT / "artifacts" / "releases" / "DD094_PASS117_LATEST_RESEARCH_SOURCE_20260925.tar.xz":
         "20320d91932442c04cd873282ddbb0297fce9153998312027fc980d867b653f9",
 }

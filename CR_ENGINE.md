@@ -1,6 +1,6 @@
 # CR Engine handoff — 2026-09-25
 
-This repository now includes a reproducible handoff for the current Causal Resolution (CR) engine line.
+This repository includes a reproducible handoff for the current Causal Resolution (CR) engine line.
 
 ## Current master engine
 
@@ -35,7 +35,7 @@ Authority boundary:
 
 `artifacts/releases/AC78_HYPERTRIANGLE_CORE_SOURCE_20260925.tar.xz`
 
-This is the package to use as the starting CR engine for a SaaS wrapper.
+This is the package to use as the starting CR engine for a SaaS wrapper. The embedded compact source contains the complete AC78 runtime dependency closure, contracts/state, and the frozen HyperTriangle provider needed for the included smoke test.
 
 ### Research module
 
@@ -57,6 +57,12 @@ tar -xJf artifacts/releases/AC78_HYPERTRIANGLE_CORE_SOURCE_20260925.tar.xz -C di
 
 mkdir -p dist/dd094
 tar -xJf artifacts/releases/DD094_PASS117_LATEST_RESEARCH_SOURCE_20260925.tar.xz -C dist/dd094
+```
+
+Install the current runtime dependencies:
+
+```bash
+python -m pip install -r requirements-cr.txt
 ```
 
 ## Minimal AC78 use
@@ -105,5 +111,5 @@ These are useful ingestion-side preprocessors and should remain separate service
 
 - AC78 full solver release SHA-256: `0b07684db8c5716d96ea047464430b8a463d119a6f385ed13c069286333c5b3a`
 - HyperTriangle AUX frozen v1.0.0 SHA-256: `fa82b76a200703afe38e1f3e6ecabe2b1cb363f4fbb89c34ca00adf24ea23295`
-- Embedded compact AC78 source artifact SHA-256: `3b1a97ef681d35061187c93ab9ecb9c3ab1b9cc3a0a3c335a792fb7788cec3ae`
+- Embedded complete AC78 source artifact SHA-256: `506c7c7ccb5994b8be6a0e239cc2e2c298bf928021a119b6675886b102f89d65`
 - Embedded compact DD094 PASS117 research artifact SHA-256: `20320d91932442c04cd873282ddbb0297fce9153998312027fc980d867b653f9`

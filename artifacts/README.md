@@ -1,6 +1,6 @@
 # Embedded CR release artifacts
 
-This directory contains compact source archives for the CR handoff.
+This directory contains source archives for the CR handoff.
 
 ## Engine
 
@@ -8,9 +8,9 @@ This directory contains compact source archives for the CR handoff.
 
 SHA-256:
 
-`3b1a97ef681d35061187c93ab9ecb9c3ab1b9cc3a0a3c335a792fb7788cec3ae`
+`506c7c7ccb5994b8be6a0e239cc2e2c298bf928021a119b6675886b102f89d65`
 
-This is the production/integration starting point.
+This is the production/integration starting point. It contains the full AC78 runtime dependency closure required by the CI smoke test, together with the frozen HyperTriangle provider.
 
 ## Research
 
