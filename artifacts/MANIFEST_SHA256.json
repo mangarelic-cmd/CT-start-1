@@ -1,17 +1,35 @@
 {
-  "schema": "CR_GITHUB_HANDOFF_MANIFEST_V1",
-  "date": "2026-09-25",
+  "schema": "CR_GITHUB_HANDOFF_MANIFEST_V2",
+  "date": "2026-09-26",
   "engine": {
-    "name": "SC_SOLVER_AC78_HYPERTRIANGLE_MEMORY_INTEGRATION_CORE",
-    "artifact": "AC78_HYPERTRIANGLE_CORE_SOURCE_20260925.tar.xz",
-    "sha256": "506c7c7ccb5994b8be6a0e239cc2e2c298bf928021a119b6675886b102f89d65",
-    "full_release_sha256": "0b07684db8c5716d96ea047464430b8a463d119a6f385ed13c069286333c5b3a",
-    "cold_smoke": "PASS",
-    "hypertriangle_capability_count": 61
+    "name": "SC_SOLVER_AC79_PROGRESS_AWARE_FIXED_POINT_HYPERTRIANGLE_CORE",
+    "packaging": "AC78_BASE_PLUS_AC79_DELTA",
+    "parent": "SC_SOLVER_AC78_HYPERTRIANGLE_MEMORY_INTEGRATION_CORE",
+    "base_artifact": "AC78_HYPERTRIANGLE_CORE_SOURCE_20260925.tar.xz",
+    "base_sha256": "506c7c7ccb5994b8be6a0e239cc2e2c298bf928021a119b6675886b102f89d65",
+    "delta_directory": "ac79_delta_b64",
+    "delta_part_count": 24,
+    "decoded_delta_sha256": "f073dee72c96dec623a23cb59cfe5644a97a7abef82db2b2685d3e2bfeb934ac",
+    "supplied_zip_sha256": "fcf5d778729950efa2bf56212f4a119a1d4c2baab6eb7a591cb81f654fa8acac",
+    "standalone_source_sha256": "a504a1ecae81f245321e77c0a96706b3e06091c5360d0bc2adedca22384a1c8a",
+    "reconstructed_manifest_schema": "AC79_RELEASE_MANIFEST_V1",
+    "reconstructed_file_count": 926,
+    "targeted_fixed_point_tests": "5/5 PASS",
+    "qualification": "9/9 PASS",
+    "delivered_pytest": "123 passed, 1 deselected",
+    "anti_loop": {
+      "ac78_execution_calls": 5000,
+      "ac79_execution_calls": 2277,
+      "calls_saved": 2723,
+      "reduction_fraction": 0.5446,
+      "ac78_stop": "RESOURCE_CHECKPOINT_MAX_CALLS",
+      "ac79_stop": "FIXED_POINT_TERMINAL_LEAF"
+    }
   },
   "hypertriangle_aux": {
     "version": "1.0.0",
-    "full_release_sha256": "fa82b76a200703afe38e1f3e6ecabe2b1cb363f4fbb89c34ca00adf24ea23295"
+    "full_release_sha256": "fa82b76a200703afe38e1f3e6ecabe2b1cb363f4fbb89c34ca00adf24ea23295",
+    "truth_credit": 0
   },
   "research": {
     "name": "DD094_PASS117",

@@ -1,12 +1,12 @@
-# CR Engine handoff — 2026-09-25
+# CR Engine handoff — 2026-09-26
 
-This repository includes a reproducible handoff for the current Causal Resolution (CR) engine line.
+This repository carries the reproducible handoff for the current Causal Resolution (CR) engine line.
 
 ## Current master engine
 
-**SC_SOLVER AC78** is the current master solver package.
+**SC_SOLVER AC79 — Progress-Aware Fixed-Point HyperTriangle Core** is the current master solver package.
 
-AC78 extends the autonomous AC77 solver with the frozen **HyperTriangle Solver AUX v1.0.0**. HyperTriangle is a verified pre-ALL-AUX provider; it does not replace or inflate the 99 ALL-AUX mechanisms.
+AC79 is a control-layer successor to AC78. It preserves the AC78 scientific/provider identities and adds a progress-aware fixed-point guard so OPEN wrappers, replay descendants, and equivalent frontier states are not mistaken for new scientific progress.
 
 Core direction:
 
@@ -16,75 +16,111 @@ typed data
   -> 144-slot memory
   -> declared activation contract
   -> typed HyperTriangle capability
+  -> meaningful-progress guard
+  -> fixed-point / cycle detection
   -> receipt / provenance
-  -> solver continuation
+  -> solver continuation or scientific stop
 ```
 
-Authority boundary:
+### Meaningful progress
 
-- HyperTriangle truth credit: 0
-- ROOT write capability: NONE
-- RETURN write capability: NONE
-- solver mutation capability: NONE
-- AUX terminality is not scientific ROOT
-- no implicit fuzzy assignment of arbitrary data to F001-F144
+AC79 counts progress only when at least one of the following changes materially:
 
-## Production vs research
+- context-compatible supply;
+- verified proof or refutation;
+- reusable material/provider/carrier/relation object;
+- strictly improved obligation rank.
 
-### Production / integration target
+Equivalent wrappers, replayed OPEN descendants, and repeated scientific frontiers do not reset convergence.
+
+### Normal stop conditions
+
+The control layer can terminate normally when:
+
+- terminal leaves remain without available supply;
+- a complete wave produces no meaningful state change;
+- the exact progress/frontier state repeats;
+- a non-adjacent state cycle is detected.
+
+Resource limits remain emergency backstops rather than the normal scientific stop condition.
+
+## Reproducible repository packaging
+
+AC78 remains in the repository as the immutable historical base artifact:
 
 `artifacts/releases/AC78_HYPERTRIANGLE_CORE_SOURCE_20260925.tar.xz`
 
-This is the package to use as the starting CR engine for a SaaS wrapper. The embedded compact source contains the complete AC78 runtime dependency closure, contracts/state, and the frozen HyperTriangle provider needed for the included smoke test.
+AC79 is stored as a deterministic delta over that byte-stable base:
 
-### Research module
+`artifacts/releases/ac79_delta_b64/00.b64 ... 23.b64`
 
-`artifacts/releases/DD094_PASS117_LATEST_RESEARCH_SOURCE_20260925.tar.xz`
-
-DD094 is a downstream cosmology/research program. It is **not** the solver and is not required to deploy AC78. Keep it under a research namespace or feature flag.
-
-## Verify the embedded releases
+Reconstruct AC79 with:
 
 ```bash
-python scripts/verify_cr_artifacts.py
+bash scripts/reconstruct_ac79.sh .ci/ac79
 ```
 
-Extract:
+The concatenated, decoded AC79 delta is `AC79_DELTA_FROM_AC78_20260926.tar.xz` with SHA-256:
 
-```bash
-mkdir -p dist/ac78
-tar -xJf artifacts/releases/AC78_HYPERTRIANGLE_CORE_SOURCE_20260925.tar.xz -C dist/ac78
+`f073dee72c96dec623a23cb59cfe5644a97a7abef82db2b2685d3e2bfeb934ac`
 
-mkdir -p dist/dd094
-tar -xJf artifacts/releases/DD094_PASS117_LATEST_RESEARCH_SOURCE_20260925.tar.xz -C dist/dd094
-```
+The originally supplied AC79 ZIP has SHA-256:
 
-Install the current runtime dependencies:
+`fcf5d778729950efa2bf56212f4a119a1d4c2baab6eb7a591cb81f654fa8acac`
 
-```bash
-python -m pip install -r requirements-cr.txt
-```
+A deterministic standalone AC79 source archive produced during qualification has SHA-256:
 
-## Minimal AC78 use
+`a504a1ecae81f245321e77c0a96706b3e06091c5360d0bc2adedca22384a1c8a`
 
-```python
-import sys
-sys.path.insert(0, "dist/ac78/02_RUNTIME")
+## Qualification evidence
 
-from sovereign_solver import SovereignSolver
+Local qualification of the supplied AC79 package:
 
-solver = SovereignSolver()
+- release manifest integrity: **926/926 files verified**;
+- targeted AC79 fixed-point tests: **5/5 passed**;
+- AC79 qualification receipt: **9/9 checks passed**;
+- delivered pytest receipt: **123 passed, 1 deselected**;
+- the deselected test is the inherited slow AC75 exhaustive compiler campaign.
 
-capabilities = solver.hypertriangle({
-    "request_id": "example-capabilities",
-    "mode": "capabilities",
-    "payload": {}
-})
+Anti-loop comparison recorded by AC79:
 
-print(capabilities)
-```
+| Metric | AC78 | AC79 |
+| --- | ---: | ---: |
+| execution calls | 5000 | 2277 |
+| stop state | RESOURCE_CHECKPOINT_MAX_CALLS | FIXED_POINT_TERMINAL_LEAF |
+| known nodes | 620 | 325 |
+| open residuals | 412 | 129 |
+| final frontier | 113 | 64 |
+| calls saved | — | 2723 |
+| call reduction | — | 54.46% |
 
-For normal solver work use `SovereignSolver.solve_universal(...)`. HyperTriangle is invoked only by an explicit typed request.
+Receipt verdict:
+
+`AC79_TERMINATES_BY_SCIENTIFIC_FIXED_POINT_BEFORE_RESOURCE_BACKSTOP`
+
+These are qualification results for the supplied regression scenario; they are not a claim that every future workload will terminate in 2277 calls.
+
+## Authority boundary
+
+The AC78 HyperTriangle authority boundary is preserved:
+
+- HyperTriangle truth credit: 0;
+- ROOT write capability: NONE;
+- RETURN write capability: NONE;
+- solver mutation capability: NONE;
+- AUX terminality is not scientific ROOT;
+- no implicit fuzzy assignment of arbitrary data to F001-F144.
+
+## CI verification
+
+The repository workflow now:
+
+1. verifies the historical embedded artifact hashes;
+2. verifies the 24-part AC79 delta and its SHA-256;
+3. reconstructs AC79 from AC78 + delta;
+4. verifies all 926 reconstructed files against `SHA256SUMS.json`;
+5. runs the targeted AC79 fixed-point tests;
+6. runs the AC79 qualification program.
 
 ## SaaS handoff
 
@@ -92,10 +128,11 @@ Start with:
 
 - `docs/CHAD_START_HERE.md`
 - `docs/SAAS_HANDOFF.md`
+- `docs/AC79_PROGRESS_AWARE_FIXED_POINT.md`
 - `integrations/README.md`
 - `research/dd094/README.md`
 
-The first service surface should stay thin: health/capabilities, typed ingestion, solve, and HyperTriangle. Do not add semantic authority in the API layer.
+The API layer should remain thin and preserve the solver's explicit authority boundaries and receipts.
 
 ## Existing ingestion / repair components
 
@@ -105,11 +142,4 @@ Separate repositories under the same GitHub account:
 - https://github.com/mangarelic-cmd/csv-consistency-repair
 - https://github.com/mangarelic-cmd/json-consistency-repairer
 
-These are useful ingestion-side preprocessors and should remain separate services/libraries rather than being copied into solver core.
-
-## Release identifiers
-
-- AC78 full solver release SHA-256: `0b07684db8c5716d96ea047464430b8a463d119a6f385ed13c069286333c5b3a`
-- HyperTriangle AUX frozen v1.0.0 SHA-256: `fa82b76a200703afe38e1f3e6ecabe2b1cb363f4fbb89c34ca00adf24ea23295`
-- Embedded complete AC78 source artifact SHA-256: `506c7c7ccb5994b8be6a0e239cc2e2c298bf928021a119b6675886b102f89d65`
-- Embedded compact DD094 PASS117 research artifact SHA-256: `20320d91932442c04cd873282ddbb0297fce9153998312027fc980d867b653f9`
+These remain ingestion-side preprocessors rather than being copied into solver core.

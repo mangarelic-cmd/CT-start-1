@@ -2,7 +2,7 @@
 
 The shortest useful path to a CR SaaS proof of concept is:
 
-1. Materialize and extract the AC78 package.
+1. Reconstruct and verify AC79 with `bash scripts/reconstruct_ac79.sh .ci/ac79`.
 2. Wrap `SovereignSolver` behind a small stateless API.
 3. Keep ingestion adapters outside the solver.
 4. Preserve every solver receipt and open residual as first-class output.
@@ -31,12 +31,12 @@ raw dataset
  -> parser / format repair
  -> deterministic normalization
  -> typed CR records
- -> AC78
+ -> AC79
  -> receipts + unresolved currents + provenance
  -> graph/index/API representation
 ```
 
-Do not silently map arbitrary raw fields to HyperTriangle F001-F144 slots. AC78 intentionally requires explicit typed HyperTriangle requests.
+Do not silently map arbitrary raw fields to HyperTriangle F001-F144 slots. AC79 preserves the explicit typed HyperTriangle request boundary and adds progress-aware fixed-point control.
 
 ## Existing components worth connecting
 
@@ -44,7 +44,7 @@ Do not silently map arbitrary raw fields to HyperTriangle F001-F144 slots. AC78 
 - `csv-consistency-repair`: CSV consistency and multi-file repair
 - `json-consistency-repairer`: JSON consistency repair and replay
 - `CT-start-1`: deterministic form deduplication / residue preservation
-- `AC78`: solver core
+- `AC79`: solver core
 - `DD094 PASS117`: research consumer, not production dependency
 
 ## What not to expose as product claims
@@ -57,7 +57,7 @@ Do not silently map arbitrary raw fields to HyperTriangle F001-F144 slots. AC78 
 
 ## Immediate POC
 
-A practical first POC is: upload a JSON/CSV dataset, normalize it through the existing repairer, convert rows/records into typed CR inputs, run AC78, and return:
+A practical first POC is: upload a JSON/CSV dataset, normalize it through the existing repairer, convert rows/records into typed CR inputs, run AC79, and return:
 
 - normalized input hash
 - solver version

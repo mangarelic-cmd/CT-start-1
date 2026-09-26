@@ -2,7 +2,7 @@
 
 ## Deployment unit
 
-Deploy AC78 as the core compute service. Treat parser/repair projects as adapters and DD094 as a research workload.
+Deploy the reconstructed and qualified AC79 tree as the core compute service. AC78 remains the immutable reconstruction base. Treat parser/repair projects as adapters and DD094 as a research workload.
 
 Suggested service split:
 
@@ -18,7 +18,7 @@ ingestion adapter
   |
 typed CR envelope
   |
-AC78 solver service
+AC79 solver service
   |
 receipt store / provenance index
   |
@@ -32,7 +32,7 @@ The wrapper must preserve:
 1. request identity;
 2. input hashes;
 3. explicit typed fields;
-4. AC78 version;
+4. AC79 version;
 5. all returned receipts;
 6. open residuals;
 7. zero-truth-credit boundaries;

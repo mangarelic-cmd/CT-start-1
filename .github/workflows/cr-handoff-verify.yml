@@ -2,7 +2,7 @@ name: CR handoff verify
 
 on:
   push:
-    branches: [main, cr-engine-handoff-20260925]
+    branches: [main, ac79-progress-aware-fixed-point-20260926]
   pull_request:
     branches: [main]
 
@@ -22,35 +22,23 @@ jobs:
       - name: Install CR runtime dependencies
         run: python -m pip install -r requirements-cr.txt
 
-      - name: Verify embedded artifact hashes
+      - name: Verify historical embedded artifact hashes
         run: python scripts/verify_cr_artifacts.py
 
-      - name: Extract AC78
-        run: |
-          mkdir -p .ci/ac78
-          tar -xJf artifacts/releases/AC78_HYPERTRIANGLE_CORE_SOURCE_20260925.tar.xz -C .ci/ac78
+      - name: Verify AC79 delta
+        run: python scripts/verify_ac79_delta.py
 
-      - name: AC78 HyperTriangle cold smoke
+      - name: Reconstruct AC79 from AC78
+        run: bash scripts/reconstruct_ac79.sh .ci/ac79
+
+      - name: AC79 progress-aware fixed-point tests
         env:
           PYTHONDONTWRITEBYTECODE: "1"
-          PYTHONPATH: .ci/ac78/02_RUNTIME
-        run: |
-          python - <<'PY'
-          from sovereign_solver import SovereignSolver
+          PYTHONPATH: .ci/ac79/02_RUNTIME
+        run: python -m pytest -q .ci/ac79/03_TESTS/test_ac79_progress_fixed_point.py
 
-          solver = SovereignSolver()
-          receipt = solver.hypertriangle({
-              "request_id": "github-ci",
-              "mode": "capabilities",
-              "payload": {}
-          })
-
-          assert receipt["provider"] == "HYPERTRIANGLE_SOLVER_AUX"
-          assert receipt["version"] == "1.0.0"
-          assert receipt["truth_credit"] == 0
-          assert receipt["root_write_capability"] == "NONE"
-          assert receipt["return_write_capability"] == "NONE"
-          assert receipt["solver_mutation_capability"] == "NONE"
-          assert len(receipt["receipt"]["capabilities"]) == 61
-          print("AC78 HyperTriangle smoke PASS")
-          PY
+      - name: AC79 qualification
+        env:
+          PYTHONDONTWRITEBYTECODE: "1"
+          PYTHONPATH: .ci/ac79/02_RUNTIME
+        run: python .ci/ac79/02_RUNTIME/run_ac79_qualification.py
