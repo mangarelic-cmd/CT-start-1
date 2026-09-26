@@ -1,2 +1,5 @@
 # Auto detect text files and perform LF normalization
 * text=auto
+
+# CR handoff release artifacts
+artifacts/releases/*.tar.xz binary -diff

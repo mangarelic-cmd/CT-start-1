@@ -1,0 +1,18 @@
+{
+  "request_id": "example-ingest-001",
+  "dataset_id": "example-dataset",
+  "records": [
+    {
+      "record_id": "r1",
+      "content": {
+        "example": "replace with normalized source record"
+      }
+    }
+  ],
+  "solver_options": {
+    "max_waves": 24,
+    "max_calls": 100000,
+    "stable_waves": 2
+  },
+  "hypertriangle_request": null
+}
