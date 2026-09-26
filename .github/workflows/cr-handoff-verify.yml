@@ -20,7 +20,7 @@ jobs:
           python-version: "3.11"
 
       - name: Install CR runtime dependencies
-        run: python -m pip install -r requirements-cr.txt
+        run: python -m pip install -r requirements-cr.txt pytest==9.0.2
 
       - name: Verify historical embedded artifact hashes
         run: python scripts/verify_cr_artifacts.py
