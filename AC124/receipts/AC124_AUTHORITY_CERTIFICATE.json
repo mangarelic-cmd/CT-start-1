@@ -1,0 +1,13 @@
+{
+  "PASS050_exact_context_count": 77,
+  "new_exact_PASS050_bindings": 0,
+  "registered_adapter_roundtrip_pass": 192,
+  "registered_adapter_roundtrip_total": 192,
+  "root_payments_authorized": [],
+  "rule": "Only verified problem-application proof edges plus an exact typed route-role contract may emit a bindable theorem-use event; search candidates and schema proofs alone cannot.",
+  "runtime_hook_present": true,
+  "schema": "AC124_THEOREM_USE_EVENT_INSTRUMENTATION_ROUTE_ROLE_ADAPTER_AUTHORITY_V1",
+  "search_and_unverified_firewall_pass": true,
+  "t074_new_real_application_events": 0,
+  "truth_credit_added": 0
+}
