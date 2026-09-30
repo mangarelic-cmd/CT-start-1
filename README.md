@@ -6,7 +6,7 @@
 
 # CR engine handoff
 
-**Current solver handoff (2026-09-25): [CR_ENGINE.md](CR_ENGINE.md)**
+**Current solver handoff (2026-09-26, AC79 progress-aware fixed-point): [CR_ENGINE.md](CR_ENGINE.md)**
 
 For the SaaS/API starting point, see [docs/CHAD_START_HERE.md](docs/CHAD_START_HERE.md).
 
