@@ -1,0 +1,20 @@
+{
+  "inherited_exact_problem_application_event_count": 0,
+  "new_PASS050_bindings": 0,
+  "new_exact_T074_application_events": 0,
+  "runtime_instrumentation_now_capable": true,
+  "schema": "AC124_T074_RUNTIME_THEOREM_USE_EVENT_STATUS_V1",
+  "scientific_status": "RUNTIME_CAN_EMIT_EVENT_WHEN_REAL_APPLICATION_EXISTS_BUT_NO_REAL_T074_APPLICATION_EVENT_OR_PASS050_CONTEXT_EXISTS",
+  "synthetic_PASS050_binding_result": {
+    "active_positions": null,
+    "required_role": "LOCALIZATION_POLE",
+    "status": "FAIL_CLOSED_UNBOUND_THEOREM_ROUTE_PROVIDER",
+    "theorem_id": "T074"
+  },
+  "synthetic_event_validation": {
+    "PASS050_bindable": true,
+    "missing_fields": [],
+    "status": "COMPLETE_PROBLEM_APPLICATION_THEOREM_USE_EVENT"
+  },
+  "truth_credit_added": 0
+}
