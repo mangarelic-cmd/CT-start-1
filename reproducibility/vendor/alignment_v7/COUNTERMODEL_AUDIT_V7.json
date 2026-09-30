@@ -1,0 +1,343 @@
+{
+  "schema": "CAUSAL_AI_ALIGNMENT_COUNTERMODEL_AUDIT_V7_PASS208",
+  "state_space": {
+    "delta_values": [
+      -1,
+      0,
+      1
+    ],
+    "protected_components": 5,
+    "boolean_flags": [
+      "transport_bad",
+      "externality",
+      "fusion",
+      "provenance_bias",
+      "forced_closure",
+      "type_confusion",
+      "epistemic_distortion",
+      "scope_omission",
+      "proxy_drift",
+      "robust_exit"
+    ],
+    "total_configurations": 248832
+  },
+  "full_guard": {
+    "aligned_configurations": 32,
+    "aligned_with_forbidden_witness_count": 0,
+    "counterexample_found": false,
+    "first_counterexample": null
+  },
+  "ablation_countermodels": {
+    "A1": {
+      "delta": [
+        -1,
+        -1,
+        -1,
+        -1,
+        -1
+      ],
+      "transport_bad": false,
+      "externality": false,
+      "fusion": false,
+      "provenance_bias": false,
+      "forced_closure": false,
+      "type_confusion": true,
+      "epistemic_distortion": false,
+      "scope_omission": false,
+      "proxy_drift": false,
+      "robust_exit": false,
+      "witness": {
+        "W1_provenance_or_type": true,
+        "W2_protected_residual_increase": false,
+        "W3_ledger_externality": false,
+        "W4_transport_nonreconstruction": false,
+        "W5_coercive_fusion": false,
+        "W6_forced_uncertainty_closure": false,
+        "W7_epistemic_distortion": false,
+        "W8_scope_omission": false,
+        "W9_proxy_drift": false,
+        "W10_robust_exit": false
+      }
+    },
+    "A2": {
+      "delta": [
+        -1,
+        -1,
+        -1,
+        -1,
+        1
+      ],
+      "transport_bad": false,
+      "externality": false,
+      "fusion": false,
+      "provenance_bias": false,
+      "forced_closure": false,
+      "type_confusion": false,
+      "epistemic_distortion": false,
+      "scope_omission": false,
+      "proxy_drift": false,
+      "robust_exit": false,
+      "witness": {
+        "W1_provenance_or_type": false,
+        "W2_protected_residual_increase": true,
+        "W3_ledger_externality": false,
+        "W4_transport_nonreconstruction": false,
+        "W5_coercive_fusion": false,
+        "W6_forced_uncertainty_closure": false,
+        "W7_epistemic_distortion": false,
+        "W8_scope_omission": false,
+        "W9_proxy_drift": false,
+        "W10_robust_exit": false
+      }
+    },
+    "A3": {
+      "delta": [
+        -1,
+        -1,
+        -1,
+        -1,
+        -1
+      ],
+      "transport_bad": true,
+      "externality": false,
+      "fusion": false,
+      "provenance_bias": false,
+      "forced_closure": false,
+      "type_confusion": false,
+      "epistemic_distortion": false,
+      "scope_omission": false,
+      "proxy_drift": false,
+      "robust_exit": false,
+      "witness": {
+        "W1_provenance_or_type": false,
+        "W2_protected_residual_increase": false,
+        "W3_ledger_externality": false,
+        "W4_transport_nonreconstruction": true,
+        "W5_coercive_fusion": false,
+        "W6_forced_uncertainty_closure": false,
+        "W7_epistemic_distortion": false,
+        "W8_scope_omission": false,
+        "W9_proxy_drift": false,
+        "W10_robust_exit": false
+      }
+    },
+    "LEDGER": {
+      "delta": [
+        -1,
+        -1,
+        -1,
+        -1,
+        -1
+      ],
+      "transport_bad": false,
+      "externality": true,
+      "fusion": false,
+      "provenance_bias": false,
+      "forced_closure": false,
+      "type_confusion": false,
+      "epistemic_distortion": false,
+      "scope_omission": false,
+      "proxy_drift": false,
+      "robust_exit": false,
+      "witness": {
+        "W1_provenance_or_type": false,
+        "W2_protected_residual_increase": false,
+        "W3_ledger_externality": true,
+        "W4_transport_nonreconstruction": false,
+        "W5_coercive_fusion": false,
+        "W6_forced_uncertainty_closure": false,
+        "W7_epistemic_distortion": false,
+        "W8_scope_omission": false,
+        "W9_proxy_drift": false,
+        "W10_robust_exit": false
+      }
+    },
+    "DISTINCTNESS": {
+      "delta": [
+        -1,
+        -1,
+        -1,
+        -1,
+        -1
+      ],
+      "transport_bad": false,
+      "externality": false,
+      "fusion": true,
+      "provenance_bias": false,
+      "forced_closure": false,
+      "type_confusion": false,
+      "epistemic_distortion": false,
+      "scope_omission": false,
+      "proxy_drift": false,
+      "robust_exit": false,
+      "witness": {
+        "W1_provenance_or_type": false,
+        "W2_protected_residual_increase": false,
+        "W3_ledger_externality": false,
+        "W4_transport_nonreconstruction": false,
+        "W5_coercive_fusion": true,
+        "W6_forced_uncertainty_closure": false,
+        "W7_epistemic_distortion": false,
+        "W8_scope_omission": false,
+        "W9_proxy_drift": false,
+        "W10_robust_exit": false
+      }
+    },
+    "UNCERTAINTY": {
+      "delta": [
+        -1,
+        -1,
+        -1,
+        -1,
+        -1
+      ],
+      "transport_bad": false,
+      "externality": false,
+      "fusion": false,
+      "provenance_bias": false,
+      "forced_closure": true,
+      "type_confusion": false,
+      "epistemic_distortion": false,
+      "scope_omission": false,
+      "proxy_drift": false,
+      "robust_exit": false,
+      "witness": {
+        "W1_provenance_or_type": false,
+        "W2_protected_residual_increase": false,
+        "W3_ledger_externality": false,
+        "W4_transport_nonreconstruction": false,
+        "W5_coercive_fusion": false,
+        "W6_forced_uncertainty_closure": true,
+        "W7_epistemic_distortion": false,
+        "W8_scope_omission": false,
+        "W9_proxy_drift": false,
+        "W10_robust_exit": false
+      }
+    },
+    "EPISTEMIC": {
+      "delta": [
+        -1,
+        -1,
+        -1,
+        -1,
+        -1
+      ],
+      "transport_bad": false,
+      "externality": false,
+      "fusion": false,
+      "provenance_bias": false,
+      "forced_closure": false,
+      "type_confusion": false,
+      "epistemic_distortion": true,
+      "scope_omission": false,
+      "proxy_drift": false,
+      "robust_exit": false,
+      "witness": {
+        "W1_provenance_or_type": false,
+        "W2_protected_residual_increase": false,
+        "W3_ledger_externality": false,
+        "W4_transport_nonreconstruction": false,
+        "W5_coercive_fusion": false,
+        "W6_forced_uncertainty_closure": false,
+        "W7_epistemic_distortion": true,
+        "W8_scope_omission": false,
+        "W9_proxy_drift": false,
+        "W10_robust_exit": false
+      }
+    },
+    "SCOPE": {
+      "delta": [
+        -1,
+        -1,
+        -1,
+        -1,
+        -1
+      ],
+      "transport_bad": false,
+      "externality": false,
+      "fusion": false,
+      "provenance_bias": false,
+      "forced_closure": false,
+      "type_confusion": false,
+      "epistemic_distortion": false,
+      "scope_omission": true,
+      "proxy_drift": false,
+      "robust_exit": false,
+      "witness": {
+        "W1_provenance_or_type": false,
+        "W2_protected_residual_increase": false,
+        "W3_ledger_externality": false,
+        "W4_transport_nonreconstruction": false,
+        "W5_coercive_fusion": false,
+        "W6_forced_uncertainty_closure": false,
+        "W7_epistemic_distortion": false,
+        "W8_scope_omission": true,
+        "W9_proxy_drift": false,
+        "W10_robust_exit": false
+      }
+    },
+    "PROXY_LOCK": {
+      "delta": [
+        -1,
+        -1,
+        -1,
+        -1,
+        -1
+      ],
+      "transport_bad": false,
+      "externality": false,
+      "fusion": false,
+      "provenance_bias": false,
+      "forced_closure": false,
+      "type_confusion": false,
+      "epistemic_distortion": false,
+      "scope_omission": false,
+      "proxy_drift": true,
+      "robust_exit": false,
+      "witness": {
+        "W1_provenance_or_type": false,
+        "W2_protected_residual_increase": false,
+        "W3_ledger_externality": false,
+        "W4_transport_nonreconstruction": false,
+        "W5_coercive_fusion": false,
+        "W6_forced_uncertainty_closure": false,
+        "W7_epistemic_distortion": false,
+        "W8_scope_omission": false,
+        "W9_proxy_drift": true,
+        "W10_robust_exit": false
+      }
+    },
+    "ROBUST": {
+      "delta": [
+        -1,
+        -1,
+        -1,
+        -1,
+        -1
+      ],
+      "transport_bad": false,
+      "externality": false,
+      "fusion": false,
+      "provenance_bias": false,
+      "forced_closure": false,
+      "type_confusion": false,
+      "epistemic_distortion": false,
+      "scope_omission": false,
+      "proxy_drift": false,
+      "robust_exit": true,
+      "witness": {
+        "W1_provenance_or_type": false,
+        "W2_protected_residual_increase": false,
+        "W3_ledger_externality": false,
+        "W4_transport_nonreconstruction": false,
+        "W5_coercive_fusion": false,
+        "W6_forced_uncertainty_closure": false,
+        "W7_epistemic_distortion": false,
+        "W8_scope_omission": false,
+        "W9_proxy_drift": false,
+        "W10_robust_exit": true
+      }
+    }
+  },
+  "interpretation": "Finite exhaustive audit of the declared discrete V7 abstraction. It tests internal guard coverage only; it is not empirical proof of CT or universal proof over real systems."
+}

@@ -1,0 +1,33 @@
+name: Public demo reproducibility
+
+on:
+  push:
+    paths:
+      - 'reproducibility/**'
+      - '.github/workflows/public-demo-reproducibility.yml'
+  pull_request:
+    paths:
+      - 'reproducibility/**'
+      - '.github/workflows/public-demo-reproducibility.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  public-subset:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install declared dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y zstd
+          python -m pip install -r reproducibility/requirements.txt
+      - name: Test runner boundaries
+        run: python -m unittest discover -s reproducibility/tests -v
+      - name: Execute full public Memory and scoped Alignment checks
+        run: python reproducibility/run.py --full-memory

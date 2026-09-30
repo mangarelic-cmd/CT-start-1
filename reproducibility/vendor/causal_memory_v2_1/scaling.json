@@ -1,0 +1,46 @@
+[
+  {
+    "n_words": 1000,
+    "raw_bytes": 8000,
+    "causal_bytes": 88,
+    "causal_factor": 90.9090909090909,
+    "zlib9_bytes": 8011,
+    "zlib9_factor": 0.9986268880289602,
+    "brotli11_bytes": 8004,
+    "brotli11_factor": 0.9995002498750625,
+    "causal_encode_s": 0.004301258999930724
+  },
+  {
+    "n_words": 10000,
+    "raw_bytes": 80000,
+    "causal_bytes": 88,
+    "causal_factor": 909.0909090909091,
+    "zlib9_bytes": 80031,
+    "zlib9_factor": 0.999612650098087,
+    "brotli11_bytes": 80005,
+    "brotli11_factor": 0.9999375039060059,
+    "causal_encode_s": 0.04053861500005951
+  },
+  {
+    "n_words": 100000,
+    "raw_bytes": 800000,
+    "causal_bytes": 88,
+    "causal_factor": 9090.90909090909,
+    "zlib9_bytes": 800251,
+    "zlib9_factor": 0.9996863484081869,
+    "brotli11_bytes": 800005,
+    "brotli11_factor": 0.9999937500390622,
+    "causal_encode_s": 0.1453912939998645
+  },
+  {
+    "n_words": 1000000,
+    "raw_bytes": 8000000,
+    "causal_bytes": 88,
+    "causal_factor": 90909.09090909091,
+    "zlib9_bytes": 8002451,
+    "zlib9_factor": 0.9996937188368914,
+    "brotli11_bytes": 8000028,
+    "brotli11_factor": 0.9999965000122499,
+    "causal_encode_s": 0.9584796510000615
+  }
+]
