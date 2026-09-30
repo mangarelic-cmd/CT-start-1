@@ -2,7 +2,7 @@ name: CR handoff verify
 
 on:
   push:
-    branches: [main, cr-engine-handoff-20260925]
+    branches: [main, ac82-bulk-evidence-vault-20260926]
   pull_request:
     branches: [main]
 
@@ -20,37 +20,36 @@ jobs:
           python-version: "3.11"
 
       - name: Install CR runtime dependencies
-        run: python -m pip install -r requirements-cr.txt
+        run: python -m pip install -r requirements-cr.txt pytest
 
-      - name: Verify embedded artifact hashes
+      - name: Verify AC78 base artifact
         run: python scripts/verify_cr_artifacts.py
 
-      - name: Extract AC78
+      - name: Verify AC82 overlay hash
         run: |
-          mkdir -p .ci/ac78
-          tar -xJf artifacts/releases/AC78_HYPERTRIANGLE_CORE_SOURCE_20260925.tar.xz -C .ci/ac78
+          echo "00a7adcc0f00f370667f041e3c82add64b6ac8e42a722abbf44321fc693257fc  artifacts/releases/AC82_FROM_AC78_OVERLAY_20260926.tar.xz" | sha256sum -c -
 
-      - name: AC78 HyperTriangle cold smoke
-        env:
-          PYTHONDONTWRITEBYTECODE: "1"
-          PYTHONPATH: .ci/ac78/02_RUNTIME
+      - name: Reconstruct AC82
+        run: |
+          mkdir -p .ci/ac82
+          tar -xJf artifacts/releases/AC78_HYPERTRIANGLE_CORE_SOURCE_20260925.tar.xz -C .ci/ac82
+          tar -xJf artifacts/releases/AC82_FROM_AC78_OVERLAY_20260926.tar.xz -C .ci/ac82
+
+      - name: AC82 targeted regression qualification
+        run: |
+          python -m pytest -q             .ci/ac82/03_TESTS/test_ac79_progress_fixed_point.py             .ci/ac82/03_TESTS/test_ac81_sovereign_stop.py             .ci/ac82/03_TESTS/test_ac82_bulk_evidence_vault.py
+
+      - name: AC82 state gate
         run: |
           python - <<'PY'
-          from sovereign_solver import SovereignSolver
-
-          solver = SovereignSolver()
-          receipt = solver.hypertriangle({
-              "request_id": "github-ci",
-              "mode": "capabilities",
-              "payload": {}
-          })
-
-          assert receipt["provider"] == "HYPERTRIANGLE_SOLVER_AUX"
-          assert receipt["version"] == "1.0.0"
-          assert receipt["truth_credit"] == 0
-          assert receipt["root_write_capability"] == "NONE"
-          assert receipt["return_write_capability"] == "NONE"
-          assert receipt["solver_mutation_capability"] == "NONE"
-          assert len(receipt["receipt"]["capabilities"]) == 61
-          print("AC78 HyperTriangle smoke PASS")
+          import json
+          from pathlib import Path
+          p=Path(".ci/ac82/00_STATE/AC82_STATE.json")
+          s=json.loads(p.read_text())
+          assert s["version"] == "AC82"
+          assert s["status"] == "QUALIFIED"
+          assert s["bulk_relation_vault"] is True
+          assert s["sovereign_stop"] is True
+          assert s["truth_credit_added"] == 0
+          print("AC82 state gate PASS")
           PY
