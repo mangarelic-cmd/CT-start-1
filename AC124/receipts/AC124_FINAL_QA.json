@@ -1,0 +1,42 @@
+{
+  "checks": {
+    "combined_coverage_118": true,
+    "global_nonunique": true,
+    "macro_volume_512": true,
+    "one_shot_no_payment": true,
+    "parent_only_intended_modifications": true,
+    "pytest_passed": true,
+    "registered_adapter_192": true,
+    "runtime_hook_present": true,
+    "search_and_unverified_firewalls": true,
+    "soak10_deterministic": true,
+    "solver_flags_present": true,
+    "t074_no_inherited_real_event": true,
+    "t074_synthetic_still_fail_closed": true
+  },
+  "full_macro_address_payments": [],
+  "legacy_root_after": 67,
+  "legacy_root_before": 67,
+  "macro_candidate_volume_after": 512,
+  "macro_candidate_volume_before": 512,
+  "new_exact_PASS050_bindings": 0,
+  "next_exact_missing_objects": [
+    "REAL_PROBLEM_APPLICATION_THEOREM_USE_EVENTS_FROM_FUTURE_OR_REPLAYABLE_SOLVER_ROUTES",
+    "ROUTE_SEMANTICS_EXACT_TYPED_ROLE_CONTRACT_FOR_UNBOUND_THEOREM_USES",
+    "PASS050_PROVIDER_EXTENSION_FOR_NEW_THEOREM_ROUTE_CONTEXTS",
+    "T074_REAL_PROBLEM_APPLICATION_OCCURRENCE_R",
+    "THEOREM_SCHEMA_AUTHORITIES_FOR_REMAINING_40_UNBOUND_IDENTITIES",
+    "NATIVE_MACRO_FAMILY_CHART_TRANSPORT"
+  ],
+  "recommended_next_pass": "AC125_TPTX_REPLAYABLE_PROBLEM_ROUTE_THEOREM_USE_BACKFILL_AND_ROLE_SEMANTICS_COMPILER",
+  "schema": "AC124_FINAL_QA_V1",
+  "scientific_delta": [
+    "RUNTIME_THEOREM_USE_EVENT_EMISSION_HOOK",
+    "VERIFIED_PROOF_EDGE_EMISSION_GATE",
+    "EXACT_TYPED_ROUTE_ROLE_ADAPTER",
+    "192_OF_192_PASS050_EVENT_ADAPTER_CALIBRATION",
+    "SEARCH_CANDIDATE_USE_EVENT_FIREWALL",
+    "T074_INSTRUMENTATION_WITHOUT_RETROACTIVE_EVENT_INVENTION"
+  ],
+  "status": "PASS"
+}
