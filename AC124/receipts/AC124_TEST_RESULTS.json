@@ -1,0 +1,8 @@
+{
+  "command": "pytest -q -p no:cacheprovider AC124..AC114 selected regression files",
+  "failed": 0,
+  "passed": 87,
+  "schema": "AC124_TEST_RESULTS_V1",
+  "scope": "AC124 through AC114 regression set",
+  "status": "PASS"
+}
