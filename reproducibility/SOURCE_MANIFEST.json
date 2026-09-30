@@ -1,0 +1,71 @@
+{
+  "schema": 1,
+  "upstream_author": "Son David Bolduc",
+  "license": "CC-BY-4.0",
+  "license_url": "https://creativecommons.org/licenses/by/4.0/",
+  "files": [
+    {
+      "path": "vendor/causal_memory_v2_1/benchmark.py",
+      "sha256": "37ab75eea54e8bec49338791604aeeadb38159c4c9a70ceef3649a60f56f2a5f",
+      "bytes": 15726,
+      "source_record": "https://zenodo.org/records/22709379",
+      "source_archive_sha256": "04a81f6ca5ec075ead95bafd0effbaf57d9218c85f72ebf5510205444780ca9f",
+      "source_member": "CAUSAL_MEMORY_ZENODO_V2_1_20260917/benchmark_true/benchmark.py",
+      "modifications": "none"
+    },
+    {
+      "path": "vendor/causal_memory_v2_1/run_single.py",
+      "sha256": "3b5e8c8d514399662f7ed35ee71b59bf94993c988c9635eb995191dffd6f1fba",
+      "bytes": 2633,
+      "source_record": "https://zenodo.org/records/22709379",
+      "source_archive_sha256": "04a81f6ca5ec075ead95bafd0effbaf57d9218c85f72ebf5510205444780ca9f",
+      "source_member": "CAUSAL_MEMORY_ZENODO_V2_1_20260917/benchmark_true/run_single.py",
+      "modifications": "none"
+    },
+    {
+      "path": "vendor/causal_memory_v2_1/destructive_check.py",
+      "sha256": "2592e987e674e36ac3da8b89d16937f08aa68e86e88934a594cdb67eaa4568a9",
+      "bytes": 1291,
+      "source_record": "https://zenodo.org/records/22709379",
+      "source_archive_sha256": "04a81f6ca5ec075ead95bafd0effbaf57d9218c85f72ebf5510205444780ca9f",
+      "source_member": "CAUSAL_MEMORY_ZENODO_V2_1_20260917/benchmark_true/destructive_check.py",
+      "modifications": "none"
+    },
+    {
+      "path": "vendor/causal_memory_v2_1/results.json",
+      "sha256": "2feca54db90eb306ad1627e9c37f414bbad720c27c325de765c4c110b40423af",
+      "bytes": 22186,
+      "source_record": "https://zenodo.org/records/22709379",
+      "source_archive_sha256": "04a81f6ca5ec075ead95bafd0effbaf57d9218c85f72ebf5510205444780ca9f",
+      "source_member": "CAUSAL_MEMORY_ZENODO_V2_1_20260917/benchmark_true/results.json",
+      "modifications": "none"
+    },
+    {
+      "path": "vendor/alignment_v7/build_alignment_v7_formal_and_demos.py",
+      "sha256": "25269532118b981b5815b162bf76f6c9bc8305b5c6594a5cb13742c569a1a031",
+      "bytes": 30419,
+      "source_record": "https://zenodo.org/records/22881040",
+      "source_archive_sha256": "0deac368a8b4a1aa8239ae6ce4ca6cf0670408124c00602345a48720b7049371",
+      "source_member": "CAUSAL_AI_ALIGNMENT_V7_PASS208_20260921/SOURCE/build_alignment_v7_formal_and_demos.py",
+      "modifications": "none"
+    },
+    {
+      "path": "vendor/alignment_v7/COUNTERMODEL_AUDIT_V7.json",
+      "sha256": "004fc6036553c02abf662ce3e29c865352dcbb207fbab128377f1986d9416d98",
+      "bytes": 9269,
+      "source_record": "https://zenodo.org/records/22881040",
+      "source_archive_sha256": "0deac368a8b4a1aa8239ae6ce4ca6cf0670408124c00602345a48720b7049371",
+      "source_member": "CAUSAL_AI_ALIGNMENT_V7_PASS208_20260921/DEMOS/COUNTERMODEL_AUDIT_V7.json",
+      "modifications": "none"
+    },
+    {
+      "path": "vendor/causal_memory_v2_1/scaling.json",
+      "sha256": "cccce347082f667de5b8c2162d1857c098b5b2c8063a493a558fd86417b9cc8d",
+      "bytes": 1206,
+      "source_record": "https://zenodo.org/records/22709379",
+      "source_archive_sha256": "04a81f6ca5ec075ead95bafd0effbaf57d9218c85f72ebf5510205444780ca9f",
+      "source_member": "CAUSAL_MEMORY_ZENODO_V2_1_20260917/benchmark_true/scaling.json",
+      "modifications": "none"
+    }
+  ]
+}

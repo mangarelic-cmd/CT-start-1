@@ -1,0 +1,20 @@
+{
+  "temporal": {
+    "record_url": "https://zenodo.org/records/22086094",
+    "archive_filename": "CT_TEMPORAL_CAUSAL_INFORMATICS_V2_4_PASS025_FULL_MONOGRAPHS_CUMULATIVE_20260824.zip",
+    "archive_url": "https://zenodo.org/api/records/22086094/files/CT_TEMPORAL_CAUSAL_INFORMATICS_V2_4_PASS025_FULL_MONOGRAPHS_CUMULATIVE_20260824.zip/content",
+    "sha256": "05fcbea2a53b61c076642802ec366fc609d4c41132988771b9ee7f2f25cd40ba",
+    "bytes": 33965502,
+    "license": "CC-BY-4.0",
+    "author": "Son David Bolduc"
+  },
+  "hyperqubit": {
+    "record_url": "https://zenodo.org/records/22264518",
+    "archive_filename": "HYPERQUBIT_II_FINAL_GOLDEN_FLOW_CT_INTERNAL_CLOSURE_PROOF_PACKAGE (1).zip",
+    "archive_url": "https://zenodo.org/api/records/22264518/files/HYPERQUBIT_II_FINAL_GOLDEN_FLOW_CT_INTERNAL_CLOSURE_PROOF_PACKAGE%20(1).zip/content",
+    "sha256": "57a6238f03ae0e62bf5c6b772e9c8f451e891965380358b34ace874c628035dd",
+    "bytes": 44953503,
+    "license": "CC-BY-4.0",
+    "author": "Son David Bolduc"
+  }
+}

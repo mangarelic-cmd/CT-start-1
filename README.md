@@ -1,3 +1,5 @@
+> **Public demo reproduction:** [Pinned dependencies, portable commands, and exact remaining gaps](reproducibility/README.md)
+>
 > **AC124 public technical entrypoint:** [AC124 theorem-use instrumentation / fail-closed authority slice](https://github.com/mangarelic-cmd/CT-start-1/tree/ac124-public/AC124)
 >
 > Research references: [Causal Solution Software Encyclopedia](https://zenodo.org/records/22923146) · [Causal AI Alignment](https://zenodo.org/records/22881040)

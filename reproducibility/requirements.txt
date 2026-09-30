@@ -1,0 +1,6 @@
+# Tested Python 3.12. External system dependency: zstd CLI (tested 1.5.7).
+numpy==2.3.5
+Brotli==1.2.0
+lz4==4.4.5
+# Required for optional Temporal/AC124 upstream test suites.
+pytest==9.1.1
