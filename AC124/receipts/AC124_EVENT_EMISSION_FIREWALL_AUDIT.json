@@ -1,0 +1,8 @@
+{
+  "pass": true,
+  "rule": "candidate search or failed proof never emits theorem-use event",
+  "schema": "AC124_EVENT_EMISSION_FIREWALL_AUDIT_V1",
+  "search_event_count": 0,
+  "search_route_present": true,
+  "unverified_edge_event_count": 0
+}
