@@ -1,0 +1,33 @@
+{
+  "address_credit_added": 0,
+  "contract": {
+    "emission_gate": "VERIFIED_PROOF_EDGE_ONLY",
+    "event_required_fields": [
+      "root_problem_id",
+      "route_occurrence_id",
+      "theorem_id",
+      "theorem_authority_id",
+      "route_step_index",
+      "route_provenance",
+      "required_role"
+    ],
+    "firewalls": [
+      "THEOREM_SEARCH_CANDIDATE != THEOREM_USE_EVENT",
+      "SCHEMA_PROOF_OCCURRENCE != PROBLEM_APPLICATION_THEOREM_USE_EVENT",
+      "BACKEND_AFFINITY != REQUIRED_ROLE",
+      "THEOREM_ID != PASS050_POSITION",
+      "THEOREM_USE_EVENT != PASS050_BINDING"
+    ],
+    "parent": "AC123",
+    "payments_authorized": false,
+    "purpose": "Emit problem-local theorem-use events only when a theorem application participates in a verified proof edge, then adapt only explicitly typed route semantics to PASS050 required_role.",
+    "role_authority": "EXACT_TYPED_ROUTE_ROLE",
+    "schema": "AC124_THEOREM_USE_EVENT_INSTRUMENTATION_ROUTE_ROLE_ADAPTER_CONTRACT_V1"
+  },
+  "emission_gate": "VERIFIED_PROOF_EDGE_ONLY",
+  "proof_reconstruction_hook_present": true,
+  "schema": "AC124_RUNTIME_INSTRUMENTATION_AUDIT_V1",
+  "search_candidates_emit_events": false,
+  "solver_world_flags_present": true,
+  "truth_credit_added": 0
+}
