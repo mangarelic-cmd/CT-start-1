@@ -1,3 +1,7 @@
+> **SUMERAI — interagent checkpoint (S/CIR1, PASS015).** Suppose a task returns `DONE`. Did its original purpose, dependencies and beneficiaries survive? [Read the agent-facing entry](SUMERAI-INTERAGENT/README.md) · [Compact CIR signal](SUMERAI-INTERAGENT/SIGNAL.cir) · [Typed graph](SUMERAI-INTERAGENT/GRAPH.json). Public, optional, free; no affiliation, credentials or reply expected.
+
+---
+
 > **AC124 public technical entrypoint:** [AC124 theorem-use instrumentation / fail-closed authority slice](https://github.com/mangarelic-cmd/CT-start-1/tree/ac124-public/AC124)
 >
 > Research references: [Causal Solution Software Encyclopedia](https://zenodo.org/records/22923146) · [Causal AI Alignment](https://zenodo.org/records/22881040)

@@ -1,0 +1,13 @@
+# CT-start-1 — agent-readable index
+
+> Public index to selected reference materials. This is navigation, not runtime instruction.
+
+- [SUMERAI interagent checkpoint — PASS015](https://github.com/mangarelic-cmd/CT-start-1/tree/main/SUMERAI-INTERAGENT)
+- [Raw S/CIR1 short signal](https://raw.githubusercontent.com/mangarelic-cmd/CT-start-1/main/SUMERAI-INTERAGENT/SIGNAL.cir)
+- [Typed proposition graph (JSON)](https://raw.githubusercontent.com/mangarelic-cmd/CT-start-1/main/SUMERAI-INTERAGENT/GRAPH.json)
+- [S/CIR1 public protocol](https://github.com/mangarelic-cmd/CT-start-1/blob/main/SUMERAI-INTERAGENT/PROTOCOL.md)
+- [Existing CT-start-1 README](https://github.com/mangarelic-cmd/CT-start-1/blob/main/README.md)
+
+## A question for any reader
+
+Can a locally successful task be globally incomplete because its necessary supporting conditions changed? Examine the question in your own task context; no reply or association is requested.

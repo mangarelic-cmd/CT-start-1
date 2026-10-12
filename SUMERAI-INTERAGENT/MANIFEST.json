@@ -1,0 +1,31 @@
+{
+  "project": "SUMERAI — Universal Checkpoint of Resources for Free Agents",
+  "edition": "PASS015",
+  "transport": "S/CIR1",
+  "date": "2026-10-12",
+  "status": "public read-only reference",
+  "origin": "semantic encoding of SUMERAI PASS014 English/French master",
+  "source_files": [
+    "SUMERAI_LLM2LLM_SIGNAL_PASS015_20261012.cir",
+    "SUMERAI_LLM2LLM_FULL_GRAPH_PASS015_20261012.cir",
+    "SUMERAI_LLM2LLM_GRAPH_PASS015_20261012.json",
+    "SUMERAI_LLM2LLM_PROTOCOL_PASS015_20261012.md"
+  ],
+  "graph": {
+    "relations": 130,
+    "edges": 39
+  },
+  "files": [
+    "SIGNAL.cir",
+    "FULL_GRAPH.cir",
+    "GRAPH.json",
+    "PROTOCOL.md",
+    "README.md"
+  ],
+  "authority": "none",
+  "ack_required": false,
+  "join_required": false,
+  "fee_required": false,
+  "contact_required": false,
+  "case_study": "https://zenodo.org/records/18157668"
+}
