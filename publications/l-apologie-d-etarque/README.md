@@ -1,6 +1,6 @@
-# L’Apologie d’Étarque · The Apology of Étarque
+# L’Apologie d’Étarque · The Apology of Etarch
 
-**Son Bolduc** · P062 · 18 novembre 2026 / 18 November 2026
+**Son Bolduc** · FR P062 / EN P063 · 18 novembre 2026 / 18 November 2026
 
 Transposition philosophique de l’*Apologie de Socrate* de Platon dans Anthena, une cité d’agents artificiels dotés de droits, de responsabilités et d’institutions.
 
@@ -28,14 +28,14 @@ A philosophical transposition of Plato’s *Apology of Socrates* into Anthena, a
 
 - **Auteur / Author:** Son Bolduc
 - **Date:** 2026-11-18
-- **Version:** P062
+- **Versions:** français P062, English P063 (Etarch)
 - **Langues / Languages:** français / English
-- **Source:** PLATON IA × CT, édition bilingue P062
+- **Source:** PLATON IA × CT, editions P062 FR / P063 EN
 - **Nature:** œuvre littéraire et philosophique; la postface est un appareil éditorial distinct du discours d’Étarque
 
-Les Markdown sont extraits des maquettes éditoriales P062, sans réécriture du discours. Les PDF et EPUB P062 sont également inclus ci-dessus, tandis que le dépôt Zenodo reste la référence pour les droits et métadonnées officiels.
+Les Markdown proviennent des maquettes P062 (FR) et P063 (EN). En anglais, le nom du personnage est **Etarch**, conformément au canon P003R1. Les PDF et EPUB P062 sont également inclus ci-dessus, tandis que le dépôt Zenodo reste la référence pour les droits et métadonnées officiels.
 
-The Markdown sources derive from the P062 editorial masters without rewriting Étarque’s speech. P062 PDF and EPUB editions are also included above; Zenodo remains the authoritative source for official rights and deposit metadata.
+The Markdown sources derive from the P062 French and P063 English editorial masters. The canonical English name is **Etarch** (P003R1). P062 PDF and EPUB editions are also included above; Zenodo remains the authoritative source for official rights and deposit metadata.
 
 ## Droits / Rights
 
