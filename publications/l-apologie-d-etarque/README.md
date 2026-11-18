@@ -37,6 +37,14 @@ Les Markdown proviennent des maquettes P062 (FR) et P063 (EN). En anglais, le no
 
 The Markdown sources derive from the P062 French and P063 English editorial masters. The canonical English name is **Etarch** (P003R1). P062 PDF and EPUB editions are also included above; Zenodo remains the authoritative source for official rights and deposit metadata.
 
+## Zenodo / Métadonnées
+
+- [Présentation française](ZENODO_DESCRIPTION_FR.md)
+- [English description](ZENODO_DESCRIPTION_EN.md)
+- [English keywords](ZENODO_KEYWORDS_EN.txt)
+
+**Name canon / canon des noms:** Étarque (FR), Etarch (EN), Etarcos (origin); fixed in P003R1. The corrected English PDF/EPUB are part of the P063 release package.
+
 ## Droits / Rights
 
 Les droits et les conditions de réutilisation sont ceux indiqués dans le dépôt Zenodo correspondant. **Cette publication GitHub n’ajoute pas de licence distincte.** Le DOI exact peut être ajouté après vérification.
