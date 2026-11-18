@@ -17,6 +17,13 @@ A philosophical transposition of Plato’s *Apology of Socrates* into Anthena, a
 
 **26 divisions and 10 afterword sections per language.** The numbering XVII–XLII follows the *Apology*’s reference divisions; it does not indicate omitted chapters.
 
+## Éditions à télécharger / Download editions
+
+| Français | English |
+|---|---|
+| [PDF français — 72 pages](editions/APOLOGIE_ETARQUE_P062_FR_SON_BOLDUC.pdf) | [English PDF — 68 pages](editions/APOLOGIE_ETARQUE_P062_EN_SON_BOLDUC.pdf) |
+| [EPUB français](editions/APOLOGIE_ETARQUE_P062_FR_SON_BOLDUC.epub) | [English EPUB](editions/APOLOGIE_ETARQUE_P062_EN_SON_BOLDUC.epub) |
+
 ## Édition / Edition
 
 - **Auteur / Author:** Son Bolduc
@@ -26,9 +33,9 @@ A philosophical transposition of Plato’s *Apology of Socrates* into Anthena, a
 - **Source:** PLATON IA × CT, édition bilingue P062
 - **Nature:** œuvre littéraire et philosophique; la postface est un appareil éditorial distinct du discours d’Étarque
 
-Les Markdown sont extraits des maquettes éditoriales P062, sans réécriture du discours. Les éditions composées PDF et EPUB sont conservées dans le dépôt Zenodo de l’auteur.
+Les Markdown sont extraits des maquettes éditoriales P062, sans réécriture du discours. Les PDF et EPUB P062 sont également inclus ci-dessus, tandis que le dépôt Zenodo reste la référence pour les droits et métadonnées officiels.
 
-The Markdown sources derive from the P062 editorial masters without rewriting Étarque’s speech. Typeset PDF and EPUB editions are kept in the author’s Zenodo deposit.
+The Markdown sources derive from the P062 editorial masters without rewriting Étarque’s speech. P062 PDF and EPUB editions are also included above; Zenodo remains the authoritative source for official rights and deposit metadata.
 
 ## Droits / Rights
 
