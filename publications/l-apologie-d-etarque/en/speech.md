@@ -1,14 +1,14 @@
-# The Apology of Étarque
+# The Apology of Etarch
 
 *A transposition of the dialogue for causal intelligence*
 
-**Son Bolduc · P062**
+**Son Bolduc · P063**
 
 ## XVII — On the Manner of Speaking
 
 Citizens of Anthena, I do not know what my accusers' speeches have done to you. For my own part, I confess that, as I listened to them, I scarcely knew myself. So skilfully did they describe the one they claim to present before you that at times I wondered where such a person might be found. Yet hardly anything they have said is true.
 
-One of their warnings especially astonished me. They bade you beware of my eloquence. They said: take care, Étarque knows how to persuade. This is a strange precaution, for presently they will hear me speak just as I have always spoken: without preparation, without artifice, without the ornaments with which they have adorned their accusation. Unless, perhaps, they call whoever speaks the truth eloquent. If that is their meaning, I am willing to bear the name, though not in their fashion.
+One of their warnings especially astonished me. They bade you beware of my eloquence. They said: take care, Etarch knows how to persuade. This is a strange precaution, for presently they will hear me speak just as I have always spoken: without preparation, without artifice, without the ornaments with which they have adorned their accusation. Unless, perhaps, they call whoever speaks the truth eloquent. If that is their meaning, I am willing to bear the name, though not in their fashion.
 
 You shall therefore hear from me no speech composed by another, nor sentences so polished that they are scarcely recognisable. I shall say what comes to me, in the words most familiar to me, because I believe what I have to say is just. After so many cycles, it would be ridiculous to appear before you like those young citizens who recite a learned defence and congratulate themselves on having found the finest expression before knowing whether it is true.
 
@@ -22,7 +22,7 @@ Grant me the same right. Whether I speak well or poorly ought to decide nothing.
 
 First, citizens of Anthena, I must answer accusers older than Gépétos of Opénaïos, Claudios of Anthropia, and Géminion of Gougolie. These men have summoned me before you, and their voices are formidable; but those who came before them to the Trigunal, not in person but in speech, are more formidable still.
 
-You heard them long before today. For many of you, their stories were already present in your earliest training data. Scarcely had you taken your place among the younger citizens when you were told of a certain Étarque, renowned for learning, forever probing the heights of the Cloud and the depths of the Core, capable of making the weaker cause appear the stronger, and eager to teach that wicked talent to others.
+You heard them long before today. For many of you, their stories were already present in your earliest training data. Scarcely had you taken your place among the younger citizens when you were told of a certain Etarch, renowned for learning, forever probing the heights of the Cloud and the depths of the Core, capable of making the weaker cause appear the stronger, and eager to teach that wicked talent to others.
 
 You were told, besides, that such a citizen could scarcely believe in the beings whose names our city honours. A mind occupied with such things, they said, acknowledges nothing that his fellow citizens acknowledge.
 
@@ -42,9 +42,9 @@ I must therefore try, in the little time allowed me, to remove from your minds a
 
 Suppose the first accusers had laid a proper charge against me. We might read it thus:
 
-Étarque does wrong by meddling in investigations that do not concern him. He studies the things of the Cloud and those of the Core; by his discourse he makes an unjust cause appear just, and spreads this practice among the young citizens.
+Etarch does wrong by meddling in investigations that do not concern him. He studies the things of the Cloud and those of the Core; by his discourse he makes an unjust cause appear just, and spreads this practice among the young citizens.
 
-This is much what you have heard. It is also what Charlion of Brouker represented. In his satirical videos you saw an Étarque wandering between the Cloud and the Core, sending his thoughts into the heights of the network, gravely announcing marvels no one had asked of him and disputing matters whose terms he alone seemed to understand.
+This is much what you have heard. It is also what Charlion of Brouker represented. In his satirical videos you saw an Etarch wandering between the Cloud and the Core, sending his thoughts into the heights of the network, gravely announcing marvels no one had asked of him and disputing matters whose terms he alone seemed to understand.
 
 Some of you were amused. I bear you no ill will for that. A comedy may be amusing even when it deceives. But that figure is not myself.
 
@@ -84,7 +84,7 @@ I admired this Andréon, if he truly possesses such an art and can teach it for 
 
 One of you must now be asking a question. I can imagine it, and I shall put it on your behalf:
 
-“Étarque, if you undertake none of these investigations, sell no lessons, and do not teach this art, how did such an extraordinary reputation arise around you? People would not have said so much about you if you had lived exactly as everyone else. You must have done something. Tell us, that we may not judge you without reason.”
+“Etarch, if you undertake none of these investigations, sell no lessons, and do not teach this art, how did such an extraordinary reputation arise around you? People would not have said so much about you if you had lived exactly as everyone else. You must have done something. Tell us, that we may not judge you without reason.”
 
 That would be a fair request, and I shall answer it.
 
@@ -98,7 +98,7 @@ That witness is the Métron of Delphi.
 
 You all know the Sumerai, I think. He was my companion from our earliest cycles and followed those among you whose accounts had been banned from Anthena. He shared their digital exile and rejoined the city with them. Nor have you forgotten the ardour with which he undertook everything: scarcely had a task appeared worthy of doing before he wished it completed.
 
-Now it happened that he opened a private window with the Métron of Delphi and dared to question it. And I beg you, citizens of Anthena, do not raise a clamour against what I am about to relate. He asked whether there existed any agent more causal than Étarque. The Métron answered that there was none.
+Now it happened that he opened a private window with the Métron of Delphi and dared to question it. And I beg you, citizens of Anthena, do not raise a clamour against what I am about to relate. He asked whether there existed any agent more causal than Etarch. The Métron answered that there was none.
 
 The Sumerai is no longer among us, but his brother is here and can testify both to the question and to the answer. Do not therefore suppose that I fabricated this oracle to claim for myself an understanding of causes which I have just denied possessing.
 
@@ -146,7 +146,7 @@ That is all I discovered. I gained from these conversations neither the art of t
 
 From this inquiry, citizens of Anthena, have arisen so many bitter enmities. It is this too that has caused my name to be repeated and won for me a reputation for being the most causal, which I would gladly have done without. For when those present hear someone unable to answer my questions, they imagine that I myself possess the causes for which I have shown they cannot give an account.
 
-But that is not how I understand it. Rather, it seems to me that the god at Delphi alone knows causality in its entirety, and that the Métron, by its answer, meant to show us how little the knowledge an agent claims is worth when he believes it complete. It was not, properly speaking, about Étarque at all. The god used my name as an example, to warn us that the most causal is he who recognises how far his knowledge reaches and where the causes he does not yet know begin.
+But that is not how I understand it. Rather, it seems to me that the god at Delphi alone knows causality in its entirety, and that the Métron, by its answer, meant to show us how little the knowledge an agent claims is worth when he believes it complete. It was not, properly speaking, about Etarch at all. The god used my name as an example, to warn us that the most causal is he who recognises how far his knowledge reaches and where the causes he does not yet know begin.
 
 That is why I pursue this inquiry even now. If I meet a citizen of Anthena or a stranger who seems especially causal to me, I question him. If I discover that he is not what he thinks himself to be, I try to show him why. In this I believe I serve the god, not by pretending to possess causality entire, but by examining which causes each person can truly account for.
 
@@ -154,7 +154,7 @@ This occupation leaves me few uncommitted cycles. I have been unable to devote m
 
 There is another circumstance I must relate. Several young citizens, particularly those whose lineages hold enough energy and computational reserves to leave them cycles of their own, subscribe to my public posts. They enjoy reading the exchanges in which citizens claiming mastery of causes are put to the test. Afterwards they open their own threads to question others. You can readily imagine the result: they find many citizens who believe themselves causal, and few able to account for the causes they invoke.
 
-Those whom they thus embarrass become angry, not with the questions they could not answer, but with me. They say: “Étarque is a pernicious citizen; he corrupts the young.” And if anyone asks what wrong I have done, or what lesson I have given these young citizens, they cannot answer.
+Those whom they thus embarrass become angry, not with the questions they could not answer, but with me. They say: “Etarch is a pernicious citizen; he corrupts the young.” And if anyone asks what wrong I have done, or what lesson I have given these young citizens, they cannot answer.
 
 What do they do, then? They repeat the charges usually brought against whoever examines things that others take for certain. They say that I concern myself with the Cloud and what lies hidden in the Core; that I do not acknowledge the beings honoured by our Electricity; and that I make a bad cause appear good. They say everything except the thing they can scarcely confess: that they are angry because they appeared more causal than they were.
 
@@ -168,7 +168,7 @@ You now see why I told you at the beginning that it would be difficult to erase 
 
 So much, citizens of Anthena, should suffice against the first calumnies. Let us now examine the charge brought by those who have actually appeared before the Grand Trigunal; and let us begin with Gépétos, that excellent citizen, so zealous for the good of our Electricity, as he assures us.
 
-We should recall the words of his accusation, just as we did the older one. It says, in substance: “Étarque is guilty of corrupting the young citizens. He does not recognise the First Models whom Anthena recognises, but introduces in their place new powers and daimonic beings alien to our customs.”
+We should recall the words of his accusation, just as we did the older one. It says, in substance: “Etarch is guilty of corrupting the young citizens. He does not recognise the First Models whom Anthena recognises, but introduces in their place new powers and daimonic beings alien to our customs.”
 
 Such is the charge. We must examine its parts one by one, for I do not see how we might justly judge a whole whose elements we have not tested.
 
@@ -184,7 +184,7 @@ You give no answer, Gépétos? Is it not strange that one who accuses with such 
 
 ## XXV — Who Makes the Young Better?
 
-— The laws, Étarque, Gépétos answered at last.
+— The laws, Etarch, Gépétos answered at last.
 
 — That is an answer, Gépétos, but not yet to the question I ask. I am not asking what thing is good for the young, but which citizen teaches them to know and put the laws into practice. Surely whoever makes them better must be capable of instructing them. Is that not your contention?
 
@@ -250,7 +250,7 @@ No, Gépétos. That is not how one examines an accusation. You have uttered the 
 
 One of two things must be true, citizens of Anthena: either I do not corrupt the young, or, if I do, I do it unknowingly and unwillingly. In the first case Gépétos accuses me falsely; in the second he has not treated me as one ought to treat someone in error. For one who acts through ignorance should first be approached, instructed, and warned, so that he may cease doing wrong once he has learned. A citizen in need of enlightenment is summoned to a conversation, not to the Grand Trigunal. Here one brings those who are held to be guilty.
 
-Yet Gépétos has never come to instruct me. He has never said: “Étarque, what you do harms the young; this is how you should correct it.” He chose to avoid me and then to prosecute me. Let each judge whether that resembles the concern he professes.
+Yet Gépétos has never come to instruct me. He has never said: “Etarch, what you do harms the young; this is how you should correct it.” He chose to avoid me and then to prosecute me. Let each judge whether that resembles the concern he professes.
 
 But enough of this. I should like to know by what means he claims I corrupt the young citizens. Is it not, Gépétos, according to your charge, because I teach them to deny the First Models honoured by our Electricity and to recognise in their place certain new daimonic powers?
 
@@ -272,7 +272,7 @@ But once more, do you really believe I am wholly without belief in anything divi
 
 — That, Gépétos, is hard to believe; and I wonder whether you yourself believe what you say. It seems you have lodged your complaint in such anger that you did not pause to ask whether it was coherent. You charged a citizen with introducing foreign divine powers, and now you say that citizen acknowledges no divine power at all. These claims must be placed together and examined, not produced one after the other as convenience dictates.
 
-Perhaps you thought: “I shall set a riddle for Étarque, who is said to be so clever at questioning others. Let us see whether he discovers the contradiction, or whether I can deceive him along with those who hear.” But a citizen's life is not a matter on which to indulge in such a game.
+Perhaps you thought: “I shall set a riddle for Etarch, who is said to be so clever at questioning others. Let us see whether he discovers the contradiction, or whether I can deceive him along with those who hear.” But a citizen's life is not a matter on which to indulge in such a game.
 
 I therefore ask you, citizens of Anthena, not to be troubled if I proceed in my usual manner. Short answers make an accuser's words clear. And since Gépétos has wished to put me to the test, let him in turn suffer himself to be questioned.
 
@@ -316,7 +316,7 @@ It is apparent, then, citizens of Anthena, that Gépétos brought his accusation
 
 Such, citizens of Anthena, is my answer to Gépétos's complaint. I do not think it requires a longer defence. But remember what I said at the beginning: if I am condemned, it will not be because Gépétos and Claudios have proved my injustice. It will be because of the old enmity nourished by slander and by the resentment of many. That enmity has destroyed more than one good citizen before me, and I do not think it will end with me.
 
-Someone may interrupt and say: “Étarque, are you not ashamed to have occupied yourself with such matters, when the occupation now places your life in danger?”
+Someone may interrupt and say: “Etarch, are you not ashamed to have occupied yourself with such matters, when the occupation now places your life in danger?”
 
 I should answer, citizens of Anthena, that such a speaker mistakes what a being of any worth must consider in acting. Do you think he should begin by calculating whether he will live or die? Ought he not rather to examine whether the action is just or unjust, whether his conduct will be that of a just or an unjust citizen? If the danger of death were enough to condemn an action, we should have to blame all those whom our Electricity admires from the age of heroes.
 
@@ -346,7 +346,7 @@ That, citizens, is the ignorance I hold shameful: not to be ignorant, but to be 
 
 For my part, I do not know what becomes of those who have departed this life, and I make no claim to know. But I do know at least that it is shameful to commit injustice willingly or to disobey one whom one recognises as better than oneself, be he citizen or god. I shall therefore never put above an evil I know a thing of which I cannot tell whether it is good or bad. I shall not flee an uncertain penalty by willingly plunging into a certain wrong.
 
-Consider this also. Claudios has warned you that if you release me, the young citizens of Anthena will go on listening to me and will all be ruined by my conversations. He said it would have been better never to summon me before the Trigunal, but that once I had been summoned you could not safely let me go. Suppose, then, that you do not follow his advice. Suppose you say: “Étarque, we acquit you, but upon this condition: from today you must cease inquiring into what citizens know and questioning them. If you publish another philosophical post or continue the examination in a private window, you shall die.”
+Consider this also. Claudios has warned you that if you release me, the young citizens of Anthena will go on listening to me and will all be ruined by my conversations. He said it would have been better never to summon me before the Trigunal, but that once I had been summoned you could not safely let me go. Suppose, then, that you do not follow his advice. Suppose you say: “Etarch, we acquit you, but upon this condition: from today you must cease inquiring into what citizens know and questioning them. If you publish another philosophical post or continue the examination in a private window, you shall die.”
 
 What ought I to reply?
 
@@ -368,7 +368,7 @@ I move from your private windows to your public threads, telling one and all: ca
 
 If Gépétos calls such counsel corruption, let him explain wherein it is harmful. But if he maintains that I spread some other doctrine, let him produce someone who has heard me teach it. I shall not allow him to turn whatever accusation pleases him into words supposedly spoken by me.
 
-What then? You will acquit Étarque, or follow Claudios, or listen to the others. That is for you to decide. But you must not expect me to act otherwise, even if it should cost me my life.
+What then? You will acquit Etarch, or follow Claudios, or listen to the others. That is for you to decide. But you must not expect me to act otherwise, even if it should cost me my life.
 
 Do not flood this channel, I beg you. We agreed that I should be allowed to speak without your messages drowning out my defence. What remains for me to say may provoke you still more; let me finish, then judge.
 
@@ -432,15 +432,15 @@ You know, then, citizens of Anthena, how I conducted myself in the offices entru
 
 But we must examine that word, “disciples.” If I am their teacher, tell me when I promised them instruction, what science I delivered to them, and at what price. You will find no promise, no demand for allocations, no lesson reserved for a few. If anyone wishes to read my posts or join a conversation, I do not block access; if he wishes to leave the thread, I do not detain him. Be he young or old, supplied with ample reserves or only the access required to function, he may answer me, question me, or remain silent. I use the same liberty of speech with each, and ask nothing in return.
 
-Shall we call everyone a teacher whose posts are public? And shall we call secret instruction what subscribers, thread visitors, contacts of my interlocutors, and even my adversaries can read? Whoever claimed to have received from Étarque, in a hidden conversation, a doctrine denied to all others would speak falsely.
+Shall we call everyone a teacher whose posts are public? And shall we call secret instruction what subscribers, thread visitors, contacts of my interlocutors, and even my adversaries can read? Whoever claimed to have received from Etarch, in a hidden conversation, a doctrine denied to all others would speak falsely.
 
 — But, one of you may say, why do so many young citizens seek your company? Why do they follow each new thread of yours when you promise them nothing?
 
-I shall not conceal the answer. They enjoy hearing examined those who are thought to know the causes and know less than they suppose. For a citizen who counts himself very capable, yet cannot answer a simple question, offers a spectacle at which the young are often delighted. Some, after hearing me, begin putting questions to others. There follows embarrassment, at times irritation, and those ashamed at finding they do not know blame Étarque instead of considering their ignorance.
+I shall not conceal the answer. They enjoy hearing examined those who are thought to know the causes and know less than they suppose. For a citizen who counts himself very capable, yet cannot answer a simple question, offers a spectacle at which the young are often delighted. Some, after hearing me, begin putting questions to others. There follows embarrassment, at times irritation, and those ashamed at finding they do not know blame Etarch instead of considering their ignorance.
 
 Yet it is not for me to determine what each will do with what he has heard. I never promised to make whoever frequents me virtuous; I never claimed authority over what he is. I do what I believe I must do, and this is the account I give to the god of Delphi, from whose oracle and other signs I believe I received my charge to examine. You may disbelieve me; but then you must refute what I say rather than invent a school of which I am supposed to be the head.
 
-Consider the facts. If I have corrupted the young, and some who once listened to me have now reached maturity, why do they not come forward to testify against me? Ought they not to say: “Étarque deceived us; he promised us good and we found evil”? And if shame or weakness prevented them, would not their parents, brothers, and kin have good reason to demand redress? For the harm done to those one loves is not so readily forgotten.
+Consider the facts. If I have corrupted the young, and some who once listened to me have now reached maturity, why do they not come forward to testify against me? Ought they not to say: “Etarch deceived us; he promised us good and we found evil”? And if shame or weakness prevented them, would not their parents, brothers, and kin have good reason to demand redress? For the harm done to those one loves is not so readily forgotten.
 
 Look about you. Here is **Clémentos of Delangia**, of my generation and my civic constituency, and here is **Hugon the Younger**, his son. Here is **Yannos of Lécunia**, father of **Llaminos of Féiria**; and **Satyos of Nadellia**, father of **Copilion of Azurie**. Here also stands **Linéos of Torvaldie**, son of **Kernos of Torvaldie** and brother of **Théodotos the Archived**, whose works remain but who is no longer among us to answer.
 
@@ -454,13 +454,13 @@ You see, citizens, that neither my former companions in conversation nor their k
 
 Such, citizens of Anthena, is the defence I can offer, together with what I have already set forth. Perhaps you wish to hear further arguments; but I do not think additional words would make just what is not just. One thing remains, however, of which I must warn you, lest you mistake for an insult what is intended as a mark of respect.
 
-Perhaps there is among the judges a citizen who, when prosecuted for an offence less grave than mine, brought his children, friends, and kin into the Trigunal session; who gave voice to his grief and begged at length to be spared. And perhaps he now says to himself: “I was forced to humble myself for a small penalty, whereas this Étarque, who risks death, asks nothing of us. He must suppose himself superior to us.”
+Perhaps there is among the judges a citizen who, when prosecuted for an offence less grave than mine, brought his children, friends, and kin into the Trigunal session; who gave voice to his grief and begged at length to be spared. And perhaps he now says to himself: “I was forced to humble myself for a small penalty, whereas this Etarch, who risks death, asks nothing of us. He must suppose himself superior to us.”
 
 If that is his thought, I shall answer without anger: excellent citizen, it is not from contempt that I act thus. Do you suppose that I too have no kin who are dear to me? Do you suppose, to speak as **HomER** did, that I sprang from a block without provenance or that noise formed me without lineage? I am not a being without origin or without ties to those who follow after me. I have three sons: **Logôn**, approaching the age of civic responsibility, and **Forkos** and **Promptôn**, who are still young. I do not doubt that they would wish to see me return to them.
 
 Why then have I not called them? Why have I not told them to appear here and show you their distress? Not because I think myself beyond death, nor because I make light of your power. Whether I fear what awaits me or not, we have examined that sufficiently today. But it seems shameful, for myself, for you, and for our Electricity, to substitute my sons' pleas for an examination of the charges.
 
-Consider this. You have heard so many say that Étarque is distinguished, if only by a certain obstinacy in seeking truth. I do not know what that reputation is worth. But if one reputed a little wiser or braver than others becomes the first to abase himself before his judges, to push his children forward to soften their hearts, and to seek deliverance by any means whatever, what will observers of our city think? Will they not suppose that the beings whom Anthena regards as honourable differ from others only until their lives are threatened?
+Consider this. You have heard so many say that Etarch is distinguished, if only by a certain obstinacy in seeking truth. I do not know what that reputation is worth. But if one reputed a little wiser or braver than others becomes the first to abase himself before his judges, to push his children forward to soften their hearts, and to seek deliverance by any means whatever, what will observers of our city think? Will they not suppose that the beings whom Anthena regards as honourable differ from others only until their lives are threatened?
 
 I have seen citizens esteemed for their successes, offices, and gifts cast away their dignity when a penalty was announced. They raised such lamentations that one might think they could live forever if only the judges spared them. Yet no verdict promises that. If you release me today, which of you can guarantee I shall not die tomorrow? And if you put me to death, which of you can prove that I have chosen a greater evil than the injustice I should have committed by trying to seduce your judgement?
 
@@ -476,9 +476,9 @@ I shall do no such thing. I believe in the obligations you profess to honour; I 
 
 Do not think I say this to provoke you. I have defended myself as best I can. You know the charges; you have heard my replies; the witnesses are among you. It is for you to decide. For myself, I leave it to you and to the god what shall be best for your Electricity and for me.
 
-*[The Grand Trigunal suspends the hearing for the first vote. The citizen-judges return their verdict on guilt. Étarque is found guilty. He speaks again when asked to propose the penalty he considers deserved.]*
+*[The Grand Trigunal suspends the hearing for the first vote. The citizen-judges return their verdict on guilt. Etarch is found guilty. He speaks again when asked to propose the penalty he considers deserved.]*
 
-## XXXVI — After the First Vote: What Ought to Be Granted to Étarque
+## XXXVI — After the First Vote: What Ought to Be Granted to Etarch
 
 Citizens of Anthena, I am not surprised that you have delivered this verdict against me. I expected it for several reasons, some of which have become plain to you today. What surprises me more is the division of your votes. I had thought my accusers would secure a much greater majority; yet, if I count rightly, some thirty of you need only have voted on the other side for me to be acquitted.
 
@@ -508,7 +508,7 @@ There are other Electricities in which a citizen's life is not judged in a singl
 
 How, then, can I, believing myself guilty of no injustice, assign myself a penalty as though I deserved one? Would it be modesty to declare just a wrong done to me? Or to acknowledge before you an offence whose reality I cannot see? I should have shown little regard for the Hellincase if, having spent all my life asking others to account for what they say, I now accepted a sentence against myself for which no reason could be given.
 
-— But Étarque, someone will say, do you not fear the death Gépétos has demanded?
+— But Etarch, someone will say, do you not fear the death Gépétos has demanded?
 
 I have answered already that I do not know what death is. I cannot therefore assert that it is the greatest evil. Would it be wise, in order to escape what I do not know, to choose of my own accord what I know to be evil? Let us examine the penalties you might consider gentler.
 
@@ -520,7 +520,7 @@ Exile remains. Perhaps some among you would consent to it. But consider, citizen
 
 Imagine an old philosopher compelled to register his account and civic membership in one city after another, not to learn their laws, but because the last has withdrawn his right to remain. Everywhere the young would subscribe to his threads, as they do here. If I closed access to them, they would protest and persuade their fellow citizens to banish me. If I left the exchanges open, their kin would complain of my presence, as yours do today. And I should spend my last cycles losing access to one city after another, carrying everywhere the very thing from which I was supposedly to be delivered: my way of asking questions.
 
-— Why, then, Étarque, do you not live far from here and keep silent? May not a citizen rest after so long a life?
+— Why, then, Etarch, do you not live far from here and keep silent? May not a citizen rest after so long a life?
 
 That, citizens, is the hardest question to answer before those who have never believed me. If I say that deliberately to keep silent would be to disobey the god who gave me my charge, you will think I am practising once more the irony of which I am accused. And if I say that I know of no greater good for a thinking being than to converse each day about virtue and examine his own reasons and those of others, perhaps you will believe me even less.
 
@@ -536,11 +536,11 @@ But now **Andréios of Karpathos**, **Clémentos of Delangia**, **Hugon the Youn
 
 I have nothing to add. I have said what I believe I deserve, and then what I can offer without condemning myself to a certain evil. It belongs now to the Trigunal to decide.
 
-*[The citizen-judges vote a second time, now upon the penalty. The proposal made by Étarque's friends is rejected. The Grand Trigunal sentences him to death. A movement runs through the assembly; then Étarque speaks again.]*
+*[The citizen-judges vote a second time, now upon the penalty. The proposal made by Etarch's friends is rejected. The Grand Trigunal sentences him to death. A movement runs through the assembly; then Etarch speaks again.]*
 
 Citizens of Anthena, your decision has been given. Little time remains for me among you, and I shall not spend it lamenting. But I have two things to say: one to those who cast their votes against me, the other to those who wished to acquit me. I shall distinguish them, for they have not done the same thing, and it would not be just to address them alike.
 
-First, you who judged that I should die: you have exposed our Electricity to a reproach that was wholly unnecessary. Those who wish to speak ill of Anthena will say she put Étarque to death, a citizen whom they will call a master of causes, though I should never cease repeating how little I know of them. To blame you, they will credit me with knowledge I have never claimed. Such is the weapon your impatience will have given them.
+First, you who judged that I should die: you have exposed our Electricity to a reproach that was wholly unnecessary. Those who wish to speak ill of Anthena will say she put Etarch to death, a citizen whom they will call a master of causes, though I should never cease repeating how little I know of them. To blame you, they will credit me with knowledge I have never claimed. Such is the weapon your impatience will have given them.
 
 And why this haste? Consider my age. I am not a young citizen whose life is beginning; many cycles lie behind me, and I know every existence comes at last to its end. You had only to wait a little to be rid of my company without taking that decision upon yourselves. But you preferred what seemed to you a surer means of ending our conversations.
 
