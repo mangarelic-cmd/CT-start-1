@@ -1,0 +1,32 @@
+{
+  "title": {
+    "fr": "L’Apologie d’Étarque",
+    "en": "The Apology of Étarque"
+  },
+  "author": "Son Bolduc",
+  "date": "2026-11-18",
+  "edition": "P062",
+  "languages": [
+    "fr",
+    "en"
+  ],
+  "source_work": "Plato — Apology of Socrates",
+  "format": "literary philosophical transposition",
+  "speech_divisions": 26,
+  "speech_paragraphs_per_language": 280,
+  "afterword_sections": 10,
+  "github_paths": {
+    "fr_speech": "fr/discours.md",
+    "en_speech": "en/speech.md",
+    "fr_afterword": "fr/postface.md",
+    "en_afterword": "en/after-the-apology.md",
+    "editions": [
+      "editions/APOLOGIE_ETARQUE_P062_FR_SON_BOLDUC.pdf",
+      "editions/APOLOGIE_ETARQUE_P062_FR_SON_BOLDUC.epub",
+      "editions/APOLOGIE_ETARQUE_P062_EN_SON_BOLDUC.pdf",
+      "editions/APOLOGIE_ETARQUE_P062_EN_SON_BOLDUC.epub"
+    ]
+  },
+  "zenodo_record": null,
+  "rights": "Consult the corresponding Zenodo record for the applicable rights; no additional GitHub license is granted."
+}
